@@ -1,20 +1,18 @@
-import 'package:dia_vision/app/modules/home/home_bloc.dart';
-import 'package:dia_vision/app/modules/home/home_page.dart';
+import '../../shared/utils/route_enum.dart';
 
-import 'package:bloc_pattern/bloc_pattern.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
-class HomeModule extends ModuleWidget {
+import 'home_bloc.dart';
+import 'home_page.dart';
+
+class HomeModule extends ChildModule {
   @override
-  List<Bloc> get blocs => [
-        Bloc((i) => HomeBloc()),
+  List<Bind> get binds => [
+        Bind((i) => HomeBloc()),
       ];
 
   @override
-  List<Dependency> get dependencies => [];
-
-  @override
-  Widget get view => HomePage();
-
-  static Inject get to => Inject<HomeModule>.of();
+  List<ModularRouter> get routers => [
+        ModularRouter(RouteEnum.home.name, child: (_, args) => HomePage()),
+      ];
 }

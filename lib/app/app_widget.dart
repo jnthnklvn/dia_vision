@@ -1,4 +1,7 @@
-import 'package:dia_vision/app/modules/home/home_module.dart';
+import 'package:flutter_modular/flutter_modular.dart';
+
+import 'shared/utils/route_enum.dart';
+import 'shared/utils/constants.dart';
 
 import 'package:flutter/material.dart';
 
@@ -6,11 +9,20 @@ class AppWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Slidy',
+      title: APP_NAME,
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        backgroundColor: Colors.white,
+        appBarTheme: AppBarTheme(color: Colors.white, elevation: 0),
+        visualDensity: VisualDensity.adaptivePlatformDensity,
+        fontFamily: "Nunito",
       ),
-      home: HomeModule(),
+      onGenerateRoute: Modular.generateRoute,
+      initialRoute: RouteEnum.auth.name,
+      navigatorKey: Modular.navigatorKey,
+      supportedLocales: [
+        const Locale('pt', 'BR'),
+        const Locale('en', ''),
+      ],
     );
   }
 }
