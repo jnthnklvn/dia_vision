@@ -64,6 +64,8 @@ class _HomePageState extends State<HomePage> {
                       borderRadius: BorderRadius.circular(16),
                       color: Color(0xFF00778C),
                     ),
+                    width: SizeConfig.screenWidth / 2.5,
+                    height: SizeConfig.screenWidth / 2.5,
                     child: Stack(
                       children: [
                         Container(
@@ -72,7 +74,6 @@ class _HomePageState extends State<HomePage> {
                               ? SvgPicture.asset(
                                   modules[index].imageSrc,
                                   fit: BoxFit.fill,
-                                  width: SizeConfig.screenWidth / 2.5,
                                   alignment: Alignment.centerRight,
                                 )
                               : Image(

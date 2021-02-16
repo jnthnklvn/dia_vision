@@ -24,12 +24,12 @@ class RecoveryPage extends StatelessWidget {
                   BackArrowButton(),
                 ],
               ),
-              SizedBox(height: size.height * 0.08),
+              SizedBox(height: size.height * 0.02),
               Image.asset(
                 "assets/images/logo_name.png",
                 width: size.width * 0.8,
               ),
-              SizedBox(height: size.height * 0.17),
+              SizedBox(height: size.height * 0.1),
               RoundedInputField(
                 hintText: "Email",
                 onChanged: (value) {},
@@ -38,6 +38,15 @@ class RecoveryPage extends StatelessWidget {
               RoundedButton(
                 text: "RECUPERAR",
                 onPressed: Modular.to.pop,
+              ),
+              SizedBox(height: size.height * 0.08),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 30),
+                child: Text(
+                  "Informe o email cadastrado e confirme. Um link para recuperação da senha será enviado por email.",
+                  style: TextStyle(fontSize: 18),
+                  textAlign: TextAlign.justify,
+                ),
               ),
             ],
           ),

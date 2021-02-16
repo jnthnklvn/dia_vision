@@ -30,7 +30,7 @@ class MyDataPage extends StatelessWidget {
         width: double.infinity,
         height: size.height,
         color: Colors.white,
-        padding: const EdgeInsets.only(top: 20),
+        padding: const EdgeInsets.only(top: 10),
         child: SingleChildScrollView(
           physics: BouncingScrollPhysics(),
           child: Column(
@@ -39,6 +39,7 @@ class MyDataPage extends StatelessWidget {
               RoundedInputField(
                 hintText: "jonathan.santos@dcomp.ufs.br",
                 enabled: false,
+                keyboardType: TextInputType.emailAddress,
                 onChanged: (value) {},
               ),
               RoundedInputField(
@@ -50,23 +51,18 @@ class MyDataPage extends StatelessWidget {
                 onChanged: (value) {},
               ),
               RoundedInputField(
-                hintText: "CPF",
-                onChanged: (value) {},
-              ),
-              RoundedInputField(
                 hintText: "Data de Nascimento",
-                onChanged: (value) {},
-              ),
-              RoundedInputField(
-                hintText: "Estado Civil",
+                keyboardType: TextInputType.datetime,
                 onChanged: (value) {},
               ),
               RoundedInputField(
                 hintText: "Peso",
+                keyboardType: TextInputType.number,
                 onChanged: (value) {},
               ),
               RoundedInputField(
                 hintText: "Altura",
+                keyboardType: TextInputType.number,
                 onChanged: (value) {},
               ),
               RoundedPasswordField(
