@@ -1,12 +1,16 @@
+import 'package:dia_vision/app/shared/components/ink_well_speak_text.dart';
 import '../..//modules/home/domain/entities/module.dart';
-import '../..//shared/utils/constants.dart';
-import '../..//shared/utils/route_enum.dart';
 import '../..//shared/utils/size_config.dart';
+import '../..//shared/utils/route_enum.dart';
+import '../..//shared/utils/constants.dart';
+import '../..//shared/utils/strings.dart';
 import '../..//shared/utils/styles.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_modular/flutter_modular.dart';
+
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_tts/flutter_tts.dart';
+import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -14,6 +18,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  Future _speak(String txt) => Modular.get<FlutterTts>().speak(txt);
+
   @override
   Widget build(BuildContext context) {
     SizeConfig.init(context);
@@ -33,6 +39,7 @@ class _HomePageState extends State<HomePage> {
                 ),
                 InkWell(
                   onTap: () => Modular.to.pushNamed(RouteEnum.profile.name),
+                  onLongPress: () => _speak("$BUTTON " + SETTINGS),
                   child: Padding(
                     padding: const EdgeInsets.all(5),
                     child: SvgPicture.asset(
@@ -45,9 +52,11 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
             SizedBox(height: 20),
-            Text(
-              "Seja bem-vindo, Jonathan",
-              style: headingStyle,
+            InkWellSpeakText(
+              Text(
+                "Seja bem-vindo, Jonathan",
+                style: headingStyle,
+              ),
             ),
             SizedBox(height: 10),
             Expanded(
@@ -59,39 +68,46 @@ class _HomePageState extends State<HomePage> {
                 mainAxisSpacing: 20,
                 physics: BouncingScrollPhysics(),
                 itemBuilder: (context, index) {
-                  return Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(16),
-                      color: Color(0xFF00778C),
-                    ),
-                    width: SizeConfig.screenWidth / 2.5,
-                    height: SizeConfig.screenWidth / 2.5,
-                    child: Stack(
-                      children: [
-                        Container(
-                          padding: EdgeInsets.fromLTRB(30, 30, 5, 5),
-                          child: modules[index].svg
-                              ? SvgPicture.asset(
-                                  modules[index].imageSrc,
-                                  fit: BoxFit.fill,
-                                  alignment: Alignment.centerRight,
-                                )
-                              : Image(
-                                  image: AssetImage(modules[index].imageSrc),
-                                  fit: BoxFit.fill,
-                                  alignment: Alignment.centerRight,
+                  return InkWell(
+                    onTap: () => Modular.to.pushNamed(modules[index].routeName),
+                    onLongPress: () => _speak("$MODULE " + modules[index].name),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(16),
+                        color: Color(0xFF00778C),
+                      ),
+                      width: SizeConfig.screenWidth / 2.5,
+                      height: SizeConfig.screenWidth / 2.5,
+                      child: Stack(
+                        children: [
+                          Container(
+                            padding: EdgeInsets.fromLTRB(30, 30, 5, 5),
+                            child: modules[index].svg
+                                ? SvgPicture.asset(
+                                    modules[index].imageSrc,
+                                    fit: BoxFit.fill,
+                                    alignment: Alignment.centerRight,
+                                  )
+                                : Image(
+                                    image: AssetImage(modules[index].imageSrc),
+                                    fit: BoxFit.fill,
+                                    alignment: Alignment.centerRight,
+                                  ),
+                          ),
+                          Container(
+                            padding: EdgeInsets.fromLTRB(10, 10, 20, 20),
+                            child: InkWellSpeakText(
+                              Text(
+                                modules[index].name,
+                                style: kTitleTextStyle.apply(
+                                  backgroundColor:
+                                      Colors.white.withOpacity(0.5),
                                 ),
-                        ),
-                        Container(
-                          padding: EdgeInsets.fromLTRB(10, 10, 20, 20),
-                          child: Text(
-                            modules[index].name,
-                            style: kTitleTextStyle.apply(
-                              backgroundColor: Colors.white.withOpacity(0.5),
+                              ),
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   );
                 },

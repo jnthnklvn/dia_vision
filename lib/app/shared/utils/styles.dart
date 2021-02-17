@@ -1,3 +1,4 @@
+import 'package:dia_vision/app/shared/utils/constants.dart';
 import 'package:flutter/material.dart';
 
 // Colors
@@ -25,4 +26,10 @@ const kSubtitleTextSyule = TextStyle(
   fontSize: 18,
   color: kTextColor,
   // fontWeight: FontWeight.bold,
+);
+
+const kAppBarTextStyle = TextStyle(
+  fontSize: 24,
+  color: kPrimaryColor,
+  fontWeight: FontWeight.bold,
 );

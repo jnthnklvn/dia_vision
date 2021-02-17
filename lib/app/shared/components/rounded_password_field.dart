@@ -1,5 +1,9 @@
-import '../utils/constants.dart';
+import 'package:flutter_modular/flutter_modular.dart';
+import 'package:flutter_tts/flutter_tts.dart';
+
 import 'text_field_container.dart';
+import '../utils/constants.dart';
+import '../utils/strings.dart';
 
 import 'package:flutter/material.dart';
 
@@ -9,7 +13,7 @@ class RoundedPasswordField extends StatelessWidget {
   const RoundedPasswordField({
     Key key,
     this.onChanged,
-    this.hintText = "Senha",
+    this.hintText = PASSWORD,
   }) : super(key: key);
 
   @override
@@ -22,9 +26,13 @@ class RoundedPasswordField extends StatelessWidget {
         keyboardType: TextInputType.number,
         decoration: InputDecoration(
           hintText: hintText,
-          icon: Icon(
-            Icons.lock,
-            color: kPrimaryColor,
+          icon: InkWell(
+            onTap: () => Modular.get<FlutterTts>().speak(hintText),
+            child: Icon(
+              Icons.play_circle_fill,
+              color: kPrimaryColor,
+              size: 28,
+            ),
           ),
           suffixIcon: Icon(
             Icons.visibility,

@@ -1,6 +1,8 @@
 import '../utils/constants.dart';
+import '../utils/strings.dart';
 
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -16,6 +18,7 @@ class BackArrowButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: Modular.to.pop,
+      onLongPress: () => Modular.get<FlutterTts>().speak("$BUTTON " + BACK),
       child: Padding(
         padding: const EdgeInsets.symmetric(
           horizontal: 15,

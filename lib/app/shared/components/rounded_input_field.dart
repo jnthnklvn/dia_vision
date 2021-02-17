@@ -1,3 +1,6 @@
+import 'package:flutter_modular/flutter_modular.dart';
+import 'package:flutter_tts/flutter_tts.dart';
+
 import '../utils/constants.dart';
 import 'text_field_container.dart';
 
@@ -13,7 +16,7 @@ class RoundedInputField extends StatelessWidget {
   const RoundedInputField({
     Key key,
     this.hintText,
-    this.icon = Icons.person,
+    this.icon,
     this.onChanged,
     this.enabled = true,
     this.keyboardType = TextInputType.text,
@@ -28,10 +31,20 @@ class RoundedInputField extends StatelessWidget {
         cursorColor: kPrimaryColor,
         keyboardType: keyboardType,
         decoration: InputDecoration(
-          icon: Icon(
-            icon,
-            color: kPrimaryColor,
-          ),
+          icon: icon != null
+              ? Icon(
+                  icon,
+                  color: kPrimaryColor,
+                  size: 28,
+                )
+              : InkWell(
+                  onTap: () => Modular.get<FlutterTts>().speak(hintText),
+                  child: Icon(
+                    Icons.play_circle_fill,
+                    color: kPrimaryColor,
+                    size: 28,
+                  ),
+                ),
           hintText: hintText,
           border: InputBorder.none,
         ),

@@ -1,3 +1,4 @@
+import 'package:dia_vision/app/shared/components/ink_well_speak_text.dart';
 import '../../../../app/shared/components/back_arrow_button.dart';
 import '../../../shared/components/rounded_input_field.dart';
 import '../../../shared/components/rounded_button.dart';
@@ -42,10 +43,12 @@ class RecoveryPage extends StatelessWidget {
               SizedBox(height: size.height * 0.08),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 30),
-                child: Text(
-                  "Informe o email cadastrado e confirme. Um link para recuperação da senha será enviado por email.",
-                  style: TextStyle(fontSize: 18),
-                  textAlign: TextAlign.justify,
+                child: InkWellSpeakText(
+                  Text(
+                    "Informe o email cadastrado e confirme. Um link para recuperação da senha será enviado por email.",
+                    style: TextStyle(fontSize: 18),
+                    textAlign: TextAlign.justify,
+                  ),
                 ),
               ),
             ],

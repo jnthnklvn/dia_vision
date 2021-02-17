@@ -23,6 +23,7 @@ environment:
 dependencies:
   dio: ^3.0.10
   rxdart: ^0.25.0
+  flutter_tts: ^0.7.0
   flutter_svg: ^0.18.0
   bloc_pattern: ^2.5.1
   flutter_modular: ^2.0.1

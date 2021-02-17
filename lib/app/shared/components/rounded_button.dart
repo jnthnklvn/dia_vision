@@ -1,5 +1,9 @@
-import '../utils/constants.dart';
+import 'package:flutter_modular/flutter_modular.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 import 'package:flutter/material.dart';
+
+import '../utils/constants.dart';
+import '../utils/strings.dart';
 
 class RoundedButton extends StatelessWidget {
   final String text;
@@ -25,6 +29,7 @@ class RoundedButton extends StatelessWidget {
           padding: EdgeInsets.symmetric(vertical: 20, horizontal: 40),
           color: color,
           onPressed: onPressed,
+          onLongPress: () => Modular.get<FlutterTts>().speak("$BUTTON " + text),
           child: Text(
             text,
             style: TextStyle(color: textColor, fontWeight: FontWeight.bold),
