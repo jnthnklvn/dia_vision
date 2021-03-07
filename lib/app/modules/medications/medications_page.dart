@@ -1,3 +1,4 @@
+import 'package:dia_vision/app/modules/medications/widgets/medication_widget.dart';
 import 'package:dia_vision/app/shared/components/ink_well_speak_text.dart';
 import 'package:dia_vision/app/modules/home/domain/entities/module.dart';
 import 'package:dia_vision/app/shared/components/back_arrow_button.dart';
@@ -62,13 +63,35 @@ class _MedicationsPageState extends State<MedicationsPage> {
         color: Colors.white,
         alignment: Alignment.center,
         padding: const EdgeInsets.only(top: 10),
-        child: InkWellSpeakText(
-          Text(
-            WITHOUT_MEDICACOES_REGISTERED,
-            textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 24, color: kPrimaryColor),
-          ),
-        ),
+        margin: EdgeInsets.all(10),
+        child: true
+            ? ListView(
+                children: [
+                  MedicationWidget("Dorflex",
+                      "Posologia: 2 pílulas \nDosagem: 2 vezes por dia"),
+                  MedicationWidget("Rinossorso",
+                      "Posologia: 2 pílulas \nDosagem: 3 vezes por dia"),
+                  MedicationWidget("Rivotril",
+                      "Posologia: 2 pílulas \nDosagem: 3 vezes por dia"),
+                  MedicationWidget("Minoxidil",
+                      "Posologia: 2 pílulas \nDosagem: 1 vezes por dia"),
+                  MedicationWidget("Dorfxclex",
+                      "Posologia: 2 pílulas \nDosagem: 2 vezes por dia"),
+                  MedicationWidget("Rinoaxzssorso",
+                      "Posologia: 2 pílulas \nDosagem: 3 vezes por dia"),
+                  MedicationWidget("Rivotcaril",
+                      "Posologia: 2 pílulas \nDosagem: 3 vezes por dia"),
+                  MedicationWidget("Minoavxidil",
+                      "Posologia: 2 pílulas \nDosagem: 1 vezes por dia"),
+                ],
+              )
+            : InkWellSpeakText(
+                Text(
+                  WITHOUT_MEDICACOES_REGISTERED,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 24, color: kPrimaryColor),
+                ),
+              ),
       ),
     );
   }
