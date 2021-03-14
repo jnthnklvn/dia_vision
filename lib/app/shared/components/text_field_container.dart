@@ -1,5 +1,6 @@
+import 'package:dia_vision/app/shared/utils/constants.dart';
+
 import 'package:flutter/material.dart';
-import '../utils/constants.dart';
 
 class TextFieldContainer extends StatelessWidget {
   final Widget child;

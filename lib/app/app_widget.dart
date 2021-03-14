@@ -1,9 +1,9 @@
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:flutter/material.dart';
 
 import 'shared/utils/route_enum.dart';
 import 'shared/utils/constants.dart';
-
-import 'package:flutter/material.dart';
 
 class AppWidget extends StatelessWidget {
   @override
@@ -12,6 +12,7 @@ class AppWidget extends StatelessWidget {
       title: APP_NAME,
       theme: ThemeData(
         backgroundColor: Colors.white,
+        accentColor: kPrimaryColor,
         appBarTheme: AppBarTheme(color: Colors.white, elevation: 0),
         visualDensity: VisualDensity.adaptivePlatformDensity,
         fontFamily: "Nunito",
@@ -19,6 +20,11 @@ class AppWidget extends StatelessWidget {
       onGenerateRoute: Modular.generateRoute,
       initialRoute: RouteEnum.auth.name,
       navigatorKey: Modular.navigatorKey,
+      localizationsDelegates: [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
       supportedLocales: [
         const Locale('pt', 'BR'),
         const Locale('en', ''),

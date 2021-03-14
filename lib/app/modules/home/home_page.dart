@@ -1,10 +1,10 @@
 import 'package:dia_vision/app/shared/components/ink_well_speak_text.dart';
-import '../..//modules/home/domain/entities/module.dart';
-import '../..//shared/utils/size_config.dart';
-import '../..//shared/utils/route_enum.dart';
-import '../..//shared/utils/constants.dart';
-import '../..//shared/utils/strings.dart';
-import '../..//shared/utils/styles.dart';
+import 'package:dia_vision/app/modules/home/domain/entities/module.dart';
+import 'package:dia_vision/app/shared/utils/size_config.dart';
+import 'package:dia_vision/app/shared/utils/route_enum.dart';
+import 'package:dia_vision/app/shared/utils/constants.dart';
+import 'package:dia_vision/app/shared/utils/strings.dart';
+import 'package:dia_vision/app/shared/utils/styles.dart';
 
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:flutter_modular/flutter_modular.dart';

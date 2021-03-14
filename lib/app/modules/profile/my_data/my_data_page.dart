@@ -1,9 +1,9 @@
+import 'package:dia_vision/app/shared/components/rounded_password_field.dart';
 import 'package:dia_vision/app/shared/components/ink_well_speak_text.dart';
-import '../../../../app/shared/components/back_arrow_button.dart';
-import '../../../shared/components/rounded_password_field.dart';
-import '../../../shared/components/rounded_input_field.dart';
-import '../../../shared/components/rounded_button.dart';
-import '../../../../app/shared/utils/constants.dart';
+import 'package:dia_vision/app/shared/components/rounded_input_field.dart';
+import 'package:dia_vision/app/shared/components/back_arrow_button.dart';
+import 'package:dia_vision/app/shared/components/rounded_button.dart';
+import 'package:dia_vision/app/shared/utils/constants.dart';
 
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter/material.dart';

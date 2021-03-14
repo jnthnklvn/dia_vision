@@ -1,76 +1,125 @@
-import '../../../shared/components/rounded_password_field.dart';
-import '../../../shared/components/rounded_input_field.dart';
-import '../components/already_have_an_account_acheck.dart';
+import 'package:dia_vision/app/modules/auth/components/already_have_an_account_acheck.dart';
+import 'package:dia_vision/app/shared/components/rounded_password_field.dart';
+import 'package:dia_vision/app/shared/components/rounded_input_field.dart';
+import 'package:dia_vision/app/shared/components/rounded_button.dart';
+import 'package:dia_vision/app/shared/utils/scaffold_utils.dart';
+import 'package:dia_vision/app/shared/utils/route_enum.dart';
+import 'package:dia_vision/app/shared/utils/constants.dart';
 import 'package:dia_vision/app/shared/utils/strings.dart';
-import '../../..//shared/components/rounded_button.dart';
-import '../../../shared/utils/route_enum.dart';
-import '../../../shared/utils/constants.dart';
+import 'package:dia_vision/app/app_controller.dart';
 
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:flutter/material.dart';
 
-class LoginPage extends StatelessWidget {
+import 'login_controller.dart';
+
+class LoginPage extends StatefulWidget with ScaffoldUtils {
+  @override
+  _LoginPageState createState() => _LoginPageState(scaffoldKey);
+}
+
+class _LoginPageState extends ModularState<LoginPage, LoginController>
+    with SingleTickerProviderStateMixin {
+  final GlobalKey<ScaffoldState> scaffoldKey;
+  final _focusNode1 = FocusNode();
+  final _focusNode2 = FocusNode();
+
+  _LoginPageState(this.scaffoldKey);
+
   Future _speak(String txt) => Modular.get<FlutterTts>().speak(txt);
+
+  @override
+  void initState() {
+    isUserLogged();
+    super.initState();
+  }
+
+  Future<void> isUserLogged() async {
+    final isLogged = await Modular.get<AppController>().isLogged();
+    if (isLogged) Modular.to.pushReplacementNamed(RouteEnum.home.name);
+  }
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
+      key: scaffoldKey,
       body: Container(
         width: double.infinity,
         height: size.height,
         child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              SizedBox(height: size.height * 0.15),
-              Image.asset(
-                "assets/images/logo_name.png",
-                width: size.width * 0.8,
-              ),
-              SizedBox(height: size.height * 0.1),
-              RoundedInputField(
-                hintText: "Email",
-                onChanged: (value) {},
-              ),
-              RoundedPasswordField(
-                onChanged: (value) {},
-              ),
-              RoundedButton(
-                text: "ENTRAR",
-                onPressed: () => Modular.to.pushNamed(RouteEnum.home.name),
-              ),
-              SizedBox(height: size.height * 0.03),
-              AlreadyHaveAnAccountCheck(
-                onPressed: () => Modular.to
-                    .pushNamed(RouteEnum.auth.name + RouteEnum.register.name),
-              ),
-              GestureDetector(
-                onTap: () => Modular.to
-                    .pushNamed(RouteEnum.auth.name + RouteEnum.recovery.name),
-                onLongPress: () =>
-                    _speak(ASK_FORGOT_YOUR_PASSWORD + RECOVERY_PASSWORD),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      ASK_FORGOT_YOUR_PASSWORD,
-                      style: TextStyle(color: kPrimaryColor, fontSize: 18),
-                    ),
-                    Text(
-                      RECOVERY_PASSWORD,
-                      style: TextStyle(
-                        color: kPrimaryColor,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18,
-                      ),
-                    ),
-                  ],
+          child: Observer(builder: (_) {
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                SizedBox(height: size.height * 0.15),
+                Image.asset(
+                  "assets/images/logo_name.png",
+                  width: size.width * 0.8,
                 ),
-              ),
-            ],
-          ),
+                SizedBox(height: size.height * 0.1),
+                RoundedInputField(
+                  hintText: "Email",
+                  focusNode: _focusNode1,
+                  nextFocusNode: _focusNode2,
+                  keyboardType: TextInputType.emailAddress,
+                  onChanged: controller.setEmail,
+                  errorText: controller.emailError,
+                ),
+                RoundedPasswordField(
+                  focusNode: _focusNode2,
+                  errorText: controller.passwordError,
+                  onChanged: controller.setPassword,
+                  obscureText: controller.isPasswordHide,
+                  changeVisibility: controller.setIsPasswordHide,
+                ),
+                controller.isLoading
+                    ? Center(
+                        child: Container(
+                        margin: EdgeInsets.only(top: 10),
+                        child: CircularProgressIndicator(),
+                      ))
+                    : RoundedButton(
+                        text: "ENTRAR",
+                        onPressed: () => controller.login(
+                          widget.onError,
+                          () => Modular.to
+                              .pushReplacementNamed(RouteEnum.home.name),
+                        ),
+                      ),
+                SizedBox(height: size.height * 0.03),
+                AlreadyHaveAnAccountCheck(
+                  onPressed: () => Modular.to
+                      .pushNamed(RouteEnum.auth.name + RouteEnum.register.name),
+                ),
+                GestureDetector(
+                  onTap: () => Modular.to
+                      .pushNamed(RouteEnum.auth.name + RouteEnum.recovery.name),
+                  onLongPress: () =>
+                      _speak(ASK_FORGOT_YOUR_PASSWORD + RECOVERY_PASSWORD),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        ASK_FORGOT_YOUR_PASSWORD,
+                        style: TextStyle(color: kPrimaryColor, fontSize: 18),
+                      ),
+                      Text(
+                        RECOVERY_PASSWORD,
+                        style: TextStyle(
+                          color: kPrimaryColor,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            );
+          }),
         ),
       ),
     );

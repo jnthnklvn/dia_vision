@@ -1,10 +1,11 @@
-import '../../shared/utils/route_enum.dart';
+import 'package:dia_vision/app/shared/utils/route_enum.dart';
+import 'package:dia_vision/app/shared/utils/utils.dart';
 
-import 'recovery/recovery_bloc.dart';
+import 'recovery/recovery_controller.dart';
 import 'recovery/recovery_page.dart';
-import 'register/register_bloc.dart';
+import 'register/register_controller.dart';
 import 'register/register_page.dart';
-import 'login/login_bloc.dart';
+import 'login/login_controller.dart';
 import 'login/login_page.dart';
 
 import 'package:flutter_modular/flutter_modular.dart';
@@ -12,9 +13,10 @@ import 'package:flutter_modular/flutter_modular.dart';
 class AuthModule extends ChildModule {
   @override
   List<Bind> get binds => [
-        Bind((i) => LoginBloc()),
-        Bind((i) => RegisterBloc()),
-        Bind((i) => RecoveryBloc()),
+        Bind((i) => Utils()),
+        Bind((i) => LoginController(i(), i())),
+        Bind((i) => RegisterController(i(), i())),
+        Bind((i) => RecoveryController(i(), i())),
       ];
 
   @override

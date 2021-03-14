@@ -1,5 +1,6 @@
-import '../../../app/shared/components/back_arrow_button.dart';
-import '../..//shared/utils/route_enum.dart';
+import 'package:dia_vision/app/shared/components/back_arrow_button.dart';
+import 'package:dia_vision/app/shared/utils/route_enum.dart';
+import 'package:dia_vision/app/app_controller.dart';
 
 import 'components/profile_menu.dart';
 import 'components/profile_pic.dart';
@@ -51,8 +52,10 @@ class _ProfilePageState extends State<ProfilePage> {
               ProfileMenu(
                 text: "Sair",
                 icon: "assets/icons/Log out.svg",
-                onPressed: () =>
-                    Modular.to.pushReplacementNamed(RouteEnum.auth.name),
+                onPressed: () {
+                  Modular.get<AppController>().logout();
+                  Modular.to.pushReplacementNamed(RouteEnum.auth.name);
+                },
               ),
             ],
           ),

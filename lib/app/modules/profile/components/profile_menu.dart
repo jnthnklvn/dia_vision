@@ -1,4 +1,4 @@
-import '../../../shared/utils/constants.dart';
+import 'package:dia_vision/app/shared/utils/constants.dart';
 
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_svg/flutter_svg.dart';

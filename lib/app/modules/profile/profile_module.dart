@@ -1,17 +1,17 @@
-import '../../shared/utils/route_enum.dart';
+import 'package:dia_vision/app/shared/utils/route_enum.dart';
 
 import 'package:flutter_modular/flutter_modular.dart';
 
-import 'my_data/my_data_bloc.dart';
+import 'my_data/my_data_controller.dart';
 import 'my_data/my_data_page.dart';
-import 'profile_bloc.dart';
+import 'profile_controller.dart';
 import 'profile_page.dart';
 
 class ProfileModule extends ChildModule {
   @override
   List<Bind> get binds => [
-        Bind((i) => ProfileBloc()),
-        Bind((i) => MyDataBloc()),
+        Bind((i) => ProfileController()),
+        Bind((i) => MyDataController()),
       ];
 
   @override

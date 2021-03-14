@@ -1,5 +1,5 @@
-import '../utils/constants.dart';
-import '../utils/strings.dart';
+import 'package:dia_vision/app/shared/utils/constants.dart';
+import 'package:dia_vision/app/shared/utils/strings.dart';
 
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_tts/flutter_tts.dart';

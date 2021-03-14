@@ -1,21 +1,22 @@
-import 'package:dia_vision/app/modules/medications/medications_module.dart';
-
-import '../app/shared/utils/route_enum.dart';
-import '../app/app_widget.dart';
-import '../app/app_bloc.dart';
+import 'package:dia_vision/app/repositories/user_repository.dart';
+import 'package:dia_vision/app/shared/utils/route_enum.dart';
+import 'package:dia_vision/app/app_widget.dart';
 
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:flutter/material.dart';
 
+import 'modules/medications/medications_module.dart';
+import 'modules/profile/profile_module.dart';
 import 'modules/auth/auth_module.dart';
 import 'modules/home/home_module.dart';
-import 'modules/profile/profile_module.dart';
+import 'app_controller.dart';
 
 class AppModule extends MainModule {
   @override
   List<Bind> get binds => [
-        Bind((i) => AppBloc()),
+        Bind((i) => UserRepository()),
+        Bind((i) => AppController(i())),
         Bind((i) => FlutterTts()),
       ];
 
