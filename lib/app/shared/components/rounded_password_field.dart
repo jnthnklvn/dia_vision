@@ -53,7 +53,7 @@ class RoundedPasswordField extends StatelessWidget {
             child: Icon(
               Icons.play_circle_fill,
               color: kPrimaryColor,
-              size: 28,
+              size: 42,
             ),
           ),
           suffixIcon: InkWell(

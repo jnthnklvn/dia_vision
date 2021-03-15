@@ -54,7 +54,7 @@ class _HomePageState extends State<HomePage> {
             SizedBox(height: 20),
             InkWellSpeakText(
               Text(
-                "Seja bem-vindo, Jonathan",
+                "Seja bem-vindo",
                 style: headingStyle,
               ),
             ),

@@ -1,3 +1,4 @@
+import 'package:dia_vision/app/repositories/paciente_repository.dart';
 import 'package:dia_vision/app/shared/utils/route_enum.dart';
 
 import 'package:flutter_modular/flutter_modular.dart';
@@ -11,7 +12,8 @@ class ProfileModule extends ChildModule {
   @override
   List<Bind> get binds => [
         Bind((i) => ProfileController()),
-        Bind((i) => MyDataController()),
+        Bind((i) => PacienteRepository()),
+        Bind((i) => MyDataController(i(), i(), i(), i())),
       ];
 
   @override

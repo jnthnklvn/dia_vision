@@ -1,5 +1,6 @@
 import 'package:dia_vision/app/repositories/user_repository.dart';
 import 'package:dia_vision/app/shared/utils/route_enum.dart';
+import 'package:dia_vision/app/shared/utils/utils.dart';
 import 'package:dia_vision/app/app_widget.dart';
 
 import 'package:flutter_modular/flutter_modular.dart';
@@ -15,9 +16,10 @@ import 'app_controller.dart';
 class AppModule extends MainModule {
   @override
   List<Bind> get binds => [
+        Bind((i) => Utils()),
+        Bind((i) => FlutterTts()),
         Bind((i) => UserRepository()),
         Bind((i) => AppController(i())),
-        Bind((i) => FlutterTts()),
       ];
 
   @override

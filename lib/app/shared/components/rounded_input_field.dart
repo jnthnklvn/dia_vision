@@ -3,6 +3,7 @@ import 'text_field_container.dart';
 
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_tts/flutter_tts.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 
 class RoundedInputField extends StatelessWidget {
@@ -14,6 +15,8 @@ class RoundedInputField extends StatelessWidget {
   final TextInputType keyboardType;
   final FocusNode focusNode;
   final FocusNode nextFocusNode;
+  final List<TextInputFormatter> inputFormatters;
+  final TextEditingController controller;
 
   const RoundedInputField({
     Key key,
@@ -25,6 +28,8 @@ class RoundedInputField extends StatelessWidget {
     this.errorText,
     this.focusNode,
     this.nextFocusNode,
+    this.inputFormatters,
+    this.controller,
   }) : super(key: key);
 
   @override
@@ -32,7 +37,9 @@ class RoundedInputField extends StatelessWidget {
     final hasNextNode = nextFocusNode != null;
     return TextFieldContainer(
       child: TextField(
+        inputFormatters: inputFormatters,
         enabled: enabled,
+        controller: controller,
         onChanged: onChanged,
         focusNode: focusNode,
         onSubmitted: hasNextNode
@@ -47,18 +54,19 @@ class RoundedInputField extends StatelessWidget {
         keyboardType: keyboardType,
         decoration: InputDecoration(
           errorText: errorText,
+          labelText: hintText,
           icon: icon != null
               ? Icon(
                   icon,
                   color: kPrimaryColor,
-                  size: 28,
+                  size: 42,
                 )
               : InkWell(
                   onTap: () => Modular.get<FlutterTts>().speak(hintText),
                   child: Icon(
                     Icons.play_circle_fill,
                     color: kPrimaryColor,
-                    size: 28,
+                    size: 42,
                   ),
                 ),
           hintText: hintText,

@@ -18,19 +18,25 @@ abstract class _RegisterControllerBase with Store {
   User user;
 
   Future<bool> isLogged() async {
+    user = user ?? await currentUser();
+    return user != null;
+  }
+
+  Future<User> currentUser() async {
     try {
       final result = await _userRepository.currentUser();
-      return result.fold((l) => false, (r) {
-        if (r == null) return false;
+      return result?.fold((l) => null, (r) {
         user = r;
-        return true;
+        return user;
       });
     } catch (e) {
-      return false;
+      print(e.toString());
+      return null;
     }
   }
 
   Future<void> logout() async {
+    user = null;
     try {
       await _userRepository.logout();
     } catch (e) {}

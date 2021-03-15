@@ -67,12 +67,13 @@ class UserRepository implements IUserRepository {
 
   Future<Either<UserFailure, User>> currentUser() async {
     final ParseUser user = await ParseUser.currentUser();
-    if (user == null) return null;
+    if (user == null) return Left(UserFailure("", 0));
     // ignore: invalid_use_of_protected_member
     return Future.value(Right(User.clone()..fromJson(user.toJson(full: true))));
   }
 
   Future<Either<UserFailure, User>> getResult(ParseResponse response) {
+    print(response?.result);
     if (response.success) {
       return Future.value(Right(response.result));
     } else {
