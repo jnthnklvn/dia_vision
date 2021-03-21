@@ -16,4 +16,10 @@ class DateUtils {
     final f = new DateFormat('dd/MM/yyyy');
     return f.format(date);
   }
+
+  String getDataForFileName(DateTime date) {
+    if (date == null) return "";
+    final f = new DateFormat('dd_MM_yyyy_HH_mm_ss');
+    return f.format(date);
+  }
 }

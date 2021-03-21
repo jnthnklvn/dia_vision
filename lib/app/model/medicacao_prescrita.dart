@@ -1,3 +1,4 @@
+import 'package:dia_vision/app/shared/utils/date_utils.dart';
 import 'package:dia_vision/app/model/paciente.dart';
 
 import 'package:parse_server_sdk/parse_server_sdk.dart';
@@ -15,7 +16,9 @@ const kDataFinal = "dataFinal";
 const kDataInicial = "dataInicial";
 const kMedicacaoPrescritaTable = "MedicacaoPrescrita";
 
-class MedicacaoPrescrita extends ParseObject implements ParseCloneable {
+class MedicacaoPrescrita extends ParseObject
+    with DateUtils
+    implements ParseCloneable {
   MedicacaoPrescrita(
       {Medicamento medicamento,
       DateTime dataInicial,
@@ -81,4 +84,16 @@ class MedicacaoPrescrita extends ParseObject implements ParseCloneable {
   Paciente get paciente =>
       Paciente.clone()..fromJson(get<ParseObject>(keyPaciente)?.toJson());
   set paciente(Paciente paciente) => set(keyPaciente, paciente);
+
+  Map<String, dynamic> toMap() => <String, dynamic>{
+        'Nome Substância': medicamento?.get(kNomeSubstancia) ?? "",
+        'Nome Comercial': medicamento?.get(kNomeComercial) ?? nome,
+        'Data Inicial':
+            dataInicial != null ? getDataBrFromDate(dataInicial) : "",
+        'Data Final': dataFinal != null ? getDataBrFromDate(dataFinal) : "",
+        'Posologia': posologia?.toString() ?? "",
+        'Dosagem': dosagem?.toString() ?? "",
+        'Efeitos Colaterais': efeitosColaterais ?? "",
+        'Medico Prescritor': medicoPrescritor ?? "",
+      };
 }

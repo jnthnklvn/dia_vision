@@ -38,7 +38,6 @@ class MedicationWidget extends StatelessWidget with DateUtils {
         ? stringToSpeak.substring(1, stringToSpeak.length - 1)
         : stringToSpeak;
 
-    print(stringToSpeak);
     return InkWell(
       onTap: () => Modular.to.pushNamed(
         "${medications.routeName}/$REGISTER",

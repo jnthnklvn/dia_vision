@@ -4,10 +4,12 @@ import 'package:dia_vision/app/shared/components/ink_well_speak_text.dart';
 import 'package:dia_vision/app/modules/home/domain/entities/module.dart';
 import 'package:dia_vision/app/shared/components/back_arrow_button.dart';
 import 'package:dia_vision/app/shared/utils/scaffold_utils.dart';
+import 'package:dia_vision/app/shared/utils/date_utils.dart';
 import 'package:dia_vision/app/shared/utils/constants.dart';
 import 'package:dia_vision/app/shared/utils/strings.dart';
 
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:flutter/material.dart';
@@ -19,9 +21,12 @@ class MedicationsPage extends StatefulWidget with ScaffoldUtils {
 }
 
 class _MedicationsPageState
-    extends ModularState<MedicationsPage, MedicationsController> {
+    extends ModularState<MedicationsPage, MedicationsController>
+    with DateUtils {
   Future _speak(String txt) => Modular.get<FlutterTts>().speak(txt);
   final GlobalKey<ScaffoldState> scaffoldKey;
+
+  _MedicationsPageState(this.scaffoldKey);
 
   @override
   void initState() {
@@ -29,7 +34,14 @@ class _MedicationsPageState
     controller.getData(widget.onError);
   }
 
-  _MedicationsPageState(this.scaffoldKey);
+  Future<void> saveRelatorioCsv() async {
+    final directory = await getApplicationDocumentsDirectory();
+    final pathOfTheFileToWrite = directory.path +
+        "/medicacoes_${getDataForFileName(DateTime.now())}.csv";
+    final file = await controller.getRelatorioCsvFile(
+        widget.onError, pathOfTheFileToWrite);
+    if (file != null) await Share.shareFiles([file.path]);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +63,7 @@ class _MedicationsPageState
             padding: const EdgeInsets.all(8.0),
             child: InkWell(
               onLongPress: () => _speak("$BUTTON $SHARE $REGISTRY"),
-              onTap: () => Share.share('Testando'),
+              onTap: saveRelatorioCsv,
               child: Icon(
                 Icons.share,
                 size: 32,
