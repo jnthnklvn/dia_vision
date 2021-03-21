@@ -20,7 +20,11 @@ class AlreadyHaveAnAccountCheck extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onPressed,
-      onLongPress: () => _speak(ASK_DOESNT_HAVE_ACCOUNT + REGISTER_YOUR),
+      onLongPress: () => _speak(
+        login
+            ? ASK_DOESNT_HAVE_ACCOUNT + REGISTER_YOUR
+            : ASK_HAVE_ACCOUNT + GO_IN,
+      ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[

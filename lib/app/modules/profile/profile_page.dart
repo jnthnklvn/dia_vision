@@ -52,8 +52,8 @@ class _ProfilePageState extends State<ProfilePage> {
               ProfileMenu(
                 text: "Sair",
                 icon: "assets/icons/Log out.svg",
-                onPressed: () {
-                  Modular.get<AppController>().logout();
+                onPressed: () async {
+                  await Modular.get<AppController>().logout();
                   Modular.to.pushReplacementNamed(RouteEnum.auth.name);
                 },
               ),
