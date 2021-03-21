@@ -53,7 +53,8 @@ abstract class _RegisterControllerBase with Store {
     isLoading = true;
 
     try {
-      final result = await _userRepository.signUp(User(email, password: password, email: email));
+      final result = await _userRepository
+          .signUp(User(email, password: password, email: email));
       result.fold((l) => onError(l.message), (r) => onSuccess());
     } catch (e) {
       onError(e.toString());

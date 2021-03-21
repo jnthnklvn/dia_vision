@@ -1,8 +1,11 @@
+import 'package:dia_vision/app/model/paciente.dart';
+
 import 'package:parse_server_sdk/parse_server_sdk.dart';
 
 const keyType = 'type';
 const keyEmail = 'email';
 const keyPhone = 'phone';
+const keyPaciente = 'paciente';
 const keyTokenFirebase = 'tokenFirebase';
 
 enum UserType { Paciente, Profissional }
@@ -32,4 +35,8 @@ class User extends ParseUser implements ParseCloneable {
   String get tokenFirebase => get<String>(keyTokenFirebase);
   set tokenFirebase(String tokenFirebase) =>
       set<String>(keyTokenFirebase, tokenFirebase);
+
+  Paciente get paciente =>
+      Paciente.clone()..fromJson(get<ParseObject>(keyPaciente)?.toJson());
+  set paciente(Paciente paciente) => set(keyPaciente, paciente);
 }

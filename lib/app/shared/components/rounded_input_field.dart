@@ -1,10 +1,11 @@
 import 'package:dia_vision/app/shared/utils/constants.dart';
-import 'text_field_container.dart';
 
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
+
+import 'text_field_container.dart';
 
 class RoundedInputField extends StatelessWidget {
   final String hintText;
@@ -17,6 +18,7 @@ class RoundedInputField extends StatelessWidget {
   final FocusNode nextFocusNode;
   final List<TextInputFormatter> inputFormatters;
   final TextEditingController controller;
+  final Widget suffixIcon;
 
   const RoundedInputField({
     Key key,
@@ -30,6 +32,7 @@ class RoundedInputField extends StatelessWidget {
     this.nextFocusNode,
     this.inputFormatters,
     this.controller,
+    this.suffixIcon,
   }) : super(key: key);
 
   @override
@@ -55,6 +58,7 @@ class RoundedInputField extends StatelessWidget {
         decoration: InputDecoration(
           errorText: errorText,
           labelText: hintText,
+          suffixIcon: suffixIcon,
           icon: icon != null
               ? Icon(
                   icon,

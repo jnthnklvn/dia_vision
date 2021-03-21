@@ -14,7 +14,7 @@ class AuthModule extends ChildModule {
   @override
   List<Bind> get binds => [
         Bind((i) => Utils()),
-        Bind((i) => LoginController(i(), i())),
+        Bind((i) => LoginController(i(), i(), i())),
         Bind((i) => RegisterController(i(), i())),
         Bind((i) => RecoveryController(i(), i())),
       ];

@@ -1,34 +1,48 @@
 import 'package:dia_vision/app/modules/medications/widgets/medication_widget.dart';
+import 'package:dia_vision/app/modules/medications/medications_controller.dart';
 import 'package:dia_vision/app/shared/components/ink_well_speak_text.dart';
 import 'package:dia_vision/app/modules/home/domain/entities/module.dart';
 import 'package:dia_vision/app/shared/components/back_arrow_button.dart';
+import 'package:dia_vision/app/shared/utils/scaffold_utils.dart';
 import 'package:dia_vision/app/shared/utils/constants.dart';
 import 'package:dia_vision/app/shared/utils/strings.dart';
 
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:flutter/material.dart';
+import 'package:share/share.dart';
 
-class MedicationsPage extends StatefulWidget {
+class MedicationsPage extends StatefulWidget with ScaffoldUtils {
   @override
-  _MedicationsPageState createState() => _MedicationsPageState();
+  _MedicationsPageState createState() => _MedicationsPageState(scaffoldKey);
 }
 
-class _MedicationsPageState extends State<MedicationsPage> {
+class _MedicationsPageState
+    extends ModularState<MedicationsPage, MedicationsController> {
   Future _speak(String txt) => Modular.get<FlutterTts>().speak(txt);
+  final GlobalKey<ScaffoldState> scaffoldKey;
+
+  @override
+  void initState() {
+    super.initState();
+    controller.getData(widget.onError);
+  }
+
+  _MedicationsPageState(this.scaffoldKey);
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => {},
-        backgroundColor: kPrimaryColor,
-        child: InkWell(
-          onTap: () =>
+      key: scaffoldKey,
+      floatingActionButton: InkWell(
+        onLongPress: () => _speak("$BUTTON $ADD $REGISTRY"),
+        child: FloatingActionButton(
+          onPressed: () =>
               Modular.to.pushNamed("${medications.routeName}/$REGISTER"),
-          onLongPress: () => _speak("$BUTTON $ADD $REGISTRY"),
-          child: Icon(Icons.add),
+          backgroundColor: kPrimaryColor,
+          child: Icon(Icons.add, size: 32),
         ),
       ),
       appBar: AppBar(
@@ -37,6 +51,7 @@ class _MedicationsPageState extends State<MedicationsPage> {
             padding: const EdgeInsets.all(8.0),
             child: InkWell(
               onLongPress: () => _speak("$BUTTON $SHARE $REGISTRY"),
+              onTap: () => Share.share('Testando'),
               child: Icon(
                 Icons.share,
                 size: 32,
@@ -62,36 +77,26 @@ class _MedicationsPageState extends State<MedicationsPage> {
         height: size.height,
         color: Colors.white,
         alignment: Alignment.center,
-        padding: const EdgeInsets.only(top: 10),
-        margin: EdgeInsets.all(10),
-        child: true
-            ? ListView(
-                children: [
-                  MedicationWidget("Dorflex",
-                      "Posologia: 2 pílulas \nDosagem: 2 vezes por dia"),
-                  MedicationWidget("Rinossorso",
-                      "Posologia: 2 pílulas \nDosagem: 3 vezes por dia"),
-                  MedicationWidget("Rivotril",
-                      "Posologia: 2 pílulas \nDosagem: 3 vezes por dia"),
-                  MedicationWidget("Minoxidil",
-                      "Posologia: 2 pílulas \nDosagem: 1 vezes por dia"),
-                  MedicationWidget("Dorfxclex",
-                      "Posologia: 2 pílulas \nDosagem: 2 vezes por dia"),
-                  MedicationWidget("Rinoaxzssorso",
-                      "Posologia: 2 pílulas \nDosagem: 3 vezes por dia"),
-                  MedicationWidget("Rivotcaril",
-                      "Posologia: 2 pílulas \nDosagem: 3 vezes por dia"),
-                  MedicationWidget("Minoavxidil",
-                      "Posologia: 2 pílulas \nDosagem: 1 vezes por dia"),
-                ],
-              )
-            : InkWellSpeakText(
+        child: Observer(
+          builder: (_) {
+            if (controller.isLoading)
+              return Center(child: CircularProgressIndicator());
+            if (controller.medicacoes.isEmpty)
+              return InkWellSpeakText(
                 Text(
                   WITHOUT_MEDICACOES_REGISTERED,
                   textAlign: TextAlign.center,
                   style: TextStyle(fontSize: 24, color: kPrimaryColor),
                 ),
-              ),
+              );
+            return ListView.builder(
+              itemCount: controller.medicacoes.length,
+              itemBuilder: (BuildContext context, int index) {
+                return MedicationWidget(controller.medicacoes[index]);
+              },
+            );
+          },
+        ),
       ),
     );
   }

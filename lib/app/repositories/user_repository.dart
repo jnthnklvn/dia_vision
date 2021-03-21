@@ -28,6 +28,7 @@ class UserRepository implements IUserRepository {
 
   @override
   Future<Either<UserFailure, User>> signUp(User user) async {
+    user.userType = UserType.Paciente;
     ParseResponse response = await user.signUp();
 
     return getResult(response);

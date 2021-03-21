@@ -10,4 +10,10 @@ class DateUtils {
     }
     return null;
   }
+
+  String getDataBrFromDate(DateTime date) {
+    if (date == null) return null;
+    final f = new DateFormat('dd/MM/yyyy');
+    return f.format(date);
+  }
 }

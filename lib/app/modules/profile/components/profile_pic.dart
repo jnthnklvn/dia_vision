@@ -1,6 +1,7 @@
 import 'package:dia_vision/app/shared/utils/constants.dart';
-import 'package:flutter/material.dart';
+
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter/material.dart';
 
 class ProfilePic extends StatelessWidget {
   const ProfilePic({
@@ -17,7 +18,7 @@ class ProfilePic extends StatelessWidget {
         overflow: Overflow.visible,
         children: [
           CircleAvatar(
-            backgroundImage: AssetImage("assets/images/profile.png"),
+            child: Icon(Icons.person, size: 100),
             backgroundColor: kSecondaryColor,
           ),
           Positioned(

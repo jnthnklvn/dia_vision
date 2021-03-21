@@ -1,5 +1,6 @@
 import 'package:dia_vision/app/repositories/user_repository.dart';
 import 'package:dia_vision/app/shared/utils/utils.dart';
+import 'package:dia_vision/app/app_controller.dart';
 import 'package:dia_vision/app/model/user.dart';
 
 import 'package:mobx/mobx.dart';
@@ -10,9 +11,10 @@ class LoginController = _LoginControllerBase with _$LoginController;
 
 abstract class _LoginControllerBase with Store {
   final IUserRepository _userRepository;
+  final AppController _appController;
   final Utils _utils;
 
-  _LoginControllerBase(this._userRepository, this._utils);
+  _LoginControllerBase(this._userRepository, this._utils, this._appController);
 
   @observable
   String email;
@@ -53,8 +55,12 @@ abstract class _LoginControllerBase with Store {
     isLoading = true;
 
     try {
-      final result = await _userRepository.login(User(email, password: password, email: email));
-      result.fold((l) => onError(l.message), (r) => onSuccess());
+      final result = await _userRepository
+          .login(User(email, password: password, email: email));
+      result.fold((l) => onError(l.message), (r) {
+        onSuccess();
+        _appController.user = r;
+      });
     } catch (e) {
       onError(e.toString());
     }

@@ -1,4 +1,3 @@
-import 'package:brasil_fields/brasil_fields.dart';
 import 'package:dia_vision/app/repositories/paciente_repository.dart';
 import 'package:dia_vision/app/repositories/user_repository.dart';
 import 'package:dia_vision/app/shared/utils/date_utils.dart';
@@ -6,6 +5,7 @@ import 'package:dia_vision/app/shared/utils/utils.dart';
 import 'package:dia_vision/app/app_controller.dart';
 import 'package:dia_vision/app/model/paciente.dart';
 
+import 'package:brasil_fields/brasil_fields.dart';
 import 'package:mobx/mobx.dart';
 
 part 'my_data_controller.g.dart';
@@ -109,14 +109,13 @@ abstract class _MyDataControllerBase with Store, DateUtils {
         result.fold((l) => onError(l.message), (_) => {});
 
         _appController.user = null;
-        await _appController.currentUser();
       }
       if (isValidData) {
         final paciente = Paciente(
-          user: _appController.user,
           telefone: telefone,
           nome: nome,
         );
+        paciente.user = await _appController.currentUser();
         paciente.objectId = _paciente.objectId;
 
         final dAltura = altura != null
