@@ -14,7 +14,7 @@ class MedicationWidget extends StatelessWidget with DateUtils {
   const MedicationWidget(this._medicacaoPrescrita);
 
   String getFullString(String fieldName, String text) {
-    if (text == null) return null;
+    if (text?.isNotEmpty != true) return null;
     return "$fieldName: $text";
   }
 
@@ -27,7 +27,7 @@ class MedicationWidget extends StatelessWidget with DateUtils {
           "Data inicial", getDataBrFromDate(_medicacaoPrescrita.dataInicial)),
       getFullString(
           "Data final", getDataBrFromDate(_medicacaoPrescrita.dataFinal)),
-      getFullString("Data final", _medicacaoPrescrita.medicoPrescritor),
+      getFullString("Médico Prescritor", _medicacaoPrescrita.medicoPrescritor),
       getFullString(
           "Efeitos colaterais", _medicacaoPrescrita.efeitosColaterais),
     ];
