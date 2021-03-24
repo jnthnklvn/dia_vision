@@ -116,7 +116,7 @@ abstract class _MyDataControllerBase with Store, DateUtils {
           nome: nome,
         );
         paciente.user = await _appController.currentUser();
-        paciente.objectId = _paciente.objectId;
+        paciente.objectId = _paciente?.objectId;
 
         final dAltura = altura != null
             ? double.tryParse(altura.replaceAll(',', '.'))
