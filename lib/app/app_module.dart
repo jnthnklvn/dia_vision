@@ -7,6 +7,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:flutter/material.dart';
 
+import 'modules/avaliacao_pes/avaliacao_pes_module.dart';
 import 'modules/medications/medications_module.dart';
 import 'modules/profile/profile_module.dart';
 import 'modules/auth/auth_module.dart';
@@ -28,6 +29,7 @@ class AppModule extends MainModule {
         ModularRouter(RouteEnum.auth.name, module: AuthModule()),
         ModularRouter(RouteEnum.profile.name, module: ProfileModule()),
         ModularRouter(RouteEnum.medications.name, module: MedicationsModule()),
+        ModularRouter(RouteEnum.feet.name, module: AvaliacaoPesModule()),
       ];
 
   @override
