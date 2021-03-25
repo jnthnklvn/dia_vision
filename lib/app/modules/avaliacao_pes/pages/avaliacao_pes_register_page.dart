@@ -80,7 +80,7 @@ class _AvaliacaoPesRegisterPageState extends ModularState<
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 RoundedInputField(
-                  hintText: "Data última consulta",
+                  hintText: "Data da última consulta",
                   controller: dataUltimaConsultaController,
                   keyboardType: TextInputType.number,
                   inputFormatters: [
@@ -92,7 +92,7 @@ class _AvaliacaoPesRegisterPageState extends ModularState<
                   onChanged: controller.setDataUltimaConsulta,
                 ),
                 RoundedInputField(
-                  hintText: "Temperatura lavagem",
+                  hintText: "Temperatura da lavagem",
                   controller: temperaturaLavagemController,
                   keyboardType: TextInputType.number,
                   onChanged: controller.setTemperaturaLavagem,
@@ -114,12 +114,12 @@ class _AvaliacaoPesRegisterPageState extends ModularState<
                 ),
                 buildListTileSwitch(
                   controller.usaProtetorSolarPes,
-                  "Usa protetor solar nos pes?",
+                  "Usa protetor solar nos pés?",
                   controller.setUsaProtetorSolarPes,
                 ),
                 buildListTileSwitch(
                   controller.checaAntesCalcar,
-                  "Checa antes calcar?",
+                  "Checa antes calçar?",
                   controller.setChecaAntesCalcar,
                 ),
                 buildListTileSwitch(
