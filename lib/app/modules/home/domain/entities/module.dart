@@ -78,7 +78,7 @@ List<Module> modules = [
   glicemy,
   medications,
   feet,
-  doctors,
+  // doctors,
   kidney,
   vision,
 ];
