@@ -89,6 +89,7 @@ class _MedicationsPageState
         height: size.height,
         color: Colors.white,
         alignment: Alignment.center,
+        padding: const EdgeInsets.only(top: 10),
         child: Observer(
           builder: (_) {
             if (controller.isLoading)

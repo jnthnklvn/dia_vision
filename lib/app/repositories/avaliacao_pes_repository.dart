@@ -1,5 +1,5 @@
+import 'package:dia_vision/app/errors/avaliacao_pes_failure.dart';
 import 'package:dia_vision/app/shared/utils/parse_errors.dart';
-import 'package:dia_vision/app/errors/avaliacao_pes.dart';
 import 'package:dia_vision/app/model/avaliacao_pes.dart';
 import 'package:dia_vision/app/model/paciente.dart';
 import 'package:dia_vision/app/model/user.dart';

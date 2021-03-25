@@ -60,7 +60,8 @@ class AvaliacaoPesWidget extends StatelessWidget with DateUtils {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16),
           color: ColorUtils.colors[
-              _avaliacaoPes.createdAt.hashCode % ColorUtils.colors.length],
+              _avaliacaoPes.temperaturaLavagem.toString().hashCode %
+                  ColorUtils.colors.length],
         ),
         padding: EdgeInsets.symmetric(horizontal: 4, vertical: 4),
         margin: EdgeInsets.all(8),

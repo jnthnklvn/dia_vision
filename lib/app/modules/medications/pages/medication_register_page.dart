@@ -93,7 +93,7 @@ class _MedicationRegisterPageState
         width: double.infinity,
         height: size.height,
         color: Colors.white,
-        padding: const EdgeInsets.only(top: 20),
+        padding: const EdgeInsets.only(top: 10),
         child: SingleChildScrollView(
           physics: BouncingScrollPhysics(),
           child: Column(

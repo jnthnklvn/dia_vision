@@ -162,7 +162,7 @@ abstract class _MedicationRegisterControllerBase with Store, DateUtils {
           final idx = _medicationsController.medicacoes
               .indexWhere((e) => e.objectId == r.objectId);
           idx == -1
-              ? _medicationsController.medicacoes.add(r)
+              ? _medicationsController.medicacoes.insert(0, r)
               : _medicationsController.medicacoes[idx] = r;
           onSuccess();
         });

@@ -134,10 +134,12 @@ abstract class _AvaliacaoPesRegisterControllerBase with Store, DateUtils {
       result.fold((l) => onError(l.message), (r) {
         final idx = _pesController.avaliacoes
             .indexWhere((e) => e.objectId == r.objectId);
-        r.createdAt = _pesController.avaliacoes[idx].createdAt;
-        idx == -1
-            ? _pesController.avaliacoes.add(r)
-            : _pesController.avaliacoes[idx] = r;
+        if (idx == -1) {
+          _pesController.avaliacoes.insert(0, r);
+        } else {
+          r.createdAt = _pesController.avaliacoes[idx].createdAt;
+          _pesController.avaliacoes[idx] = r;
+        }
         onSuccess();
       });
     } catch (e) {

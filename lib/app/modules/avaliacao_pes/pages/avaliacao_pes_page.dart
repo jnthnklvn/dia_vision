@@ -88,7 +88,7 @@ class _AvaliacaoPesPageState
         height: size.height,
         color: Colors.white,
         alignment: Alignment.center,
-        padding: EdgeInsets.symmetric(vertical: 15),
+        padding: EdgeInsets.only(top: 10),
         child: Observer(
           builder: (_) {
             if (controller.isLoading)
