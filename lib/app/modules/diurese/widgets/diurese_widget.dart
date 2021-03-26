@@ -27,7 +27,7 @@ class DiureseWidget extends StatelessWidget with DateUtils {
   Widget build(BuildContext context) {
     final subtitleContents = [
       getStringFromBool("Houve ardor?", _diurese.ardor),
-      getFullString("Volume", _diurese.volume?.toString()),
+      getFullString("Volume (mL)", _diurese.volume?.toString()),
       getFullString("Coloração", _diurese.coloracao),
     ];
     subtitleContents.removeWhere((e) => e == null);

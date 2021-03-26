@@ -45,7 +45,7 @@ class Diurese extends ParseObject with DateUtils implements ParseCloneable {
   set paciente(Paciente paciente) => set(keyPaciente, paciente);
 
   Map<String, dynamic> toMap() => <String, dynamic>{
-        'Volume': volume ?? "",
+        'Volume (mL)': volume ?? "",
         'Coloração': coloracao ?? "",
         'Ardor': ardor != null ? (ardor ? "Sim" : "Não") : "",
       };

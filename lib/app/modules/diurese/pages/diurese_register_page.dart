@@ -11,6 +11,7 @@ import 'package:dia_vision/app/model/diurese.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:brasil_fields/brasil_fields.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 
@@ -78,15 +79,7 @@ class _DiureseRegisterPageState
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 RoundedInputField(
-                  hintText: "Coloração",
-                  controller: coloracaoController,
-                  keyboardType: TextInputType.text,
-                  focusNode: _focusNode1,
-                  nextFocusNode: _focusNode2,
-                  onChanged: controller.setColoracao,
-                ),
-                RoundedInputField(
-                  hintText: "Volume",
+                  hintText: "Volume (mL)",
                   controller: volumeController,
                   keyboardType: TextInputType.number,
                   onChanged: controller.setVolume,
@@ -94,8 +87,10 @@ class _DiureseRegisterPageState
                     FilteringTextInputFormatter.digitsOnly,
                     PesoInputFormatter(),
                   ],
-                  focusNode: _focusNode2,
+                  focusNode: _focusNode1,
+                  nextFocusNode: _focusNode2,
                 ),
+                buildDropdownButton(size),
                 Container(
                   margin: EdgeInsets.only(left: 15, right: 10),
                   child: ListTile(
@@ -139,6 +134,58 @@ class _DiureseRegisterPageState
               ],
             );
           }),
+        ),
+      ),
+    );
+  }
+
+  Widget buildDropdownButton(Size size) {
+    return InkWell(
+      onLongPress: () =>
+          Modular.get<FlutterTts>().speak("Selecione uma coloração"),
+      child: Container(
+        margin: EdgeInsets.symmetric(vertical: 10),
+        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 7),
+        width: size.width * 0.9,
+        decoration: BoxDecoration(
+          color: kPrimaryLightColor,
+          borderRadius: BorderRadius.circular(29),
+        ),
+        child: DropdownButton<String>(
+          focusNode: _focusNode2,
+          value: controller.coloracao,
+          icon: const Icon(
+            Icons.keyboard_arrow_down_sharp,
+            color: kPrimaryColor,
+            size: 32,
+          ),
+          isExpanded: true,
+          hint: Text(
+            "Selecione uma coloração",
+            style: TextStyle(
+              color: kPrimaryColor,
+              fontSize: 20,
+            ),
+          ),
+          elevation: 16,
+          style: const TextStyle(
+            color: kPrimaryColor,
+            fontSize: 20,
+          ),
+          underline: Container(),
+          onChanged: controller.setColoracao,
+          items: <String>[
+            'Claro',
+            'Escuro',
+            'Hematúrica (avermelhado)',
+            'Castanho',
+            'Colúrica (enegrecido)'
+          ].map<DropdownMenuItem<String>>((String value) {
+            return DropdownMenuItem<String>(
+              value: value,
+              child: InkWellSpeakText(Text(value)),
+            );
+          }).toList(),
         ),
       ),
     );

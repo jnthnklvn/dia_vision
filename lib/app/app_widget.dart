@@ -13,7 +13,6 @@ class AppWidget extends StatelessWidget {
       theme: ThemeData(
         backgroundColor: Colors.white,
         accentColor: kPrimaryColor,
-        hintColor: kSecondaryColor,
         primaryColor: kPrimaryColor,
         appBarTheme: AppBarTheme(color: Colors.white, elevation: 0),
         visualDensity: VisualDensity.adaptivePlatformDensity,

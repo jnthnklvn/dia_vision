@@ -105,18 +105,22 @@ class AvaliacaoPes extends ParseObject
   set paciente(Paciente paciente) => set(keyPaciente, paciente);
 
   Map<String, dynamic> toMap() => <String, dynamic>{
-        'Usa protetor solar nos pes': usaProtetorSolarPes ?? "",
+        'Usa protetor solar nos pes': usaProtetorSolarPes != null
+            ? (usaProtetorSolarPes ? "Sim" : "Não")
+            : "",
         'Data ultima consulta': dataUltimaConsulta != null
             ? getDataBrFromDate(dataUltimaConsulta)
             : "",
         'Temperatura lavagem': temperaturaLavagem ?? "",
-        'Checa antes calcar': checaAntesCalcar ?? "",
-        'Pontos vermelhos': pontosVermelhos ?? "",
-        'Rachaduras': rachaduras ?? "",
-        'Hidratados': hidratados ?? "",
-        'Corta unhas': cortaUnhas ?? "",
-        'Calos': calos ?? "",
-        'Secou': secou ?? "",
-        'Lavou': lavou ?? "",
+        'Checa antes calcar':
+            checaAntesCalcar != null ? (checaAntesCalcar ? "Sim" : "Não") : "",
+        'Pontos vermelhos':
+            pontosVermelhos != null ? (pontosVermelhos ? "Sim" : "Não") : "",
+        'Rachaduras': rachaduras != null ? (rachaduras ? "Sim" : "Não") : "",
+        'Hidratados': hidratados != null ? (hidratados ? "Sim" : "Não") : "",
+        'Corta unhas': cortaUnhas != null ? (cortaUnhas ? "Sim" : "Não") : "",
+        'Calos': calos != null ? (calos ? "Sim" : "Não") : "",
+        'Secou': secou != null ? (secou ? "Sim" : "Não") : "",
+        'Lavou': lavou != null ? (lavou ? "Sim" : "Não") : "",
       };
 }
