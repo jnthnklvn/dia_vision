@@ -1,4 +1,3 @@
-import 'package:dia_vision/app/shared/utils/date_utils.dart';
 import 'package:dia_vision/app/model/paciente.dart';
 
 import 'package:parse_server_sdk/parse_server_sdk.dart';
@@ -9,7 +8,7 @@ const keyPaciente = 'paciente';
 const kArdor = "ardor";
 const kDiureseTable = "Diurese";
 
-class Diurese extends ParseObject with DateUtils implements ParseCloneable {
+class Diurese extends ParseObject implements ParseCloneable {
   Diurese({num volume, String coloracao, Paciente paciente, bool ardor})
       : super(kDiureseTable) {
     this.volume = volume;

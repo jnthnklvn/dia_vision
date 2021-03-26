@@ -141,8 +141,8 @@ class _DiureseRegisterPageState
 
   Widget buildDropdownButton(Size size) {
     return InkWell(
-      onLongPress: () =>
-          Modular.get<FlutterTts>().speak("Selecione uma coloração"),
+      onLongPress: () => Modular.get<FlutterTts>()
+          .speak(controller.coloracao ?? "Selecione uma coloração"),
       child: Container(
         margin: EdgeInsets.symmetric(vertical: 10),
         padding: EdgeInsets.symmetric(horizontal: 20, vertical: 7),
@@ -183,7 +183,7 @@ class _DiureseRegisterPageState
           ].map<DropdownMenuItem<String>>((String value) {
             return DropdownMenuItem<String>(
               value: value,
-              child: InkWellSpeakText(Text(value)),
+              child: Text(value),
             );
           }).toList(),
         ),
