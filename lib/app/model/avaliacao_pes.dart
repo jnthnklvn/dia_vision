@@ -105,6 +105,7 @@ class AvaliacaoPes extends ParseObject
   set paciente(Paciente paciente) => set(keyPaciente, paciente);
 
   Map<String, dynamic> toMap() => <String, dynamic>{
+        'Data de registro': getDataBrFromDate(createdAt) ?? "",
         'Usa protetor solar nos pes': usaProtetorSolarPes != null
             ? (usaProtetorSolarPes ? "Sim" : "Não")
             : "",

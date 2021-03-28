@@ -100,10 +100,11 @@ class MedicacaoPrescrita extends ParseObject
   set paciente(Paciente paciente) => set(keyPaciente, paciente);
 
   Map<String, dynamic> toMap() => <String, dynamic>{
+        'Data de registro': getDataBrFromDate(createdAt) ?? "",
         'Nome Substância': medicamento?.get(kNomeSubstancia) ?? "",
         'Nome Comercial': medicamento?.get(kNomeComercial) ?? nome ?? "",
         'Horário Inicial': horarioInicial ?? "",
-        'Horários': horarios ?? "",
+        'Horários': horarios?.replaceAll(',', ' -') ?? "",
         'Data Inicial':
             dataInicial != null ? getDataBrFromDate(dataInicial) : "",
         'Data Final': dataFinal != null ? getDataBrFromDate(dataFinal) : "",

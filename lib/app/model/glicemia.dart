@@ -1,13 +1,22 @@
+import 'package:dia_vision/app/shared/utils/date_utils.dart';
 import 'package:dia_vision/app/model/paciente.dart';
 
 import 'package:parse_server_sdk/parse_server_sdk.dart';
 
 const kValor = "valor";
 const kHorario = "horario";
+const kHorarioFixo = "horarioFixo";
 const keyPaciente = 'paciente';
 const kGlicemiaTable = "Glicemia";
 
-enum HorarioType { JEJUM, POS_REFEICAO, AO_DEITAR, MADRUGADA }
+enum HorarioType {
+  JEJUM,
+  PRE_REFEICAO,
+  POS_REFEICAO,
+  AO_DEITAR,
+  MADRUGADA,
+  OUTRO
+}
 
 extension HorarioTypeExtension on HorarioType {
   String get name => this.toString().replaceAll('HorarioType.', '');
@@ -18,17 +27,21 @@ extension HorarioTypeExtension on HorarioType {
         return 'Em jejum';
       case HorarioType.POS_REFEICAO:
         return '2h pós refeição';
+      case HorarioType.PRE_REFEICAO:
+        return 'Pré refeição';
       case HorarioType.AO_DEITAR:
         return 'Ao deitar';
       case HorarioType.MADRUGADA:
         return 'Madrugada';
+      case HorarioType.OUTRO:
+        return 'Outro';
       default:
         return null;
     }
   }
 }
 
-class Glicemia extends ParseObject implements ParseCloneable {
+class Glicemia extends ParseObject with DateUtils implements ParseCloneable {
   Glicemia({String nivel, HorarioType horario, num valor, Paciente paciente})
       : super(kGlicemiaTable) {
     this.horario = horario;
@@ -58,11 +71,15 @@ class Glicemia extends ParseObject implements ParseCloneable {
   set horario(HorarioType horario) =>
       set<String>(kHorario, horario?.displayTitle);
 
+  String get horarioFixo => get<String>(kHorarioFixo);
+  set horarioFixo(String horarioFixo) => set<String>(kHorarioFixo, horarioFixo);
+
   Paciente get paciente =>
       Paciente.clone()..fromJson(get<ParseObject>(keyPaciente)?.toJson());
   set paciente(Paciente paciente) => set(keyPaciente, paciente);
 
   Map<String, dynamic> toMap() => <String, dynamic>{
+        'Data de registro': getDataBrFromDate(createdAt) ?? "",
         'Valor': valor ?? "",
         'Horário': horario?.displayTitle ?? "",
       };
