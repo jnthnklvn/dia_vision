@@ -24,7 +24,12 @@ class MedicationWidget extends StatelessWidget with DateUtils, MedicationUtils {
     final subtitleContents = [
       getFullString("Dosagem", _medicacaoPrescrita.dosagem?.toString()),
       getFullString("Posologia", getPosologia(_medicacaoPrescrita.posologia)),
-      getFullString("Horários", _medicacaoPrescrita.horarios),
+      _medicacaoPrescrita.posologia == 0
+          ? getFullString("Horários", _medicacaoPrescrita.horarios)
+          : getFullString(
+              "Horário inicial",
+              _medicacaoPrescrita.horarioInicial,
+            ),
       getFullString(
           "Data inicial", getDataBrFromDate(_medicacaoPrescrita.dataInicial)),
       getFullString(

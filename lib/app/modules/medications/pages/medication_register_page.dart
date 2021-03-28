@@ -381,7 +381,7 @@ class _MedicationRegisterPageState
       child: ListTile(
         contentPadding: EdgeInsets.all(0),
         leading: InkWell(
-          onTap: () => _speak(controller.posologia ??
+          onTap: () => _speak(controller.posologia?.value1 ??
               "Selecione a posologia (intervalo em horas)"),
           child: Icon(
             Icons.play_circle_fill,
