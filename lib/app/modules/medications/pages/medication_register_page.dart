@@ -2,21 +2,26 @@ import 'package:dia_vision/app/modules/medications/medication_register_controlle
 import 'package:dia_vision/app/shared/components/text_field_container.dart';
 import 'package:dia_vision/app/shared/components/ink_well_speak_text.dart';
 import 'package:dia_vision/app/shared/components/rounded_input_field.dart';
+import 'package:dia_vision/app/shared/utils/horario_input_formatter.dart';
 import 'package:dia_vision/app/shared/components/back_arrow_button.dart';
 import 'package:dia_vision/app/shared/components/rounded_button.dart';
 import 'package:dia_vision/app/shared/utils/scaffold_utils.dart';
 import 'package:dia_vision/app/model/medicacao_prescrita.dart';
+import 'package:dia_vision/app/shared/utils/date_utils.dart';
 import 'package:dia_vision/app/shared/utils/constants.dart';
 import 'package:dia_vision/app/shared/utils/strings.dart';
 import 'package:dia_vision/app/model/medicamento.dart';
 
+import 'package:flutter_time_picker_spinner/flutter_time_picker_spinner.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:brasil_fields/brasil_fields.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_tts/flutter_tts.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
+import 'package:dartz/dartz.dart';
 
 class MedicationRegisterPage extends StatefulWidget with ScaffoldUtils {
   final MedicacaoPrescrita medicacaoPrescrita;
@@ -29,21 +34,17 @@ class MedicationRegisterPage extends StatefulWidget with ScaffoldUtils {
 }
 
 class _MedicationRegisterPageState
-    extends ModularState<MedicationRegisterPage, MedicationRegisterController> {
+    extends ModularState<MedicationRegisterPage, MedicationRegisterController>
+    with DateUtils {
   final GlobalKey<ScaffoldState> scaffoldKey;
-  final _focusNode1 = FocusNode();
-  final _focusNode2 = FocusNode();
-  final _focusNode3 = FocusNode();
-  final _focusNode4 = FocusNode();
-  final _focusNode5 = FocusNode();
-  final _focusNode6 = FocusNode();
-  final _focusNode7 = FocusNode();
+  final _focusNodes = List<FocusNode>.generate(6, (index) => FocusNode());
 
   _MedicationRegisterPageState(this.scaffoldKey) {
     nomeController = TextEditingController();
   }
 
   TextEditingController nomeController;
+  TextEditingController horarioInicialController;
   TextEditingController dataFinalController;
   TextEditingController dataInicialController;
   TextEditingController posologiaController;
@@ -61,14 +62,76 @@ class _MedicationRegisterPageState
     controller.init(widget.medicacaoPrescrita);
 
     nomeController = TextEditingController(text: controller.nome);
-    posologiaController = TextEditingController(text: controller.posologia);
+    posologiaController =
+        TextEditingController(text: controller.posologia?.value1);
     dosagemController = TextEditingController(text: controller.dosagem);
+    horarioInicialController =
+        TextEditingController(text: controller.horarioInicial);
     dataInicialController = TextEditingController(text: controller.dataInicial);
     dataFinalController = TextEditingController(text: controller.dataFinal);
     medicoPrescritorController =
         TextEditingController(text: controller.medicoPrescritor);
     efeitosColateraisController =
         TextEditingController(text: controller.efeitosColaterais);
+  }
+
+  Future<dynamic> _speak(String txt) => Modular.get<FlutterTts>().speak(txt);
+
+  Widget timePickerSpinner() {
+    return AlertDialog(
+      title: Container(
+        color: Colors.white,
+        child: InkWellSpeakText(
+          Text(
+            "Adicionar horário",
+            textAlign: TextAlign.center,
+            style: TextStyle(
+                color: kPrimaryColor,
+                fontSize: 24,
+                fontWeight: FontWeight.w600),
+          ),
+        ),
+      ),
+      titlePadding: EdgeInsets.only(top: 10),
+      contentPadding: EdgeInsets.only(top: 10),
+      actions: [
+        RaisedButton(
+          child: Text(
+            "Cancelar",
+            style: TextStyle(fontWeight: FontWeight.w600),
+          ),
+          onLongPress: () => _speak("$BUTTON cancelar"),
+          onPressed: Navigator.of(context).pop,
+          color: kPrimaryColor,
+        ),
+        RaisedButton(
+          child: Text(
+            "Adicionar",
+            style: TextStyle(fontWeight: FontWeight.w600),
+          ),
+          onLongPress: () => _speak("$BUTTON adicionar"),
+          onPressed: () {
+            controller.horarios.add(controller.horario);
+            Navigator.of(context).pop();
+          },
+          color: kPrimaryColor,
+        ),
+      ],
+      content: Container(
+        color: Colors.white,
+        child: TimePickerSpinner(
+          normalTextStyle: TextStyle(fontSize: 24, color: kPrimaryColor),
+          highlightedTextStyle: TextStyle(fontSize: 24, color: kSecondaryColor),
+          itemWidth: 100,
+          alignment: Alignment.center,
+          time: DateTime(2021, 1, 1, 12, 00),
+          isForce2Digits: true,
+          onTimeChange: (time) {
+            controller.horario = getHorarioFromDate(time);
+          },
+        ),
+      ),
+    );
   }
 
   @override
@@ -96,87 +159,159 @@ class _MedicationRegisterPageState
         padding: const EdgeInsets.only(top: 10),
         child: SingleChildScrollView(
           physics: BouncingScrollPhysics(),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              buildTextFieldWithSuggestions(context),
-              RoundedInputField(
-                hintText: "Dosagem",
-                controller: dosagemController,
-                keyboardType: TextInputType.number,
-                onChanged: controller.setDosagem,
-                focusNode: _focusNode2,
-                nextFocusNode: _focusNode3,
-              ),
-              RoundedInputField(
-                hintText: "Posologia",
-                controller: posologiaController,
-                keyboardType: TextInputType.number,
-                onChanged: controller.setPosologia,
-                focusNode: _focusNode3,
-                nextFocusNode: _focusNode4,
-              ),
-              RoundedInputField(
-                hintText: "Data inicial",
-                controller: dataInicialController,
-                keyboardType: TextInputType.number,
-                onChanged: controller.setDataInicial,
-                inputFormatters: [
-                  FilteringTextInputFormatter.digitsOnly,
-                  DataInputFormatter(),
-                ],
-                focusNode: _focusNode4,
-                nextFocusNode: _focusNode5,
-              ),
-              RoundedInputField(
-                hintText: "Data final",
-                controller: dataFinalController,
-                keyboardType: TextInputType.number,
-                inputFormatters: [
-                  FilteringTextInputFormatter.digitsOnly,
-                  DataInputFormatter(),
-                ],
-                onChanged: controller.setDataFinal,
-                focusNode: _focusNode5,
-                nextFocusNode: _focusNode6,
-              ),
-              RoundedInputField(
-                hintText: "Médico prescritor",
-                controller: medicoPrescritorController,
-                keyboardType: TextInputType.text,
-                onChanged: controller.setMedicoPrescritor,
-                focusNode: _focusNode6,
-                nextFocusNode: _focusNode7,
-              ),
-              RoundedInputField(
-                hintText: "Efeitos colaterais",
-                controller: efeitosColateraisController,
-                keyboardType: TextInputType.text,
-                onChanged: controller.setEfeitosColaterais,
-                focusNode: _focusNode7,
-              ),
-              Observer(builder: (_) {
-                if (controller.isLoading)
-                  return Center(
-                      child: Container(
-                    margin: EdgeInsets.only(top: 10, bottom: 10),
-                    child: CircularProgressIndicator(),
-                  ));
-                return RoundedButton(
-                  text: "SALVAR",
-                  onPressed: () => controller.save(
-                    widget.onError,
-                    () async {
-                      controller.isEdicao
-                          ? widget.onSuccess("Atualizado com sucesso!")
-                          : Modular.to.pop();
-                    },
-                  ),
-                );
-              }),
-            ],
+          child: Observer(builder: (_) {
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                buildTextFieldWithSuggestions(context),
+                RoundedInputField(
+                  hintText: "Dosagem",
+                  controller: dosagemController,
+                  keyboardType: TextInputType.number,
+                  onChanged: controller.setDosagem,
+                  focusNode: _focusNodes[1],
+                  nextFocusNode: _focusNodes[2],
+                ),
+                buildDropdownButton(size),
+                controller.posologia?.value1 == "Personalizado"
+                    ? buildContainerHorarios(context)
+                    : Container(),
+                controller.posologia?.value1 == "Personalizado"
+                    ? Container()
+                    : RoundedInputField(
+                        hintText: "Horário inicial",
+                        controller: horarioInicialController,
+                        keyboardType: TextInputType.number,
+                        onChanged: controller.setHorarioInicial,
+                        inputFormatters: [
+                          FilteringTextInputFormatter.digitsOnly,
+                          HorarioInputFormatter(),
+                        ],
+                      ),
+                RoundedInputField(
+                  hintText: "Data inicial",
+                  controller: dataInicialController,
+                  keyboardType: TextInputType.number,
+                  onChanged: controller.setDataInicial,
+                  inputFormatters: [
+                    FilteringTextInputFormatter.digitsOnly,
+                    DataInputFormatter(),
+                  ],
+                  focusNode: _focusNodes[2],
+                  nextFocusNode: _focusNodes[3],
+                ),
+                RoundedInputField(
+                  hintText: "Data final",
+                  controller: dataFinalController,
+                  keyboardType: TextInputType.number,
+                  inputFormatters: [
+                    FilteringTextInputFormatter.digitsOnly,
+                    DataInputFormatter(),
+                  ],
+                  onChanged: controller.setDataFinal,
+                  focusNode: _focusNodes[3],
+                  nextFocusNode: _focusNodes[4],
+                ),
+                RoundedInputField(
+                  hintText: "Médico prescritor",
+                  controller: medicoPrescritorController,
+                  keyboardType: TextInputType.text,
+                  onChanged: controller.setMedicoPrescritor,
+                  focusNode: _focusNodes[4],
+                  nextFocusNode: _focusNodes[5],
+                ),
+                RoundedInputField(
+                  hintText: "Efeitos colaterais",
+                  controller: efeitosColateraisController,
+                  keyboardType: TextInputType.text,
+                  onChanged: controller.setEfeitosColaterais,
+                  focusNode: _focusNodes[5],
+                ),
+                Observer(builder: (_) {
+                  if (controller.isLoading)
+                    return Center(
+                        child: Container(
+                      margin: EdgeInsets.only(top: 10, bottom: 10),
+                      child: CircularProgressIndicator(),
+                    ));
+                  return RoundedButton(
+                    text: "SALVAR",
+                    onPressed: () => controller.save(
+                      widget.onError,
+                      () async {
+                        controller.isEdicao
+                            ? widget.onSuccess("Atualizado com sucesso!")
+                            : Modular.to.pop();
+                      },
+                    ),
+                  );
+                }),
+              ],
+            );
+          }),
+        ),
+      ),
+    );
+  }
+
+  TextFieldContainer buildContainerHorarios(BuildContext context) {
+    return TextFieldContainer(
+      child: ListTile(
+        contentPadding: EdgeInsets.symmetric(vertical: 3),
+        trailing: InkWell(
+          child: const Icon(
+            Icons.add,
+            color: kPrimaryColor,
+            size: 32,
+          ),
+          onLongPress: () => _speak("Adicione um horário"),
+          onTap: () => showDialog(
+            context: context,
+            builder: (context) {
+              return timePickerSpinner();
+            },
           ),
         ),
+        leading: InkWell(
+          onTap: () => _speak(controller.horarios.length == 0
+              ? "Adicione um horário"
+              : controller.horarios.toString()),
+          child: Icon(
+            Icons.play_circle_fill,
+            color: kPrimaryColor,
+            size: 42,
+          ),
+        ),
+        title: controller.horarios.length == 0
+            ? Text(
+                "Adicione um horário",
+                style: TextStyle(color: Colors.grey[700]),
+              )
+            : NotificationListener<OverscrollIndicatorNotification>(
+                onNotification: (OverscrollIndicatorNotification overscroll) {
+                  overscroll.disallowGlow();
+                  return;
+                },
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: controller.horarios
+                        .map((e) => buildContainerHorario(e))
+                        .toList(),
+                  ),
+                ),
+              ),
+      ),
+    );
+  }
+
+  Widget buildContainerHorario(String e) {
+    return Container(
+      margin: EdgeInsets.only(right: 10),
+      child: RaisedButton(
+        onPressed: () => _speak("$e. Mantenha pressionado para remover."),
+        onLongPress: () => controller.horarios.remove(e),
+        child: Text(e, style: TextStyle(fontWeight: FontWeight.w600)),
       ),
     );
   }
@@ -185,12 +320,12 @@ class _MedicationRegisterPageState
     return TextFieldContainer(
       child: TypeAheadField(
         textFieldConfiguration: TextFieldConfiguration(
-          focusNode: _focusNode1,
+          focusNode: _focusNodes[0],
           onChanged: controller.setNome,
           controller: nomeController,
           onSubmitted: (_) {
-            _focusNode1.unfocus();
-            FocusScope.of(context).requestFocus(_focusNode2);
+            _focusNodes[0].unfocus();
+            FocusScope.of(context).requestFocus(_focusNodes[1]);
           },
           textInputAction: TextInputAction.next,
           decoration: InputDecoration(
@@ -205,7 +340,7 @@ class _MedicationRegisterPageState
               return SizedBox();
             }),
             icon: InkWell(
-              onTap: () => Modular.get<FlutterTts>().speak("Nome"),
+              onTap: () => _speak("Nome"),
               child: Icon(
                 Icons.play_circle_fill,
                 color: kPrimaryColor,
@@ -216,9 +351,8 @@ class _MedicationRegisterPageState
             border: InputBorder.none,
           ),
         ),
-        suggestionsCallback: (pattern) async {
-          return controller.getSuggestions(widget.onError);
-        },
+        suggestionsCallback: (pattern) =>
+            controller.getSuggestions(widget.onError),
         itemBuilder: (_, Medicamento suggestion) {
           return ListTile(
             title: Text(suggestion.nomeComercial),
@@ -231,6 +365,60 @@ class _MedicationRegisterPageState
           controller.setNome(suggestion.nomeComercial);
           controller.medicamentoSelecionado = suggestion;
         },
+      ),
+    );
+  }
+
+  Widget buildDropdownButton(Size size) {
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: 10),
+      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 7),
+      width: size.width * 0.9,
+      decoration: BoxDecoration(
+        color: kPrimaryLightColor,
+        borderRadius: BorderRadius.circular(29),
+      ),
+      child: ListTile(
+        contentPadding: EdgeInsets.all(0),
+        leading: InkWell(
+          onTap: () => _speak(controller.posologia ??
+              "Selecione a posologia (intervalo em horas)"),
+          child: Icon(
+            Icons.play_circle_fill,
+            color: kPrimaryColor,
+            size: 42,
+          ),
+        ),
+        title: DropdownButton<String>(
+          value: controller.posologia?.value1,
+          icon: const Icon(
+            Icons.keyboard_arrow_down_sharp,
+            color: kPrimaryColor,
+            size: 32,
+          ),
+          isExpanded: true,
+          hint: Text(
+            "Posologia (intervalo em horas)",
+            style: TextStyle(
+              color: Colors.grey[700],
+              fontSize: 18,
+            ),
+          ),
+          elevation: 16,
+          style: TextStyle(
+            color: Colors.grey[700],
+            fontSize: 18,
+          ),
+          underline: Container(),
+          onChanged: controller.setPosologia,
+          items: controller.horariosList
+              .map<DropdownMenuItem<String>>((Tuple2<String, int> tuple) {
+            return DropdownMenuItem<String>(
+              value: tuple.value1,
+              child: Text(tuple.value1),
+            );
+          }).toList(),
+        ),
       ),
     );
   }

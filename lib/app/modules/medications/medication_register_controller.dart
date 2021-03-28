@@ -1,4 +1,3 @@
-import 'package:brasil_fields/brasil_fields.dart';
 import 'package:dia_vision/app/modules/medications/medications_controller.dart';
 import 'package:dia_vision/app/repositories/medicacao_prescrita_repository.dart';
 import 'package:dia_vision/app/repositories/medication_repository.dart';
@@ -7,7 +6,9 @@ import 'package:dia_vision/app/shared/utils/date_utils.dart';
 import 'package:dia_vision/app/model/medicamento.dart';
 import 'package:dia_vision/app/app_controller.dart';
 
+import 'package:brasil_fields/brasil_fields.dart';
 import 'package:fuzzy/fuzzy.dart';
+import 'package:dartz/dartz.dart';
 import 'package:mobx/mobx.dart';
 
 part 'medication_register_controller.g.dart';
@@ -37,11 +38,16 @@ abstract class _MedicationRegisterControllerBase with Store, DateUtils {
   @observable
   String dataInicial;
   @observable
-  String posologia;
+  Tuple2<String, int> posologia;
   @observable
   String dosagem;
   @observable
   String efeitosColaterais;
+  @observable
+  String horarioInicial;
+  @observable
+  ObservableList<String> horarios = ObservableList<String>();
+  String horario;
 
   @observable
   bool isSearching = false;
@@ -54,6 +60,17 @@ abstract class _MedicationRegisterControllerBase with Store, DateUtils {
   Medicamento medicamentoSelecionado;
   MedicacaoPrescrita _medicacaoPrescrita;
   List<Medicamento> medicamentosBase = [];
+
+  final List<Tuple2<String, int>> horariosList = [
+    Tuple2("1 em 1 hora", 1),
+    Tuple2("2 em 2 horas", 2),
+    Tuple2("4 em 4 horas", 4),
+    Tuple2("6 em 6 horas", 6),
+    Tuple2("8 em 8 horas", 8),
+    Tuple2("12 em 12 horas", 12),
+    Tuple2("24 em 24 horas", 24),
+    Tuple2("Personalizado", 0),
+  ];
 
   @computed
   bool get isNomeValid => nome != null && nome.length > 3;
@@ -69,11 +86,15 @@ abstract class _MedicationRegisterControllerBase with Store, DateUtils {
   void setEfeitosColaterais(String newEfeitosColaterais) =>
       efeitosColaterais = newEfeitosColaterais;
   @action
+  void setHorarioInicial(String newHorarioInicial) =>
+      horarioInicial = newHorarioInicial;
+  @action
   void setDataInicial(String newDataInicial) => dataInicial = newDataInicial;
   @action
   void setDataFinal(String newDataFinal) => dataFinal = newDataFinal;
   @action
-  void setPosologia(String newPosologia) => posologia = newPosologia;
+  void setPosologia(String newPosologia) => posologia = horariosList
+      .firstWhere((e) => e.value1 == newPosologia, orElse: () => null);
   @action
   void setDosagem(String newDosagem) => dosagem = newDosagem;
 
@@ -85,7 +106,13 @@ abstract class _MedicationRegisterControllerBase with Store, DateUtils {
         setDataFinal(UtilData.obterDataDDMMAAAA(medicacao.dataFinal));
       if (medicacao.dataInicial != null)
         setDataInicial(UtilData.obterDataDDMMAAAA(medicacao.dataInicial));
-      setPosologia(medicacao.posologia?.toString());
+      setHorarioInicial(medicacao.horarioInicial);
+      if (medicacao.horarios?.isNotEmpty == true) {
+        horarios.addAll(medicacao.horarios.split(', '));
+      }
+      posologia = horariosList.firstWhere(
+          (e) => e.value2 == medicacao.posologia,
+          orElse: () => null);
       setMedicoPrescritor(medicacao.medicoPrescritor);
       setDosagem(medicacao.dosagem?.toString());
       setEfeitosColaterais(medicacao.efeitosColaterais);
@@ -141,20 +168,25 @@ abstract class _MedicationRegisterControllerBase with Store, DateUtils {
           efeitosColaterais: efeitosColaterais,
         );
 
+        print(horarios.toString().replaceAll('[', '').replaceAll(']', ''));
+        print([].toString().replaceAll('[', '').replaceAll(']', ''));
+
         final user = await _appController.currentUser();
         medicacaoPrescrita.paciente = user.paciente;
         medicacaoPrescrita.objectId = _medicacaoPrescrita?.objectId;
+        medicacaoPrescrita.horarioInicial = horarioInicial;
 
-        final dPosologia =
-            posologia != null ? double.tryParse(posologia) : null;
         final dDosagem = dosagem != null ? double.tryParse(dosagem) : null;
         final dDataInicial =
             dataInicial != null ? getDateTime(dataInicial) : null;
         final dDataFinal = dataFinal != null ? getDateTime(dataFinal) : null;
         if (dDosagem != null) medicacaoPrescrita.dosagem = dDosagem;
-        if (dPosologia != null) medicacaoPrescrita.posologia = dPosologia;
+        if (posologia != null) medicacaoPrescrita.posologia = posologia.value2;
         if (dataInicial != null) medicacaoPrescrita.dataInicial = dDataInicial;
         if (dataFinal != null) medicacaoPrescrita.dataFinal = dDataFinal;
+        if (horarios.isNotEmpty)
+          medicacaoPrescrita.horarios =
+              horarios.toString().replaceAll('[', '').replaceAll(']', '');
 
         final result =
             await _medicacaoPrescritaRepository.save(medicacaoPrescrita, user);

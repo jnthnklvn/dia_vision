@@ -1,3 +1,4 @@
+import 'package:dia_vision/app/modules/medications/utils/medication_utils.dart';
 import 'package:dia_vision/app/modules/home/domain/entities/module.dart';
 import 'package:dia_vision/app/model/medicacao_prescrita.dart';
 import 'package:dia_vision/app/shared/utils/color_utils.dart';
@@ -8,10 +9,10 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:flutter/material.dart';
 
-class MedicationWidget extends StatelessWidget with DateUtils {
+class MedicationWidget extends StatelessWidget with DateUtils, MedicationUtils {
   final MedicacaoPrescrita _medicacaoPrescrita;
 
-  const MedicationWidget(this._medicacaoPrescrita);
+  MedicationWidget(this._medicacaoPrescrita);
 
   String getFullString(String fieldName, String text) {
     if (text?.isNotEmpty != true) return null;
@@ -21,8 +22,9 @@ class MedicationWidget extends StatelessWidget with DateUtils {
   @override
   Widget build(BuildContext context) {
     final subtitleContents = [
-      getFullString("Posologia", _medicacaoPrescrita.posologia?.toString()),
       getFullString("Dosagem", _medicacaoPrescrita.dosagem?.toString()),
+      getFullString("Posologia", getPosologia(_medicacaoPrescrita.posologia)),
+      getFullString("Horários", _medicacaoPrescrita.horarios),
       getFullString(
           "Data inicial", getDataBrFromDate(_medicacaoPrescrita.dataInicial)),
       getFullString(

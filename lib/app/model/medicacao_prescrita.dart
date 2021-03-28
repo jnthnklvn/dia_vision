@@ -1,3 +1,4 @@
+import 'package:dia_vision/app/modules/medications/utils/medication_utils.dart';
 import 'package:dia_vision/app/shared/utils/date_utils.dart';
 import 'package:dia_vision/app/model/paciente.dart';
 
@@ -14,13 +15,17 @@ const kMedicoPrescritor = "medicoPrescritor";
 const kEfeitosColaterais = "efeitosColaterais";
 const kDataFinal = "dataFinal";
 const kDataInicial = "dataInicial";
+const kHorarioInicial = "horarioInicial";
+const kHorarios = "horarios";
 const kMedicacaoPrescritaTable = "MedicacaoPrescrita";
 
 class MedicacaoPrescrita extends ParseObject
-    with DateUtils
+    with DateUtils, MedicationUtils
     implements ParseCloneable {
   MedicacaoPrescrita(
       {Medicamento medicamento,
+      String horarioInicial,
+      String horarios,
       DateTime dataInicial,
       DateTime dataFinal,
       String medicoPrescritor,
@@ -34,6 +39,8 @@ class MedicacaoPrescrita extends ParseObject
     this.nome = nome;
     this.efeitosColaterais = efeitosColaterais;
     this.medicoPrescritor = medicoPrescritor;
+    this.horarios = horarios;
+    this.horarioInicial = horarioInicial;
     this.dataFinal = dataFinal;
     this.dataInicial = dataInicial;
     this.dosagem = dosagem;
@@ -68,6 +75,13 @@ class MedicacaoPrescrita extends ParseObject
   set medicoPrescritor(String medicoPrescritor) =>
       set<String>(kMedicoPrescritor, medicoPrescritor);
 
+  String get horarioInicial => get<String>(kHorarioInicial);
+  set horarioInicial(String horarioInicial) =>
+      set<String>(kHorarioInicial, horarioInicial);
+
+  String get horarios => get<String>(kHorarios);
+  set horarios(String horarios) => set<String>(kHorarios, horarios);
+
   String get efeitosColaterais => get<String>(kEfeitosColaterais);
   set efeitosColaterais(String efeitosColaterais) =>
       set<String>(kEfeitosColaterais, efeitosColaterais);
@@ -87,11 +101,13 @@ class MedicacaoPrescrita extends ParseObject
 
   Map<String, dynamic> toMap() => <String, dynamic>{
         'Nome Substância': medicamento?.get(kNomeSubstancia) ?? "",
-        'Nome Comercial': medicamento?.get(kNomeComercial) ?? nome,
+        'Nome Comercial': medicamento?.get(kNomeComercial) ?? nome ?? "",
+        'Horário Inicial': horarioInicial ?? "",
+        'Horários': horarios ?? "",
         'Data Inicial':
             dataInicial != null ? getDataBrFromDate(dataInicial) : "",
         'Data Final': dataFinal != null ? getDataBrFromDate(dataFinal) : "",
-        'Posologia': posologia?.toString() ?? "",
+        'Posologia': getPosologia(posologia) ?? "",
         'Dosagem': dosagem?.toString() ?? "",
         'Efeitos Colaterais': efeitosColaterais ?? "",
         'Medico Prescritor': medicoPrescritor ?? "",

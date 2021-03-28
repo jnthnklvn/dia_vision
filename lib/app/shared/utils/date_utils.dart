@@ -22,4 +22,10 @@ class DateUtils {
     final f = new DateFormat('dd_MM_yyyy_HH_mm_ss');
     return f.format(date);
   }
+
+  String getHorarioFromDate(DateTime date) {
+    if (date == null) return "";
+    final f = new DateFormat('HH:mm');
+    return f.format(date);
+  }
 }

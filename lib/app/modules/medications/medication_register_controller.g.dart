@@ -92,13 +92,13 @@ mixin _$MedicationRegisterController
       Atom(name: '_MedicationRegisterControllerBase.posologia');
 
   @override
-  String get posologia {
+  Tuple2<String, int> get posologia {
     _$posologiaAtom.reportRead();
     return super.posologia;
   }
 
   @override
-  set posologia(String value) {
+  set posologia(Tuple2<String, int> value) {
     _$posologiaAtom.reportWrite(value, super.posologia, () {
       super.posologia = value;
     });
@@ -132,6 +132,38 @@ mixin _$MedicationRegisterController
   set efeitosColaterais(String value) {
     _$efeitosColateraisAtom.reportWrite(value, super.efeitosColaterais, () {
       super.efeitosColaterais = value;
+    });
+  }
+
+  final _$horarioInicialAtom =
+      Atom(name: '_MedicationRegisterControllerBase.horarioInicial');
+
+  @override
+  String get horarioInicial {
+    _$horarioInicialAtom.reportRead();
+    return super.horarioInicial;
+  }
+
+  @override
+  set horarioInicial(String value) {
+    _$horarioInicialAtom.reportWrite(value, super.horarioInicial, () {
+      super.horarioInicial = value;
+    });
+  }
+
+  final _$horariosAtom =
+      Atom(name: '_MedicationRegisterControllerBase.horarios');
+
+  @override
+  ObservableList<String> get horarios {
+    _$horariosAtom.reportRead();
+    return super.horarios;
+  }
+
+  @override
+  set horarios(ObservableList<String> value) {
+    _$horariosAtom.reportWrite(value, super.horarios, () {
+      super.horarios = value;
     });
   }
 
@@ -225,6 +257,19 @@ mixin _$MedicationRegisterController
   }
 
   @override
+  void setHorarioInicial(String newHorarioInicial) {
+    final _$actionInfo =
+        _$_MedicationRegisterControllerBaseActionController.startAction(
+            name: '_MedicationRegisterControllerBase.setHorarioInicial');
+    try {
+      return super.setHorarioInicial(newHorarioInicial);
+    } finally {
+      _$_MedicationRegisterControllerBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
   void setDataInicial(String newDataInicial) {
     final _$actionInfo = _$_MedicationRegisterControllerBaseActionController
         .startAction(name: '_MedicationRegisterControllerBase.setDataInicial');
@@ -282,6 +327,8 @@ dataInicial: ${dataInicial},
 posologia: ${posologia},
 dosagem: ${dosagem},
 efeitosColaterais: ${efeitosColaterais},
+horarioInicial: ${horarioInicial},
+horarios: ${horarios},
 isSearching: ${isSearching},
 isLoading: ${isLoading},
 medicamentos: ${medicamentos},
