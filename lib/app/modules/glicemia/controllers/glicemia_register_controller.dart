@@ -27,6 +27,8 @@ abstract class _GlicemiaRegisterControllerBase with Store, DateUtils {
   String valor;
   @observable
   String horario;
+  @observable
+  String horarioFixo;
 
   @observable
   bool isLoading = false;
@@ -42,12 +44,15 @@ abstract class _GlicemiaRegisterControllerBase with Store, DateUtils {
   void setValor(String newValue) => valor = newValue;
   @action
   void setHorario(String newValue) => horario = newValue;
+  @action
+  void setHorarioFixo(String newValue) => horarioFixo = newValue;
 
   void init(Glicemia glicemia) {
     _glicemia = glicemia;
     if (glicemia != null) {
       setValor(glicemia.valor?.toString());
       setHorario(glicemia.horario?.displayTitle);
+      setHorarioFixo(glicemia.horarioFixo);
     }
   }
 
@@ -62,6 +67,7 @@ abstract class _GlicemiaRegisterControllerBase with Store, DateUtils {
       final user = await _appController.currentUser();
       glicemia.paciente = user.paciente;
       glicemia.objectId = _glicemia?.objectId;
+      glicemia.horarioFixo = horarioFixo;
 
       final dValor =
           valor != null ? num.tryParse(valor.replaceAll(',', '.')) : null;

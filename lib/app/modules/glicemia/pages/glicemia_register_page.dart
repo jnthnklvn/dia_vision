@@ -1,6 +1,7 @@
 import 'package:dia_vision/app/modules/glicemia/controllers/glicemia_register_controller.dart';
 import 'package:dia_vision/app/shared/components/ink_well_speak_text.dart';
 import 'package:dia_vision/app/shared/components/rounded_input_field.dart';
+import 'package:dia_vision/app/shared/utils/horario_input_formatter.dart';
 import 'package:dia_vision/app/shared/components/back_arrow_button.dart';
 import 'package:dia_vision/app/shared/components/rounded_button.dart';
 import 'package:dia_vision/app/shared/utils/scaffold_utils.dart';
@@ -9,7 +10,6 @@ import 'package:dia_vision/app/shared/utils/strings.dart';
 import 'package:dia_vision/app/model/glicemia.dart';
 
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:brasil_fields/brasil_fields.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:flutter/services.dart';
@@ -34,6 +34,7 @@ class _GlicemiaRegisterPageState
   _GlicemiaRegisterPageState(this.scaffoldKey);
 
   TextEditingController valorController;
+  TextEditingController horarioController;
 
   @override
   void initState() {
@@ -44,6 +45,7 @@ class _GlicemiaRegisterPageState
   void initControllers() {
     controller.init(widget.glicemia);
     valorController = TextEditingController(text: controller.valor);
+    horarioController = TextEditingController(text: controller.horarioFixo);
   }
 
   @override
@@ -87,6 +89,18 @@ class _GlicemiaRegisterPageState
                   nextFocusNode: _focusNode2,
                 ),
                 buildDropdownButton(size),
+                controller.horario != "Outro"
+                    ? Container()
+                    : RoundedInputField(
+                        hintText: "Horário",
+                        controller: horarioController,
+                        keyboardType: TextInputType.number,
+                        onChanged: controller.setHorarioFixo,
+                        inputFormatters: [
+                          FilteringTextInputFormatter.digitsOnly,
+                          HorarioInputFormatter(),
+                        ],
+                      ),
                 Observer(builder: (_) {
                   if (controller.isLoading)
                     return Center(
@@ -115,18 +129,26 @@ class _GlicemiaRegisterPageState
   }
 
   Widget buildDropdownButton(Size size) {
-    return InkWell(
-      onLongPress: () => Modular.get<FlutterTts>()
-          .speak(controller.horario ?? "Selecione o horário"),
-      child: Container(
-        margin: EdgeInsets.symmetric(vertical: 10),
-        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 7),
-        width: size.width * 0.9,
-        decoration: BoxDecoration(
-          color: kPrimaryLightColor,
-          borderRadius: BorderRadius.circular(29),
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: 10),
+      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 7),
+      width: size.width * 0.9,
+      decoration: BoxDecoration(
+        color: kPrimaryLightColor,
+        borderRadius: BorderRadius.circular(29),
+      ),
+      child: ListTile(
+        contentPadding: EdgeInsets.all(0),
+        leading: InkWell(
+          onTap: () => Modular.get<FlutterTts>()
+              .speak(controller.horario ?? "Selecione o horário"),
+          child: Icon(
+            Icons.play_circle_fill,
+            color: kPrimaryColor,
+            size: 42,
+          ),
         ),
-        child: DropdownButton<String>(
+        title: DropdownButton<String>(
           focusNode: _focusNode2,
           value: controller.horario,
           icon: const Icon(

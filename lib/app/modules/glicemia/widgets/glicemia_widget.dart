@@ -22,7 +22,12 @@ class GlicemiaWidget extends StatelessWidget with DateUtils {
   Widget build(BuildContext context) {
     final subtitleContents = [
       getFullString("Valor (mg/dL)", _glicemia.valor?.toString()),
-      getFullString("Horário", _glicemia.horario.displayTitle),
+      getFullString(
+        "Horário",
+        _glicemia.horario == HorarioType.OUTRO
+            ? _glicemia.horarioFixo
+            : _glicemia.horario.displayTitle,
+      ),
     ];
     subtitleContents.removeWhere((e) => e == null);
 
