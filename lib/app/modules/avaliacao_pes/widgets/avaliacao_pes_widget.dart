@@ -15,7 +15,7 @@ class AvaliacaoPesWidget extends StatelessWidget with DateUtils {
 
   String getFullString(String fieldName, String text) {
     if (text?.isNotEmpty != true) return null;
-    return "$fieldName: $text";
+    return "$fieldName: $text.";
   }
 
   String getStringFromBool(String fieldName, bool value) {
@@ -34,8 +34,7 @@ class AvaliacaoPesWidget extends StatelessWidget with DateUtils {
           getDataBrFromDate(_avaliacaoPes.dataUltimaConsulta)),
       getStringFromBool("Estão hidratados?", _avaliacaoPes.hidratados),
       getStringFromBool("Estão lavados?", _avaliacaoPes.lavou),
-      getFullString("Temperatura da lavagem",
-          _avaliacaoPes.temperaturaLavagem?.toString()),
+      getFullString("Temperatura da lavagem", _avaliacaoPes.temperaturaLavagem),
       getStringFromBool(
           "Possuem pontos vermelhos?", _avaliacaoPes.pontosVermelhos),
       getStringFromBool("Possuem rachaduras?", _avaliacaoPes.rachaduras),

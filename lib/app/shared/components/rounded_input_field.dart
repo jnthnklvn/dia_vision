@@ -40,6 +40,7 @@ class RoundedInputField extends StatelessWidget {
     final hasNextNode = nextFocusNode != null;
     return TextFieldContainer(
       child: TextField(
+        style: TextStyle(fontSize: 18),
         inputFormatters: inputFormatters,
         enabled: enabled,
         controller: controller,

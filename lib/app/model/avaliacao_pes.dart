@@ -23,7 +23,7 @@ class AvaliacaoPes extends ParseObject
   AvaliacaoPes(
       {bool usaProtetorSolarPes,
       DateTime dataUltimaConsulta,
-      num temperaturaLavagem,
+      String temperaturaLavagem,
       bool checaAntesCalcar,
       bool pontosVermelhos,
       bool rachaduras,
@@ -93,9 +93,9 @@ class AvaliacaoPes extends ParseObject
   bool get hidratados => get<bool>(kHidratados);
   set hidratados(bool hidratados) => set<bool>(kHidratados, hidratados);
 
-  num get temperaturaLavagem => get<num>(kTemperaturaLavagem);
-  set temperaturaLavagem(num temperaturaLavagem) =>
-      set<num>(kTemperaturaLavagem, temperaturaLavagem);
+  String get temperaturaLavagem => get<String>(kTemperaturaLavagem);
+  set temperaturaLavagem(String temperaturaLavagem) =>
+      set<String>(kTemperaturaLavagem, temperaturaLavagem);
 
   bool get rachaduras => get<bool>(kRachaduras);
   set rachaduras(bool rachaduras) => set<bool>(kRachaduras, rachaduras);
@@ -109,11 +109,11 @@ class AvaliacaoPes extends ParseObject
         'Usa protetor solar nos pes': usaProtetorSolarPes != null
             ? (usaProtetorSolarPes ? "Sim" : "Não")
             : "",
-        'Data ultima consulta': dataUltimaConsulta != null
+        'Data última consulta': dataUltimaConsulta != null
             ? getDataBrFromDate(dataUltimaConsulta)
             : "",
         'Temperatura lavagem': temperaturaLavagem ?? "",
-        'Checa antes calcar':
+        'Checa sapatos antes de calçar':
             checaAntesCalcar != null ? (checaAntesCalcar ? "Sim" : "Não") : "",
         'Pontos vermelhos':
             pontosVermelhos != null ? (pontosVermelhos ? "Sim" : "Não") : "",

@@ -84,7 +84,7 @@ abstract class _AvaliacaoPesRegisterControllerBase with Store, DateUtils {
     _avaliacaoPes = avaliacao;
     if (avaliacao != null) {
       setUsaProtetorSolarPes(avaliacao.usaProtetorSolarPes);
-      setTemperaturaLavagem(avaliacao.temperaturaLavagem?.toString());
+      setTemperaturaLavagem(avaliacao.temperaturaLavagem);
       setChecaAntesCalcar(avaliacao.checaAntesCalcar);
       setPontosVermelhos(avaliacao.pontosVermelhos);
       setRachaduras(avaliacao.rachaduras);
@@ -119,14 +119,10 @@ abstract class _AvaliacaoPesRegisterControllerBase with Store, DateUtils {
       final user = await _appController.currentUser();
       avaliacaoPes.paciente = user.paciente;
       avaliacaoPes.objectId = _avaliacaoPes?.objectId;
+      avaliacaoPes.temperaturaLavagem = temperaturaLavagem;
 
-      final dTemperaturaLavagem = temperaturaLavagem != null
-          ? num.tryParse(temperaturaLavagem.replaceAll(',', '.'))
-          : null;
       final dDataUltimaConsulta =
           dataUltimaConsulta != null ? getDateTime(dataUltimaConsulta) : null;
-      if (dTemperaturaLavagem != null)
-        avaliacaoPes.temperaturaLavagem = dTemperaturaLavagem;
       if (dataUltimaConsulta != null)
         avaliacaoPes.dataUltimaConsulta = dDataUltimaConsulta;
 

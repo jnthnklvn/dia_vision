@@ -11,6 +11,7 @@ import 'package:dia_vision/app/model/avaliacao_pes.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:brasil_fields/brasil_fields.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 
@@ -27,8 +28,6 @@ class AvaliacaoPesRegisterPage extends StatefulWidget with ScaffoldUtils {
 class _AvaliacaoPesRegisterPageState extends ModularState<
     AvaliacaoPesRegisterPage, AvaliacaoPesRegisterController> {
   final GlobalKey<ScaffoldState> scaffoldKey;
-  final _focusNode1 = FocusNode();
-  final _focusNode2 = FocusNode();
 
   _AvaliacaoPesRegisterPageState(this.scaffoldKey);
 
@@ -87,21 +86,9 @@ class _AvaliacaoPesRegisterPageState extends ModularState<
                     FilteringTextInputFormatter.digitsOnly,
                     DataInputFormatter(),
                   ],
-                  focusNode: _focusNode1,
-                  nextFocusNode: _focusNode2,
                   onChanged: controller.setDataUltimaConsulta,
                 ),
-                RoundedInputField(
-                  hintText: "Temperatura da lavagem",
-                  controller: temperaturaLavagemController,
-                  keyboardType: TextInputType.number,
-                  onChanged: controller.setTemperaturaLavagem,
-                  inputFormatters: [
-                    FilteringTextInputFormatter.digitsOnly,
-                    PesoInputFormatter(),
-                  ],
-                  focusNode: _focusNode2,
-                ),
+                buildDropdownButton(size),
                 buildListTileSwitch(
                   controller.pontosVermelhos,
                   "Possuem pontos vermelhos?",
@@ -119,7 +106,7 @@ class _AvaliacaoPesRegisterPageState extends ModularState<
                 ),
                 buildListTileSwitch(
                   controller.checaAntesCalcar,
-                  "Checa antes calçar?",
+                  "Checa sapatos antes de calçar?",
                   controller.setChecaAntesCalcar,
                 ),
                 buildListTileSwitch(
@@ -197,6 +184,61 @@ class _AvaliacaoPesRegisterPageState extends ModularState<
           onChanged: onChanged,
           inactiveThumbColor: Colors.red[700],
           inactiveTrackColor: Colors.red[100],
+        ),
+      ),
+    );
+  }
+
+  Widget buildDropdownButton(Size size) {
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: 10),
+      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 7),
+      width: size.width * 0.9,
+      decoration: BoxDecoration(
+        color: kPrimaryLightColor,
+        borderRadius: BorderRadius.circular(29),
+      ),
+      child: ListTile(
+        contentPadding: EdgeInsets.all(0),
+        leading: InkWell(
+          onTap: () => Modular.get<FlutterTts>().speak(
+              controller.temperaturaLavagem ??
+                  "Selecione uma opção de temperatura"),
+          child: Icon(
+            Icons.play_circle_fill,
+            color: kPrimaryColor,
+            size: 42,
+          ),
+        ),
+        title: DropdownButton<String>(
+          value: controller.temperaturaLavagem,
+          icon: const Icon(
+            Icons.keyboard_arrow_down_sharp,
+            color: kPrimaryColor,
+            size: 32,
+          ),
+          isExpanded: true,
+          hint: Text(
+            "Selecione uma temperatura",
+            style: TextStyle(
+              color: Colors.grey[700],
+              fontSize: 18,
+            ),
+          ),
+          elevation: 16,
+          style: TextStyle(
+            color: Colors.grey[700],
+            fontSize: 18,
+          ),
+          underline: Container(),
+          onChanged: controller.setTemperaturaLavagem,
+          items: <String>['Quente', 'Morno', 'Frio']
+              .map<DropdownMenuItem<String>>((value) {
+            return DropdownMenuItem<String>(
+              value: value,
+              child: Text(value),
+            );
+          }).toList(),
         ),
       ),
     );
