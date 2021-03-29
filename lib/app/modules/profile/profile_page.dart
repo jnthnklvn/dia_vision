@@ -40,14 +40,10 @@ class _ProfilePageState extends State<ProfilePage> {
                     .pushNamed(RouteEnum.profile.name + RouteEnum.my_data.name),
               ),
               ProfileMenu(
-                text: "Notificações",
-                icon: "assets/icons/Bell.svg",
-                onPressed: () {},
-              ),
-              ProfileMenu(
                 text: "Preferências",
                 icon: "assets/icons/Settings.svg",
-                onPressed: () {},
+                onPressed: () => Modular.to.pushNamed(
+                    RouteEnum.profile.name + RouteEnum.preferences.name),
               ),
               ProfileMenu(
                 text: "Sair",

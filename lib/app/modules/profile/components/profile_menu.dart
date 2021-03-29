@@ -33,10 +33,14 @@ class ProfileMenu extends StatelessWidget {
             SvgPicture.asset(
               icon,
               color: kPrimaryColor,
-              width: 22,
+              width: 25,
             ),
             SizedBox(width: 20),
-            Expanded(child: Text(text)),
+            Expanded(
+                child: Text(
+              text,
+              style: TextStyle(fontSize: 20),
+            )),
             Icon(
               Icons.arrow_forward_ios,
               color: kPrimaryColor,

@@ -47,6 +47,22 @@ mixin _$GlicemiaRegisterController on _GlicemiaRegisterControllerBase, Store {
     });
   }
 
+  final _$horarioFixoAtom =
+      Atom(name: '_GlicemiaRegisterControllerBase.horarioFixo');
+
+  @override
+  String get horarioFixo {
+    _$horarioFixoAtom.reportRead();
+    return super.horarioFixo;
+  }
+
+  @override
+  set horarioFixo(String value) {
+    _$horarioFixoAtom.reportWrite(value, super.horarioFixo, () {
+      super.horarioFixo = value;
+    });
+  }
+
   final _$isLoadingAtom =
       Atom(name: '_GlicemiaRegisterControllerBase.isLoading');
 
@@ -105,10 +121,22 @@ mixin _$GlicemiaRegisterController on _GlicemiaRegisterControllerBase, Store {
   }
 
   @override
+  void setHorarioFixo(String newValue) {
+    final _$actionInfo = _$_GlicemiaRegisterControllerBaseActionController
+        .startAction(name: '_GlicemiaRegisterControllerBase.setHorarioFixo');
+    try {
+      return super.setHorarioFixo(newValue);
+    } finally {
+      _$_GlicemiaRegisterControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 valor: ${valor},
 horario: ${horario},
+horarioFixo: ${horarioFixo},
 isLoading: ${isLoading},
 glicemias: ${glicemias},
 isEdicao: ${isEdicao}
