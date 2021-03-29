@@ -1,5 +1,6 @@
 import 'package:dia_vision/app/shared/components/rounded_input_field.dart';
 import 'package:dia_vision/app/shared/components/ink_well_speak_text.dart';
+import 'package:dia_vision/app/shared/utils/horario_input_formatter.dart';
 import 'package:dia_vision/app/shared/components/back_arrow_button.dart';
 import 'package:dia_vision/app/shared/components/rounded_button.dart';
 import 'package:dia_vision/app/shared/utils/scaffold_utils.dart';
@@ -24,11 +25,13 @@ class _PreferenciasPageState
   final GlobalKey<ScaffoldState> scaffoldKey;
   final _focusNode1 = FocusNode();
   final _focusNode2 = FocusNode();
+  final _focusNode3 = FocusNode();
 
   _PreferenciasPageState(this.scaffoldKey);
 
   TextEditingController valorMinimoController;
   TextEditingController valorMaximoController;
+  TextEditingController horarioGlicoseController;
 
   @override
   void initState() {
@@ -38,6 +41,8 @@ class _PreferenciasPageState
 
   Future<void> initControllers() async {
     await controller.getData(widget.onError);
+    horarioGlicoseController =
+        TextEditingController(text: controller.horarioGlicose);
     valorMinimoController =
         TextEditingController(text: controller.valorMinimoGlicemia);
     valorMaximoController =
@@ -66,7 +71,6 @@ class _PreferenciasPageState
         width: double.infinity,
         height: size.height,
         color: Colors.white,
-        padding: const EdgeInsets.only(top: 10),
         child: Observer(builder: (_) {
           if (!controller.isDataReady)
             return Center(child: CircularProgressIndicator());
@@ -90,7 +94,7 @@ class _PreferenciasPageState
                   "Medicação",
                   controller.setAlertarMedicacao,
                 ),
-                SizedBox(height: 30),
+                SizedBox(height: 10),
                 InkWellSpeakText(
                   Text(
                     "Tempo para relembrete",
@@ -103,7 +107,7 @@ class _PreferenciasPageState
                   ),
                 ),
                 buildDropdownButton(size),
-                SizedBox(height: 30),
+                SizedBox(height: 10),
                 InkWellSpeakText(
                   Text(
                     "Limites de glicemia",
@@ -135,6 +139,17 @@ class _PreferenciasPageState
                     FilteringTextInputFormatter.digitsOnly,
                   ],
                   focusNode: _focusNode2,
+                  nextFocusNode: _focusNode3,
+                ),
+                RoundedInputField(
+                  hintText: "Horário registro de glicose",
+                  controller: horarioGlicoseController,
+                  keyboardType: TextInputType.number,
+                  onChanged: controller.setHorarioGlicose,
+                  inputFormatters: [
+                    FilteringTextInputFormatter.digitsOnly,
+                    HorarioInputFormatter(),
+                  ],
                 ),
                 Observer(builder: (_) {
                   if (controller.isLoading)

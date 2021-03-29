@@ -29,6 +29,8 @@ abstract class _PreferenciasControllerBase with Store, DateUtils {
   String valorMinimoGlicemia = "70";
   @observable
   String valorMaximoGlicemia = "120";
+  @observable
+  String horarioGlicose;
 
   String kAlertarGlicemia = "alertarGlicemia";
   String kAlertarMedicacao = "alertarMedicacao";
@@ -36,6 +38,7 @@ abstract class _PreferenciasControllerBase with Store, DateUtils {
   String kValorMinimoGlicemia = "valorMinimoGlicemia";
   String kValorMaximoGlicemia = "valorMaximoGlicemia";
   String kTempoLembrete = "tempoLembrete";
+  String kHorarioGlicose = "horarioGlicose";
 
   @action
   void setAlertarMedicacao(bool newValue) {
@@ -62,6 +65,9 @@ abstract class _PreferenciasControllerBase with Store, DateUtils {
   }
 
   @action
+  void setHorarioGlicose(String newHorarioGlicose) =>
+      horarioGlicose = newHorarioGlicose;
+  @action
   void setValorMinimoGlicemia(String newValue) =>
       valorMinimoGlicemia = newValue;
   @action
@@ -87,6 +93,8 @@ abstract class _PreferenciasControllerBase with Store, DateUtils {
       valorMaximoGlicemia =
           await _preferences.getString(kValorMaximoGlicemia) ??
               valorMaximoGlicemia;
+      horarioGlicose =
+          await _preferences.getString(kHorarioGlicose) ?? horarioGlicose;
     } catch (e) {
       onError(e.toString());
     }
@@ -100,6 +108,7 @@ abstract class _PreferenciasControllerBase with Store, DateUtils {
     try {
       await _preferences.setString(kValorMaximoGlicemia, valorMaximoGlicemia);
       await _preferences.setString(kValorMinimoGlicemia, valorMinimoGlicemia);
+      await _preferences.setString(kHorarioGlicose, horarioGlicose);
       onSuccess();
     } catch (e) {
       onError(e.toString());
