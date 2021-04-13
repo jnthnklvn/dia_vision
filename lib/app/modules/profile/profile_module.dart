@@ -1,3 +1,4 @@
+import 'package:dia_vision/app/shared/preferences/preferencias_preferences.dart';
 import 'package:dia_vision/app/shared/local_storage/local_storage_shared.dart';
 import 'package:dia_vision/app/repositories/paciente_repository.dart';
 import 'package:dia_vision/app/shared/utils/route_enum.dart';
@@ -18,6 +19,7 @@ class ProfileModule extends ChildModule {
         Bind((i) => PreferenciasController(i())),
         Bind((i) => PacienteRepository()),
         Bind((i) => LocalStorageShared()),
+        Bind((i) => PreferenciasPreferences(i())),
         Bind((i) => MyDataController(i(), i(), i(), i())),
       ];
 

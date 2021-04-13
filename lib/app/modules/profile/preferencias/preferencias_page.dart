@@ -31,7 +31,7 @@ class _PreferenciasPageState
 
   TextEditingController valorMinimoController;
   TextEditingController valorMaximoController;
-  TextEditingController horarioGlicoseController;
+  TextEditingController horarioGlicemiaController;
 
   @override
   void initState() {
@@ -41,8 +41,8 @@ class _PreferenciasPageState
 
   Future<void> initControllers() async {
     await controller.getData(widget.onError);
-    horarioGlicoseController =
-        TextEditingController(text: controller.horarioGlicose);
+    horarioGlicemiaController =
+        TextEditingController(text: controller.horarioGlicemia);
     valorMinimoController =
         TextEditingController(text: controller.valorMinimoGlicemia);
     valorMaximoController =
@@ -77,8 +77,24 @@ class _PreferenciasPageState
           return SingleChildScrollView(
             physics: BouncingScrollPhysics(),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
+                Container(
+                  padding: EdgeInsets.only(left: 10),
+                  alignment: Alignment.centerLeft,
+                  child: InkWellSpeakText(
+                    Text(
+                      "Notificações",
+                      textAlign: TextAlign.start,
+                      style: TextStyle(
+                        color: Colors.black,
+                        backgroundColor: Color(0xFFF5F6F9),
+                        fontSize: 22,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+                ),
                 buildListTileSwitch(
                   controller.alertarGlicemia,
                   "Glicemia",
@@ -94,28 +110,38 @@ class _PreferenciasPageState
                   "Medicação",
                   controller.setAlertarMedicacao,
                 ),
-                SizedBox(height: 10),
-                InkWellSpeakText(
-                  Text(
-                    "Tempo para relembrete",
-                    textAlign: TextAlign.start,
-                    style: TextStyle(
-                      color: kPrimaryColor,
-                      fontSize: 22,
-                      fontWeight: FontWeight.w600,
+                SizedBox(height: 20),
+                Container(
+                  padding: EdgeInsets.only(left: 10),
+                  alignment: Alignment.centerLeft,
+                  child: InkWellSpeakText(
+                    Text(
+                      "Tempo para relembrete",
+                      textAlign: TextAlign.start,
+                      style: TextStyle(
+                        color: Colors.black,
+                        backgroundColor: Color(0xFFF5F6F9),
+                        fontSize: 22,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
                   ),
                 ),
                 buildDropdownButton(size),
-                SizedBox(height: 10),
-                InkWellSpeakText(
-                  Text(
-                    "Limites de glicemia",
-                    textAlign: TextAlign.start,
-                    style: TextStyle(
-                      color: kPrimaryColor,
-                      fontSize: 22,
-                      fontWeight: FontWeight.w600,
+                SizedBox(height: 20),
+                Container(
+                  padding: EdgeInsets.only(left: 10),
+                  alignment: Alignment.centerLeft,
+                  child: InkWellSpeakText(
+                    Text(
+                      "Glicemia",
+                      textAlign: TextAlign.start,
+                      style: TextStyle(
+                        color: Colors.black,
+                        backgroundColor: Color(0xFFF5F6F9),
+                        fontSize: 22,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
                   ),
                 ),
@@ -142,10 +168,11 @@ class _PreferenciasPageState
                   nextFocusNode: _focusNode3,
                 ),
                 RoundedInputField(
-                  hintText: "Horário registro de glicose",
-                  controller: horarioGlicoseController,
+                  hintText: "Horário registro de glicemia",
+                  controller: horarioGlicemiaController,
                   keyboardType: TextInputType.number,
-                  onChanged: controller.setHorarioGlicose,
+                  onChanged: controller.setHorarioGlicemia,
+                  focusNode: _focusNode3,
                   inputFormatters: [
                     FilteringTextInputFormatter.digitsOnly,
                     HorarioInputFormatter(),

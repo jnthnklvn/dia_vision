@@ -1,4 +1,4 @@
-import 'package:dia_vision/app/shared/local_storage/i_local_storage.dart';
+import 'package:dia_vision/app/shared/preferences/preferencias_preferences.dart';
 import 'package:dia_vision/app/shared/utils/date_utils.dart';
 
 import 'package:mobx/mobx.dart';
@@ -9,7 +9,7 @@ class PreferenciasController = _PreferenciasControllerBase
     with _$PreferenciasController;
 
 abstract class _PreferenciasControllerBase with Store, DateUtils {
-  final ILocalStorage _preferences;
+  final PreferenciasPreferences _preferences;
 
   _PreferenciasControllerBase(this._preferences);
 
@@ -30,43 +30,35 @@ abstract class _PreferenciasControllerBase with Store, DateUtils {
   @observable
   String valorMaximoGlicemia = "120";
   @observable
-  String horarioGlicose;
-
-  String kAlertarGlicemia = "alertarGlicemia";
-  String kAlertarMedicacao = "alertarMedicacao";
-  String kAlertarHipoHiperGlicemia = "alertarHipoHiperGlicemia";
-  String kValorMinimoGlicemia = "valorMinimoGlicemia";
-  String kValorMaximoGlicemia = "valorMaximoGlicemia";
-  String kTempoLembrete = "tempoLembrete";
-  String kHorarioGlicose = "horarioGlicose";
+  String horarioGlicemia;
 
   @action
   void setAlertarMedicacao(bool newValue) {
     alertarMedicacao = newValue;
-    _preferences.setBool(kAlertarMedicacao, newValue);
+    _preferences.setAlertarMedicacao(newValue);
   }
 
   @action
   void setAlertarGlicemia(bool newValue) {
     alertarGlicemia = newValue;
-    _preferences.setBool(kAlertarGlicemia, newValue);
+    _preferences.setAlertarGlicemia(newValue);
   }
 
   @action
   void setAlertarHipoHiperGlicemia(bool newValue) {
     alertarHipoHiperGlicemia = newValue;
-    _preferences.setBool(kAlertarHipoHiperGlicemia, newValue);
+    _preferences.setAlertarHipoHiperGlicemia(newValue);
   }
 
   @action
   void setTempoLembrete(String newValue) {
     tempoLembrete = newValue;
-    _preferences.setString(kTempoLembrete, newValue);
+    _preferences.setTempoLembrete(newValue);
   }
 
   @action
-  void setHorarioGlicose(String newHorarioGlicose) =>
-      horarioGlicose = newHorarioGlicose;
+  void setHorarioGlicemia(String newHorarioGlicemia) =>
+      horarioGlicemia = newHorarioGlicemia;
   @action
   void setValorMinimoGlicemia(String newValue) =>
       valorMinimoGlicemia = newValue;
@@ -79,22 +71,18 @@ abstract class _PreferenciasControllerBase with Store, DateUtils {
 
     try {
       alertarMedicacao =
-          await _preferences.getBool(kAlertarMedicacao) ?? alertarMedicacao;
+          await _preferences.getAlertarMedicacao() ?? alertarMedicacao;
       alertarGlicemia =
-          await _preferences.getBool(kAlertarGlicemia) ?? alertarGlicemia;
+          await _preferences.getAlertarGlicemia() ?? alertarGlicemia;
       alertarHipoHiperGlicemia =
-          await _preferences.getBool(kAlertarHipoHiperGlicemia) ??
+          await _preferences.getAlertarHipoHiperGlicemia() ??
               alertarHipoHiperGlicemia;
-      tempoLembrete =
-          await _preferences.getString(kTempoLembrete) ?? tempoLembrete;
+      tempoLembrete = await _preferences.getTempoLembrete() ?? tempoLembrete;
       valorMinimoGlicemia =
-          await _preferences.getString(kValorMinimoGlicemia) ??
-              valorMinimoGlicemia;
+          await _preferences.getValorMinimoGlicemia() ?? valorMinimoGlicemia;
       valorMaximoGlicemia =
-          await _preferences.getString(kValorMaximoGlicemia) ??
-              valorMaximoGlicemia;
-      horarioGlicose =
-          await _preferences.getString(kHorarioGlicose) ?? horarioGlicose;
+          await _preferences.getValorMaximoGlicemia() ?? valorMaximoGlicemia;
+      horarioGlicemia = await _preferences.getHorarioGlicemia() ?? horarioGlicemia;
     } catch (e) {
       onError(e.toString());
     }
@@ -106,9 +94,9 @@ abstract class _PreferenciasControllerBase with Store, DateUtils {
     isLoading = true;
 
     try {
-      await _preferences.setString(kValorMaximoGlicemia, valorMaximoGlicemia);
-      await _preferences.setString(kValorMinimoGlicemia, valorMinimoGlicemia);
-      await _preferences.setString(kHorarioGlicose, horarioGlicose);
+      await _preferences.setValorMaximoGlicemia(valorMaximoGlicemia);
+      await _preferences.setValorMinimoGlicemia(valorMinimoGlicemia);
+      await _preferences.setHorarioGlicemia(horarioGlicemia);
       onSuccess();
     } catch (e) {
       onError(e.toString());
