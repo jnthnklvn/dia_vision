@@ -1,3 +1,5 @@
+import 'package:dia_vision/app/shared/preferences/preferencias_preferences.dart';
+import 'package:dia_vision/app/shared/local_storage/local_storage_shared.dart';
 import 'package:dia_vision/app/modules/home/domain/entities/module.dart';
 import 'package:dia_vision/app/repositories/glicemia_repository.dart';
 import 'package:dia_vision/app/shared/utils/strings.dart';
@@ -12,8 +14,10 @@ import 'package:flutter_modular/flutter_modular.dart';
 class GlicemiaModule extends ChildModule {
   @override
   List<Bind> get binds => [
+        Bind((i) => LocalStorageShared()),
         Bind((i) => GlicemiaRepository()),
-        Bind((i) => GlicemiaController(i(), i())),
+        Bind((i) => PreferenciasPreferences(i())),
+        Bind((i) => GlicemiaController(i(), i(), i())),
         Bind((i) => GlicemiaRegisterController(i(), i(), i())),
       ];
 

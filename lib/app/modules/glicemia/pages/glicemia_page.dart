@@ -3,7 +3,9 @@ import 'package:dia_vision/app/modules/glicemia/widgets/glicemia_widget.dart';
 import 'package:dia_vision/app/shared/components/ink_well_speak_text.dart';
 import 'package:dia_vision/app/modules/home/domain/entities/module.dart';
 import 'package:dia_vision/app/shared/components/back_arrow_button.dart';
+import 'package:dia_vision/app/shared/components/confirm_dialog.dart';
 import 'package:dia_vision/app/shared/utils/scaffold_utils.dart';
+import 'package:dia_vision/app/shared/utils/route_enum.dart';
 import 'package:dia_vision/app/shared/utils/date_utils.dart';
 import 'package:dia_vision/app/shared/utils/constants.dart';
 import 'package:dia_vision/app/shared/utils/strings.dart';
@@ -42,6 +44,23 @@ class _GlicemiaPageState extends ModularState<GlicemiaPage, GlicemiaController>
     if (file != null) await Share.shareFiles([file.path]);
   }
 
+  Future<void> _showMyDialog() async {
+    return showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return ConfirmDialog(
+          () => Modular.to
+              .pushNamed(RouteEnum.profile.name + RouteEnum.preferences.name),
+          'Limites de glicemia',
+          'Você ainda não definiu os valores minimo e máximo para glicemia. O valor padrão de 120 mg/dL para máxima e 70 mg/dL para minima está sendo utilizado. Gostaria de defini-los agora?',
+          onCancell: () =>
+              Modular.to.pushNamed("${glicemy.routeName}/$REGISTER"),
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -50,8 +69,9 @@ class _GlicemiaPageState extends ModularState<GlicemiaPage, GlicemiaController>
       floatingActionButton: InkWell(
         onLongPress: () => _speak("$BUTTON $ADD $REGISTRY"),
         child: FloatingActionButton(
-          onPressed: () =>
-              Modular.to.pushNamed("${glicemy.routeName}/$REGISTER"),
+          onPressed: () => controller.exibirDialog
+              ? _showMyDialog()
+              : Modular.to.pushNamed("${glicemy.routeName}/$REGISTER"),
           backgroundColor: kPrimaryColor,
           child: Icon(Icons.add, size: 32),
         ),

@@ -24,6 +24,21 @@ mixin _$GlicemiaController on _GlicemiaControllerBase, Store {
     });
   }
 
+  final _$exibirDialogAtom = Atom(name: '_GlicemiaControllerBase.exibirDialog');
+
+  @override
+  bool get exibirDialog {
+    _$exibirDialogAtom.reportRead();
+    return super.exibirDialog;
+  }
+
+  @override
+  set exibirDialog(bool value) {
+    _$exibirDialogAtom.reportWrite(value, super.exibirDialog, () {
+      super.exibirDialog = value;
+    });
+  }
+
   final _$glicemiasAtom = Atom(name: '_GlicemiaControllerBase.glicemias');
 
   @override
@@ -43,6 +58,7 @@ mixin _$GlicemiaController on _GlicemiaControllerBase, Store {
   String toString() {
     return '''
 isLoading: ${isLoading},
+exibirDialog: ${exibirDialog},
 glicemias: ${glicemias}
     ''';
   }

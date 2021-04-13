@@ -137,6 +137,22 @@ mixin _$PreferenciasController on _PreferenciasControllerBase, Store {
     });
   }
 
+  final _$horarioGlicemiaAtom =
+      Atom(name: '_PreferenciasControllerBase.horarioGlicemia');
+
+  @override
+  String get horarioGlicemia {
+    _$horarioGlicemiaAtom.reportRead();
+    return super.horarioGlicemia;
+  }
+
+  @override
+  set horarioGlicemia(String value) {
+    _$horarioGlicemiaAtom.reportWrite(value, super.horarioGlicemia, () {
+      super.horarioGlicemia = value;
+    });
+  }
+
   final _$_PreferenciasControllerBaseActionController =
       ActionController(name: '_PreferenciasControllerBase');
 
@@ -186,6 +202,17 @@ mixin _$PreferenciasController on _PreferenciasControllerBase, Store {
   }
 
   @override
+  void setHorarioGlicemia(String newHorarioGlicemia) {
+    final _$actionInfo = _$_PreferenciasControllerBaseActionController
+        .startAction(name: '_PreferenciasControllerBase.setHorarioGlicemia');
+    try {
+      return super.setHorarioGlicemia(newHorarioGlicemia);
+    } finally {
+      _$_PreferenciasControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   void setValorMinimoGlicemia(String newValue) {
     final _$actionInfo =
         _$_PreferenciasControllerBaseActionController.startAction(
@@ -219,7 +246,8 @@ alertarGlicemia: ${alertarGlicemia},
 alertarHipoHiperGlicemia: ${alertarHipoHiperGlicemia},
 tempoLembrete: ${tempoLembrete},
 valorMinimoGlicemia: ${valorMinimoGlicemia},
-valorMaximoGlicemia: ${valorMaximoGlicemia}
+valorMaximoGlicemia: ${valorMaximoGlicemia},
+horarioGlicemia: ${horarioGlicemia}
     ''';
   }
 }

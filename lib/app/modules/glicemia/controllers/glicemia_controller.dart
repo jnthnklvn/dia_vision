@@ -1,3 +1,4 @@
+import 'package:dia_vision/app/shared/preferences/preferencias_preferences.dart';
 import 'package:dia_vision/app/repositories/glicemia_repository.dart';
 import 'package:dia_vision/app/shared/utils/file_utils.dart';
 import 'package:dia_vision/app/shared/utils/csv_utils.dart';
@@ -13,21 +14,37 @@ class GlicemiaController = _GlicemiaControllerBase with _$GlicemiaController;
 
 abstract class _GlicemiaControllerBase with Store, CsvUtils, FileUtils {
   final IGlicemiaRepository _glicemiaRepository;
+  final PreferenciasPreferences _preferences;
   final AppController _appController;
 
   _GlicemiaControllerBase(
     this._glicemiaRepository,
     this._appController,
+    this._preferences,
   );
 
   @observable
   bool isLoading = false;
   @observable
+  bool exibirDialog = false;
+
+  @observable
   ObservableList<Glicemia> glicemias = ObservableList<Glicemia>();
+
+  Future<void> checkValoresGlicemia() async {
+    final valorMaxGlic = await _preferences.getValorMaximoGlicemia();
+    final valorMinGlic = await _preferences.getValorMinimoGlicemia();
+
+    if (valorMinGlic == null ||
+        valorMaxGlic == null ||
+        valorMinGlic == "70" ||
+        valorMaxGlic == "120") exibirDialog = true;
+  }
 
   Future<void> getData(Function(String) onError) async {
     isLoading = true;
     try {
+      checkValoresGlicemia();
       final result = await _glicemiaRepository
           .getAllByPaciente(_appController.user.paciente);
       result.fold((l) => onError(l.message), (r) {
