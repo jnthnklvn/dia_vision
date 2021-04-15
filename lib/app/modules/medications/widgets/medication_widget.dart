@@ -3,6 +3,7 @@ import 'package:dia_vision/app/modules/home/domain/entities/module.dart';
 import 'package:dia_vision/app/model/medicacao_prescrita.dart';
 import 'package:dia_vision/app/shared/utils/color_utils.dart';
 import 'package:dia_vision/app/shared/utils/date_utils.dart';
+import 'package:dia_vision/app/shared/utils/constants.dart';
 import 'package:dia_vision/app/shared/utils/strings.dart';
 
 import 'package:flutter_modular/flutter_modular.dart';
@@ -57,14 +58,15 @@ class MedicationWidget extends StatelessWidget with DateUtils, MedicationUtils {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16),
           color: ColorUtils.colors[
-              _medicacaoPrescrita.nome.hashCode % ColorUtils.colors.length],
+                  _medicacaoPrescrita.nome.hashCode % ColorUtils.colors.length]
+              .withOpacity(0.5),
         ),
         padding: EdgeInsets.symmetric(horizontal: 4, vertical: 4),
         margin: EdgeInsets.all(8),
         child: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(16),
-            color: Color(0xFF01215e),
+            color: kSecondaryColor,
           ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,

@@ -1,6 +1,7 @@
 import 'package:dia_vision/app/modules/home/domain/entities/module.dart';
 import 'package:dia_vision/app/shared/utils/color_utils.dart';
 import 'package:dia_vision/app/shared/utils/date_utils.dart';
+import 'package:dia_vision/app/shared/utils/constants.dart';
 import 'package:dia_vision/app/shared/utils/strings.dart';
 import 'package:dia_vision/app/model/glicemia.dart';
 
@@ -46,15 +47,16 @@ class GlicemiaWidget extends StatelessWidget with DateUtils {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16),
           color: ColorUtils.colors[
-              _glicemia.horario?.displayTitle.toString().hashCode %
-                  ColorUtils.colors.length],
+                  _glicemia.horario?.displayTitle.toString().hashCode %
+                      ColorUtils.colors.length]
+              .withOpacity(0.5),
         ),
         padding: EdgeInsets.symmetric(horizontal: 4, vertical: 4),
         margin: EdgeInsets.all(8),
         child: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(16),
-            color: Color(0xFF01215e),
+            color: kSecondaryColor,
           ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
