@@ -34,6 +34,7 @@ dependencies:
   path_provider: ^1.6.27
   brasil_fields: ^0.6.1
   flutter_typeahead: ^2.0.0
+  url_launcher: ^5.7.5
   share: ^0.6.5+4
   flutter_localizations:
     sdk: flutter

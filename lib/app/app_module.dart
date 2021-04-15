@@ -8,12 +8,14 @@ import 'package:flutter_tts/flutter_tts.dart';
 import 'package:flutter/material.dart';
 
 import 'modules/avaliacao_pes/avaliacao_pes_module.dart';
+import 'modules/autocuidado/autocuidado_module.dart';
 import 'modules/medications/medications_module.dart';
 import 'modules/glicemia/glicemia_module.dart';
 import 'modules/diurese/diurese_module.dart';
 import 'modules/profile/profile_module.dart';
 import 'modules/auth/auth_module.dart';
 import 'modules/home/home_module.dart';
+
 import 'app_controller.dart';
 
 class AppModule extends MainModule {
@@ -34,6 +36,7 @@ class AppModule extends MainModule {
         ModularRouter(RouteEnum.feet.name, module: AvaliacaoPesModule()),
         ModularRouter(RouteEnum.kidney.name, module: DiureseModule()),
         ModularRouter(RouteEnum.glicemy.name, module: GlicemiaModule()),
+        ModularRouter(RouteEnum.selfCare.name, module: AutocuidadoModule()),
       ];
 
   @override

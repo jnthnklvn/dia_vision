@@ -12,7 +12,7 @@ const kPrimaryGradientColor = LinearGradient(
   end: Alignment.bottomRight,
   colors: [Color(0xFFD6E9ED), Color(0xFF00778C)],
 );
-const kSecondaryColor = Color(0xFF01215e);
+const kSecondaryColor = Color(0xFF1B2535);
 const kTextColor = Color(0xFF757575);
 
 final headingStyle = TextStyle(
