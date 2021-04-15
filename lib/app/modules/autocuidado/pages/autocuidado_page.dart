@@ -170,8 +170,9 @@ class _AutocuidadoPageState
   }
 
   Future<void> _launchURL(String url) async {
-    await canLaunch(url)
-        ? await launch(url)
-        : widget.onError("Ocorreu um erro");
+    if (await canLaunch(url))
+      await launch(url);
+    else
+      widget.onError("Ocorreu um erro");
   }
 }
