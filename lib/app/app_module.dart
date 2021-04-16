@@ -8,6 +8,7 @@ import 'package:flutter_tts/flutter_tts.dart';
 import 'package:flutter/material.dart';
 
 import 'modules/avaliacao_pes/avaliacao_pes_module.dart';
+import 'modules/centro_saude/centro_saude_module.dart';
 import 'modules/autocuidado/autocuidado_module.dart';
 import 'modules/medications/medications_module.dart';
 import 'modules/glicemia/glicemia_module.dart';
@@ -37,6 +38,7 @@ class AppModule extends MainModule {
         ModularRouter(RouteEnum.kidney.name, module: DiureseModule()),
         ModularRouter(RouteEnum.glicemy.name, module: GlicemiaModule()),
         ModularRouter(RouteEnum.selfCare.name, module: AutocuidadoModule()),
+        ModularRouter(RouteEnum.medicalCenters.name, module: CentroSaudeModule()),
       ];
 
   @override

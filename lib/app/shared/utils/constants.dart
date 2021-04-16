@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 /// Titles
 const APP_NAME = "DiaVision";
 
+const kAppBarTitleSize = 22.0;
+
 const kPrimaryColor = Color(0xFF00778C);
 const kPrimaryLightColor = Color(0xFFD6E9ED);
 const kPrimaryGradientColor = LinearGradient(

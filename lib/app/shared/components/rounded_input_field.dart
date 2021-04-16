@@ -53,7 +53,7 @@ class RoundedInputField extends StatelessWidget {
               }
             : null,
         textInputAction:
-            hasNextNode ? TextInputAction.next : TextInputAction.none,
+            hasNextNode ? TextInputAction.next : TextInputAction.done,
         cursorColor: kPrimaryColor,
         keyboardType: keyboardType,
         decoration: InputDecoration(
