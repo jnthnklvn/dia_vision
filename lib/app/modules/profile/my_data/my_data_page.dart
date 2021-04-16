@@ -63,7 +63,7 @@ class _MyDataPageState extends ModularState<MyDataPage, MyDataController>
           Text(
             "Edite seus dados",
             style: TextStyle(
-              fontSize: 24,
+              fontSize: kAppBarTitleSize,
               color: kPrimaryColor,
               fontWeight: FontWeight.bold,
             ),

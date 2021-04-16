@@ -59,7 +59,7 @@ class _GlicemiaRegisterPageState
           Text(
             GLICEMY_REGISTER,
             style: TextStyle(
-              fontSize: 24,
+              fontSize: kAppBarTitleSize,
               color: kPrimaryColor,
               fontWeight: FontWeight.bold,
             ),

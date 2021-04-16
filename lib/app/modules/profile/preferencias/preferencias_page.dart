@@ -60,7 +60,7 @@ class _PreferenciasPageState
           Text(
             "Preferências",
             style: TextStyle(
-              fontSize: 24,
+              fontSize: kAppBarTitleSize,
               color: kPrimaryColor,
               fontWeight: FontWeight.bold,
             ),
@@ -215,7 +215,7 @@ class _PreferenciasPageState
           Text(
             text,
             style: TextStyle(
-              fontSize: 22,
+              fontSize: kAppBarTitleSize,
               color: kPrimaryColor,
               fontWeight: FontWeight.w600,
             ),

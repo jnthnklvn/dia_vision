@@ -96,7 +96,7 @@ class _GlicemiaPageState extends ModularState<GlicemiaPage, GlicemiaController>
           Text(
             GLICEMY,
             style: TextStyle(
-              fontSize: 24,
+              fontSize: kAppBarTitleSize,
               color: kPrimaryColor,
               fontWeight: FontWeight.bold,
             ),

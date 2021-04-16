@@ -45,7 +45,7 @@ class _AutocuidadoPageState
           Text(
             SELF_CARE_TITLE,
             style: TextStyle(
-              fontSize: 24,
+              fontSize: kAppBarTitleSize,
               color: kPrimaryColor,
               fontWeight: FontWeight.bold,
             ),

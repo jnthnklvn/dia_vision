@@ -145,7 +145,7 @@ class _MedicationRegisterPageState
           Text(
             MEDICATION_REGISTER,
             style: TextStyle(
-              fontSize: 24,
+              fontSize: kAppBarTitleSize,
               color: kPrimaryColor,
               fontWeight: FontWeight.bold,
             ),

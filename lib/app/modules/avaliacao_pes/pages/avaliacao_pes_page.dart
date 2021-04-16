@@ -76,7 +76,7 @@ class _AvaliacaoPesPageState
           Text(
             FEET_CHECK,
             style: TextStyle(
-              fontSize: 24,
+              fontSize: kAppBarTitleSize,
               color: kPrimaryColor,
               fontWeight: FontWeight.bold,
             ),

@@ -60,7 +60,7 @@ class _DiureseRegisterPageState
           Text(
             DIURESIS_CHECK_REGISTER,
             style: TextStyle(
-              fontSize: 24,
+              fontSize: kAppBarTitleSize,
               color: kPrimaryColor,
               fontWeight: FontWeight.bold,
             ),

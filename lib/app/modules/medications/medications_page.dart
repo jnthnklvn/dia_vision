@@ -77,7 +77,7 @@ class _MedicationsPageState
           Text(
             MEDICATIONS,
             style: TextStyle(
-              fontSize: 24,
+              fontSize: kAppBarTitleSize,
               color: kPrimaryColor,
               fontWeight: FontWeight.bold,
             ),

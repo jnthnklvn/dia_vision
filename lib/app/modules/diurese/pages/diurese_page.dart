@@ -76,7 +76,7 @@ class _DiuresePageState extends ModularState<DiuresePage, DiureseController>
           Text(
             KIDNEY_DIURESIS,
             style: TextStyle(
-              fontSize: 24,
+              fontSize: kAppBarTitleSize,
               color: kPrimaryColor,
               fontWeight: FontWeight.bold,
             ),
