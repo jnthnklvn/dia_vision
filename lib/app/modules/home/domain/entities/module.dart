@@ -64,7 +64,7 @@ final kidney = Module(
   RouteEnum.kidney.name,
 );
 final vision = Module(
-  "Visão",
+  "Apps de Visão",
   "assets/images/vision.svg",
   true,
   RouteEnum.vision.name,
@@ -72,6 +72,7 @@ final vision = Module(
 
 List<Module> modules = [
   alimentation,
+  vision,
   exercises,
   selfCare,
   medicalCenters,
@@ -80,5 +81,4 @@ List<Module> modules = [
   feet,
   // doctors,
   kidney,
-  vision,
 ];
