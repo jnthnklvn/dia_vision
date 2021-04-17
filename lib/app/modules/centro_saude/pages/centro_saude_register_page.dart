@@ -9,6 +9,7 @@ import 'package:dia_vision/app/shared/utils/strings.dart';
 import 'package:dia_vision/app/model/centro_saude.dart';
 
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:brasil_fields/brasil_fields.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
@@ -38,9 +39,11 @@ class _CentroSaudeRegisterPageState extends ModularState<
   final focusNode6 = FocusNode();
   final focusNode7 = FocusNode();
   final focusNode8 = FocusNode();
+  final focusNode9 = FocusNode();
 
   final nomeController = TextEditingController();
   final tipoController = TextEditingController();
+  final telefoneController = TextEditingController();
   final descricaoController = TextEditingController();
   final linkController = TextEditingController();
   final cidadeController = TextEditingController();
@@ -87,28 +90,40 @@ class _CentroSaudeRegisterPageState extends ModularState<
                   nextFocusNode: focusNode1,
                 ),
                 RoundedInputField(
+                  onChanged: controller.setTelefone,
+                  controller: telefoneController,
+                  keyboardType: TextInputType.number,
+                  hintText: "Telefone para contato",
+                  inputFormatters: [
+                    FilteringTextInputFormatter.digitsOnly,
+                    TelefoneInputFormatter(),
+                  ],
+                  focusNode: focusNode1,
+                  nextFocusNode: focusNode2,
+                ),
+                RoundedInputField(
                   hintText: "Descrição",
                   controller: descricaoController,
                   keyboardType: TextInputType.text,
                   onChanged: controller.setDescricao,
-                  focusNode: focusNode1,
-                  nextFocusNode: focusNode2,
+                  focusNode: focusNode2,
+                  nextFocusNode: focusNode3,
                 ),
                 RoundedInputField(
                   hintText: "Tipo",
                   controller: tipoController,
                   keyboardType: TextInputType.text,
                   onChanged: controller.setTipo,
-                  focusNode: focusNode2,
-                  nextFocusNode: focusNode3,
+                  focusNode: focusNode3,
+                  nextFocusNode: focusNode4,
                 ),
                 RoundedInputField(
                   hintText: "Link do Google Maps",
                   controller: linkController,
                   keyboardType: TextInputType.text,
                   onChanged: controller.setLinkMaps,
-                  focusNode: focusNode3,
-                  nextFocusNode: focusNode4,
+                  focusNode: focusNode4,
+                  nextFocusNode: focusNode5,
                 ),
                 Container(
                   margin: EdgeInsets.only(left: 15, right: 10),
@@ -139,39 +154,39 @@ class _CentroSaudeRegisterPageState extends ModularState<
                         controller: estadoController,
                         keyboardType: TextInputType.text,
                         onChanged: controller.setEstado,
-                        focusNode: focusNode4,
-                        nextFocusNode: focusNode5,
+                        focusNode: focusNode5,
+                        nextFocusNode: focusNode6,
                       ),
                       RoundedInputField(
                         hintText: "Cidade",
                         controller: cidadeController,
                         keyboardType: TextInputType.text,
                         onChanged: controller.setCidade,
-                        focusNode: focusNode5,
-                        nextFocusNode: focusNode6,
+                        focusNode: focusNode6,
+                        nextFocusNode: focusNode7,
                       ),
                       RoundedInputField(
                         hintText: "Bairro",
                         controller: bairroController,
                         keyboardType: TextInputType.text,
                         onChanged: controller.setBairro,
-                        focusNode: focusNode6,
-                        nextFocusNode: focusNode7,
+                        focusNode: focusNode7,
+                        nextFocusNode: focusNode8,
                       ),
                       RoundedInputField(
                         hintText: "Rua",
                         controller: ruaController,
                         keyboardType: TextInputType.text,
                         onChanged: controller.setRua,
-                        focusNode: focusNode7,
-                        nextFocusNode: focusNode8,
+                        focusNode: focusNode8,
+                        nextFocusNode: focusNode9,
                       ),
                       RoundedInputField(
                         hintText: "Número",
                         controller: numeroController,
                         keyboardType: TextInputType.text,
                         onChanged: controller.setNumero,
-                        focusNode: focusNode8,
+                        focusNode: focusNode9,
                       ),
                     ],
                   ),

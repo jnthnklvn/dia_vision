@@ -24,6 +24,8 @@ abstract class _CentroSaudeRegisterControllerBase with Store {
   @observable
   String descricao;
   @observable
+  String telefone;
+  @observable
   String tipo;
   @observable
   String linkMaps;
@@ -48,6 +50,8 @@ abstract class _CentroSaudeRegisterControllerBase with Store {
   void setAdcEndereco(bool newValue) => adcEndereco = newValue;
   @action
   void setDescricao(String newValue) => descricao = newValue;
+  @action
+  void setTelefone(String newValue) => telefone = newValue;
   @action
   void setTipo(String newValue) => tipo = newValue;
   @action
@@ -92,6 +96,7 @@ abstract class _CentroSaudeRegisterControllerBase with Store {
       final centroSaude = CentroSaude(
         descricao: descricao,
         tipo: tipo,
+        telefone: telefone,
         linkMaps: linkMaps,
         nome: nome,
       );

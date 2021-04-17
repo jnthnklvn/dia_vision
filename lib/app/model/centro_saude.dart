@@ -7,6 +7,7 @@ const kLinkImagem = "linkImagem";
 const kNome = "nome";
 const kTipo = "tipo";
 const kEndereco = 'endereco';
+const kTelefone = 'telefone';
 const kDescricao = "descricao";
 const kCentroSaudeTable = "CentroSaude";
 
@@ -16,6 +17,7 @@ class CentroSaude extends ParseObject implements ParseCloneable {
     String descricao,
     String categoria,
     String linkMaps,
+    String telefone,
     String linkImagem,
     String tipo,
     Endereco endereco,
@@ -23,6 +25,7 @@ class CentroSaude extends ParseObject implements ParseCloneable {
     this.nome = nome;
     this.descricao = descricao;
     this.linkImagem = linkImagem;
+    this.telefone = telefone;
     this.linkMaps = linkMaps;
     this.tipo = tipo;
     this.endereco = endereco;
@@ -42,6 +45,9 @@ class CentroSaude extends ParseObject implements ParseCloneable {
 
   String get linkMaps => get<String>(kLinkMaps);
   set linkMaps(String linkMaps) => set<String>(kLinkMaps, linkMaps);
+
+  String get telefone => get<String>(kTelefone);
+  set telefone(String telefone) => set<String>(kTelefone, telefone);
 
   String get linkImagem => get<String>(kLinkImagem);
   set linkImagem(String linkImagem) => set<String>(kLinkImagem, linkImagem);

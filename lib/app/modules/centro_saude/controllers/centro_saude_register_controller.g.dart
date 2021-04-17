@@ -41,6 +41,22 @@ mixin _$CentroSaudeRegisterController
     });
   }
 
+  final _$telefoneAtom =
+      Atom(name: '_CentroSaudeRegisterControllerBase.telefone');
+
+  @override
+  String get telefone {
+    _$telefoneAtom.reportRead();
+    return super.telefone;
+  }
+
+  @override
+  set telefone(String value) {
+    _$telefoneAtom.reportWrite(value, super.telefone, () {
+      super.telefone = value;
+    });
+  }
+
   final _$tipoAtom = Atom(name: '_CentroSaudeRegisterControllerBase.tipo');
 
   @override
@@ -207,6 +223,18 @@ mixin _$CentroSaudeRegisterController
   }
 
   @override
+  void setTelefone(String newValue) {
+    final _$actionInfo = _$_CentroSaudeRegisterControllerBaseActionController
+        .startAction(name: '_CentroSaudeRegisterControllerBase.setTelefone');
+    try {
+      return super.setTelefone(newValue);
+    } finally {
+      _$_CentroSaudeRegisterControllerBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
   void setTipo(String newValue) {
     final _$actionInfo = _$_CentroSaudeRegisterControllerBaseActionController
         .startAction(name: '_CentroSaudeRegisterControllerBase.setTipo');
@@ -307,6 +335,7 @@ mixin _$CentroSaudeRegisterController
     return '''
 nome: ${nome},
 descricao: ${descricao},
+telefone: ${telefone},
 tipo: ${tipo},
 linkMaps: ${linkMaps},
 cidade: ${cidade},

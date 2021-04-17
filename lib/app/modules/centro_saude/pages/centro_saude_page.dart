@@ -133,15 +133,18 @@ class _CentroSaudePageState
             child: InkWellSpeakText(
               Text(
                 _centroSaude.descricao ?? "",
+                textAlign: TextAlign.justify,
                 style: TextStyle(fontSize: 16),
               ),
             ),
           ),
           if (_centroSaude.endereco != null)
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                InkWellSpeakText(
+            InkWell(
+              onLongPress: () => _speak(
+                  "Endereço: ${getEnderecoFormatado(_centroSaude.endereco)}"),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
                   Text(
                     "Endereço:",
                     style: TextStyle(
@@ -150,8 +153,6 @@ class _CentroSaudePageState
                       fontSize: 16,
                     ),
                   ),
-                ),
-                InkWellSpeakText(
                   Text(
                     getEnderecoFormatado(_centroSaude.endereco),
                     style: TextStyle(
@@ -159,8 +160,34 @@ class _CentroSaudePageState
                       fontSize: 16,
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
+            ),
+          SizedBox(height: 15),
+          if (_centroSaude.telefone != null)
+            InkWell(
+              onLongPress: () =>
+                  _speak("Telefone para contato: ${_centroSaude.telefone}"),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Telefone para contato:",
+                    style: TextStyle(
+                      color: Colors.grey[600],
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                    ),
+                  ),
+                  Text(
+                    _centroSaude.telefone,
+                    style: TextStyle(
+                      color: Colors.grey[600],
+                      fontSize: 16,
+                    ),
+                  ),
+                ],
+              ),
             ),
           SizedBox(height: 15),
           if (_centroSaude.linkMaps != null)

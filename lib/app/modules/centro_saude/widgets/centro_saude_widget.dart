@@ -23,6 +23,7 @@ class CentroSaudeWidget extends StatelessWidget with DateUtils {
     final subtitleContents = [
       getFullString("Tipo", _centroSaude.tipo),
       getFullString("Descrição", _centroSaude.descricao),
+      getFullString("Telefone", _centroSaude.telefone),
     ];
     subtitleContents.removeWhere((e) => e == null);
 
