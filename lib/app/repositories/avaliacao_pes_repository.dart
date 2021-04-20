@@ -40,7 +40,8 @@ class AvaliacaoPesRepository implements IAvaliacaoPesRepository {
   Future<Either<AvaliacaoPesFailure, List<AvaliacaoPes>>> getAllByPaciente(
       Paciente paciente) async {
     final query = QueryBuilder(AvaliacaoPes.clone())
-      ..whereEqualTo('paciente', paciente);
+      ..whereEqualTo('paciente', paciente)
+      ..orderByDescending("createdAt");
     final response = await query.query();
 
     return _getResult(response);

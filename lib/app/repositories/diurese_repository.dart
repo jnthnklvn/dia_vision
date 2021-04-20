@@ -38,7 +38,8 @@ class DiureseRepository implements IDiureseRepository {
   Future<Either<DiureseFailure, List<Diurese>>> getAllByPaciente(
       Paciente paciente) async {
     final query = QueryBuilder(Diurese.clone())
-      ..whereEqualTo('paciente', paciente);
+      ..whereEqualTo('paciente', paciente)
+      ..orderByDescending("createdAt");
     final response = await query.query();
 
     return _getResult(response);

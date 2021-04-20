@@ -21,7 +21,8 @@ class AutocuidadoRepository implements IAutocuidadoRepository {
   }
 
   Future<Either<AutocuidadoFailure, List<Autocuidado>>> getAll() async {
-    final query = QueryBuilder(Autocuidado.clone());
+    final query = QueryBuilder(Autocuidado.clone())
+      ..orderByDescending("createdAt");
     final response = await query.query();
 
     return _getResult(response);

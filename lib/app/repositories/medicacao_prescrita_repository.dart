@@ -44,7 +44,8 @@ class MedicacaoPrescritaRepository implements IMedicacaoPrescritaRepository {
     final query = QueryBuilder(MedicacaoPrescrita.clone())
       ..whereEqualTo('paciente', paciente)
       ..includeObject(['paciente'])
-      ..includeObject(['medicamento']);
+      ..includeObject(['medicamento'])
+      ..orderByDescending("createdAt");
     final response = await query.query();
 
     return _getResult(response);

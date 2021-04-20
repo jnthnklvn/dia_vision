@@ -36,7 +36,8 @@ class CentroSaudeRepository implements ICentroSaudeRepository {
   Future<Either<CentroSaudeFailure, List<CentroSaude>>> getAll() async {
     final query = QueryBuilder(CentroSaude.clone())
       ..whereEqualTo('verificado', true)
-      ..includeObject(['endereco']);
+      ..includeObject(['endereco'])
+      ..orderByDescending("createdAt");
     final response = await query.query();
 
     return _getResult(response);

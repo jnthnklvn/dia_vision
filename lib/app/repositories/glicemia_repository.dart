@@ -38,7 +38,8 @@ class GlicemiaRepository implements IGlicemiaRepository {
   Future<Either<GlicemiaFailure, List<Glicemia>>> getAllByPaciente(
       Paciente paciente) async {
     final query = QueryBuilder(Glicemia.clone())
-      ..whereEqualTo('paciente', paciente);
+      ..whereEqualTo('paciente', paciente)
+      ..orderByDescending("createdAt");
     final response = await query.query();
 
     return _getResult(response);

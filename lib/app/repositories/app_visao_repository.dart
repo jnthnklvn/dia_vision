@@ -32,7 +32,8 @@ class AppVisaoRepository implements IAppVisaoRepository {
 
   Future<Either<AppVisaoFailure, List<AppVisao>>> getAll() async {
     final query = QueryBuilder(AppVisao.clone())
-      ..whereEqualTo('verificado', true);
+      ..whereEqualTo('verificado', true)
+      ..orderByDescending("createdAt");
     final response = await query.query();
 
     return _getResult(response);
