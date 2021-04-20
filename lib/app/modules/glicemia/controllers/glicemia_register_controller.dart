@@ -1,3 +1,4 @@
+import 'package:dia_vision/app/shared/preferences/preferencias_preferences.dart';
 import 'package:dia_vision/app/repositories/glicemia_repository.dart';
 import 'package:dia_vision/app/shared/utils/date_utils.dart';
 import 'package:dia_vision/app/app_controller.dart';
@@ -15,11 +16,13 @@ class GlicemiaRegisterController = _GlicemiaRegisterControllerBase
 abstract class _GlicemiaRegisterControllerBase with Store, DateUtils {
   final IGlicemiaRepository _glicemiaRepository;
   final GlicemiaController _glicemiaController;
+  final PreferenciasPreferences _preferences;
   final AppController _appController;
 
   _GlicemiaRegisterControllerBase(
     this._glicemiaRepository,
     this._glicemiaController,
+    this._preferences,
     this._appController,
   );
 
@@ -32,6 +35,10 @@ abstract class _GlicemiaRegisterControllerBase with Store, DateUtils {
 
   @observable
   bool isLoading = false;
+  @observable
+  bool isHipoGlicemia = false;
+  @observable
+  bool isHiperGlicemia = false;
   @observable
   List<Glicemia> glicemias = [];
 
@@ -71,7 +78,27 @@ abstract class _GlicemiaRegisterControllerBase with Store, DateUtils {
 
       final dValor =
           valor != null ? num.tryParse(valor.replaceAll(',', '.')) : null;
-      if (dValor != null) glicemia.valor = dValor;
+      if (dValor != null) {
+        glicemia.valor = dValor;
+
+        try {
+          final alertarHip =
+              (await _preferences.getAlertarHipoHiperGlicemia()) ?? false;
+          final maxGlicemia = num.tryParse(
+              (await _preferences.getValorMaximoGlicemia())
+                  .toString()
+                  .replaceAll(',', '.'));
+          final minGlicemia = num.tryParse(
+              (await _preferences.getValorMinimoGlicemia())
+                  .toString()
+                  .replaceAll(',', '.'));
+
+          isHiperGlicemia =
+              alertarHip && maxGlicemia != null && dValor > maxGlicemia;
+          isHipoGlicemia =
+              alertarHip && minGlicemia != null && dValor < minGlicemia;
+        } catch (e) {}
+      }
 
       final result = await _glicemiaRepository.save(glicemia, user);
       result.fold((l) => onError(l.message), (r) {

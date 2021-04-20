@@ -18,7 +18,7 @@ class GlicemiaModule extends ChildModule {
         Bind((i) => GlicemiaRepository()),
         Bind((i) => PreferenciasPreferences(i())),
         Bind((i) => GlicemiaController(i(), i(), i())),
-        Bind((i) => GlicemiaRegisterController(i(), i(), i())),
+        Bind((i) => GlicemiaRegisterController(i(), i(), i(), i())),
       ];
 
   @override

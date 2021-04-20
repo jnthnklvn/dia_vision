@@ -23,7 +23,7 @@ class ConfirmDialog extends StatelessWidget {
     return AlertDialog(
       title: InkWellSpeakText(Text(title,
           style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600))),
-      contentPadding: EdgeInsets.only(left: 25, right: 25, top: 20),
+      contentPadding: EdgeInsets.only(left: 25, right: 25, top: 20, bottom: 10),
       content: InkWellSpeakText(
         Text(
           content,

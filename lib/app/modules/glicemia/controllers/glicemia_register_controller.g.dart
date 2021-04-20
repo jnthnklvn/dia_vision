@@ -79,6 +79,38 @@ mixin _$GlicemiaRegisterController on _GlicemiaRegisterControllerBase, Store {
     });
   }
 
+  final _$isHipoGlicemiaAtom =
+      Atom(name: '_GlicemiaRegisterControllerBase.isHipoGlicemia');
+
+  @override
+  bool get isHipoGlicemia {
+    _$isHipoGlicemiaAtom.reportRead();
+    return super.isHipoGlicemia;
+  }
+
+  @override
+  set isHipoGlicemia(bool value) {
+    _$isHipoGlicemiaAtom.reportWrite(value, super.isHipoGlicemia, () {
+      super.isHipoGlicemia = value;
+    });
+  }
+
+  final _$isHiperGlicemiaAtom =
+      Atom(name: '_GlicemiaRegisterControllerBase.isHiperGlicemia');
+
+  @override
+  bool get isHiperGlicemia {
+    _$isHiperGlicemiaAtom.reportRead();
+    return super.isHiperGlicemia;
+  }
+
+  @override
+  set isHiperGlicemia(bool value) {
+    _$isHiperGlicemiaAtom.reportWrite(value, super.isHiperGlicemia, () {
+      super.isHiperGlicemia = value;
+    });
+  }
+
   final _$glicemiasAtom =
       Atom(name: '_GlicemiaRegisterControllerBase.glicemias');
 
@@ -138,6 +170,8 @@ valor: ${valor},
 horario: ${horario},
 horarioFixo: ${horarioFixo},
 isLoading: ${isLoading},
+isHipoGlicemia: ${isHipoGlicemia},
+isHiperGlicemia: ${isHiperGlicemia},
 glicemias: ${glicemias},
 isEdicao: ${isEdicao}
     ''';
