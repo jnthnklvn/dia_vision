@@ -1,4 +1,8 @@
+import 'dart:io';
+
 import 'package:dia_vision/app/repositories/atividade_fisica_repository.dart';
+import 'package:dia_vision/app/shared/utils/file_utils.dart';
+import 'package:dia_vision/app/shared/utils/csv_utils.dart';
 import 'package:dia_vision/app/model/atividade_fisica.dart';
 import 'package:dia_vision/app/app_controller.dart';
 
@@ -9,7 +13,7 @@ part 'atividade_fisica_controller.g.dart';
 class AtividadeFisicaController = _AtividadeFisicaControllerBase
     with _$AtividadeFisicaController;
 
-abstract class _AtividadeFisicaControllerBase with Store {
+abstract class _AtividadeFisicaControllerBase with Store, CsvUtils, FileUtils {
   final IAtividadeFisicaRepository _atividadeFisicaRepository;
   final AppController _appController;
 
@@ -37,5 +41,16 @@ abstract class _AtividadeFisicaControllerBase with Store {
       isLoading = false;
     }
     isLoading = false;
+  }
+
+  Future<File> getRelatorioCsvFile(
+      Function(String) onError, String path) async {
+    try {
+      String csv = mapListToCsv(atividades.map((e) => e.toMap()).toList());
+      return await save(csv, path);
+    } catch (e) {
+      onError(e.toString());
+    }
+    return null;
   }
 }

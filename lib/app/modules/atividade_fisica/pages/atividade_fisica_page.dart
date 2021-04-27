@@ -4,13 +4,16 @@ import 'package:dia_vision/app/shared/components/ink_well_speak_text.dart';
 import 'package:dia_vision/app/modules/home/domain/entities/module.dart';
 import 'package:dia_vision/app/shared/components/back_arrow_button.dart';
 import 'package:dia_vision/app/shared/utils/scaffold_utils.dart';
+import 'package:dia_vision/app/shared/utils/date_utils.dart';
 import 'package:dia_vision/app/shared/utils/constants.dart';
 import 'package:dia_vision/app/shared/utils/strings.dart';
 
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:flutter/material.dart';
+import 'package:share/share.dart';
 
 class AtividadeFisicaPage extends StatefulWidget with ScaffoldUtils {
   @override
@@ -19,7 +22,8 @@ class AtividadeFisicaPage extends StatefulWidget with ScaffoldUtils {
 }
 
 class _AtividadeFisicaPageState
-    extends ModularState<AtividadeFisicaPage, AtividadeFisicaController> {
+    extends ModularState<AtividadeFisicaPage, AtividadeFisicaController>
+    with DateUtils {
   Future _speak(String txt) => Modular.get<FlutterTts>().speak(txt);
   final GlobalKey<ScaffoldState> scaffoldKey;
 
@@ -29,6 +33,15 @@ class _AtividadeFisicaPageState
   void initState() {
     super.initState();
     controller.getData(widget.onError);
+  }
+
+  Future<void> saveRelatorioCsv() async {
+    final directory = await getApplicationDocumentsDirectory();
+    final pathOfTheFileToWrite = directory.path +
+        "/atividade_fisica_${getDataForFileName(DateTime.now())}.csv";
+    final file = await controller.getRelatorioCsvFile(
+        widget.onError, pathOfTheFileToWrite);
+    if (file != null) await Share.shareFiles([file.path]);
   }
 
   @override
@@ -46,6 +59,20 @@ class _AtividadeFisicaPageState
         ),
       ),
       appBar: AppBar(
+        actions: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: InkWell(
+              onLongPress: () => _speak("$BUTTON $SHARE $REGISTRY"),
+              onTap: saveRelatorioCsv,
+              child: Icon(
+                Icons.share,
+                size: 32,
+                color: kPrimaryColor,
+              ),
+            ),
+          ),
+        ],
         leading: BackArrowButton(iconPadding: 5),
         title: InkWellSpeakText(
           Text(

@@ -1,3 +1,4 @@
+import 'package:dia_vision/app/shared/utils/date_utils.dart';
 import 'package:parse_server_sdk/parse_server_sdk.dart';
 
 import 'paciente.dart';
@@ -19,7 +20,9 @@ extension ExerciseTypeExtension on ExerciseType {
   String get name => this.toString().replaceAll('ExerciseType.', '');
 }
 
-class AtividadeFisica extends ParseObject implements ParseCloneable {
+class AtividadeFisica extends ParseObject
+    with DateUtils
+    implements ParseCloneable {
   AtividadeFisica({
     num distancia,
     num duracao,
@@ -58,4 +61,11 @@ class AtividadeFisica extends ParseObject implements ParseCloneable {
 
   String get tipo => get<String>(kTipo);
   set tipo(String tipo) => set<String>(kTipo, tipo);
+
+  Map<String, dynamic> toMap() => <String, dynamic>{
+        'Data de registro': getDataBrFromDate(createdAt) ?? "",
+        'Tipo': tipo ?? "",
+        'Duração (min)': duracao?.toString() ?? "",
+        'Distância (km)': distancia?.toString() ?? "",
+      };
 }
