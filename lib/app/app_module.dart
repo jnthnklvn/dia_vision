@@ -7,6 +7,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:flutter/material.dart';
 
+import 'modules/atividade_fisica/atividade_fisica_module.dart';
 import 'modules/avaliacao_pes/avaliacao_pes_module.dart';
 import 'modules/centro_saude/centro_saude_module.dart';
 import 'modules/autocuidado/autocuidado_module.dart';
@@ -41,6 +42,7 @@ class AppModule extends MainModule {
         ModularRouter(RouteEnum.selfCare.name, module: AutocuidadoModule()),
         ModularRouter(RouteEnum.medicalCenters.name, module: CentroSaudeModule()),
         ModularRouter(RouteEnum.vision.name, module: AppVisaoModule()),
+        ModularRouter(RouteEnum.exercises.name, module: AtividadeFisicaModule()),
       ];
 
   @override
