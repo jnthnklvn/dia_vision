@@ -72,7 +72,7 @@ abstract class _AlimentoControllerBase with Store {
       setMarca(alimento.marca);
       setMedida(alimento.medida);
       setCalorias(alimento.calorias?.toString());
-      setCalorias(alimento.caloriasConsumidas?.toString());
+      setCaloriasConsumidas(alimento.caloriasConsumidas?.toString());
       nomeController = TextEditingController(text: nome);
       marcaController = TextEditingController(text: marca);
       medidaController = TextEditingController(text: medida);
@@ -85,7 +85,8 @@ abstract class _AlimentoControllerBase with Store {
   bool addAlimento(Function(String) onError) {
     if (nome != null && calorias != null) {
       final caloriasNum = num.tryParse(calorias.replaceAll(',', '.'));
-      final caloriasConsumidasNum = num.tryParse(calorias.replaceAll(',', '.'));
+      final caloriasConsumidasNum =
+          num.tryParse(caloriasConsumidas.replaceAll(',', '.'));
       alimentos.add(Alimento(
         calorias: caloriasNum,
         nome: nome,
@@ -112,7 +113,7 @@ abstract class _AlimentoControllerBase with Store {
       _alimentoRepository.save(alimento, user);
     });
 
-    alimentos = List<Alimento>();
+    alimentos = ObservableList<Alimento>();
   }
 
   void removerAlimento(String nome, String marca) {

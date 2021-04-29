@@ -104,7 +104,6 @@ class _AtividadeFisicaRegisterPageState extends ModularState<
                   focusNode: focusNode1,
                   inputFormatters: [
                     FilteringTextInputFormatter.digitsOnly,
-                    DecimalInputFormatter(),
                   ],
                 ),
                 Observer(builder: (_) {

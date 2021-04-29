@@ -114,9 +114,9 @@ class _AlimentoRegisterPageState extends State<AlimentoRegisterPage> {
                 ),
                 RoundedInputField(
                   hintText: "Calorias consumidas",
-                  controller: alimentoController.caloriasController,
+                  controller: alimentoController.caloriasConsumidasController,
                   keyboardType: TextInputType.number,
-                  onChanged: alimentoController.setCalorias,
+                  onChanged: alimentoController.setCaloriasConsumidas,
                   focusNode: focusNode3,
                   inputFormatters: [
                     FilteringTextInputFormatter.digitsOnly,
