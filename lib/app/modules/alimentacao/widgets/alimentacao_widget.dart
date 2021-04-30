@@ -1,5 +1,6 @@
 import 'package:dia_vision/app/modules/home/domain/entities/module.dart';
 import 'package:dia_vision/app/shared/utils/color_utils.dart';
+import 'package:dia_vision/app/shared/utils/date_utils.dart';
 import 'package:dia_vision/app/shared/utils/constants.dart';
 import 'package:dia_vision/app/shared/utils/strings.dart';
 import 'package:dia_vision/app/model/alimentacao.dart';
@@ -8,7 +9,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:flutter/material.dart';
 
-class AlimentacaoWidget extends StatelessWidget {
+class AlimentacaoWidget extends StatelessWidget with DateUtils {
   final Alimentacao _alimentacao;
 
   const AlimentacaoWidget(this._alimentacao);
@@ -22,6 +23,7 @@ class AlimentacaoWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final subtitleContents = [
       getFullString("Calorias", _alimentacao.calorias?.toString()),
+      getFullString("Data", getDataBrFromDate(_alimentacao.createdAt)),
     ];
     subtitleContents.removeWhere((e) => e == null);
 

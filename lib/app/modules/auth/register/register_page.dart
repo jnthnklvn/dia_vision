@@ -6,6 +6,7 @@ import 'package:dia_vision/app/shared/components/back_arrow_button.dart';
 import 'package:dia_vision/app/shared/components/rounded_button.dart';
 import 'package:dia_vision/app/shared/utils/scaffold_utils.dart';
 import 'package:dia_vision/app/shared/utils/route_enum.dart';
+import 'package:dia_vision/app/shared/utils/strings.dart';
 
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -76,7 +77,7 @@ class _RegisterPageState extends ModularState<RegisterPage, RegisterController>
                         onPressed: () => controller.register(
                           widget.onError,
                           () async {
-                            widget.onSuccess("Registro realizado com sucesso!");
+                            widget.onSuccess(REGISTRED_WITH_SUCCESS);
                             controller.setPassword(null);
                             controller.setEmail(null);
                             await Future.delayed(Duration(seconds: 1));

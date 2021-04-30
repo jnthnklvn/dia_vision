@@ -118,7 +118,7 @@ class _AtividadeFisicaRegisterPageState extends ModularState<
                     onPressed: () => controller.save(
                       widget.onError,
                       () async {
-                        widget.onSuccess("Registro realizado com sucesso!");
+                        widget.onSuccess(REGISTRED_WITH_SUCCESS);
                         await Future.delayed(Duration(milliseconds: 1500));
                         Modular.to.pop();
                       },

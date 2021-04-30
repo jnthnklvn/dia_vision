@@ -85,8 +85,9 @@ abstract class _AlimentoControllerBase with Store {
   bool addAlimento(Function(String) onError) {
     if (nome != null && calorias != null) {
       final caloriasNum = num.tryParse(calorias.replaceAll(',', '.'));
-      final caloriasConsumidasNum =
-          num.tryParse(caloriasConsumidas.replaceAll(',', '.'));
+      final caloriasConsumidasNum = caloriasConsumidas != null
+          ? num.tryParse(caloriasConsumidas.replaceAll(',', '.'))
+          : null;
       alimentos.add(Alimento(
         calorias: caloriasNum,
         nome: nome,
@@ -103,7 +104,9 @@ abstract class _AlimentoControllerBase with Store {
   }
 
   void removerAlimentos() {
-    alimentosToRemove.forEach((element) => element.delete());
+    alimentosToRemove.forEach((element) async {
+      await element.delete();
+    });
     alimentosToRemove = List<Alimento>();
   }
 
@@ -120,9 +123,7 @@ abstract class _AlimentoControllerBase with Store {
     final alimento =
         alimentos.firstWhere((e) => e.nome == nome && e.marca == marca);
     if (alimento != null) {
-      if (alimento.alimentacao != null) {
-        alimentosToRemove.add(alimento);
-      }
+      alimentosToRemove.add(alimento);
       alimentos.remove(alimento);
     }
   }

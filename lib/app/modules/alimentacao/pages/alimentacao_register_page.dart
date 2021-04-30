@@ -99,7 +99,7 @@ class _AlimentacaoRegisterPageState extends ModularState<
                       size: 42,
                     ),
                     title: Text(
-                      "Adicionar alimento",
+                      ADD_FOOD,
                       style: TextStyle(
                         fontWeight: FontWeight.w500,
                         fontSize: 18,
@@ -155,7 +155,7 @@ class _AlimentacaoRegisterPageState extends ModularState<
                   onPressed: () => controller.save(
                     widget.onError,
                     () async {
-                      widget.onSuccess("Registro realizado com sucesso!");
+                      widget.onSuccess(REGISTRED_WITH_SUCCESS);
                       await Future.delayed(Duration(milliseconds: 1500));
                       Modular.to.pop();
                     },
@@ -175,10 +175,11 @@ class _AlimentacaoRegisterPageState extends ModularState<
       barrierDismissible: false,
       builder: (BuildContext context) {
         return ConfirmDialog(
-          () => alimentoController.alimentos
-              .removeWhere((e) => e.nome == nome && e.marca == marca),
-          'Remover alimento',
-          'Deseja remover esse alimento da sua refeição?',
+          () {
+            alimentoController.removerAlimento(nome, marca);
+          },
+          DEL_FOOD,
+          WISH_REMOVE_FOOD,
         );
       },
     );
@@ -215,8 +216,8 @@ class _AlimentacaoRegisterPageState extends ModularState<
       child: ListTile(
         contentPadding: EdgeInsets.all(0),
         leading: InkWell(
-          onTap: () => Modular.get<FlutterTts>()
-              .speak(controller.tipo ?? "Selecione o tipo"),
+          onTap: () =>
+              Modular.get<FlutterTts>().speak(controller.tipo ?? SELECT_TYPE),
           child: Icon(
             Icons.play_circle_fill,
             color: kPrimaryColor,
@@ -232,7 +233,7 @@ class _AlimentacaoRegisterPageState extends ModularState<
           ),
           isExpanded: true,
           hint: Text(
-            "Selecione o tipo",
+            SELECT_TYPE,
             style: TextStyle(
               color: kPrimaryColor,
               fontSize: 20,

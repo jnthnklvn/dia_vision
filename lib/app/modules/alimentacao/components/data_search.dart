@@ -1,19 +1,38 @@
 import 'package:dia_vision/app/modules/alimentacao/controllers/alimento_controller.dart';
+import 'package:dia_vision/app/shared/components/ink_well_speak_text.dart';
+import 'package:dia_vision/app/shared/utils/constants.dart';
+import 'package:dia_vision/app/shared/utils/strings.dart';
 
-import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:flutter_tts/flutter_tts.dart';
+import 'package:flutter/material.dart';
 
 class DataSearch extends SearchDelegate<String> {
   final AlimentoController _alimentoController;
   final Function(String) onError;
 
-  DataSearch(this._alimentoController, this.onError);
+  Future _speak(String txt) => Modular.get<FlutterTts>().speak(txt);
+
+  DataSearch(this._alimentoController, this.onError)
+      : super(
+          searchFieldLabel: SEARCH,
+          searchFieldStyle: TextStyle(
+            fontSize: kAppBarTitleSize,
+            color: kPrimaryColor,
+            fontWeight: FontWeight.bold,
+          ),
+        );
 
   @override
   List<Widget> buildActions(BuildContext context) {
     return [
       IconButton(
-        icon: Icon(Icons.clear),
+        icon: Icon(
+          Icons.clear,
+          size: 32,
+          color: kPrimaryColor,
+        ),
         onPressed: () {
           query = '';
         },
@@ -26,6 +45,8 @@ class DataSearch extends SearchDelegate<String> {
     return IconButton(
       icon: AnimatedIcon(
         icon: AnimatedIcons.menu_arrow,
+        color: kPrimaryColor,
+        size: 32,
         progress: transitionAnimation,
       ),
       onPressed: () => close(context, null),
@@ -40,7 +61,7 @@ class DataSearch extends SearchDelegate<String> {
         children: <Widget>[
           Center(
             child: Text(
-              "A busca deve haver pelos menos 3 letras",
+              NOT_ENOUGH_LETTERS,
             ),
           )
         ],
@@ -64,7 +85,13 @@ class DataSearch extends SearchDelegate<String> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Center(
-              child: Text("Não foram encontrados alimentos"),
+              child: InkWellSpeakText(
+                Text(
+                  NO_FOODS_FOUND,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 24, color: kPrimaryColor),
+                ),
+              ),
             ),
           ],
         );
@@ -86,6 +113,8 @@ class DataSearch extends SearchDelegate<String> {
               _alimentoController.nomeController.text = result.nome;
               Navigator.of(context).pop();
             },
+            onLongPress: () => _speak(
+                "${getFieldAndText("Nome", result.nome)} ${getFieldAndText("Marca", result.marca)} ${getFieldAndText("Calorias", result.calorias?.toString())}"),
             child: ListTile(
               title: Text(result.nome ?? result.marca ?? ""),
               subtitle: Text(result.marca ?? result.nome ?? ""),
@@ -102,6 +131,11 @@ class DataSearch extends SearchDelegate<String> {
         },
       );
     });
+  }
+
+  String getFieldAndText(String field, String text) {
+    if (text?.isNotEmpty != true) return null;
+    return "$field: $text.";
   }
 
   @override

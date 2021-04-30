@@ -7,9 +7,10 @@ import 'package:dia_vision/app/shared/utils/scaffold_utils.dart';
 import 'package:dia_vision/app/shared/utils/constants.dart';
 import 'package:dia_vision/app/shared/utils/strings.dart';
 import 'package:dia_vision/app/model/alimento.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
 
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 
@@ -31,12 +32,15 @@ class _AlimentoRegisterPageState extends State<AlimentoRegisterPage> {
   final focusNode1 = FocusNode();
   final focusNode2 = FocusNode();
   final focusNode3 = FocusNode();
+  final focusNode4 = FocusNode();
 
   @override
   void initState() {
     alimentoController.init(Alimento());
     super.initState();
   }
+
+  Future _speak(String txt) => Modular.get<FlutterTts>().speak(txt);
 
   @override
   Widget build(BuildContext context) {
@@ -52,10 +56,14 @@ class _AlimentoRegisterPageState extends State<AlimentoRegisterPage> {
               delegate: DataSearch(alimentoController, widget.onError),
             );
           },
-          // onLongPress: ,
+          onLongPress: () => _speak(CLICK_SEARCH_FOOD),
           child: ListTile(
             contentPadding: EdgeInsets.all(0),
-            trailing: Icon(Icons.search),
+            trailing: Icon(
+              Icons.search,
+              size: 32,
+              color: kPrimaryColor,
+            ),
             title: Text(
               "$SEARCH_FOOD...",
               style: TextStyle(
@@ -108,6 +116,7 @@ class _AlimentoRegisterPageState extends State<AlimentoRegisterPage> {
                   keyboardType: TextInputType.number,
                   onChanged: alimentoController.setCalorias,
                   focusNode: focusNode3,
+                  nextFocusNode: focusNode4,
                   inputFormatters: [
                     FilteringTextInputFormatter.digitsOnly,
                   ],
@@ -117,13 +126,13 @@ class _AlimentoRegisterPageState extends State<AlimentoRegisterPage> {
                   controller: alimentoController.caloriasConsumidasController,
                   keyboardType: TextInputType.number,
                   onChanged: alimentoController.setCaloriasConsumidas,
-                  focusNode: focusNode3,
+                  focusNode: focusNode4,
                   inputFormatters: [
                     FilteringTextInputFormatter.digitsOnly,
                   ],
                 ),
                 RoundedButton(
-                  text: "ADICIONAR",
+                  text: ADD.toUpperCase(),
                   onPressed: () {
                     final value =
                         alimentoController.addAlimento(widget.onError);
