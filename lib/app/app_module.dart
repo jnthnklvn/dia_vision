@@ -12,6 +12,7 @@ import 'modules/avaliacao_pes/avaliacao_pes_module.dart';
 import 'modules/centro_saude/centro_saude_module.dart';
 import 'modules/autocuidado/autocuidado_module.dart';
 import 'modules/medications/medications_module.dart';
+import 'modules/alimentacao/alimentacao_module.dart';
 import 'modules/app_visao/app_visao_module.dart';
 import 'modules/glicemia/glicemia_module.dart';
 import 'modules/diurese/diurese_module.dart';
@@ -43,6 +44,7 @@ class AppModule extends MainModule {
         ModularRouter(RouteEnum.medicalCenters.name, module: CentroSaudeModule()),
         ModularRouter(RouteEnum.vision.name, module: AppVisaoModule()),
         ModularRouter(RouteEnum.exercises.name, module: AtividadeFisicaModule()),
+        ModularRouter(RouteEnum.alimentation.name, module: AlimentacaoModule()),
       ];
 
   @override
