@@ -1,10 +1,11 @@
-import 'package:dia_vision/app/modules/medications/medication_register_controller.dart';
+import 'package:dia_vision/app/modules/medications/controllers/medication_register_controller.dart';
 import 'package:dia_vision/app/shared/components/text_field_container.dart';
 import 'package:dia_vision/app/shared/components/ink_well_speak_text.dart';
 import 'package:dia_vision/app/shared/components/rounded_input_field.dart';
 import 'package:dia_vision/app/shared/utils/horario_input_formatter.dart';
 import 'package:dia_vision/app/shared/components/back_arrow_button.dart';
 import 'package:dia_vision/app/shared/components/rounded_button.dart';
+import 'package:dia_vision/app/shared/components/choose_dialog.dart';
 import 'package:dia_vision/app/shared/utils/scaffold_utils.dart';
 import 'package:dia_vision/app/model/medicacao_prescrita.dart';
 import 'package:dia_vision/app/shared/utils/date_utils.dart';
@@ -309,10 +310,33 @@ class _MedicationRegisterPageState
     return Container(
       margin: EdgeInsets.only(right: 10),
       child: RaisedButton(
-        onPressed: () => _speak("$e. Mantenha pressionado para remover."),
-        onLongPress: () => controller.horarios.remove(e),
+        onLongPress: () => _speak("$e. Toque para editar/remover."),
+        onPressed: () => _showMyDialog(e),
         child: Text(e, style: TextStyle(fontWeight: FontWeight.w600)),
       ),
+    );
+  }
+
+  Future<void> _showMyDialog(String e) async {
+    return showDialog(
+      context: context,
+      barrierDismissible: true,
+      builder: (BuildContext context) {
+        return ChooseDialog(
+          () {
+            controller.horarios.remove(e);
+            showDialog(
+              context: context,
+              builder: (context) {
+                return timePickerSpinner();
+              },
+            );
+          },
+          () {
+            controller.horarios.remove(e);
+          },
+        );
+      },
     );
   }
 

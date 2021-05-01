@@ -1,5 +1,5 @@
+import 'package:dia_vision/app/modules/medications/controllers/medications_controller.dart';
 import 'package:dia_vision/app/modules/medications/widgets/medication_widget.dart';
-import 'package:dia_vision/app/modules/medications/medications_controller.dart';
 import 'package:dia_vision/app/shared/components/ink_well_speak_text.dart';
 import 'package:dia_vision/app/modules/home/domain/entities/module.dart';
 import 'package:dia_vision/app/shared/components/back_arrow_button.dart';

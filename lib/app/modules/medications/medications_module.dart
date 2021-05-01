@@ -3,10 +3,10 @@ import 'package:dia_vision/app/modules/home/domain/entities/module.dart';
 import 'package:dia_vision/app/repositories/medication_repository.dart';
 import 'package:dia_vision/app/shared/utils/strings.dart';
 
+import 'controllers/medication_register_controller.dart';
+import 'controllers/medications_controller.dart';
 import 'pages/medication_register_page.dart';
-import 'medication_register_controller.dart';
-import 'medications_controller.dart';
-import 'medications_page.dart';
+import 'pages/medications_page.dart';
 
 import 'package:flutter_modular/flutter_modular.dart';
 

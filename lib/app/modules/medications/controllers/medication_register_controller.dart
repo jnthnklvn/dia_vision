@@ -1,4 +1,3 @@
-import 'package:dia_vision/app/modules/medications/medications_controller.dart';
 import 'package:dia_vision/app/repositories/medicacao_prescrita_repository.dart';
 import 'package:dia_vision/app/repositories/medication_repository.dart';
 import 'package:dia_vision/app/model/medicacao_prescrita.dart';
@@ -10,6 +9,8 @@ import 'package:brasil_fields/brasil_fields.dart';
 import 'package:fuzzy/fuzzy.dart';
 import 'package:dartz/dartz.dart';
 import 'package:mobx/mobx.dart';
+
+import 'medications_controller.dart';
 
 part 'medication_register_controller.g.dart';
 
