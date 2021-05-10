@@ -105,7 +105,8 @@ class _MedicationsPageState
             return ListView.builder(
               itemCount: controller.medicacoes.length,
               itemBuilder: (BuildContext context, int index) {
-                return MedicationWidget(controller.medicacoes[index]);
+                return MedicationWidget(
+                    controller.medicacoes[index], widget.onError);
               },
             );
           },

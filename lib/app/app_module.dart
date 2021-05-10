@@ -3,6 +3,7 @@ import 'package:dia_vision/app/shared/utils/route_enum.dart';
 import 'package:dia_vision/app/shared/utils/utils.dart';
 import 'package:dia_vision/app/app_widget.dart';
 
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:flutter/material.dart';
@@ -28,6 +29,7 @@ class AppModule extends MainModule {
         Bind((i) => Utils()),
         Bind((i) => FlutterTts()),
         Bind((i) => UserRepository()),
+        Bind((i) => AwesomeNotifications()),
         Bind((i) => AppController(i())),
       ];
 

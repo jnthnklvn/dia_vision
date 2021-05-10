@@ -1,19 +1,34 @@
+import 'package:dia_vision/app/modules/medications/controllers/medication_widget_controller.dart';
+import 'package:dia_vision/app/modules/medications/controllers/medications_controller.dart';
+import 'package:dia_vision/app/shared/preferences/medication_notify_preferences.dart';
 import 'package:dia_vision/app/modules/medications/utils/medication_utils.dart';
 import 'package:dia_vision/app/modules/home/domain/entities/module.dart';
 import 'package:dia_vision/app/model/medicacao_prescrita.dart';
 import 'package:dia_vision/app/shared/utils/color_utils.dart';
-import 'package:dia_vision/app/shared/utils/date_utils.dart';
+import 'package:dia_vision/app/shared/utils/date_utils.dart' as Dt;
+import 'package:dia_vision/app/model/medication_notify.dart';
 import 'package:dia_vision/app/shared/utils/constants.dart';
 import 'package:dia_vision/app/shared/utils/strings.dart';
 
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:flutter/material.dart';
 
-class MedicationWidget extends StatelessWidget with DateUtils, MedicationUtils {
+class MedicationWidget extends StatelessWidget
+    with Dt.DateUtils, MedicationUtils {
   final MedicacaoPrescrita _medicacaoPrescrita;
+  final _controller = MedicationsWidgetController(
+    Modular.get<MedicationNotifyPreferences>(),
+    Modular.get<AwesomeNotifications>(),
+  );
+  final _medicationsController = Modular.get<MedicationsController>();
+  final Function(String) onError;
 
-  MedicationWidget(this._medicacaoPrescrita);
+  MedicationWidget(this._medicacaoPrescrita, this.onError);
+
+  Future _speak(String txt) => Modular.get<FlutterTts>().speak(txt);
 
   String getFullString(String fieldName, String text) {
     if (text?.isNotEmpty != true) return null;
@@ -22,6 +37,7 @@ class MedicationWidget extends StatelessWidget with DateUtils, MedicationUtils {
 
   @override
   Widget build(BuildContext context) {
+    _controller.getNotification(_medicacaoPrescrita.objectId);
     final subtitleContents = [
       getFullString("Dosagem", _medicacaoPrescrita.dosagem?.toString()),
       getFullString("Posologia", getPosologia(_medicacaoPrescrita.posologia)),
@@ -82,6 +98,45 @@ class MedicationWidget extends StatelessWidget with DateUtils, MedicationUtils {
                     color: Colors.white,
                   ),
                 ),
+                trailing: Observer(builder: (_) {
+                  if (_controller.isLoading)
+                    return Container(
+                      height: 38,
+                      width: 38,
+                      child: CircularProgressIndicator(),
+                    );
+                  final isNoticationOn = _controller.medication != null;
+                  return InkWell(
+                    onLongPress: () => _speak(
+                        "$BUTTON ${(isNoticationOn ? '$DISABLE' : '$ENABLE')} $NOTIFICATION"),
+                    child: Icon(
+                      isNoticationOn
+                          ? Icons.notifications_off_outlined
+                          : Icons.notifications_active_outlined,
+                      size: 38,
+                      color:
+                          isNoticationOn ? Colors.red[900] : Colors.green[900],
+                    ),
+                    onTap: () {
+                      if (isNoticationOn) {
+                        _controller.disableNotification(
+                            _medicacaoPrescrita.objectId, onError);
+                      } else {
+                        final medicationNotify = MedicationNotify(
+                          objectId: _medicacaoPrescrita.objectId,
+                          horarios: _medicacaoPrescrita.getHorarios(),
+                          title:
+                              "Horário de medicação ${_medicacaoPrescrita.nome ?? ''}",
+                          body:
+                              "${_medicationsController.tempoLembrete ?? '10 min'} para horário da medicação ${_medicacaoPrescrita.nome ?? ''}",
+                        );
+
+                        _controller.enableNotification(medicationNotify,
+                            _medicationsController.tempoLembrete, onError);
+                      }
+                    },
+                  );
+                }),
                 subtitle: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: subtitleContents

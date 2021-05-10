@@ -1,5 +1,6 @@
 import 'package:dia_vision/app/repositories/medicacao_prescrita_repository.dart';
 import 'package:dia_vision/app/model/medicacao_prescrita.dart';
+import 'package:dia_vision/app/shared/preferences/preferencias_preferences.dart';
 import 'package:dia_vision/app/shared/utils/date_utils.dart';
 import 'package:dia_vision/app/shared/utils/file_utils.dart';
 import 'package:dia_vision/app/shared/utils/csv_utils.dart';
@@ -16,12 +17,23 @@ class MedicationsController = _MedicationsControllerBase
 abstract class _MedicationsControllerBase
     with Store, DateUtils, CsvUtils, FileUtils {
   final IMedicacaoPrescritaRepository _medicacaoPrescritaRepository;
+  final PreferenciasPreferences _preferenciasPreferences;
   final AppController _appController;
 
   _MedicationsControllerBase(
     this._medicacaoPrescritaRepository,
+    this._preferenciasPreferences,
     this._appController,
-  );
+  ) {
+    getTempoParaLembrete();
+  }
+
+  Future<void> getTempoParaLembrete() async {
+    tempoLembrete = await _preferenciasPreferences.getTempoLembrete();
+  }
+
+  @observable
+  String tempoLembrete;
 
   @observable
   bool isLoading = false;

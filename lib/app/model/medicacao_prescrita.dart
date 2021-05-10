@@ -99,6 +99,21 @@ class MedicacaoPrescrita extends ParseObject
       Paciente.clone()..fromJson(get<ParseObject>(keyPaciente)?.toJson());
   set paciente(Paciente paciente) => set(keyPaciente, paciente);
 
+  List<String> getHorarios() {
+    if (posologia == 0 && horarios != null && horarios.length > 0) {
+      return horarios.split(', ');
+    } else if (horarioInicial != null && posologia != null && posologia > 0) {
+      final listHorarioInicial = horarioInicial.split(':');
+      final times = 24 ~/ posologia;
+      return List<String>.generate(
+        times,
+        (i) =>
+            "${(num.tryParse(listHorarioInicial[0]) + posologia * i)}:${listHorarioInicial[1]}",
+      );
+    }
+    return null;
+  }
+
   Map<String, dynamic> toMap() => <String, dynamic>{
         'Data de registro': getDataBrFromDate(createdAt) ?? "",
         'Nome Substância': medicamento?.get(kNomeSubstancia) ?? "",

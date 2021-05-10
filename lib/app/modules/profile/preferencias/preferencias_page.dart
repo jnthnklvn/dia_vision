@@ -273,7 +273,7 @@ class _PreferenciasPageState
           ),
           underline: Container(),
           onChanged: controller.setTempoLembrete,
-          items: ["10 min", "30 min", "60 min"]
+          items: ["3 min", "5 min", "10 min", "20 min", "30 min", "60 min"]
               .map<DropdownMenuItem<String>>((String value) {
             return DropdownMenuItem<String>(
               value: value,

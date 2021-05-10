@@ -7,6 +7,7 @@ import 'package:dia_vision/app/shared/utils/strings.dart';
 import 'package:dia_vision/app/shared/utils/styles.dart';
 
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_tts/flutter_tts.dart';
@@ -19,6 +20,16 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   Future _speak(String txt) => Modular.get<FlutterTts>().speak(txt);
+
+  @override
+  void initState() {
+    Modular.get<AwesomeNotifications>()
+        .actionStream
+        .listen((receivedNotification) {
+      Modular.to.pushReplacementNamed(RouteEnum.medications.name);
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

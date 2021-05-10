@@ -2,12 +2,14 @@ import 'package:dia_vision/app/modules/auth/components/already_have_an_account_a
 import 'package:dia_vision/app/shared/components/rounded_password_field.dart';
 import 'package:dia_vision/app/shared/components/rounded_input_field.dart';
 import 'package:dia_vision/app/shared/components/rounded_button.dart';
+import 'package:dia_vision/app/shared/components/confirm_dialog.dart';
 import 'package:dia_vision/app/shared/utils/scaffold_utils.dart';
 import 'package:dia_vision/app/shared/utils/route_enum.dart';
 import 'package:dia_vision/app/shared/utils/constants.dart';
 import 'package:dia_vision/app/shared/utils/strings.dart';
 import 'package:dia_vision/app/app_controller.dart';
 
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_tts/flutter_tts.dart';
@@ -30,15 +32,40 @@ class _LoginPageState extends ModularState<LoginPage, LoginController>
 
   Future _speak(String txt) => Modular.get<FlutterTts>().speak(txt);
 
-  @override
-  void initState() {
-    isUserLogged();
-    super.initState();
+  Future<void> _showMyDialog(Function() onConfirm) async {
+    return showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return ConfirmDialog(
+          onConfirm,
+          ALLOW_NOTIFICATIONS,
+          WISH_ALLOW_NOTIFICATIONS,
+        );
+      },
+    );
+  }
+
+  Future<void> requestNotificationPermission() async {
+    final awesomeNotifications = Modular.get<AwesomeNotifications>();
+    await awesomeNotifications.isNotificationAllowed().then((isAllowed) {
+      if (!isAllowed) {
+        _showMyDialog(
+            awesomeNotifications.requestPermissionToSendNotifications);
+      }
+    });
   }
 
   Future<void> isUserLogged() async {
     final isLogged = await Modular.get<AppController>().isLogged();
     if (isLogged) Modular.to.pushReplacementNamed(RouteEnum.home.name);
+    await requestNotificationPermission();
+  }
+
+  @override
+  void initState() {
+    isUserLogged();
+    super.initState();
   }
 
   @override
