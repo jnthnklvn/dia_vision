@@ -64,10 +64,16 @@ abstract class _MedicationsWidgetControllerBase with Store {
   }
 
   Future<void> disableNotification(
-      String objectId, Function(String) onError) async {
+      MedicationNotify medicationNotify, Function(String) onError) async {
     isLoading = true;
-    final result =
-        await _medicationNotifyPreferences.setMedicationNotify(objectId, null);
+    if (medicationNotify.horarios != null) {
+      for (var i = 0; i < medicationNotify.horarios.length; i++) {
+        await _awesomeNotifications
+            .cancelSchedule(medicationNotify.objectId.hashCode + i);
+      }
+    }
+    final result = await _medicationNotifyPreferences.setMedicationNotify(
+        medicationNotify.objectId, null);
     if (result == true) {
       medication = null;
     } else {

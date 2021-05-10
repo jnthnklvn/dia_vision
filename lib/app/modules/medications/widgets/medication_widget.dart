@@ -118,18 +118,18 @@ class MedicationWidget extends StatelessWidget
                           isNoticationOn ? Colors.red[900] : Colors.green[900],
                     ),
                     onTap: () {
+                      final medicationNotify = MedicationNotify(
+                        objectId: _medicacaoPrescrita.objectId,
+                        horarios: _medicacaoPrescrita.getHorarios(),
+                      );
                       if (isNoticationOn) {
                         _controller.disableNotification(
-                            _medicacaoPrescrita.objectId, onError);
+                            medicationNotify, onError);
                       } else {
-                        final medicationNotify = MedicationNotify(
-                          objectId: _medicacaoPrescrita.objectId,
-                          horarios: _medicacaoPrescrita.getHorarios(),
-                          title:
-                              "Horário de medicação ${_medicacaoPrescrita.nome ?? ''}",
-                          body:
-                              "${_medicationsController.tempoLembrete ?? '10 min'} para horário da medicação ${_medicacaoPrescrita.nome ?? ''}",
-                        );
+                        medicationNotify.title =
+                            "Horário de medicação ${_medicacaoPrescrita.nome ?? ''}";
+                        medicationNotify.body =
+                            "${_medicationsController.tempoLembrete ?? '10 min'} para horário da medicação ${_medicacaoPrescrita.nome ?? ''}";
 
                         _controller.enableNotification(medicationNotify,
                             _medicationsController.tempoLembrete, onError);
