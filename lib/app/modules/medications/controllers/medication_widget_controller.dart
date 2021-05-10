@@ -63,17 +63,16 @@ abstract class _MedicationsWidgetControllerBase with Store {
     isLoading = false;
   }
 
-  Future<void> disableNotification(
-      MedicationNotify medicationNotify, Function(String) onError) async {
+  Future<void> disableNotification(Function(String) onError) async {
     isLoading = true;
-    if (medicationNotify.horarios != null) {
-      for (var i = 0; i < medicationNotify.horarios.length; i++) {
+    if (medication?.horarios != null) {
+      for (var i = 0; i < medication.horarios.length; i++) {
         await _awesomeNotifications
-            .cancelSchedule(medicationNotify.objectId.hashCode + i);
+            .cancelSchedule(medication.objectId.hashCode + i);
       }
     }
     final result = await _medicationNotifyPreferences.setMedicationNotify(
-        medicationNotify.objectId, null);
+        medication.objectId, null);
     if (result == true) {
       medication = null;
     } else {
