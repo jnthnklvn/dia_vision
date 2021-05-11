@@ -34,8 +34,11 @@ abstract class _MedicationsWidgetControllerBase with Store {
     isLoading = false;
   }
 
-  Future<void> enableNotification(MedicationNotify medicationNotify,
-      String tempoLembrete, Function(String) onError) async {
+  Future<void> enableNotification(
+      MedicationNotify medicationNotify,
+      String tempoLembrete,
+      Function(String) onError,
+      Function(String) onSuccess) async {
     isLoading = true;
     final intTempoLembrete =
         int.tryParse(tempoLembrete?.split(' ')?.elementAt(0) ?? '10');
@@ -53,6 +56,7 @@ abstract class _MedicationsWidgetControllerBase with Store {
             medicationNotify.objectId, medicationNotify);
         if (result == true) {
           medication = medicationNotify;
+          onSuccess(ENABLE_NOTIFICATION_SUCCESS);
         }
       } else {
         onError(REGISTER_NOTIFICATION_FAIL);
@@ -63,21 +67,26 @@ abstract class _MedicationsWidgetControllerBase with Store {
     isLoading = false;
   }
 
-  Future<void> disableNotification(Function(String) onError) async {
+  Future<void> disableNotification(
+      Function(String) onError, Function(String) onSuccess) async {
     isLoading = true;
-    if (medication?.horarios != null) {
-      for (var i = 0; i < medication.horarios.length; i++) {
-        await _awesomeNotifications
-            .cancelSchedule(medication.objectId.hashCode + i);
+    try {
+      if (medication?.horarios != null) {
+        for (var i = 0; i < medication.horarios.length; i++) {
+          await _awesomeNotifications
+              .cancelSchedule(medication.objectId.hashCode + i);
+        }
       }
-    }
-    final result = await _medicationNotifyPreferences.setMedicationNotify(
-        medication.objectId, null);
-    if (result == true) {
-      medication = null;
-    } else {
-      onError(
-          "Erro ao tentar desativar notificação. Tente novamente mais tarde.");
+      final result = await _medicationNotifyPreferences
+          .removeMedicationNotify(medication.objectId);
+      if (result == true) {
+        medication = null;
+        onSuccess(DISABLE_NOTIFICATION_SUCCESS);
+      } else {
+        onError(DELETE_NOTIFICATION_FAIL);
+      }
+    } catch (e) {
+      onError(DELETE_NOTIFICATION_FAIL);
     }
     isLoading = false;
   }

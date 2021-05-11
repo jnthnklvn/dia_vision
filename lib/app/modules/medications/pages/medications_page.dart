@@ -106,7 +106,10 @@ class _MedicationsPageState
               itemCount: controller.medicacoes.length,
               itemBuilder: (BuildContext context, int index) {
                 return MedicationWidget(
-                    controller.medicacoes[index], widget.onError);
+                  controller.medicacoes[index],
+                  widget.onError,
+                  widget.onSuccess,
+                );
               },
             );
           },

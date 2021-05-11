@@ -25,8 +25,9 @@ class MedicationWidget extends StatelessWidget
   );
   final _medicationsController = Modular.get<MedicationsController>();
   final Function(String) onError;
+  final Function(String) onSuccess;
 
-  MedicationWidget(this._medicacaoPrescrita, this.onError);
+  MedicationWidget(this._medicacaoPrescrita, this.onError, this.onSuccess);
 
   Future _speak(String txt) => Modular.get<FlutterTts>().speak(txt);
 
@@ -119,7 +120,7 @@ class MedicationWidget extends StatelessWidget
                     ),
                     onTap: () {
                       if (isNoticationOn) {
-                        _controller.disableNotification(onError);
+                        _controller.disableNotification(onError, onSuccess);
                       } else {
                         final medicationNotify = MedicationNotify(
                           objectId: _medicacaoPrescrita.objectId,
@@ -130,8 +131,11 @@ class MedicationWidget extends StatelessWidget
                               "${_medicationsController.tempoLembrete ?? '10 min'} para horário da medicação ${_medicacaoPrescrita.nome ?? ''}",
                         );
 
-                        _controller.enableNotification(medicationNotify,
-                            _medicationsController.tempoLembrete, onError);
+                        _controller.enableNotification(
+                            medicationNotify,
+                            _medicationsController.tempoLembrete,
+                            onError,
+                            onSuccess);
                       }
                     },
                   );

@@ -12,6 +12,10 @@ class MedicationNotifyPreferences {
     return _preferences.setString(objectId, medicationNotify.toJson());
   }
 
+  Future<bool> removeMedicationNotify(String objectId) {
+    return _preferences.remove(objectId);
+  }
+
   Future<MedicationNotify> getMedicationNotify(String objectId) async {
     String jsonPref = await _preferences.getString(objectId) ?? null;
     if (jsonPref != null) return MedicationNotify.fromJson(jsonPref);
