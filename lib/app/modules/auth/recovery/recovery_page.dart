@@ -46,6 +46,7 @@ class _RecoveryPageState extends ModularState<RecoveryPage, RecoveryController>
                 Image.asset(
                   "assets/images/logo_name.png",
                   width: size.width * 0.8,
+                  excludeFromSemantics: true,
                 ),
                 SizedBox(height: size.height * 0.1),
                 RoundedInputField(

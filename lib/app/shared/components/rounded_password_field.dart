@@ -50,20 +50,25 @@ class RoundedPasswordField extends StatelessWidget {
           labelText: hintText,
           errorText: errorText,
           hintText: hintText,
-          icon: InkWell(
-            onTap: () => Modular.get<FlutterTts>().speak(hintText),
-            child: Icon(
-              Icons.play_circle_fill,
-              color: kPrimaryColor,
-              size: 42,
+          icon: Semantics(
+            excludeSemantics: true,
+            child: InkWell(
+              onTap: () => Modular.get<FlutterTts>().speak(hintText),
+              child: Icon(
+                Icons.play_circle_fill,
+                color: kPrimaryColor,
+                size: 42,
+              ),
             ),
           ),
           suffixIcon: InkWell(
             onTap: changeVisibility,
             onLongPress: () => Modular.get<FlutterTts>()
-                .speak("botão " + (obscureText ? "" : "não ") + "exibir senha"),
+                .speak("$BUTTON ${(obscureText ? '' : 'não ')} 'exibir senha'"),
             child: Icon(
               obscureText ? Icons.visibility : Icons.visibility_off,
+              semanticLabel:
+                  "$BUTTON ${(obscureText ? '' : 'não ')} 'exibir senha'",
               color: kPrimaryColor,
             ),
           ),

@@ -49,6 +49,7 @@ class _RegisterPageState extends ModularState<RegisterPage, RegisterController>
                 Image.asset(
                   "assets/images/logo_name.png",
                   width: size.width * 0.8,
+                  excludeFromSemantics: true,
                 ),
                 SizedBox(height: size.height * 0.1),
                 RoundedInputField(
