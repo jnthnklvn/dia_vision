@@ -215,13 +215,16 @@ class _AlimentacaoRegisterPageState extends ModularState<
       ),
       child: ListTile(
         contentPadding: EdgeInsets.all(0),
-        leading: InkWell(
-          onTap: () =>
-              Modular.get<FlutterTts>().speak(controller.tipo ?? SELECT_TYPE),
-          child: Icon(
-            Icons.play_circle_fill,
-            color: kPrimaryColor,
-            size: 42,
+        leading: Semantics(
+          excludeSemantics: true,
+          child: InkWell(
+            onTap: () =>
+                Modular.get<FlutterTts>().speak(controller.tipo ?? SELECT_TYPE),
+            child: Icon(
+              Icons.play_circle_fill,
+              color: kPrimaryColor,
+              size: 42,
+            ),
           ),
         ),
         title: DropdownButton<String>(

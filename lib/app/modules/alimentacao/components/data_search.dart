@@ -27,13 +27,15 @@ class DataSearch extends SearchDelegate<String> {
   @override
   List<Widget> buildActions(BuildContext context) {
     return [
-      IconButton(
-        icon: Icon(
+      InkWell(
+        child: Icon(
           Icons.clear,
           size: 32,
           color: kPrimaryColor,
+          semanticLabel: CLEAR_SEARCH_TEXT,
         ),
-        onPressed: () {
+        onLongPress: () => _speak(CLEAR_SEARCH_TEXT),
+        onTap: () {
           query = '';
         },
       ),
@@ -42,14 +44,18 @@ class DataSearch extends SearchDelegate<String> {
 
   @override
   Widget buildLeading(BuildContext context) {
-    return IconButton(
-      icon: AnimatedIcon(
-        icon: AnimatedIcons.menu_arrow,
-        color: kPrimaryColor,
-        size: 32,
-        progress: transitionAnimation,
+    return InkWell(
+      child: Center(
+        child: AnimatedIcon(
+          icon: AnimatedIcons.menu_arrow,
+          color: kPrimaryColor,
+          size: 32,
+          semanticLabel: CLOSE_SEARCH_PAGE,
+          progress: transitionAnimation,
+        ),
       ),
-      onPressed: () => close(context, null),
+      onLongPress: () => _speak(CLOSE_SEARCH_PAGE),
+      onTap: () => close(context, null),
     );
   }
 
