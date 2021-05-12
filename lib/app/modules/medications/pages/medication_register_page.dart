@@ -273,14 +273,17 @@ class _MedicationRegisterPageState
             },
           ),
         ),
-        leading: InkWell(
-          onTap: () => _speak(controller.horarios.length == 0
-              ? "Adicione um horário"
-              : controller.horarios.toString()),
-          child: Icon(
-            Icons.play_circle_fill,
-            color: kPrimaryColor,
-            size: 42,
+        leading: Semantics(
+          excludeSemantics: true,
+          child: InkWell(
+            onTap: () => _speak(controller.horarios.length == 0
+                ? "Adicione um horário"
+                : controller.horarios.toString()),
+            child: Icon(
+              Icons.play_circle_fill,
+              color: kPrimaryColor,
+              size: 42,
+            ),
           ),
         ),
         title: controller.horarios.length == 0
@@ -363,12 +366,15 @@ class _MedicationRegisterPageState
               }
               return SizedBox();
             }),
-            icon: InkWell(
-              onTap: () => _speak("Nome"),
-              child: Icon(
-                Icons.play_circle_fill,
-                color: kPrimaryColor,
-                size: 42,
+            icon: Semantics(
+              excludeSemantics: true,
+              child: InkWell(
+                onTap: () => _speak("Nome"),
+                child: Icon(
+                  Icons.play_circle_fill,
+                  color: kPrimaryColor,
+                  size: 42,
+                ),
               ),
             ),
             hintText: "Nome",
@@ -404,13 +410,16 @@ class _MedicationRegisterPageState
       ),
       child: ListTile(
         contentPadding: EdgeInsets.all(0),
-        leading: InkWell(
-          onTap: () => _speak(controller.posologia?.value1 ??
-              "Selecione a posologia (intervalo em horas)"),
-          child: Icon(
-            Icons.play_circle_fill,
-            color: kPrimaryColor,
-            size: 42,
+        leading: Semantics(
+          excludeSemantics: true,
+          child: InkWell(
+            onTap: () => _speak(controller.posologia?.value1 ??
+                "Selecione a posologia (intervalo em horas)"),
+            child: Icon(
+              Icons.play_circle_fill,
+              color: kPrimaryColor,
+              size: 42,
+            ),
           ),
         ),
         title: DropdownButton<String>(

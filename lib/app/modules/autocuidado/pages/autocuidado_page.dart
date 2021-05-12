@@ -77,6 +77,7 @@ class _AutocuidadoPageState
         return Image.network(
           linkImagem,
           fit: BoxFit.cover,
+          excludeFromSemantics: true,
         );
       }
     } catch (e) {}

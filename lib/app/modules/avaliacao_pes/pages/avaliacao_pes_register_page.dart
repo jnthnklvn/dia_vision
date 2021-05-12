@@ -200,14 +200,17 @@ class _AvaliacaoPesRegisterPageState extends ModularState<
       ),
       child: ListTile(
         contentPadding: EdgeInsets.all(0),
-        leading: InkWell(
-          onTap: () => Modular.get<FlutterTts>().speak(
-              controller.temperaturaLavagem ??
-                  "Selecione uma opção de temperatura"),
-          child: Icon(
-            Icons.play_circle_fill,
-            color: kPrimaryColor,
-            size: 42,
+        leading: Semantics(
+          excludeSemantics: true,
+          child: InkWell(
+            onTap: () => Modular.get<FlutterTts>().speak(
+                controller.temperaturaLavagem ??
+                    "Selecione a temperatura de lavagem"),
+            child: Icon(
+              Icons.play_circle_fill,
+              color: kPrimaryColor,
+              size: 42,
+            ),
           ),
         ),
         title: DropdownButton<String>(

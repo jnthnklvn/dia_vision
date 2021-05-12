@@ -144,13 +144,16 @@ class _AtividadeFisicaRegisterPageState extends ModularState<
       ),
       child: ListTile(
         contentPadding: EdgeInsets.all(0),
-        leading: InkWell(
-          onTap: () => Modular.get<FlutterTts>()
-              .speak(controller.tipo ?? "Selecione o tipo"),
-          child: Icon(
-            Icons.play_circle_fill,
-            color: kPrimaryColor,
-            size: 42,
+        leading: Semantics(
+          excludeSemantics: true,
+          child: InkWell(
+            onTap: () => Modular.get<FlutterTts>()
+                .speak(controller.tipo ?? "Selecione o tipo"),
+            child: Icon(
+              Icons.play_circle_fill,
+              color: kPrimaryColor,
+              size: 42,
+            ),
           ),
         ),
         title: DropdownButton<String>(

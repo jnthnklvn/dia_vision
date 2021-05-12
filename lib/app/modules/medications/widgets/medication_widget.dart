@@ -14,6 +14,7 @@ import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_tts/flutter_tts.dart';
+import 'package:flutter/semantics.dart';
 import 'package:flutter/material.dart';
 
 class MedicationWidget extends StatelessWidget
@@ -63,51 +64,68 @@ class MedicationWidget extends StatelessWidget
         ? stringToSpeak.substring(1, stringToSpeak.length - 1)
         : stringToSpeak;
 
-    return InkWell(
-      onTap: () => Modular.to.pushNamed(
-        "${medications.routeName}/$REGISTER",
-        arguments: _medicacaoPrescrita,
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(16),
+        color: ColorUtils.colors[
+                _medicacaoPrescrita.nome.hashCode % ColorUtils.colors.length]
+            .withOpacity(0.5),
       ),
-      onLongPress: () => Modular.get<FlutterTts>().speak(
-        getFullString("Nome", _medicacaoPrescrita.nome) + stringToSpeak,
-      ),
+      padding: EdgeInsets.symmetric(horizontal: 4, vertical: 4),
+      margin: EdgeInsets.all(8),
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16),
-          color: ColorUtils.colors[
-                  _medicacaoPrescrita.nome.hashCode % ColorUtils.colors.length]
-              .withOpacity(0.5),
+          color: kSecondaryColor,
         ),
-        padding: EdgeInsets.symmetric(horizontal: 4, vertical: 4),
-        margin: EdgeInsets.all(8),
-        child: Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(16),
-            color: kSecondaryColor,
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              ListTile(
-                title: Text(
-                  _medicacaoPrescrita.nome,
-                  maxLines: 2,
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 24,
-                    color: Colors.white,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            ListTile(
+              title: Semantics(
+                sortKey: OrdinalSortKey(0),
+                child: InkWell(
+                  onTap: () => Modular.to.pushNamed(
+                    "${medications.routeName}/$REGISTER",
+                    arguments: _medicacaoPrescrita,
+                  ),
+                  onLongPress: () => Modular.get<FlutterTts>().speak(
+                    getFullString("Nome", _medicacaoPrescrita.nome) +
+                        stringToSpeak,
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        _medicacaoPrescrita.nome,
+                        maxLines: 2,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 24,
+                          color: Colors.white,
+                        ),
+                      ),
+                      ...subtitleContents
+                          .map((e) => buildSubtitlesText(e))
+                          .toList(),
+                    ],
                   ),
                 ),
-                trailing: Observer(builder: (_) {
-                  if (_controller.isLoading)
-                    return Container(
-                      height: 38,
-                      width: 38,
-                      child: CircularProgressIndicator(),
-                    );
-                  final isNoticationOn = _controller.medication != null;
-                  return InkWell(
+              ),
+              trailing: Observer(builder: (_) {
+                if (_controller.isLoading)
+                  return Container(
+                    height: 38,
+                    width: 38,
+                    child: CircularProgressIndicator(),
+                  );
+                final isNoticationOn = _controller.medication != null;
+                return Semantics(
+                  sortKey: OrdinalSortKey(1),
+                  label:
+                      "$BUTTON ${(isNoticationOn ? '$DISABLE' : '$ENABLE')} $NOTIFICATION",
+                  child: InkWell(
                     onLongPress: () => _speak(
                         "$BUTTON ${(isNoticationOn ? '$DISABLE' : '$ENABLE')} $NOTIFICATION"),
                     child: Icon(
@@ -132,23 +150,18 @@ class MedicationWidget extends StatelessWidget
                         );
 
                         _controller.enableNotification(
-                            medicationNotify,
-                            _medicationsController.tempoLembrete,
-                            onError,
-                            onSuccess);
+                          medicationNotify,
+                          _medicationsController.tempoLembrete,
+                          onError,
+                          onSuccess,
+                        );
                       }
                     },
-                  );
-                }),
-                subtitle: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: subtitleContents
-                      .map((e) => buildSubtitlesText(e))
-                      .toList(),
-                ),
-              ),
-            ],
-          ),
+                  ),
+                );
+              }),
+            ),
+          ],
         ),
       ),
     );

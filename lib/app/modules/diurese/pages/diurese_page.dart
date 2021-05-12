@@ -1,5 +1,6 @@
 import 'package:dia_vision/app/modules/diurese/controllers/diurese_controller.dart';
 import 'package:dia_vision/app/modules/diurese/widgets/diurese_widget.dart';
+import 'package:dia_vision/app/shared/components/floating_add_button.dart';
 import 'package:dia_vision/app/shared/components/ink_well_speak_text.dart';
 import 'package:dia_vision/app/modules/home/domain/entities/module.dart';
 import 'package:dia_vision/app/shared/components/back_arrow_button.dart';
@@ -12,6 +13,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_tts/flutter_tts.dart';
+import 'package:flutter/semantics.dart';
 import 'package:flutter/material.dart';
 import 'package:share/share.dart';
 
@@ -47,14 +49,9 @@ class _DiuresePageState extends ModularState<DiuresePage, DiureseController>
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       key: scaffoldKey,
-      floatingActionButton: InkWell(
-        onLongPress: () => _speak("$BUTTON $ADD $REGISTRY"),
-        child: FloatingActionButton(
-          onPressed: () =>
-              Modular.to.pushNamed("${kidney.routeName}/$REGISTER"),
-          backgroundColor: kPrimaryColor,
-          child: Icon(Icons.add, size: 32),
-        ),
+      floatingActionButton: FloatingAddButton(
+        "$BUTTON $ADD $REGISTRY",
+        "${kidney.routeName}/$REGISTER",
       ),
       appBar: AppBar(
         actions: [
@@ -66,6 +63,7 @@ class _DiuresePageState extends ModularState<DiuresePage, DiureseController>
               child: Icon(
                 Icons.share,
                 size: 32,
+                semanticLabel: "$BUTTON $SHARE $REGISTRY",
                 color: kPrimaryColor,
               ),
             ),
@@ -83,31 +81,34 @@ class _DiuresePageState extends ModularState<DiuresePage, DiureseController>
           ),
         ),
       ),
-      body: Container(
-        width: double.infinity,
-        height: size.height,
-        color: Colors.white,
-        alignment: Alignment.center,
-        padding: EdgeInsets.only(top: 10),
-        child: Observer(
-          builder: (_) {
-            if (controller.isLoading)
-              return Center(child: CircularProgressIndicator());
-            if (controller.diureses.isEmpty)
-              return InkWellSpeakText(
-                Text(
-                  WITHOUT_DIURESIS_REGISTERED,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 24, color: kPrimaryColor),
-                ),
+      body: Semantics(
+        sortKey: OrdinalSortKey(1),
+        child: Container(
+          width: double.infinity,
+          height: size.height,
+          color: Colors.white,
+          alignment: Alignment.center,
+          padding: EdgeInsets.only(top: 10),
+          child: Observer(
+            builder: (_) {
+              if (controller.isLoading)
+                return Center(child: CircularProgressIndicator());
+              if (controller.diureses.isEmpty)
+                return InkWellSpeakText(
+                  Text(
+                    WITHOUT_DIURESIS_REGISTERED,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 24, color: kPrimaryColor),
+                  ),
+                );
+              return ListView.builder(
+                itemCount: controller.diureses.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return DiureseWidget(controller.diureses[index]);
+                },
               );
-            return ListView.builder(
-              itemCount: controller.diureses.length,
-              itemBuilder: (BuildContext context, int index) {
-                return DiureseWidget(controller.diureses[index]);
-              },
-            );
-          },
+            },
+          ),
         ),
       ),
     );

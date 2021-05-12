@@ -1,5 +1,6 @@
 import 'package:dia_vision/app/modules/centro_saude/controllers/centro_saude_controller.dart';
 import 'package:dia_vision/app/modules/centro_saude/widgets/centro_saude_widget.dart';
+import 'package:dia_vision/app/shared/components/floating_add_button.dart';
 import 'package:dia_vision/app/shared/components/ink_well_speak_text.dart';
 import 'package:dia_vision/app/modules/home/domain/entities/module.dart';
 import 'package:dia_vision/app/shared/components/back_arrow_button.dart';
@@ -9,7 +10,7 @@ import 'package:dia_vision/app/shared/utils/strings.dart';
 
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:flutter_tts/flutter_tts.dart';
+import 'package:flutter/semantics.dart';
 import 'package:flutter/material.dart';
 
 class CentrosSaudePage extends StatefulWidget with ScaffoldUtils {
@@ -19,7 +20,6 @@ class CentrosSaudePage extends StatefulWidget with ScaffoldUtils {
 
 class _CentrosSaudePageState
     extends ModularState<CentrosSaudePage, CentroSaudeController> {
-  Future _speak(String txt) => Modular.get<FlutterTts>().speak(txt);
   final GlobalKey<ScaffoldState> scaffoldKey;
 
   _CentrosSaudePageState(this.scaffoldKey);
@@ -35,14 +35,9 @@ class _CentrosSaudePageState
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       key: scaffoldKey,
-      floatingActionButton: InkWell(
-        onLongPress: () => _speak("$BUTTON $SUGGEST $MEDICAL_CENTER_TITLE"),
-        child: FloatingActionButton(
-          onPressed: () =>
-              Modular.to.pushNamed("${medicalCenters.routeName}/$REGISTER"),
-          backgroundColor: kPrimaryColor,
-          child: Icon(Icons.add, size: 32),
-        ),
+      floatingActionButton: FloatingAddButton(
+        "$BUTTON $SUGGEST $MEDICAL_CENTER_TITLE",
+        "${medicalCenters.routeName}/$REGISTER",
       ),
       appBar: AppBar(
         leading: BackArrowButton(iconPadding: 5),
@@ -57,31 +52,34 @@ class _CentrosSaudePageState
           ),
         ),
       ),
-      body: Container(
-        width: double.infinity,
-        height: size.height,
-        color: Colors.white,
-        alignment: Alignment.center,
-        padding: EdgeInsets.only(top: 10),
-        child: Observer(
-          builder: (_) {
-            if (controller.isLoading)
-              return Center(child: CircularProgressIndicator());
-            if (controller.centros.isEmpty)
-              return InkWellSpeakText(
-                Text(
-                  WITHOUT_MEDICAL_CENTER_REGISTERED,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 24, color: kPrimaryColor),
-                ),
+      body: Semantics(
+        sortKey: OrdinalSortKey(1),
+        child: Container(
+          width: double.infinity,
+          height: size.height,
+          color: Colors.white,
+          alignment: Alignment.center,
+          padding: EdgeInsets.only(top: 10),
+          child: Observer(
+            builder: (_) {
+              if (controller.isLoading)
+                return Center(child: CircularProgressIndicator());
+              if (controller.centros.isEmpty)
+                return InkWellSpeakText(
+                  Text(
+                    WITHOUT_MEDICAL_CENTER_REGISTERED,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 24, color: kPrimaryColor),
+                  ),
+                );
+              return ListView.builder(
+                itemCount: controller.centros.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return CentroSaudeWidget(controller.centros[index]);
+                },
               );
-            return ListView.builder(
-              itemCount: controller.centros.length,
-              itemBuilder: (BuildContext context, int index) {
-                return CentroSaudeWidget(controller.centros[index]);
-              },
-            );
-          },
+            },
+          ),
         ),
       ),
     );
