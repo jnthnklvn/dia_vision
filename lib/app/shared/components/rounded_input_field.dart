@@ -60,20 +60,23 @@ class RoundedInputField extends StatelessWidget {
           errorText: errorText,
           labelText: hintText,
           suffixIcon: suffixIcon,
-          icon: icon != null
-              ? Icon(
-                  icon,
-                  color: kPrimaryColor,
-                  size: 42,
-                )
-              : InkWell(
-                  onTap: () => Modular.get<FlutterTts>().speak(hintText),
-                  child: Icon(
-                    Icons.play_circle_fill,
+          icon: Semantics(
+            excludeSemantics: true,
+            child: icon != null
+                ? Icon(
+                    icon,
                     color: kPrimaryColor,
                     size: 42,
+                  )
+                : InkWell(
+                    onTap: () => Modular.get<FlutterTts>().speak(hintText),
+                    child: Icon(
+                      Icons.play_circle_fill,
+                      color: kPrimaryColor,
+                      size: 42,
+                    ),
                   ),
-                ),
+          ),
           hintText: hintText,
           border: InputBorder.none,
         ),

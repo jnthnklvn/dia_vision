@@ -13,6 +13,7 @@ class InkWellSpeakText extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onLongPress: () => _speak(),
+      excludeFromSemantics: true,
       highlightColor: Colors.transparent,
       splashColor: Colors.transparent,
       child: text,

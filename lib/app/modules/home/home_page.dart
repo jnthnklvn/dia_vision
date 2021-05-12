@@ -47,16 +47,21 @@ class _HomePageState extends State<HomePage> {
                 Image.asset(
                   "assets/images/logo_name.png",
                   height: 60,
+                  excludeFromSemantics: true,
                 ),
-                InkWell(
-                  onTap: () => Modular.to.pushNamed(RouteEnum.profile.name),
-                  onLongPress: () => _speak("$BUTTON " + SETTINGS),
-                  child: Padding(
-                    padding: const EdgeInsets.all(5),
-                    child: SvgPicture.asset(
-                      "assets/icons/Settings.svg",
-                      color: kSecondaryColor,
-                      height: 35,
+                Semantics(
+                  label: "$BUTTON $SETTINGS",
+                  child: InkWell(
+                    onTap: () => Modular.to.pushNamed(RouteEnum.profile.name),
+                    onLongPress: () => _speak("$BUTTON $SETTINGS"),
+                    child: Padding(
+                      padding: const EdgeInsets.all(5),
+                      child: SvgPicture.asset(
+                        "assets/icons/Settings.svg",
+                        color: kSecondaryColor,
+                        height: 35,
+                        excludeFromSemantics: true,
+                      ),
                     ),
                   ),
                 ),
@@ -98,22 +103,22 @@ class _HomePageState extends State<HomePage> {
                                     modules[index].imageSrc,
                                     fit: BoxFit.fill,
                                     alignment: Alignment.centerRight,
+                                    excludeFromSemantics: true,
                                   )
                                 : Image(
                                     image: AssetImage(modules[index].imageSrc),
                                     fit: BoxFit.fill,
                                     alignment: Alignment.centerRight,
+                                    excludeFromSemantics: true,
                                   ),
                           ),
                           Container(
                             padding: EdgeInsets.fromLTRB(10, 10, 20, 20),
-                            child: InkWellSpeakText(
-                              Text(
-                                modules[index].name,
-                                style: kTitleTextStyle.apply(
-                                  backgroundColor:
-                                      Colors.white.withOpacity(0.5),
-                                ),
+                            child: Text(
+                              modules[index].name,
+                              semanticsLabel: "$MODULE ${modules[index].name}",
+                              style: kTitleTextStyle.apply(
+                                backgroundColor: Colors.white.withOpacity(0.5),
                               ),
                             ),
                           ),

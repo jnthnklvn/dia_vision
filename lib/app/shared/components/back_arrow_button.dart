@@ -16,20 +16,24 @@ class BackArrowButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: Modular.to.pop,
-      onLongPress: () => Modular.get<FlutterTts>().speak("$BUTTON " + BACK),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(
-          horizontal: 15,
-          vertical: 10,
-        ),
+    return Semantics(
+      label: "$BUTTON $BACK",
+      child: InkWell(
+        onTap: Modular.to.pop,
+        onLongPress: () => Modular.get<FlutterTts>().speak("$BUTTON $BACK"),
         child: Padding(
-          padding: EdgeInsets.all(iconPadding),
-          child: SvgPicture.asset(
-            "assets/icons/Back ICon.svg",
-            color: kPrimaryColor,
-            height: 30,
+          padding: const EdgeInsets.symmetric(
+            horizontal: 15,
+            vertical: 10,
+          ),
+          child: Padding(
+            padding: EdgeInsets.all(iconPadding),
+            child: SvgPicture.asset(
+              "assets/icons/Back ICon.svg",
+              color: kPrimaryColor,
+              height: 30,
+              excludeFromSemantics: true,
+            ),
           ),
         ),
       ),
