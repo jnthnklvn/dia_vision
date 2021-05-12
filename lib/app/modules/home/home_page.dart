@@ -5,9 +5,9 @@ import 'package:dia_vision/app/shared/utils/route_enum.dart';
 import 'package:dia_vision/app/shared/utils/constants.dart';
 import 'package:dia_vision/app/shared/utils/strings.dart';
 import 'package:dia_vision/app/shared/utils/styles.dart';
+import 'package:dia_vision/app/app_controller.dart';
 
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_tts/flutter_tts.dart';
@@ -23,11 +23,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
-    Modular.get<AwesomeNotifications>()
-        .actionStream
-        .listen((receivedNotification) {
-      Modular.to.pushReplacementNamed(RouteEnum.medications.name);
-    });
+    Modular.get<AppController>().startListenNotifications();
     super.initState();
   }
 
