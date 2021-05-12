@@ -1,6 +1,9 @@
+import 'package:dia_vision/app/shared/local_storage/local_storage_shared.dart';
 import 'package:dia_vision/app/repositories/user_repository.dart';
 import 'package:dia_vision/app/model/user.dart';
 
+import 'package:awesome_notifications/awesome_notifications.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 
 part 'app_controller.g.dart';
@@ -38,7 +41,11 @@ abstract class _RegisterControllerBase with Store {
   Future<void> logout() async {
     user = null;
     try {
+      Modular.get<LocalStorageShared>().clear();
+      Modular.get<AwesomeNotifications>().cancelAllSchedules();
       await _userRepository.logout();
-    } catch (e) {}
+    } catch (e) {
+      print(e.toString());
+    }
   }
 }
