@@ -33,6 +33,22 @@ mixin _$AtividadeFisicaRegisterController
     });
   }
 
+  final _$tipo2Atom =
+      Atom(name: '_AtividadeFisicaRegisterControllerBase.tipo2');
+
+  @override
+  String get tipo2 {
+    _$tipo2Atom.reportRead();
+    return super.tipo2;
+  }
+
+  @override
+  set tipo2(String value) {
+    _$tipo2Atom.reportWrite(value, super.tipo2, () {
+      super.tipo2 = value;
+    });
+  }
+
   final _$duracaoAtom =
       Atom(name: '_AtividadeFisicaRegisterControllerBase.duracao');
 
@@ -98,6 +114,19 @@ mixin _$AtividadeFisicaRegisterController
   }
 
   @override
+  void setTipo2(String newValue) {
+    final _$actionInfo =
+        _$_AtividadeFisicaRegisterControllerBaseActionController.startAction(
+            name: '_AtividadeFisicaRegisterControllerBase.setTipo2');
+    try {
+      return super.setTipo2(newValue);
+    } finally {
+      _$_AtividadeFisicaRegisterControllerBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
   void setDuracao(String newValue) {
     final _$actionInfo =
         _$_AtividadeFisicaRegisterControllerBaseActionController.startAction(
@@ -127,6 +156,7 @@ mixin _$AtividadeFisicaRegisterController
   String toString() {
     return '''
 tipo: ${tipo},
+tipo2: ${tipo2},
 duracao: ${duracao},
 distancia: ${distancia},
 isLoading: ${isLoading},

@@ -35,6 +35,7 @@ class _AtividadeFisicaRegisterPageState extends ModularState<
   final focusNode1 = FocusNode();
 
   TextEditingController tipoController;
+  TextEditingController tipo2Controller;
   TextEditingController duracaoController;
   TextEditingController distanciaController;
 
@@ -47,6 +48,7 @@ class _AtividadeFisicaRegisterPageState extends ModularState<
   void initControllers() {
     controller.init(widget.atividadeFisica);
     tipoController = TextEditingController(text: controller.tipo);
+    tipo2Controller = TextEditingController(text: controller.tipo2);
     duracaoController = TextEditingController(text: controller.duracao);
     distanciaController = TextEditingController(text: controller.distancia);
   }
@@ -94,6 +96,16 @@ class _AtividadeFisicaRegisterPageState extends ModularState<
                           FilteringTextInputFormatter.digitsOnly,
                           DecimalInputFormatter(),
                         ],
+                      )
+                    : Container(),
+                (controller.tipo == ExerciseType.Outro.name)
+                    ? RoundedInputField(
+                        hintText: "Tipo",
+                        controller: tipo2Controller,
+                        keyboardType: TextInputType.text,
+                        onChanged: controller.setTipo2,
+                        focusNode: focusNode,
+                        nextFocusNode: focusNode1,
                       )
                     : Container(),
                 RoundedInputField(

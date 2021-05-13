@@ -14,16 +14,16 @@ class AtividadeFisicaWidget extends StatelessWidget with DateUtils {
 
   const AtividadeFisicaWidget(this._atividadeFisica);
 
-  String getFullString(String fieldName, String text) {
+  String getFullString(String fieldName, String text, String finalText) {
     if (text?.isNotEmpty != true) return null;
-    return "$fieldName: $text.";
+    return "$fieldName: $text${finalText ?? ""}.";
   }
 
   @override
   Widget build(BuildContext context) {
     final subtitleContents = [
-      getFullString("Distância (km)", _atividadeFisica.distancia?.toString()),
-      getFullString("Duração (minutos)", _atividadeFisica.duracao?.toString()),
+      getFullString("Distância", _atividadeFisica.distancia?.toString(), " km"),
+      getFullString("Duração", _atividadeFisica.duracao?.toString(), " min"),
     ];
     subtitleContents.removeWhere((e) => e == null);
 
@@ -38,7 +38,7 @@ class AtividadeFisicaWidget extends StatelessWidget with DateUtils {
         arguments: _atividadeFisica,
       ),
       onLongPress: () => Modular.get<FlutterTts>().speak(
-          "${getFullString('Tipo', _atividadeFisica.tipo)} $stringToSpeak"),
+          "${getFullString('Tipo', _atividadeFisica.tipo, "")} $stringToSpeak"),
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16),
