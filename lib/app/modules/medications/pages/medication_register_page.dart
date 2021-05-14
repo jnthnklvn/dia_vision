@@ -166,12 +166,41 @@ class _MedicationRegisterPageState
               children: <Widget>[
                 buildTextFieldWithSuggestions(context),
                 RoundedInputField(
-                  hintText: "Dosagem",
+                  hintText: "Dosagem (${controller.medidaDosagem ?? ""})",
                   controller: dosagemController,
                   keyboardType: TextInputType.number,
                   onChanged: controller.setDosagem,
                   focusNode: _focusNodes[1],
                   nextFocusNode: _focusNodes[2],
+                  suffixIcon: DropdownButton<String>(
+                    value: controller.medidaDosagem,
+                    icon: const Icon(
+                      Icons.keyboard_arrow_down_sharp,
+                      color: kPrimaryColor,
+                      size: 32,
+                    ),
+                    hint: Text(
+                      "medida",
+                      style: TextStyle(
+                        color: Colors.grey[700],
+                        fontSize: 18,
+                      ),
+                    ),
+                    elevation: 16,
+                    style: TextStyle(
+                      color: Colors.grey[700],
+                      fontSize: 18,
+                    ),
+                    underline: Container(),
+                    onChanged: controller.setMedidaDosagem,
+                    items: controller.medidas
+                        .map<DropdownMenuItem<String>>((String medida) {
+                      return DropdownMenuItem<String>(
+                        value: medida,
+                        child: Text(medida),
+                      );
+                    }).toList(),
+                  ),
                 ),
                 buildDropdownButton(size),
                 controller.posologia?.value1 == "Personalizado"
@@ -273,18 +302,10 @@ class _MedicationRegisterPageState
             },
           ),
         ),
-        leading: Semantics(
-          excludeSemantics: true,
-          child: InkWell(
-            onTap: () => _speak(controller.horarios.length == 0
-                ? "Adicione um horário"
-                : controller.horarios.toString()),
-            child: Icon(
-              Icons.play_circle_fill,
-              color: kPrimaryColor,
-              size: 42,
-            ),
-          ),
+        leading: buildIconPlay(
+          controller.horarios.length == 0
+              ? "Adicione um horário"
+              : controller.horarios.toString(),
         ),
         title: controller.horarios.length == 0
             ? Text(
@@ -368,14 +389,7 @@ class _MedicationRegisterPageState
             }),
             icon: Semantics(
               excludeSemantics: true,
-              child: InkWell(
-                onTap: () => _speak("Nome"),
-                child: Icon(
-                  Icons.play_circle_fill,
-                  color: kPrimaryColor,
-                  size: 42,
-                ),
-              ),
+              child: buildIconPlay("Nome: ${controller.nome ?? ""}"),
             ),
             hintText: "Nome",
             border: InputBorder.none,
@@ -385,6 +399,8 @@ class _MedicationRegisterPageState
             controller.getSuggestions(widget.onError),
         itemBuilder: (_, Medicamento suggestion) {
           return ListTile(
+            trailing: buildIconPlay(
+                suggestion.nomeComercial ?? suggestion.nomeSubstancia),
             title: Text(suggestion.nomeComercial),
             subtitle: Text(suggestion.nomeSubstancia),
           );
@@ -395,6 +411,20 @@ class _MedicationRegisterPageState
           controller.setNome(suggestion.nomeComercial);
           controller.medicamentoSelecionado = suggestion;
         },
+      ),
+    );
+  }
+
+  Widget buildIconPlay(String text) {
+    return Semantics(
+      excludeSemantics: true,
+      child: InkWell(
+        onTap: () => _speak(text),
+        child: Icon(
+          Icons.play_circle_fill,
+          color: kPrimaryColor,
+          size: 42,
+        ),
       ),
     );
   }
@@ -410,18 +440,8 @@ class _MedicationRegisterPageState
       ),
       child: ListTile(
         contentPadding: EdgeInsets.all(0),
-        leading: Semantics(
-          excludeSemantics: true,
-          child: InkWell(
-            onTap: () => _speak(controller.posologia?.value1 ??
-                "Selecione a posologia (intervalo em horas)"),
-            child: Icon(
-              Icons.play_circle_fill,
-              color: kPrimaryColor,
-              size: 42,
-            ),
-          ),
-        ),
+        leading: buildIconPlay(controller.posologia?.value1 ??
+            "Selecione a posologia (intervalo em horas)"),
         title: DropdownButton<String>(
           value: controller.posologia?.value1,
           icon: const Icon(

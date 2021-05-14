@@ -32,16 +32,17 @@ class MedicationWidget extends StatelessWidget
 
   Future _speak(String txt) => Modular.get<FlutterTts>().speak(txt);
 
-  String getFullString(String fieldName, String text) {
+  String getFullString(String fieldName, String text, {String sufix}) {
     if (text?.isNotEmpty != true) return null;
-    return "$fieldName: $text";
+    return "$fieldName: $text${sufix != null ? ' ' + sufix : ""}";
   }
 
   @override
   Widget build(BuildContext context) {
     _controller.getNotification(_medicacaoPrescrita.objectId);
     final subtitleContents = [
-      getFullString("Dosagem", _medicacaoPrescrita.dosagem?.toString()),
+      getFullString("Dosagem", _medicacaoPrescrita.dosagem?.toString(),
+          sufix: _medicacaoPrescrita.medidaDosagem),
       getFullString("Posologia", getPosologia(_medicacaoPrescrita.posologia)),
       _medicacaoPrescrita.posologia == 0
           ? getFullString("Horários", _medicacaoPrescrita.horarios)

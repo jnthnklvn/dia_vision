@@ -119,6 +119,22 @@ mixin _$MedicationRegisterController
     });
   }
 
+  final _$medidaDosagemAtom =
+      Atom(name: '_MedicationRegisterControllerBase.medidaDosagem');
+
+  @override
+  String get medidaDosagem {
+    _$medidaDosagemAtom.reportRead();
+    return super.medidaDosagem;
+  }
+
+  @override
+  set medidaDosagem(String value) {
+    _$medidaDosagemAtom.reportWrite(value, super.medidaDosagem, () {
+      super.medidaDosagem = value;
+    });
+  }
+
   final _$efeitosColateraisAtom =
       Atom(name: '_MedicationRegisterControllerBase.efeitosColaterais');
 
@@ -326,6 +342,7 @@ dataFinal: ${dataFinal},
 dataInicial: ${dataInicial},
 posologia: ${posologia},
 dosagem: ${dosagem},
+medidaDosagem: ${medidaDosagem},
 efeitosColaterais: ${efeitosColaterais},
 horarioInicial: ${horarioInicial},
 horarios: ${horarios},

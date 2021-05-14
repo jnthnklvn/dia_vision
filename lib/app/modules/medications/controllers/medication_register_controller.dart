@@ -43,6 +43,8 @@ abstract class _MedicationRegisterControllerBase with Store, DateUtils {
   @observable
   String dosagem;
   @observable
+  String medidaDosagem;
+  @observable
   String efeitosColaterais;
   @observable
   String horarioInicial;
@@ -73,6 +75,14 @@ abstract class _MedicationRegisterControllerBase with Store, DateUtils {
     Tuple2("Personalizado", 0),
   ];
 
+  final List<String> medidas = [
+    "mg",
+    "g",
+    "ml",
+    "comprimidos",
+    "gotas",
+  ];
+
   @computed
   bool get isNomeValid => nome != null && nome.length > 3;
   @computed
@@ -98,6 +108,8 @@ abstract class _MedicationRegisterControllerBase with Store, DateUtils {
       .firstWhere((e) => e.value1 == newPosologia, orElse: () => null);
   @action
   void setDosagem(String newDosagem) => dosagem = newDosagem;
+  void setMedidaDosagem(String newMedidaDosagem) =>
+      medidaDosagem = newMedidaDosagem;
 
   void init(MedicacaoPrescrita medicacao) {
     _medicacaoPrescrita = medicacao;
@@ -116,6 +128,7 @@ abstract class _MedicationRegisterControllerBase with Store, DateUtils {
           orElse: () => null);
       setMedicoPrescritor(medicacao.medicoPrescritor);
       setDosagem(medicacao.dosagem?.toString());
+      setMedidaDosagem(medicacao.medidaDosagem);
       setEfeitosColaterais(medicacao.efeitosColaterais);
     }
   }
@@ -167,6 +180,7 @@ abstract class _MedicationRegisterControllerBase with Store, DateUtils {
           medicoPrescritor: medicoPrescritor,
           medicamento: medicamentoSelecionado,
           efeitosColaterais: efeitosColaterais,
+          medidaDosagem: medidaDosagem,
         );
 
         print(horarios.toString().replaceAll('[', '').replaceAll(']', ''));

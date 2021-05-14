@@ -69,7 +69,8 @@ class RoundedInputField extends StatelessWidget {
                     size: 42,
                   )
                 : InkWell(
-                    onTap: () => Modular.get<FlutterTts>().speak(hintText),
+                    onTap: () => Modular.get<FlutterTts>()
+                        .speak("$hintText: ${controller?.text ?? ""}"),
                     child: Icon(
                       Icons.play_circle_fill,
                       color: kPrimaryColor,

@@ -9,6 +9,7 @@ import 'medicamento.dart';
 const kMedicamento = "medicamento";
 const kNome = "nome";
 const kDosagem = "dosagem";
+const kMedidaDosagem = "medidaDosagem";
 const keyPaciente = 'paciente';
 const kPosologia = "posologia";
 const kMedicoPrescritor = "medicoPrescritor";
@@ -32,6 +33,7 @@ class MedicacaoPrescrita extends ParseObject
       String efeitosColaterais,
       String nome,
       num dosagem,
+      String medidaDosagem,
       num posologia,
       Paciente paciente})
       : super(kMedicacaoPrescritaTable) {
@@ -44,6 +46,7 @@ class MedicacaoPrescrita extends ParseObject
     this.dataFinal = dataFinal;
     this.dataInicial = dataInicial;
     this.dosagem = dosagem;
+    this.medidaDosagem = medidaDosagem;
     this.posologia = posologia;
     this.paciente = paciente;
   }
@@ -92,6 +95,10 @@ class MedicacaoPrescrita extends ParseObject
   num get dosagem => get<num>(kDosagem);
   set dosagem(num dosagem) => set<num>(kDosagem, dosagem);
 
+  String get medidaDosagem => get<String>(kMedidaDosagem);
+  set medidaDosagem(String medidaDosagem) =>
+      set<String>(kMedidaDosagem, medidaDosagem);
+
   num get posologia => get<num>(kPosologia);
   set posologia(num posologia) => set<num>(kPosologia, posologia);
 
@@ -125,6 +132,7 @@ class MedicacaoPrescrita extends ParseObject
         'Data Final': dataFinal != null ? getDataBrFromDate(dataFinal) : "",
         'Posologia': getPosologia(posologia) ?? "",
         'Dosagem': dosagem?.toString() ?? "",
+        'Medida de dosagem': medidaDosagem ?? "",
         'Efeitos Colaterais': efeitosColaterais ?? "",
         'Medico Prescritor': medicoPrescritor ?? "",
       };
