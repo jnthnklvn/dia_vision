@@ -56,8 +56,10 @@ class _GlicemiaPageState extends ModularState<GlicemiaPage, GlicemiaController>
               .pushNamed(RouteEnum.profile.name + RouteEnum.preferences.name),
           'Limites de glicemia',
           'Você ainda não definiu os valores minimo e máximo para glicemia. O valor padrão de 120 mg/dL para máxima e 70 mg/dL para minima está sendo utilizado. Gostaria de defini-los agora?',
-          onCancell: () =>
-              Modular.to.pushNamed("${glicemy.routeName}/$REGISTER"),
+          onCancell: () {
+            Modular.to.pushNamed("${glicemy.routeName}/$REGISTER");
+            controller.setIsValorPadraoGlicemia(true);
+          },
         );
       },
     );

@@ -34,11 +34,18 @@ abstract class _GlicemiaControllerBase with Store, CsvUtils, FileUtils {
   Future<void> checkValoresGlicemia() async {
     final valorMaxGlic = await _preferences.getValorMaximoGlicemia();
     final valorMinGlic = await _preferences.getValorMinimoGlicemia();
+    final isValorPadraoGlicemia =
+        (await _preferences.getIsValorPadraoGlicemia()) ?? false;
 
     if (valorMinGlic == null ||
         valorMaxGlic == null ||
         valorMinGlic == "70" ||
-        valorMaxGlic == "120") exibirDialog = true;
+        valorMaxGlic == "120") exibirDialog = true && !isValorPadraoGlicemia;
+  }
+
+  Future<bool> setIsValorPadraoGlicemia(bool newValue) async {
+    exibirDialog = false;
+    return _preferences.setIsValorPadraoGlicemia(newValue);
   }
 
   Future<void> getData(Function(String) onError) async {

@@ -10,6 +10,7 @@ class PreferenciasPreferences {
   String kAlertarHipoHiperGlicemia = "alertarHipoHiperGlicemia";
   String kValorMinimoGlicemia = "valorMinimoGlicemia";
   String kValorMaximoGlicemia = "valorMaximoGlicemia";
+  String kIsValorPadraoGlicemia = "isValorPadraoGlicemia";
   String kTempoLembrete = "tempoLembrete";
   String kHorarioGlicemia = "horarioGlicemia";
 
@@ -18,9 +19,12 @@ class PreferenciasPreferences {
       _preferences.getString(kValorMinimoGlicemia);
   Future<String> getValorMaximoGlicemia() =>
       _preferences.getString(kValorMaximoGlicemia);
-  Future<String> getHorarioGlicemia() => _preferences.getString(kHorarioGlicemia);
+  Future<String> getHorarioGlicemia() =>
+      _preferences.getString(kHorarioGlicemia);
   Future<bool> getAlertarMedicacao() => _preferences.getBool(kAlertarMedicacao);
   Future<bool> getAlertarGlicemia() => _preferences.getBool(kAlertarGlicemia);
+  Future<bool> getIsValorPadraoGlicemia() =>
+      _preferences.getBool(kIsValorPadraoGlicemia);
   Future<bool> getAlertarHipoHiperGlicemia() =>
       _preferences.getBool(kAlertarHipoHiperGlicemia);
 
@@ -36,6 +40,8 @@ class PreferenciasPreferences {
       _preferences.setBool(kAlertarMedicacao, newValue);
   Future<bool> setAlertarGlicemia(bool newValue) =>
       _preferences.setBool(kAlertarGlicemia, newValue);
+  Future<bool> setIsValorPadraoGlicemia(bool newValue) =>
+      _preferences.setBool(kIsValorPadraoGlicemia, newValue);
   Future<bool> setAlertarHipoHiperGlicemia(bool newValue) =>
       _preferences.setBool(kAlertarHipoHiperGlicemia, newValue);
 }
