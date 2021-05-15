@@ -1,5 +1,6 @@
 import 'package:dia_vision/app/modules/alimentacao/controllers/alimento_controller.dart';
 import 'package:dia_vision/app/modules/alimentacao/components/data_search.dart';
+import 'package:dia_vision/app/shared/components/ink_well_speak_text.dart';
 import 'package:dia_vision/app/shared/components/rounded_input_field.dart';
 import 'package:dia_vision/app/shared/components/back_arrow_button.dart';
 import 'package:dia_vision/app/shared/components/rounded_button.dart';
@@ -103,7 +104,7 @@ class _AlimentoRegisterPageState extends State<AlimentoRegisterPage> {
                   nextFocusNode: focusNode2,
                 ),
                 RoundedInputField(
-                  hintText: "Medida (ex. 100 g)",
+                  hintText: "Porção (ex. 100g)",
                   controller: alimentoController.medidaController,
                   keyboardType: TextInputType.text,
                   onChanged: alimentoController.setMedida,
@@ -111,7 +112,7 @@ class _AlimentoRegisterPageState extends State<AlimentoRegisterPage> {
                   nextFocusNode: focusNode3,
                 ),
                 RoundedInputField(
-                  hintText: "Calorias (porção)",
+                  hintText: "Calorias (por porção)",
                   controller: alimentoController.caloriasController,
                   keyboardType: TextInputType.number,
                   onChanged: alimentoController.setCalorias,
@@ -122,10 +123,14 @@ class _AlimentoRegisterPageState extends State<AlimentoRegisterPage> {
                   ],
                 ),
                 RoundedInputField(
-                  hintText: "Calorias consumidas",
-                  controller: alimentoController.caloriasConsumidasController,
+                  suffixIcon: InkWellSpeakText(Text(
+                    getLastString(alimentoController.medida) ?? "",
+                    style: TextStyle(fontSize: 18, color: Colors.grey[700]),
+                  )),
+                  hintText: "Porção consumida",
+                  controller: alimentoController.porcaoConsumidaController,
                   keyboardType: TextInputType.number,
-                  onChanged: alimentoController.setCaloriasConsumidas,
+                  onChanged: alimentoController.setPorcaoConsumida,
                   focusNode: focusNode4,
                   inputFormatters: [
                     FilteringTextInputFormatter.digitsOnly,
@@ -145,5 +150,10 @@ class _AlimentoRegisterPageState extends State<AlimentoRegisterPage> {
         ),
       ),
     );
+  }
+
+  String getLastString(String str) {
+    final list = str?.split(' ');
+    return list?.isNotEmpty == true ? "(${list[list.length - 1]})" : null;
   }
 }

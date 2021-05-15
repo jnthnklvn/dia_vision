@@ -1,8 +1,8 @@
-import 'package:dia_vision/app/model/user.dart';
 import 'package:dia_vision/app/repositories/alimento_api_repository.dart';
 import 'package:dia_vision/app/repositories/alimento_repository.dart';
 import 'package:dia_vision/app/model/alimentacao.dart';
 import 'package:dia_vision/app/model/alimento.dart';
+import 'package:dia_vision/app/model/user.dart';
 
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
@@ -22,7 +22,7 @@ abstract class _AlimentoControllerBase with Store {
   @observable
   var caloriasController = TextEditingController();
   @observable
-  var caloriasConsumidasController = TextEditingController();
+  var porcaoConsumidaController = TextEditingController();
   @observable
   var medidaController = TextEditingController();
 
@@ -40,7 +40,7 @@ abstract class _AlimentoControllerBase with Store {
   @observable
   String calorias;
   @observable
-  String caloriasConsumidas;
+  String porcaoConsumida;
 
   num count = 0;
 
@@ -53,7 +53,7 @@ abstract class _AlimentoControllerBase with Store {
   @action
   void setCalorias(String newValue) => calorias = newValue;
   @action
-  void setCaloriasConsumidas(String newValue) => caloriasConsumidas = newValue;
+  void setPorcaoConsumida(String newValue) => porcaoConsumida = newValue;
 
   List<Alimento> alimentosToRemove = List<Alimento>();
 
@@ -72,28 +72,39 @@ abstract class _AlimentoControllerBase with Store {
       setMarca(alimento.marca);
       setMedida(alimento.medida);
       setCalorias(alimento.calorias?.toString());
-      setCaloriasConsumidas(alimento.caloriasConsumidas?.toString());
+      setPorcaoConsumida(alimento.porcaoConsumida?.toString());
       nomeController = TextEditingController(text: nome);
       marcaController = TextEditingController(text: marca);
       medidaController = TextEditingController(text: medida);
       caloriasController = TextEditingController(text: calorias);
-      caloriasConsumidasController =
-          TextEditingController(text: caloriasConsumidas);
+      porcaoConsumidaController = TextEditingController(text: porcaoConsumida);
     }
+  }
+
+  String getFirtString(String str) {
+    final list = str?.split(' ');
+    return list?.isNotEmpty == true ? list[0] : null;
   }
 
   bool addAlimento(Function(String) onError) {
     if (nome != null && calorias != null) {
       final caloriasNum = num.tryParse(calorias.replaceAll(',', '.'));
-      final caloriasConsumidasNum = caloriasConsumidas != null
-          ? num.tryParse(caloriasConsumidas.replaceAll(',', '.'))
+      final porcaoConsumidaNum = porcaoConsumida != null
+          ? num.tryParse(porcaoConsumida.replaceAll(',', '.'))
           : null;
+      final porcao = num.tryParse(getFirtString(medida));
+      num caloriasConsumidas;
+      if (caloriasNum != null && porcaoConsumidaNum != null && porcao != null) {
+        caloriasConsumidas = (porcaoConsumidaNum * caloriasNum) / porcao;
+      }
+      caloriasConsumidas ??= caloriasNum;
       alimentos.add(Alimento(
         calorias: caloriasNum,
         nome: nome,
         marca: marca,
         medida: medida,
-        caloriasConsumidas: caloriasConsumidasNum,
+        porcaoConsumida: porcaoConsumidaNum,
+        caloriasConsumidas: caloriasConsumidas,
       ));
       init(Alimento());
       return true;

@@ -119,7 +119,9 @@ class _AlimentacaoRegisterPageState extends ModularState<
                 if (alimentoController.alimentos.length > 0) {
                   final calorias = alimentoController.alimentos
                       .fold<num>(
-                          0, (prev, element) => prev + (element.calorias ?? 0))
+                          0,
+                          (prev, element) =>
+                              prev + (element.caloriasConsumidas ?? 0))
                       .toString();
                   controller.setCalorias(calorias);
                   caloriasController.text = calorias;
@@ -128,8 +130,8 @@ class _AlimentacaoRegisterPageState extends ModularState<
                 }
                 return Column(
                   children: alimentoController.alimentos
-                      .map((a) => buildAlimentoWidget(
-                          a.nome, a.marca, a.calorias?.toString() ?? ""))
+                      .map((a) => buildAlimentoWidget(a.nome, a.marca,
+                          a.caloriasConsumidas?.toString() ?? ""))
                       .toList(),
                 );
               }),
@@ -193,7 +195,7 @@ class _AlimentacaoRegisterPageState extends ModularState<
     return InkWell(
       onTap: () => _showMyDialog(nome, marca),
       onLongPress: () => _speak(
-          "${getTextAndField('Nome', nome)} ${getTextAndField('Marca', marca)} ${getTextAndField('Calorias', calorias)}"),
+          "${getTextAndField('Nome', nome)} ${getTextAndField('Marca', marca)} ${getTextAndField('Calorias consumidas', calorias)}"),
       child: TextFieldContainer(
         child: ListTile(
           title: Text(nome ?? ""),

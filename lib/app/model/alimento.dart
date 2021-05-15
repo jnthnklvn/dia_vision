@@ -6,6 +6,7 @@ const kNome = "nome";
 const kMarca = "marca";
 const kMedida = "medida";
 const kCalorias = "calorias";
+const kPorcaoConsumida = "porcaoConsumida";
 const kCaloriasConsumidas = "caloriasConsumidas";
 const kProteinas = "proteinas";
 const kColesterol = "colesterol";
@@ -19,6 +20,7 @@ class Alimento extends ParseObject implements ParseCloneable {
   Alimento({
     num carboidratos,
     num calorias,
+    num porcaoConsumida,
     num caloriasConsumidas,
     num colesterol,
     num proteinas,
@@ -34,6 +36,7 @@ class Alimento extends ParseObject implements ParseCloneable {
     this.codigoPais = codigoPais;
     this.calorias = calorias;
     this.caloriasConsumidas = caloriasConsumidas;
+    this.porcaoConsumida = porcaoConsumida;
     this.nome = nome;
     this.tipo = tipo;
     this.carboidratos = carboidratos;
@@ -65,6 +68,10 @@ class Alimento extends ParseObject implements ParseCloneable {
   num get caloriasConsumidas => get<num>(kCaloriasConsumidas);
   set caloriasConsumidas(num caloriasConsumidas) =>
       set<num>(kCaloriasConsumidas, caloriasConsumidas);
+
+  num get porcaoConsumida => get<num>(kPorcaoConsumida);
+  set porcaoConsumida(num porcaoConsumida) =>
+      set<num>(kPorcaoConsumida, porcaoConsumida);
 
   num get proteinas => get<num>(kProteinas);
   set proteinas(num proteinas) => set<num>(kProteinas, proteinas);
@@ -129,6 +136,7 @@ class Alimento extends ParseObject implements ParseCloneable {
     data['colesterol'] = this.colesterol;
     data['proteinas'] = this.proteinas;
     data['calorias'] = this.calorias;
+    data['porcaoConsumida'] = this.porcaoConsumida;
     data['caloriasConsumidas'] = this.caloriasConsumidas;
     data['medida'] = this.medida;
     return data;
