@@ -286,6 +286,42 @@ mixin _$MedicationRegisterController
   }
 
   @override
+  void setHorario(String newHorario) {
+    final _$actionInfo = _$_MedicationRegisterControllerBaseActionController
+        .startAction(name: '_MedicationRegisterControllerBase.setHorario');
+    try {
+      return super.setHorario(newHorario);
+    } finally {
+      _$_MedicationRegisterControllerBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void addHorario() {
+    final _$actionInfo = _$_MedicationRegisterControllerBaseActionController
+        .startAction(name: '_MedicationRegisterControllerBase.addHorario');
+    try {
+      return super.addHorario();
+    } finally {
+      _$_MedicationRegisterControllerBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void removeHorario(String h) {
+    final _$actionInfo = _$_MedicationRegisterControllerBaseActionController
+        .startAction(name: '_MedicationRegisterControllerBase.removeHorario');
+    try {
+      return super.removeHorario(h);
+    } finally {
+      _$_MedicationRegisterControllerBaseActionController
+          .endAction(_$actionInfo);
+    }
+  }
+
+  @override
   void setDataInicial(String newDataInicial) {
     final _$actionInfo = _$_MedicationRegisterControllerBaseActionController
         .startAction(name: '_MedicationRegisterControllerBase.setDataInicial');

@@ -100,6 +100,21 @@ abstract class _MedicationRegisterControllerBase with Store, DateUtils {
   void setHorarioInicial(String newHorarioInicial) =>
       horarioInicial = newHorarioInicial;
   @action
+  void setHorario(String newHorario) => horario = newHorario;
+
+  @action
+  void addHorario() {
+    horarios.add(horario);
+    horarios = horarios.asObservable();
+  }
+
+  @action
+  void removeHorario(String h) {
+    horarios.remove(h);
+    horarios = horarios.asObservable();
+  }
+
+  @action
   void setDataInicial(String newDataInicial) => dataInicial = newDataInicial;
   @action
   void setDataFinal(String newDataFinal) => dataFinal = newDataFinal;
@@ -182,9 +197,6 @@ abstract class _MedicationRegisterControllerBase with Store, DateUtils {
           efeitosColaterais: efeitosColaterais,
           medidaDosagem: medidaDosagem,
         );
-
-        print(horarios.toString().replaceAll('[', '').replaceAll(']', ''));
-        print([].toString().replaceAll('[', '').replaceAll(']', ''));
 
         final user = await _appController.currentUser();
         medicacaoPrescrita.paciente = user.paciente;
