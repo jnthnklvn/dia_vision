@@ -225,6 +225,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.9.2"
+  day_night_time_picker:
+    dependency: "direct main"
+    description:
+      name: day_night_time_picker
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.5.0"
   dio:
     dependency: "direct main"
     description:
@@ -331,13 +338,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_time_picker_spinner:
-    dependency: "direct main"
-    description:
-      name: flutter_time_picker_spinner
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.6+1"
   flutter_tts:
     dependency: "direct main"
     description:

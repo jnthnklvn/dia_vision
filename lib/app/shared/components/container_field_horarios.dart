@@ -1,12 +1,13 @@
 import 'package:dia_vision/app/shared/components/text_field_container.dart';
 import 'package:dia_vision/app/shared/utils/date_utils.dart';
 import 'package:dia_vision/app/shared/utils/constants.dart';
+import 'package:dia_vision/app/shared/utils/strings.dart';
 
+import 'package:day_night_time_picker/lib/daynight_timepicker.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:flutter/material.dart';
 
-import 'custom_timer_picker_spinner.dart';
 import 'choose_dialog.dart';
 
 class ContainerFieldHorarios extends StatelessWidget with DateUtils {
@@ -28,6 +29,24 @@ class ContainerFieldHorarios extends StatelessWidget with DateUtils {
 
   Future<dynamic> _speak(String txt) => Modular.get<FlutterTts>().speak(txt);
 
+  Future showTimePickerDialog() {
+    return Navigator.of(context).push(
+      showPicker(
+        context: context,
+        cancelText: CANCELL,
+        okText: ADD,
+        is24HrFormat: true,
+        hourLabel: "horas",
+        minuteLabel: "minutos",
+        value: TimeOfDay(hour: 12, minute: 00),
+        onChange: (TimeOfDay time) {
+          setHorario(getHorarioFromTime(time));
+          addHorario();
+        },
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return TextFieldContainer(
@@ -40,18 +59,7 @@ class ContainerFieldHorarios extends StatelessWidget with DateUtils {
             size: 32,
           ),
           onLongPress: () => _speak("Adicione um horário"),
-          onTap: () => showDialog(
-            context: context,
-            builder: (context) {
-              return CustomTimePickerSpinner(
-                context: context,
-                onPressed: addHorario,
-                onTimeChange: (DateTime time) {
-                  setHorario(getHorarioFromDate(time));
-                },
-              );
-            },
-          ),
+          onTap: showTimePickerDialog,
         ),
         leading: Semantics(
           excludeSemantics: true,
@@ -93,20 +101,7 @@ class ContainerFieldHorarios extends StatelessWidget with DateUtils {
                                   return ChooseDialog(
                                     () {
                                       removeHorario(e);
-                                      showDialog(
-                                        context: context,
-                                        builder: (context) {
-                                          return CustomTimePickerSpinner(
-                                            context: context,
-                                            onPressed: addHorario,
-                                            onTimeChange: (DateTime time) {
-                                              setHorario(
-                                                getHorarioFromDate(time),
-                                              );
-                                            },
-                                          );
-                                        },
-                                      );
+                                      showTimePickerDialog();
                                     },
                                     () => removeHorario(e),
                                   );

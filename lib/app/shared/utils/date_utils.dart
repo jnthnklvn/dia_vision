@@ -1,4 +1,5 @@
 import 'package:brasil_fields/brasil_fields.dart';
+import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class DateUtils {
@@ -27,5 +28,14 @@ class DateUtils {
     if (date == null) return "";
     final f = new DateFormat('HH:mm');
     return f.format(date);
+  }
+
+  String getHorarioFromTime(TimeOfDay timeOfDay) {
+    if (timeOfDay == null) return "";
+    return "${getFullTime(timeOfDay.hour)}:${getFullTime(timeOfDay.minute)}";
+  }
+
+  String getFullTime(int time) {
+    return time < 10 ? '0$time' : time.toString();
   }
 }
