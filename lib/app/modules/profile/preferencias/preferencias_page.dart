@@ -1,6 +1,6 @@
+import 'package:dia_vision/app/shared/components/container_field_horarios.dart';
 import 'package:dia_vision/app/shared/components/rounded_input_field.dart';
 import 'package:dia_vision/app/shared/components/ink_well_speak_text.dart';
-import 'package:dia_vision/app/shared/utils/horario_input_formatter.dart';
 import 'package:dia_vision/app/shared/components/back_arrow_button.dart';
 import 'package:dia_vision/app/shared/components/rounded_button.dart';
 import 'package:dia_vision/app/shared/utils/scaffold_utils.dart';
@@ -88,7 +88,6 @@ class _PreferenciasPageState
                       textAlign: TextAlign.start,
                       style: TextStyle(
                         color: Colors.black,
-                        backgroundColor: Color(0xFFF5F6F9),
                         fontSize: 22,
                         fontWeight: FontWeight.w600,
                       ),
@@ -98,7 +97,13 @@ class _PreferenciasPageState
                 buildListTileSwitch(
                   controller.alertarGlicemia,
                   "Glicemia",
-                  controller.setAlertarGlicemia,
+                  (bool alertarGlicemia) {
+                    controller.setAlertarGlicemia(alertarGlicemia);
+                    alertarGlicemia
+                        ? controller.enableNotification(widget.onError)
+                        : controller.disableNotification(
+                            widget.onError, widget.onSuccess);
+                  },
                 ),
                 buildListTileSwitch(
                   controller.alertarHipoHiperGlicemia,
@@ -120,7 +125,6 @@ class _PreferenciasPageState
                       textAlign: TextAlign.start,
                       style: TextStyle(
                         color: Colors.black,
-                        backgroundColor: Color(0xFFF5F6F9),
                         fontSize: 22,
                         fontWeight: FontWeight.w600,
                       ),
@@ -138,7 +142,6 @@ class _PreferenciasPageState
                       textAlign: TextAlign.start,
                       style: TextStyle(
                         color: Colors.black,
-                        backgroundColor: Color(0xFFF5F6F9),
                         fontSize: 22,
                         fontWeight: FontWeight.w600,
                       ),
@@ -167,17 +170,20 @@ class _PreferenciasPageState
                   focusNode: _focusNode2,
                   nextFocusNode: _focusNode3,
                 ),
-                RoundedInputField(
-                  hintText: "Horário registro de glicemia",
-                  controller: horarioGlicemiaController,
-                  keyboardType: TextInputType.number,
-                  onChanged: controller.setHorarioGlicemia,
-                  focusNode: _focusNode3,
-                  inputFormatters: [
-                    FilteringTextInputFormatter.digitsOnly,
-                    HorarioInputFormatter(),
-                  ],
-                ),
+                controller.alertarGlicemia
+                    ? Observer(
+                        builder: (_) {
+                          return ContainerFieldHorarios(
+                            context: context,
+                            horario: controller.horario,
+                            horarios: controller.horarios,
+                            setHorario: controller.setHorario,
+                            addHorario: controller.addHorario,
+                            removeHorario: controller.removeHorario,
+                          );
+                        },
+                      )
+                    : Container(),
                 Observer(builder: (_) {
                   if (controller.isLoading)
                     return Center(

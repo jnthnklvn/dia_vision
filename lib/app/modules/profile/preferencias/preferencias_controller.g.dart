@@ -153,6 +153,21 @@ mixin _$PreferenciasController on _PreferenciasControllerBase, Store {
     });
   }
 
+  final _$horariosAtom = Atom(name: '_PreferenciasControllerBase.horarios');
+
+  @override
+  List<String> get horarios {
+    _$horariosAtom.reportRead();
+    return super.horarios;
+  }
+
+  @override
+  set horarios(List<String> value) {
+    _$horariosAtom.reportWrite(value, super.horarios, () {
+      super.horarios = value;
+    });
+  }
+
   final _$_PreferenciasControllerBaseActionController =
       ActionController(name: '_PreferenciasControllerBase');
 
@@ -196,6 +211,39 @@ mixin _$PreferenciasController on _PreferenciasControllerBase, Store {
         .startAction(name: '_PreferenciasControllerBase.setTempoLembrete');
     try {
       return super.setTempoLembrete(newValue);
+    } finally {
+      _$_PreferenciasControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void addHorario() {
+    final _$actionInfo = _$_PreferenciasControllerBaseActionController
+        .startAction(name: '_PreferenciasControllerBase.addHorario');
+    try {
+      return super.addHorario();
+    } finally {
+      _$_PreferenciasControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void removeHorario(String h) {
+    final _$actionInfo = _$_PreferenciasControllerBaseActionController
+        .startAction(name: '_PreferenciasControllerBase.removeHorario');
+    try {
+      return super.removeHorario(h);
+    } finally {
+      _$_PreferenciasControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void setHorario(String newHorario) {
+    final _$actionInfo = _$_PreferenciasControllerBaseActionController
+        .startAction(name: '_PreferenciasControllerBase.setHorario');
+    try {
+      return super.setHorario(newHorario);
     } finally {
       _$_PreferenciasControllerBaseActionController.endAction(_$actionInfo);
     }
@@ -247,7 +295,8 @@ alertarHipoHiperGlicemia: ${alertarHipoHiperGlicemia},
 tempoLembrete: ${tempoLembrete},
 valorMinimoGlicemia: ${valorMinimoGlicemia},
 valorMaximoGlicemia: ${valorMaximoGlicemia},
-horarioGlicemia: ${horarioGlicemia}
+horarioGlicemia: ${horarioGlicemia},
+horarios: ${horarios}
     ''';
   }
 }
