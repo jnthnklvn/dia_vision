@@ -1,3 +1,5 @@
+import 'package:dia_vision/app/shared/preferences/preferencias_preferences.dart';
+import 'package:dia_vision/app/shared/local_storage/local_storage_shared.dart';
 import 'package:dia_vision/app/repositories/user_repository.dart';
 import 'package:dia_vision/app/shared/utils/route_enum.dart';
 import 'package:dia_vision/app/shared/utils/utils.dart';
@@ -29,8 +31,10 @@ class AppModule extends MainModule {
         Bind((i) => Utils()),
         Bind((i) => FlutterTts()),
         Bind((i) => UserRepository()),
+        Bind((i) => LocalStorageShared()),
         Bind((i) => AwesomeNotifications()),
-        Bind((i) => AppController(i())),
+        Bind((i) => PreferenciasPreferences(i())),
+        Bind((i) => AppController(i(), i(), i())),
       ];
 
   @override
@@ -43,9 +47,11 @@ class AppModule extends MainModule {
         ModularRouter(RouteEnum.kidney.name, module: DiureseModule()),
         ModularRouter(RouteEnum.glicemy.name, module: GlicemiaModule()),
         ModularRouter(RouteEnum.selfCare.name, module: AutocuidadoModule()),
-        ModularRouter(RouteEnum.medicalCenters.name, module: CentroSaudeModule()),
+        ModularRouter(RouteEnum.medicalCenters.name,
+            module: CentroSaudeModule()),
         ModularRouter(RouteEnum.vision.name, module: AppVisaoModule()),
-        ModularRouter(RouteEnum.exercises.name, module: AtividadeFisicaModule()),
+        ModularRouter(RouteEnum.exercises.name,
+            module: AtividadeFisicaModule()),
         ModularRouter(RouteEnum.alimentation.name, module: AlimentacaoModule()),
       ];
 

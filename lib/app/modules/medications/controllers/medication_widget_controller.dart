@@ -1,6 +1,7 @@
 import 'package:dia_vision/app/shared/preferences/medication_notify_preferences.dart';
 import 'package:dia_vision/app/model/medication_notify.dart';
 import 'package:dia_vision/app/shared/utils/strings.dart';
+import 'package:dia_vision/app/app_controller.dart';
 
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:mobx/mobx.dart';
@@ -13,10 +14,12 @@ class MedicationsWidgetController = _MedicationsWidgetControllerBase
 abstract class _MedicationsWidgetControllerBase with Store {
   final MedicationNotifyPreferences _medicationNotifyPreferences;
   final AwesomeNotifications _awesomeNotifications;
+  final AppController _appController;
 
   _MedicationsWidgetControllerBase(
     this._medicationNotifyPreferences,
     this._awesomeNotifications,
+    this._appController,
   );
 
   @observable
@@ -44,19 +47,28 @@ abstract class _MedicationsWidgetControllerBase with Store {
         int.tryParse(tempoLembrete?.split(' ')?.elementAt(0) ?? '10');
     try {
       if (medicationNotify.horarios != null) {
-        for (var i = 0; i < medicationNotify.horarios.length; i++) {
-          await createNotification(
-            medicationNotify.objectId.hashCode + i,
-            medicationNotify.title,
-            medicationNotify.body,
-            medicationNotify.getCronHorario(i, intTempoLembrete),
-          );
-        }
-        final result = await _medicationNotifyPreferences.setMedicationNotify(
-            medicationNotify.objectId, medicationNotify);
-        if (result == true) {
-          medication = medicationNotify;
-          onSuccess(ENABLE_NOTIFICATION_SUCCESS);
+        if (medicationNotify.horarios.length > 6) {
+          onError('O limite máximo de horários para notificação é 6.');
+        } else {
+          for (var i = 0; i < medicationNotify.horarios.length; i++) {
+            await _appController.createNotification(
+              medicationNotify.objectId.hashCode + i,
+              medicationNotify.title,
+              medicationNotify.body,
+              NotificationSchedule(
+                allowWhileIdle: true,
+                initialDateTime: DateTime.now().toUtc(),
+                crontabSchedule:
+                    "0 ${medicationNotify.getCronHorario(i, intTempoLembrete)} * * ? *",
+              ),
+            );
+          }
+          final result = await _medicationNotifyPreferences.setMedicationNotify(
+              medicationNotify.objectId, medicationNotify);
+          if (result == true) {
+            medication = medicationNotify;
+            onSuccess(ENABLE_NOTIFICATION_SUCCESS);
+          }
         }
       } else {
         onError(REGISTER_NOTIFICATION_FAIL);
@@ -72,7 +84,7 @@ abstract class _MedicationsWidgetControllerBase with Store {
     isLoading = true;
     try {
       if (medication?.horarios != null) {
-        for (var i = 0; i < medication.horarios.length; i++) {
+        for (var i = 0; i < 6; i++) {
           await _awesomeNotifications
               .cancelSchedule(medication.objectId.hashCode + i);
         }
@@ -89,22 +101,5 @@ abstract class _MedicationsWidgetControllerBase with Store {
       onError(DELETE_NOTIFICATION_FAIL);
     }
     isLoading = false;
-  }
-
-  Future<bool> createNotification(
-      int id, String title, String body, String horario) {
-    return _awesomeNotifications.createNotification(
-      schedule: NotificationSchedule(
-        allowWhileIdle: true,
-        initialDateTime: DateTime.now().toUtc(),
-        crontabSchedule: "0 $horario * * ? *",
-      ),
-      content: NotificationContent(
-        id: id,
-        channelKey: 'basic_channel',
-        title: title,
-        body: body,
-      ),
-    );
   }
 }

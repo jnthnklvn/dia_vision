@@ -1,9 +1,6 @@
-import 'package:dia_vision/app/shared/preferences/preferencias_preferences.dart';
-import 'package:dia_vision/app/shared/local_storage/local_storage_shared.dart';
 import 'package:dia_vision/app/repositories/paciente_repository.dart';
 import 'package:dia_vision/app/shared/utils/route_enum.dart';
 
-import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 import 'preferencias/preferencias_controller.dart';
@@ -17,11 +14,8 @@ class ProfileModule extends ChildModule {
   @override
   List<Bind> get binds => [
         Bind((i) => ProfileController()),
-        Bind((i) => PreferenciasController(i(), i())),
-        Bind((i) => AwesomeNotifications()),
+        Bind((i) => PreferenciasController(i(), i(), i())),
         Bind((i) => PacienteRepository()),
-        Bind((i) => LocalStorageShared()),
-        Bind((i) => PreferenciasPreferences(i())),
         Bind((i) => MyDataController(i(), i(), i(), i())),
       ];
 

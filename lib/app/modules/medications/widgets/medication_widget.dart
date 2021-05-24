@@ -9,6 +9,7 @@ import 'package:dia_vision/app/shared/utils/date_utils.dart' as Dt;
 import 'package:dia_vision/app/model/medication_notify.dart';
 import 'package:dia_vision/app/shared/utils/constants.dart';
 import 'package:dia_vision/app/shared/utils/strings.dart';
+import 'package:dia_vision/app/app_controller.dart';
 
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -23,6 +24,7 @@ class MedicationWidget extends StatelessWidget
   final _controller = MedicationsWidgetController(
     Modular.get<MedicationNotifyPreferences>(),
     Modular.get<AwesomeNotifications>(),
+    Modular.get<AppController>(),
   );
   final _medicationsController = Modular.get<MedicationsController>();
   final Function(String) onError;

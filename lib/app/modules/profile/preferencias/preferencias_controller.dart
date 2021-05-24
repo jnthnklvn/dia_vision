@@ -1,6 +1,7 @@
 import 'package:dia_vision/app/shared/preferences/preferencias_preferences.dart';
 import 'package:dia_vision/app/shared/utils/string_utils.dart';
 import 'package:dia_vision/app/shared/utils/strings.dart';
+import 'package:dia_vision/app/app_controller.dart';
 
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:mobx/mobx.dart';
@@ -13,8 +14,10 @@ class PreferenciasController = _PreferenciasControllerBase
 abstract class _PreferenciasControllerBase with Store {
   final AwesomeNotifications _awesomeNotifications;
   final PreferenciasPreferences _preferences;
+  final AppController _appController;
 
-  _PreferenciasControllerBase(this._preferences, this._awesomeNotifications);
+  _PreferenciasControllerBase(
+      this._preferences, this._awesomeNotifications, this._appController);
 
   @observable
   bool isLoading = false;
@@ -129,21 +132,30 @@ abstract class _PreferenciasControllerBase with Store {
 
   Future<void> enableNotification(Function(String) onError) async {
     isLoading = true;
-    final intTempoLembrete =
-        int.tryParse(tempoLembrete?.split(' ')?.elementAt(0) ?? '10');
-    try {
-      if (horarios.isNotEmpty == true && alertarGlicemia) {
-        for (var i = 0; i < horarios.length; i++) {
-          await createNotification(
-            idGlicemia,
-            "${tempoLembrete ?? '10 min'} $TO_GLICEMY_REGISTER_TIME",
-            GLICEMY_REGISTER_TIME,
-            getCronHorario(i, horarios, intTempoLembrete),
-          );
+    if (horarios.length > 6) {
+      onError('O limite máximo de horários para notificação é 6.');
+    } else {
+      final intTempoLembrete =
+          int.tryParse(tempoLembrete?.split(' ')?.elementAt(0) ?? '10');
+      try {
+        if (horarios.isNotEmpty == true && alertarGlicemia) {
+          for (var i = 0; i < horarios.length; i++) {
+            await _appController.createNotification(
+              idGlicemia + i,
+              "${tempoLembrete ?? '10 min'} $TO_GLICEMY_REGISTER_TIME",
+              GLICEMY_REGISTER_TIME,
+              NotificationSchedule(
+                allowWhileIdle: true,
+                initialDateTime: DateTime.now().toUtc(),
+                crontabSchedule:
+                    "0 ${getCronHorario(i, horarios, intTempoLembrete)} * * ? *",
+              ),
+            );
+          }
         }
+      } catch (e) {
+        onError(REGISTER_NOTIFICATION_FAIL);
       }
-    } catch (e) {
-      onError(REGISTER_NOTIFICATION_FAIL);
     }
     isLoading = false;
   }
@@ -153,8 +165,8 @@ abstract class _PreferenciasControllerBase with Store {
     isLoading = true;
     try {
       if (horarios.isNotEmpty == true && !alertarGlicemia) {
-        for (var i = 0; i < horarios.length; i++) {
-          await _awesomeNotifications.cancelSchedule(idGlicemia + i);
+        for (var i = 0; i < 6; i++) {
+          _awesomeNotifications.cancelSchedule(idGlicemia + i);
         }
         onSuccess(DISABLE_NOTIFICATION_SUCCESS);
       }
@@ -162,22 +174,5 @@ abstract class _PreferenciasControllerBase with Store {
       onError(DELETE_NOTIFICATION_FAIL);
     }
     isLoading = false;
-  }
-
-  Future<bool> createNotification(
-      int id, String title, String body, String horario) {
-    return _awesomeNotifications.createNotification(
-      schedule: NotificationSchedule(
-        allowWhileIdle: true,
-        initialDateTime: DateTime.now().toUtc(),
-        crontabSchedule: "0 $horario * * ? *",
-      ),
-      content: NotificationContent(
-        id: id,
-        channelKey: 'basic_channel',
-        title: title,
-        body: body,
-      ),
-    );
   }
 }

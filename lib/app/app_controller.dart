@@ -1,3 +1,4 @@
+import 'package:dia_vision/app/shared/preferences/preferencias_preferences.dart';
 import 'package:dia_vision/app/shared/local_storage/local_storage_shared.dart';
 import 'package:dia_vision/app/repositories/user_repository.dart';
 import 'package:dia_vision/app/shared/utils/route_enum.dart';
@@ -14,8 +15,11 @@ class AppController = _RegisterControllerBase with _$AppController;
 
 abstract class _RegisterControllerBase with Store {
   final IUserRepository _userRepository;
+  final PreferenciasPreferences _preferences;
+  final AwesomeNotifications _awesomeNotifications;
 
-  _RegisterControllerBase(this._userRepository);
+  _RegisterControllerBase(
+      this._userRepository, this._awesomeNotifications, this._preferences);
 
   @observable
   String error;
@@ -46,10 +50,54 @@ abstract class _RegisterControllerBase with Store {
     try {
       receivedNotificationAction = Modular.get<AwesomeNotifications>()
           .actionStream
-          .listen((receivedNotification) {
-        Modular.to.pushReplacementNamed(RouteEnum.medications.name);
+          .listen((receivedNotification) async {
+        print(receivedNotification.buttonKeyPressed);
+        if (receivedNotification.buttonKeyPressed?.isNotEmpty == true) {
+          final tempoLembrete =
+              await _preferences.getTempoLembrete() ?? '10 min';
+          final intTempoLembrete =
+              int.tryParse(tempoLembrete?.split(' ')?.elementAt(0) ?? '10');
+          await createNotification(
+            receivedNotification.id + 1001,
+            receivedNotification.title,
+            receivedNotification.body,
+            NotificationSchedule(
+              allowWhileIdle: true,
+              preciseSchedules: [
+                DateTime.now().toUtc().add(Duration(minutes: intTempoLembrete))
+              ],
+            ),
+          );
+          return;
+        }
+        await Modular.to.pushReplacementNamed(RouteEnum.home.name);
+        if (receivedNotification.title?.contains('glicemia') == true) {
+          Modular.to.pushReplacementNamed(RouteEnum.glicemy.name);
+        } else {
+          Modular.to.pushReplacementNamed(RouteEnum.medications.name);
+        }
       });
     } catch (e) {}
+  }
+
+  Future<bool> createNotification(int id, String title, String body,
+      NotificationSchedule notificationSchedule) {
+    return _awesomeNotifications.createNotification(
+      actionButtons: [
+        NotificationActionButton(
+          label: "Adiar ${title.split(' ')[0] + ' min'}",
+          buttonType: ActionButtonType.KeepOnTop,
+          key: title,
+        ),
+      ],
+      schedule: notificationSchedule,
+      content: NotificationContent(
+        id: id,
+        channelKey: 'basic_channel',
+        title: title,
+        body: body,
+      ),
+    );
   }
 
   Future<void> logout() async {
