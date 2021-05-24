@@ -59,7 +59,7 @@ abstract class _RegisterControllerBase with Store {
               int.tryParse(tempoLembrete?.split(' ')?.elementAt(0) ?? '10');
           await createNotification(
             receivedNotification.id + 1001,
-            receivedNotification.title,
+            receivedNotification.body,
             receivedNotification.body,
             NotificationSchedule(
               allowWhileIdle: true,
