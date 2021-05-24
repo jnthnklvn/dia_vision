@@ -150,6 +150,7 @@ abstract class _PreferenciasControllerBase with Store {
                 crontabSchedule:
                     "0 ${getCronHorario(i, horarios, intTempoLembrete)} * * ? *",
               ),
+              tempoLembrete: tempoLembrete,
             );
           }
         }

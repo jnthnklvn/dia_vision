@@ -61,6 +61,7 @@ abstract class _MedicationsWidgetControllerBase with Store {
                 crontabSchedule:
                     "0 ${medicationNotify.getCronHorario(i, intTempoLembrete)} * * ? *",
               ),
+              tempoLembrete: tempoLembrete,
             );
           }
           final result = await _medicationNotifyPreferences.setMedicationNotify(

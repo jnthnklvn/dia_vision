@@ -67,6 +67,7 @@ abstract class _RegisterControllerBase with Store {
                 DateTime.now().toUtc().add(Duration(minutes: intTempoLembrete))
               ],
             ),
+            tempoLembrete: tempoLembrete,
           );
           return;
         }
@@ -81,11 +82,12 @@ abstract class _RegisterControllerBase with Store {
   }
 
   Future<bool> createNotification(int id, String title, String body,
-      NotificationSchedule notificationSchedule) {
+      NotificationSchedule notificationSchedule,
+      {String tempoLembrete}) {
     return _awesomeNotifications.createNotification(
       actionButtons: [
         NotificationActionButton(
-          label: "Adiar ${title.split(' ')[0] + ' min'}",
+          label: "Adiar ${tempoLembrete ?? ''}",
           buttonType: ActionButtonType.KeepOnTop,
           key: title,
         ),
