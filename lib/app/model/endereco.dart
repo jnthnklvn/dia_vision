@@ -1,6 +1,7 @@
 import 'package:parse_server_sdk/parse_server_sdk.dart';
 
 const kCidade = "cidade";
+const kComplemento = "complemento";
 const kBairro = "bairro";
 const kEstado = "estado";
 const kNumero = "numero";
@@ -11,6 +12,7 @@ const kEnderecoTable = "Endereco";
 class Endereco extends ParseObject implements ParseCloneable {
   Endereco(
       {String cidade,
+      String complemento,
       String rua,
       String cep,
       String bairro,
@@ -18,6 +20,7 @@ class Endereco extends ParseObject implements ParseCloneable {
       String estado})
       : super(kEnderecoTable) {
     this.cidade = cidade;
+    this.complemento = complemento;
     this.bairro = bairro;
     this.numero = numero;
     this.estado = estado;
@@ -43,6 +46,9 @@ class Endereco extends ParseObject implements ParseCloneable {
 
   String get cidade => get<String>(kCidade);
   set cidade(String cidade) => set<String>(kCidade, cidade);
+
+  String get complemento => get<String>(kComplemento);
+  set complemento(String complemento) => set<String>(kComplemento, complemento);
 
   num get numero => get<num>(kNumero);
   set numero(num numero) => set<num>(kNumero, numero);

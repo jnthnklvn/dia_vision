@@ -7,6 +7,7 @@ import 'package:dia_vision/app/shared/utils/date_utils.dart';
 import 'package:dia_vision/app/shared/utils/constants.dart';
 import 'package:dia_vision/app/shared/utils/strings.dart';
 import 'package:dia_vision/app/model/centro_saude.dart';
+import 'package:dia_vision/app/model/endereco.dart';
 
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -32,6 +33,21 @@ class _CentroSaudePageState
   Future _speak(String txt) => Modular.get<FlutterTts>().speak(txt);
 
   _CentroSaudePageState(this.scaffoldKey, this._centroSaude);
+
+  String getEnderecoFormatado(Endereco endereco) {
+    String strFormatada = endereco.rua ?? "";
+    strFormatada +=
+        endereco.numero != null ? ", " + endereco.numero.toString() : "";
+    strFormatada +=
+        isNullOrEmpty(endereco.complemento) ? "" : ", " + endereco.complemento;
+    strFormatada +=
+        isNullOrEmpty(endereco.bairro) ? "" : ", " + endereco.bairro;
+    strFormatada +=
+        isNullOrEmpty(endereco.cidade) ? "" : ", " + endereco.cidade;
+    strFormatada += isNullOrEmpty(endereco.estado) ? "" : "/" + endereco.estado;
+    strFormatada += isNullOrEmpty(endereco.cep) ? "" : ", " + endereco.cep;
+    return strFormatada;
+  }
 
   @override
   Widget build(BuildContext context) {

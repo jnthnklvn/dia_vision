@@ -17,12 +17,20 @@ abstract class _CentroSaudeControllerBase with Store {
   bool isLoading = false;
   @observable
   ObservableList<CentroSaude> centros = ObservableList<CentroSaude>();
+  @observable
+  ObservableSet<String> tipos = ObservableSet<String>();
+  @observable
+  String tipo;
+
+  List<CentroSaude> _centros = List<CentroSaude>();
 
   Future<void> getData(Function(String) onError) async {
     isLoading = true;
     try {
       final result = await _avaliacaoPesRepository.getAll();
       result.fold((l) => onError(l.message), (r) {
+        _centros = r;
+        tipos = r.map((e) => e.tipo).toSet().asObservable();
         centros = (r ?? List<CentroSaude>()).asObservable();
       });
     } catch (e) {
@@ -30,5 +38,15 @@ abstract class _CentroSaudeControllerBase with Store {
       isLoading = false;
     }
     isLoading = false;
+  }
+
+  void filterData(String tipo) {
+    this.tipo = tipo;
+    if (_centros.isNotEmpty) {
+      centros = _centros.where((e) => e.tipo == tipo).toList().asObservable();
+      if (centros.isEmpty) {
+        centros = _centros.asObservable();
+      }
+    }
   }
 }
