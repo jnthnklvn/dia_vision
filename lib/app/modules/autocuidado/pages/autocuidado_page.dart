@@ -132,7 +132,7 @@ class _AutocuidadoPageState
             margin: EdgeInsets.only(top: 20, bottom: 20),
             child: InkWellSpeakText(
               Text(
-                _autocuidado.resumo,
+                _autocuidado.resumo ?? "",
                 style: TextStyle(fontSize: 16),
               ),
             ),

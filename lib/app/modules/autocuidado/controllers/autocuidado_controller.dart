@@ -19,12 +19,20 @@ abstract class _AutocuidadoControllerBase with Store, CsvUtils, FileUtils {
   bool isLoading = false;
   @observable
   ObservableList<Autocuidado> autocuidados = ObservableList<Autocuidado>();
+  @observable
+  ObservableSet<String> categorias = ObservableSet<String>();
+  @observable
+  String categoria;
+
+  List<Autocuidado> _autocuidados = List<Autocuidado>();
 
   Future<void> getData(Function(String) onError) async {
     isLoading = true;
     try {
       final result = await _autocuidadoRepository.getAll();
       result.fold((l) => onError(l.message), (r) {
+        _autocuidados = r;
+        categorias = r.map((e) => e.categoria).toSet().asObservable();
         autocuidados = (r ?? List<Autocuidado>()).asObservable();
       });
     } catch (e) {
@@ -32,5 +40,18 @@ abstract class _AutocuidadoControllerBase with Store, CsvUtils, FileUtils {
       isLoading = false;
     }
     isLoading = false;
+  }
+
+  void filterData(String categoria) {
+    this.categoria = categoria;
+    if (_autocuidados.isNotEmpty) {
+      autocuidados = _autocuidados
+          .where((e) => e.categoria == categoria)
+          .toList()
+          .asObservable();
+      if (autocuidados.isEmpty) {
+        autocuidados = _autocuidados.asObservable();
+      }
+    }
   }
 }

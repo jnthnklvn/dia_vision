@@ -40,11 +40,43 @@ mixin _$AutocuidadoController on _AutocuidadoControllerBase, Store {
     });
   }
 
+  final _$categoriasAtom = Atom(name: '_AutocuidadoControllerBase.categorias');
+
+  @override
+  ObservableSet<String> get categorias {
+    _$categoriasAtom.reportRead();
+    return super.categorias;
+  }
+
+  @override
+  set categorias(ObservableSet<String> value) {
+    _$categoriasAtom.reportWrite(value, super.categorias, () {
+      super.categorias = value;
+    });
+  }
+
+  final _$categoriaAtom = Atom(name: '_AutocuidadoControllerBase.categoria');
+
+  @override
+  String get categoria {
+    _$categoriaAtom.reportRead();
+    return super.categoria;
+  }
+
+  @override
+  set categoria(String value) {
+    _$categoriaAtom.reportWrite(value, super.categoria, () {
+      super.categoria = value;
+    });
+  }
+
   @override
   String toString() {
     return '''
 isLoading: ${isLoading},
-autocuidados: ${autocuidados}
+autocuidados: ${autocuidados},
+categorias: ${categorias},
+categoria: ${categoria}
     ''';
   }
 }

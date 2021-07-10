@@ -35,31 +35,19 @@ class AutocuidadoWidget extends StatelessWidget with DateUtils {
             ),
             overflow: TextOverflow.ellipsis,
           ),
-          Container(
-            margin: EdgeInsets.only(top: 5),
-            child: Text(
-              "Publicado em: " + getDataBrFromDate(_autocuidado.createdAt) ??
-                  "",
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-              style: TextStyle(
-                color: Colors.grey[400],
-                fontSize: 16,
+          if (_autocuidado.categoria?.isNotEmpty == true)
+            Container(
+              margin: EdgeInsets.only(top: 5),
+              child: Text(
+                "Categoria: " + _autocuidado.categoria,
+                maxLines: 3,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 16,
+                ),
+                overflow: TextOverflow.ellipsis,
               ),
             ),
-          ),
-          Container(
-            margin: EdgeInsets.only(top: 5),
-            child: Text(
-              _autocuidado.resumo ?? "",
-              maxLines: 3,
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 16,
-              ),
-              overflow: TextOverflow.ellipsis,
-            ),
-          ),
         ],
       ),
     );
@@ -68,10 +56,8 @@ class AutocuidadoWidget extends StatelessWidget with DateUtils {
   @override
   Widget build(BuildContext context) {
     final subtitleContents = [
+      getFullString("Categoria", _autocuidado.categoria),
       getFullString("Título", _autocuidado.titulo),
-      getFullString(
-          "Data da publicação", getDataBrFromDate(_autocuidado.createdAt)),
-      getFullString("Resumo", _autocuidado.resumo),
     ];
     subtitleContents.removeWhere((e) => e == null);
 
