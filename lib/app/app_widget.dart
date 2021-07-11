@@ -20,7 +20,7 @@ class AppWidget extends StatelessWidget {
         fontFamily: "Nunito",
       ),
       onGenerateRoute: Modular.generateRoute,
-      initialRoute: RouteEnum.auth.name,
+      initialRoute: RouteEnum.splash.name,
       navigatorKey: Modular.navigatorKey,
       localizationsDelegates: [
         GlobalMaterialLocalizations.delegate,
