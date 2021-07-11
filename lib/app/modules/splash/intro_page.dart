@@ -57,28 +57,27 @@ class IntroPage extends StatelessWidget {
           footer: SemanticIconPlay(text: INTRO_PAGE_1, size: 54),
         ),
       ],
-      onDone: () {},
+      onDone: onDone,
       next: const Icon(
         Icons.play_arrow_rounded,
         semanticLabel: "Botão: próxima página.",
         size: 36,
         color: kSecondaryColor,
       ),
-      done: FlatButton(
-        minWidth: 100,
+      done: InkWell(
         onLongPress: () => _speak("Botão: Pronto"),
-        child: Text(
-          'Pronto',
-          style: TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.w600,
-            color: kSecondaryColor,
+        onTap: onDone,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(
+            'Pronto',
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.w600,
+              color: kSecondaryColor,
+            ),
           ),
         ),
-        onPressed: () {
-          Modular.get<ConfigPreferences>().setIsAppFirstRun(false);
-          Modular.to.pushReplacementNamed(RouteEnum.auth.name);
-        },
       ),
       dotsDecorator: DotsDecorator(
         size: const Size.square(10.0),
@@ -91,5 +90,10 @@ class IntroPage extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void onDone() {
+    Modular.get<ConfigPreferences>().setIsAppFirstRun(false);
+    Modular.to.pushReplacementNamed(RouteEnum.auth.name);
   }
 }
