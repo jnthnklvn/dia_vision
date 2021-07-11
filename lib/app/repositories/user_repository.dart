@@ -44,7 +44,7 @@ class UserRepository implements IUserRepository {
   @override
   Future<void> logout() async {
     final ParseUser user = await ParseUser.currentUser();
-    if (user != null) getResult(await user.logout());
+    if (user != null) await user.logout();
   }
 
   @override

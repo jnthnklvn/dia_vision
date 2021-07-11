@@ -88,7 +88,7 @@ class _AutocuidadosPageState
     return InkWell(
       onLongPress: () => _speak(
         "Opção " +
-            (controller.categoria ?? "Todas categorias") +
+            (controller.categoria ?? "Todas as categorias") +
             " selecionada, toque para $CHANGE",
       ),
       onTap: () => showDialog(
@@ -104,7 +104,7 @@ class _AutocuidadosPageState
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           Text(
-            controller.categoria ?? "Todas categorias",
+            controller.categoria ?? "Todas as categorias",
             style: TextStyle(
               fontSize: kAppBarTitleSize - 2,
               color: kPrimaryColor,
@@ -130,7 +130,7 @@ class _AutocuidadosPageState
       return SingleChildScrollView(
           child: Column(
         children: [
-          buildDropdownMenuItem("Todas categorias"),
+          buildDropdownMenuItem("Todas as categorias"),
           ...controller.categorias.map<DropdownMenuItem<String>>((String str) {
             return buildDropdownMenuItem(str);
           }).toList()

@@ -3,7 +3,7 @@ class ParseErrors {
     -1: 'Erro desconhecido',
     1: 'Erro Interno do Servidor (InternalServerError)',
     100: 'Falha de conexão com o servidor (ConnectionFailed)',
-    101: 'Usuário/senha inválido',
+    101: 'Usuário e/ou senha inválido',
     102: 'Consulta inválida (InvalidQuery)',
     103: 'Nome da Classe inválida (InvalidClassName)',
     104: 'ID de objeto não encontrado (MissingObjectId)',

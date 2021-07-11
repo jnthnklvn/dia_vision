@@ -33,6 +33,11 @@ abstract class _RegisterControllerBase with Store {
     return user != null;
   }
 
+  Future<bool> hasPatient() async {
+    user = user ?? await currentUser();
+    return user?.paciente?.objectId != null;
+  }
+
   Future<User> currentUser() async {
     try {
       final result = await _userRepository.currentUser();

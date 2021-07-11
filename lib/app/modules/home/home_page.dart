@@ -19,12 +19,53 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final AppController _controller = Modular.get<AppController>();
   Future _speak(String txt) => Modular.get<FlutterTts>().speak(txt);
 
   @override
   void initState() {
-    Modular.get<AppController>().startListenNotifications();
+    _controller.startListenNotifications();
     super.initState();
+  }
+
+  Future<void> _showMyDialog() async {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: InkWellSpeakText(
+            Text(
+              'Dados de Paciente',
+              style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600),
+            ),
+          ),
+          contentPadding:
+              EdgeInsets.only(left: 25, right: 25, top: 20, bottom: 10),
+          content: InkWellSpeakText(
+            Text(
+              "Para acessar esse módulo é necessário preencher algumas informações como nome, peso e altura no perfil. " +
+                  "Clique no botão 'Ir' abaixo para ir para a tela de preenchimento.",
+              style: TextStyle(fontSize: 18),
+              textAlign: TextAlign.justify,
+            ),
+          ),
+          actions: <Widget>[
+            FlatButton(
+              minWidth: 100,
+              color: kPrimaryColor,
+              onLongPress: () => _speak("Botão: ir"),
+              child: Text('Ir',
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
+              onPressed: () {
+                Navigator.of(context).pop();
+                Modular.to
+                    .pushNamed(RouteEnum.profile.name + RouteEnum.my_data.name);
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 
   @override
@@ -81,7 +122,14 @@ class _HomePageState extends State<HomePage> {
                 physics: BouncingScrollPhysics(),
                 itemBuilder: (context, index) {
                   return InkWell(
-                    onTap: () => Modular.to.pushNamed(modules[index].routeName),
+                    onTap: () async {
+                      if (modules[index].needPatient &&
+                          !(await _controller.hasPatient())) {
+                        _showMyDialog();
+                      } else {
+                        Modular.to.pushNamed(modules[index].routeName);
+                      }
+                    },
                     onLongPress: () => _speak("$MODULE " + modules[index].name),
                     child: Container(
                       decoration: BoxDecoration(
