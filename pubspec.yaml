@@ -44,7 +44,8 @@ dependencies:
   shared_preferences: ^0.5.12+4
   parse_server_sdk_flutter: ^2.1.0
   flutter_staggered_grid_view: ^0.3.3
-  awesome_notifications: ^0.0.4+4
+  awesome_notifications: 0.0.5+5
+  introduction_screen: ^1.0.9
   fluttertoast: ^4.0.1
 
 
