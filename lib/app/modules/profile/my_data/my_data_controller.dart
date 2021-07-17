@@ -130,8 +130,11 @@ abstract class _MyDataControllerBase with Store, DateUtils {
         if (dPeso != null) paciente.peso = dPeso;
 
         final result = await _pacienteRepository.savePaciente(paciente);
-        result.fold((l) => onError(l.message), (r) {
+        result.fold((l) => onError(l.message), (r) async {
+          final user = await _appController.currentUser();
           _paciente = r;
+          user.paciente = _paciente;
+          await user.save();
           onSuccess();
         });
       }
