@@ -14,7 +14,6 @@ class EnderecoRepository implements IEnderecoRepository {
   @override
   Future<Either<EnderecoFailure, Endereco>> save(Endereco endereco) async {
     final acl = ParseACL();
-    acl.setPublicReadAccess(allowed: true);
     endereco.setACL(acl);
     final response = await endereco.save();
 

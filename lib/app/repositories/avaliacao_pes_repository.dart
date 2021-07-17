@@ -20,7 +20,6 @@ class AvaliacaoPesRepository implements IAvaliacaoPesRepository {
   Future<Either<AvaliacaoPesFailure, AvaliacaoPes>> save(
       AvaliacaoPes avaliacaoPes, User user) async {
     final acl = ParseACL(owner: user);
-    acl.setPublicReadAccess(allowed: true);
     avaliacaoPes.setACL(acl);
     final response = await avaliacaoPes.save();
 

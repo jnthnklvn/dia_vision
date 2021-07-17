@@ -21,7 +21,6 @@ class AtividadeFisicaRepository implements IAtividadeFisicaRepository {
   Future<Either<AtividadeFisicaFailure, AtividadeFisica>> save(
       AtividadeFisica atividadeFisica, User user) async {
     final acl = ParseACL(owner: user);
-    acl.setPublicReadAccess(allowed: true);
     atividadeFisica.setACL(acl);
     final response = await atividadeFisica.save();
 

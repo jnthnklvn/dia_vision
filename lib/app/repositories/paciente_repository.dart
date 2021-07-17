@@ -17,7 +17,6 @@ class PacienteRepository implements IPacienteRepository {
   Future<Either<PacienteFailure, Paciente>> savePaciente(
       Paciente paciente) async {
     final acl = ParseACL(owner: paciente.user);
-    acl.setPublicReadAccess(allowed: true);
     paciente.setACL(acl);
     final response = await paciente.save();
 

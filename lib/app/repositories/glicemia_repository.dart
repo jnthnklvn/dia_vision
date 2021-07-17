@@ -19,7 +19,6 @@ class GlicemiaRepository implements IGlicemiaRepository {
   Future<Either<GlicemiaFailure, Glicemia>> save(
       Glicemia glicemia, User user) async {
     final acl = ParseACL(owner: user);
-    acl.setPublicReadAccess(allowed: true);
     glicemia.setACL(acl);
     final response = await glicemia.save();
 

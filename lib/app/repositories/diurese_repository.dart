@@ -19,7 +19,6 @@ class DiureseRepository implements IDiureseRepository {
   Future<Either<DiureseFailure, Diurese>> save(
       Diurese diurese, User user) async {
     final acl = ParseACL(owner: user);
-    acl.setPublicReadAccess(allowed: true);
     diurese.setACL(acl);
     final response = await diurese.save();
 

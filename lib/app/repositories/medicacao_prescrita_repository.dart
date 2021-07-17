@@ -21,7 +21,6 @@ class MedicacaoPrescritaRepository implements IMedicacaoPrescritaRepository {
   Future<Either<MedicacaoPrescritaFailure, MedicacaoPrescrita>> save(
       MedicacaoPrescrita medicacao, User user) async {
     final acl = ParseACL(owner: user);
-    acl.setPublicReadAccess(allowed: true);
     medicacao.setACL(acl);
     final response = await medicacao.save();
 

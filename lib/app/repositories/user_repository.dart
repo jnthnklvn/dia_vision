@@ -29,6 +29,9 @@ class UserRepository implements IUserRepository {
   @override
   Future<Either<UserFailure, User>> signUp(User user) async {
     user.userType = UserType.Paciente;
+    final acl = ParseACL();
+    acl.setPublicReadAccess(allowed: false);
+    user.setACL(acl);
     ParseResponse response = await user.signUp();
 
     return getResult(response);
