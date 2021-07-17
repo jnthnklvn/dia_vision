@@ -83,10 +83,15 @@ class AppVisaoWidget extends StatelessWidget with DateUtils {
   }
 
   Future<void> _launchURL(String url) async {
-    if (await canLaunch(url))
-      await launch(url);
-    else
-      _onError("Link não está disponível");
+    try {
+      if (await canLaunch(url)) {
+        await launch(url);
+      } else {
+        _onError("Erro ao tentar acessar link do app.");
+      }
+    } catch (e) {
+      _onError(e.toString());
+    }
   }
 
   Widget buildSubtitlesText(String text) {

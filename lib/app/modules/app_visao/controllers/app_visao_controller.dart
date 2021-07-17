@@ -1,7 +1,9 @@
 import 'package:dia_vision/app/repositories/app_visao_repository.dart';
+import 'package:dia_vision/app/shared/utils/string_utils.dart';
 import 'package:dia_vision/app/model/app_visao.dart';
 
 import 'package:mobx/mobx.dart';
+import 'dart:io';
 
 part 'app_visao_controller.g.dart';
 
@@ -22,6 +24,11 @@ abstract class _AppVisaoControllerBase with Store {
     try {
       final result = await _avaliacaoPesRepository.getAll();
       result.fold((l) => onError(l.message), (r) {
+        r.removeWhere(
+          (element) => Platform.isIOS
+              ? isNullOrEmpty(element.linkAppleStore)
+              : isNullOrEmpty(element.linkGooglePlay),
+        );
         apps = (r ?? List<AppVisao>()).asObservable();
       });
     } catch (e) {
