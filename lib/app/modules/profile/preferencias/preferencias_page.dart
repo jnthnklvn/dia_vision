@@ -84,7 +84,7 @@ class _PreferenciasPageState
                   alignment: Alignment.centerLeft,
                   child: InkWellSpeakText(
                     Text(
-                      "Notificações",
+                      "Notificações e alertas",
                       textAlign: TextAlign.start,
                       style: TextStyle(
                         color: Colors.black,

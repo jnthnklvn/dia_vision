@@ -94,9 +94,9 @@ abstract class _GlicemiaRegisterControllerBase with Store, DateUtils {
                   .replaceAll(',', '.'));
 
           isHiperGlicemia =
-              alertarHip && maxGlicemia != null && dValor > maxGlicemia;
+              alertarHip && (maxGlicemia != null) && (dValor > maxGlicemia);
           isHipoGlicemia =
-              alertarHip && minGlicemia != null && dValor < minGlicemia;
+              alertarHip && (minGlicemia != null) && (dValor < minGlicemia);
         } catch (e) {}
       }
 
