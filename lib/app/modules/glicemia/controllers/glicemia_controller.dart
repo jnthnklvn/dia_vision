@@ -26,7 +26,7 @@ abstract class _GlicemiaControllerBase with Store, CsvUtils, FileUtils {
   @observable
   bool isLoading = false;
   @observable
-  bool exibirDialog = false;
+  bool isValorPadraoGlicemia;
 
   @observable
   ObservableList<Glicemia> glicemias = ObservableList<Glicemia>();
@@ -34,17 +34,15 @@ abstract class _GlicemiaControllerBase with Store, CsvUtils, FileUtils {
   Future<void> checkValoresGlicemia() async {
     final valorMaxGlic = await _preferences.getValorMaximoGlicemia();
     final valorMinGlic = await _preferences.getValorMinimoGlicemia();
-    final isValorPadraoGlicemia =
-        (await _preferences.getIsValorPadraoGlicemia()) ?? false;
+    isValorPadraoGlicemia =
+        (await _preferences.getIsValorPadraoGlicemia()) ?? true;
 
-    if (valorMinGlic == null ||
-        valorMaxGlic == null ||
-        valorMinGlic == "70" ||
-        valorMaxGlic == "120") exibirDialog = true && !isValorPadraoGlicemia;
+    if (valorMinGlic == null || valorMaxGlic == null)
+      isValorPadraoGlicemia = true;
   }
 
   Future<bool> setIsValorPadraoGlicemia(bool newValue) async {
-    exibirDialog = false;
+    isValorPadraoGlicemia = newValue;
     return _preferences.setIsValorPadraoGlicemia(newValue);
   }
 

@@ -58,7 +58,7 @@ class _GlicemiaPageState extends ModularState<GlicemiaPage, GlicemiaController>
           'Você ainda não definiu os valores minimo e máximo para glicemia. O valor padrão de 120 mg/dL para máxima e 70 mg/dL para minima está sendo utilizado. Gostaria de defini-los agora?',
           onCancell: () {
             Modular.to.pushNamed("${glicemy.routeName}/$REGISTER");
-            controller.setIsValorPadraoGlicemia(true);
+            controller.setIsValorPadraoGlicemia(false);
           },
         );
       },
@@ -73,7 +73,7 @@ class _GlicemiaPageState extends ModularState<GlicemiaPage, GlicemiaController>
       floatingActionButton: FloatingAddButton(
         "$BUTTON $ADD $REGISTRY",
         "${glicemy.routeName}/$REGISTER",
-        onPressed: () => controller.exibirDialog
+        onPressed: () => controller.isValorPadraoGlicemia
             ? _showMyDialog()
             : Modular.to.pushNamed("${glicemy.routeName}/$REGISTER"),
       ),

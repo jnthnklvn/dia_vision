@@ -63,7 +63,7 @@ class _GlicemiaRegisterPageState
                 .pushNamed(RouteEnum.profile.name + RouteEnum.preferences.name);
           },
           "Alerta de ${controller.isHiperGlicemia ? 'hiperglicemia' : 'hipoglicemia'}",
-          '''Uma alteração nos limites de glicemia foi detectada, gerando um alerta de ${controller.isHiperGlicemia ? 'hiperglicemia' : 'hipoglicemia'}. Deseja ir para a calculadora de insulina?''',
+          '''Uma ${controller.isHiperGlicemia ? 'alta' : 'baixa'} nos limites de glicemia foi detectada, gerando um alerta de ${controller.isHiperGlicemia ? 'hiperglicemia' : 'hipoglicemia'}. Deseja alterar os limites de glicemia?''',
           onCancell: () =>
               Modular.to.popUntil(ModalRoute.withName(glicemy.routeName)),
         );

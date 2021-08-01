@@ -85,18 +85,18 @@ abstract class _GlicemiaRegisterControllerBase with Store, DateUtils {
           final alertarHip =
               (await _preferences.getAlertarHipoHiperGlicemia()) ?? false;
           final maxGlicemia = num.tryParse(
-              (await _preferences.getValorMaximoGlicemia())
-                  .toString()
-                  .replaceAll(',', '.'));
+                  (await _preferences.getValorMaximoGlicemia())
+                      .toString()
+                      .replaceAll(',', '.')) ??
+              120;
           final minGlicemia = num.tryParse(
-              (await _preferences.getValorMinimoGlicemia())
-                  .toString()
-                  .replaceAll(',', '.'));
+                  (await _preferences.getValorMinimoGlicemia())
+                      .toString()
+                      .replaceAll(',', '.')) ??
+              70;
 
-          isHiperGlicemia =
-              alertarHip && (maxGlicemia != null) && (dValor > maxGlicemia);
-          isHipoGlicemia =
-              alertarHip && (minGlicemia != null) && (dValor < minGlicemia);
+          isHiperGlicemia = alertarHip && (dValor > maxGlicemia);
+          isHipoGlicemia = alertarHip && (dValor < minGlicemia);
         } catch (e) {}
       }
 

@@ -24,18 +24,20 @@ mixin _$GlicemiaController on _GlicemiaControllerBase, Store {
     });
   }
 
-  final _$exibirDialogAtom = Atom(name: '_GlicemiaControllerBase.exibirDialog');
+  final _$isValorPadraoGlicemiaAtom =
+      Atom(name: '_GlicemiaControllerBase.isValorPadraoGlicemia');
 
   @override
-  bool get exibirDialog {
-    _$exibirDialogAtom.reportRead();
-    return super.exibirDialog;
+  bool get isValorPadraoGlicemia {
+    _$isValorPadraoGlicemiaAtom.reportRead();
+    return super.isValorPadraoGlicemia;
   }
 
   @override
-  set exibirDialog(bool value) {
-    _$exibirDialogAtom.reportWrite(value, super.exibirDialog, () {
-      super.exibirDialog = value;
+  set isValorPadraoGlicemia(bool value) {
+    _$isValorPadraoGlicemiaAtom.reportWrite(value, super.isValorPadraoGlicemia,
+        () {
+      super.isValorPadraoGlicemia = value;
     });
   }
 
@@ -58,7 +60,7 @@ mixin _$GlicemiaController on _GlicemiaControllerBase, Store {
   String toString() {
     return '''
 isLoading: ${isLoading},
-exibirDialog: ${exibirDialog},
+isValorPadraoGlicemia: ${isValorPadraoGlicemia},
 glicemias: ${glicemias}
     ''';
   }
