@@ -37,8 +37,14 @@ abstract class _GlicemiaControllerBase with Store, CsvUtils, FileUtils {
     isValorPadraoGlicemia =
         (await _preferences.getIsValorPadraoGlicemia()) ?? true;
 
-    if (valorMinGlic == null || valorMaxGlic == null)
-      isValorPadraoGlicemia = true;
+    if (valorMinGlic == null || valorMaxGlic == null) {
+      if (!isValorPadraoGlicemia) {
+        _preferences.setValorMaximoGlicemia("120");
+        _preferences.setValorMinimoGlicemia("70");
+      } else {
+        isValorPadraoGlicemia = true;
+      }
+    }
   }
 
   Future<bool> setIsValorPadraoGlicemia(bool newValue) async {

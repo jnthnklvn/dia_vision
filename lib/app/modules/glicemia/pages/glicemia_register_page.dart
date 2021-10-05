@@ -4,10 +4,9 @@ import 'package:dia_vision/app/shared/components/rounded_input_field.dart';
 import 'package:dia_vision/app/shared/utils/horario_input_formatter.dart';
 import 'package:dia_vision/app/shared/components/back_arrow_button.dart';
 import 'package:dia_vision/app/modules/home/domain/entities/module.dart';
-import 'package:dia_vision/app/shared/components/confirm_dialog.dart';
+import 'package:dia_vision/app/shared/components/alert_msg_dialog.dart';
 import 'package:dia_vision/app/shared/components/rounded_button.dart';
 import 'package:dia_vision/app/shared/utils/scaffold_utils.dart';
-import 'package:dia_vision/app/shared/utils/route_enum.dart';
 import 'package:dia_vision/app/shared/utils/constants.dart';
 import 'package:dia_vision/app/shared/utils/strings.dart';
 import 'package:dia_vision/app/model/glicemia.dart';
@@ -56,16 +55,13 @@ class _GlicemiaRegisterPageState
       context: context,
       barrierDismissible: false,
       builder: (BuildContext context) {
-        return ConfirmDialog(
+        return AlertMsgDialog(
           () {
             Modular.to.popUntil(ModalRoute.withName(glicemy.routeName));
-            Modular.to
-                .pushNamed(RouteEnum.profile.name + RouteEnum.preferences.name);
           },
+          'Entendi',
+          '''Uma ${controller.isHiperGlicemia ? 'alta' : 'baixa'} nos limites de glicemia foi detectada, gerando um alerta de ${controller.isHiperGlicemia ? 'hiperglicemia' : 'hipoglicemia'}.''',
           "Alerta de ${controller.isHiperGlicemia ? 'hiperglicemia' : 'hipoglicemia'}",
-          '''Uma ${controller.isHiperGlicemia ? 'alta' : 'baixa'} nos limites de glicemia foi detectada, gerando um alerta de ${controller.isHiperGlicemia ? 'hiperglicemia' : 'hipoglicemia'}. Deseja alterar os limites de glicemia?''',
-          onCancell: () =>
-              Modular.to.popUntil(ModalRoute.withName(glicemy.routeName)),
         );
       },
     );

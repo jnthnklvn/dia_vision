@@ -28,7 +28,7 @@ abstract class _PreferenciasControllerBase with Store {
   @observable
   bool alertarGlicemia = false;
   @observable
-  bool alertarHipoHiperGlicemia = false;
+  bool alertarHipoHiperGlicemia = true;
   @observable
   String tempoLembrete = "10 min";
   @observable

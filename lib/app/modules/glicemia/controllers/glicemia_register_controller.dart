@@ -83,7 +83,7 @@ abstract class _GlicemiaRegisterControllerBase with Store, DateUtils {
 
         try {
           final alertarHip =
-              (await _preferences.getAlertarHipoHiperGlicemia()) ?? false;
+              (await _preferences.getAlertarHipoHiperGlicemia()) ?? true;
           final maxGlicemia = num.tryParse(
                   (await _preferences.getValorMaximoGlicemia())
                       .toString()
