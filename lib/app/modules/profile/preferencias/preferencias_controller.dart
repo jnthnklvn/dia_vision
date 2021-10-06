@@ -120,6 +120,7 @@ abstract class _PreferenciasControllerBase with Store {
     try {
       await _preferences.setValorMaximoGlicemia(valorMaximoGlicemia);
       await _preferences.setValorMinimoGlicemia(valorMinimoGlicemia);
+      await _preferences.setIsValorPadraoGlicemia(false);
       await _preferences.setHorariosGlicemia(horarios);
       enableNotification(onError);
       onSuccess();
