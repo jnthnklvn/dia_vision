@@ -16,12 +16,11 @@ abstract class IUserRepository {
 
 class UserRepository implements IUserRepository {
   User createUserObject(String username, String password, String email,
-      {UserType userType, String tokenFirebase, String phone}) {
+      {UserType userType, String phone}) {
     final user = User(username, password: password, email: email);
 
     if (phone != null) user.phone = phone;
     if (userType != null) user.userType = userType;
-    if (tokenFirebase != null) user.tokenFirebase = tokenFirebase;
 
     return user;
   }

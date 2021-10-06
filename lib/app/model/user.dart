@@ -6,7 +6,6 @@ const keyType = 'type';
 const keyEmail = 'email';
 const keyPhone = 'phone';
 const keyPaciente = 'paciente';
-const keyTokenFirebase = 'tokenFirebase';
 
 enum UserType { Paciente, Profissional }
 
@@ -31,10 +30,6 @@ class User extends ParseUser implements ParseCloneable {
 
   String get phone => get<String>(keyPhone);
   set phone(String phone) => set<String>(keyPhone, phone);
-
-  String get tokenFirebase => get<String>(keyTokenFirebase);
-  set tokenFirebase(String tokenFirebase) =>
-      set<String>(keyTokenFirebase, tokenFirebase);
 
   Paciente get paciente =>
       Paciente.clone()..fromJson(get<ParseObject>(keyPaciente)?.toJson());
