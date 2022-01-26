@@ -1,6 +1,4 @@
 import 'package:dia_vision/app/modules/home/domain/entities/module.dart';
-import 'package:dia_vision/app/shared/utils/color_utils.dart';
-import 'package:dia_vision/app/shared/utils/date_utils.dart';
 import 'package:dia_vision/app/shared/utils/constants.dart';
 import 'package:dia_vision/app/shared/utils/strings.dart';
 import 'package:dia_vision/app/model/autocuidado.dart';
@@ -9,10 +7,11 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:flutter/material.dart';
 
-class AutocuidadoWidget extends StatelessWidget with DateUtils {
+class AutocuidadoWidget extends StatelessWidget {
   final Autocuidado _autocuidado;
+  final Color categoriaColor;
 
-  const AutocuidadoWidget(this._autocuidado);
+  const AutocuidadoWidget(this._autocuidado, this.categoriaColor);
 
   String getFullString(String fieldName, String text) {
     if (text?.isNotEmpty != true) return null;
@@ -21,13 +20,13 @@ class AutocuidadoWidget extends StatelessWidget with DateUtils {
 
   Widget buildExpandedTexts() {
     return Container(
-      padding: EdgeInsets.all(8),
+      padding: EdgeInsets.all(15),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Text(
             _autocuidado.titulo ?? "",
-            maxLines: 2,
+            maxLines: 5,
             style: TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 18,
@@ -37,7 +36,7 @@ class AutocuidadoWidget extends StatelessWidget with DateUtils {
           ),
           if (_autocuidado.categoria?.isNotEmpty == true)
             Container(
-              margin: EdgeInsets.only(top: 5),
+              margin: EdgeInsets.only(top: 10),
               child: Text(
                 "Categoria: " + _autocuidado.categoria,
                 maxLines: 3,
@@ -73,12 +72,10 @@ class AutocuidadoWidget extends StatelessWidget with DateUtils {
       ),
       onLongPress: () => Modular.get<FlutterTts>().speak(stringToSpeak),
       child: Container(
-        margin: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+        margin: EdgeInsets.symmetric(horizontal: 5, vertical: 15),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8),
-          color: ColorUtils.colors[_autocuidado.titulo.toString().hashCode %
-                  ColorUtils.colors.length]
-              .withOpacity(0.5),
+          color: categoriaColor,
         ),
         child: Card(
           color: kSecondaryColor,

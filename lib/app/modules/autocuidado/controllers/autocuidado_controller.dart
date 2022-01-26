@@ -31,6 +31,7 @@ abstract class _AutocuidadoControllerBase with Store, CsvUtils, FileUtils {
     try {
       final result = await _autocuidadoRepository.getAll();
       result.fold((l) => onError(l.message), (r) {
+        r?.sort((a, b) => (a.hashCode).compareTo((b.hashCode)));
         _autocuidados = r;
         categorias = r.map((e) => e.categoria).toSet().asObservable();
         autocuidados = (r ?? List<Autocuidado>()).asObservable();

@@ -1,10 +1,9 @@
-import 'dart:ui';
-
 import 'package:dia_vision/app/modules/autocuidado/controllers/autocuidado_controller.dart';
 import 'package:dia_vision/app/modules/autocuidado/widgets/autocuidado_widget.dart';
 import 'package:dia_vision/app/shared/components/ink_well_speak_text.dart';
 import 'package:dia_vision/app/shared/components/back_arrow_button.dart';
 import 'package:dia_vision/app/shared/utils/scaffold_utils.dart';
+import 'package:dia_vision/app/shared/utils/color_utils.dart';
 import 'package:dia_vision/app/shared/utils/date_utils.dart';
 import 'package:dia_vision/app/shared/utils/constants.dart';
 import 'package:dia_vision/app/shared/utils/strings.dart';
@@ -13,6 +12,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:flutter/material.dart';
+import 'dart:ui';
 
 class AutocuidadosPage extends StatefulWidget with ScaffoldUtils {
   @override
@@ -70,12 +70,17 @@ class _AutocuidadosPageState
                 ),
               );
             return ListView.builder(
+              padding: EdgeInsets.symmetric(horizontal: 10),
               itemCount: controller.autocuidados.length + 1,
               itemBuilder: (BuildContext context, int index) {
                 if (index == 0) {
                   return buildListTitle(context);
                 }
-                return AutocuidadoWidget(controller.autocuidados[index - 1]);
+                final autocuidado = controller.autocuidados[index - 1];
+                return AutocuidadoWidget(
+                  autocuidado,
+                  getColorToCategoria(autocuidado.categoria),
+                );
               },
             );
           },
@@ -88,7 +93,7 @@ class _AutocuidadosPageState
     return InkWell(
       onLongPress: () => _speak(
         "Opção " +
-            (controller.categoria ?? "Todas as categorias") +
+            (controller.categoria ?? ALL_CATEGORIES) +
             " selecionada, toque para $CHANGE",
       ),
       onTap: () => showDialog(
@@ -104,7 +109,7 @@ class _AutocuidadosPageState
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           Text(
-            controller.categoria ?? "Todas as categorias",
+            controller.categoria ?? ALL_CATEGORIES,
             style: TextStyle(
               fontSize: kAppBarTitleSize - 2,
               color: kPrimaryColor,
@@ -125,21 +130,30 @@ class _AutocuidadosPageState
     );
   }
 
+  Color getColorToCategoria(String str) {
+    final idx = controller.categorias.toList().indexOf(str);
+    return ColorUtils.colors[idx % ColorUtils.colors.length];
+  }
+
   Widget buildDropdownButton() {
     return Observer(builder: (_) {
       return SingleChildScrollView(
           child: Column(
         children: [
-          buildDropdownMenuItem("Todas as categorias"),
+          buildDropdownMenuItem(
+              ALL_CATEGORIES, getColorToCategoria(ALL_CATEGORIES)),
           ...controller.categorias.map<DropdownMenuItem<String>>((String str) {
-            return buildDropdownMenuItem(str);
+            return buildDropdownMenuItem(
+              str,
+              getColorToCategoria(str),
+            );
           }).toList()
         ],
       ));
     });
   }
 
-  DropdownMenuItem<String> buildDropdownMenuItem(String str) {
+  DropdownMenuItem<String> buildDropdownMenuItem(String str, Color color) {
     return DropdownMenuItem<String>(
       value: str,
       child: InkWell(
@@ -148,11 +162,21 @@ class _AutocuidadosPageState
           Modular.to.pop();
         },
         onLongPress: () => _speak(str),
-        child: ListTile(
-          contentPadding: EdgeInsets.all(0),
-          title: Text(
-            str,
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+        child: Container(
+          margin: EdgeInsets.symmetric(vertical: 3),
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              stops: const [0.02, 0.02],
+              colors: [color, color.withOpacity(0.1)],
+            ),
+            borderRadius: const BorderRadius.all(Radius.circular(5)),
+          ),
+          child: ListTile(
+            contentPadding: EdgeInsets.symmetric(vertical: 2, horizontal: 10),
+            title: Text(
+              str,
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+            ),
           ),
         ),
       ),
