@@ -32,30 +32,30 @@ abstract class _AlimentoControllerBase with Store {
   );
 
   @observable
-  String nome;
+  String? nome;
   @observable
-  String marca;
+  String? marca;
   @observable
-  String medida;
+  String? medida;
   @observable
-  String calorias;
+  String? calorias;
   @observable
-  String porcaoConsumida;
+  String? porcaoConsumida;
 
   num count = 0;
 
   @action
-  void setNome(String newValue) => nome = newValue;
+  void setNome(String? newValue) => nome = newValue;
   @action
-  void setMarca(String newValue) => marca = newValue;
+  void setMarca(String? newValue) => marca = newValue;
   @action
-  void setMedida(String newValue) => medida = newValue;
+  void setMedida(String? newValue) => medida = newValue;
   @action
-  void setCalorias(String newValue) => calorias = newValue;
+  void setCalorias(String? newValue) => calorias = newValue;
   @action
-  void setPorcaoConsumida(String newValue) => porcaoConsumida = newValue;
+  void setPorcaoConsumida(String? newValue) => porcaoConsumida = newValue;
 
-  List<Alimento> alimentosToRemove = List<Alimento>();
+  List<Alimento> alimentosToRemove = <Alimento>[];
 
   @observable
   bool isLoading = false;
@@ -66,7 +66,7 @@ abstract class _AlimentoControllerBase with Store {
   @observable
   ObservableList<Alimento> alimentosAPI = ObservableList<Alimento>();
 
-  void init(Alimento alimento) {
+  void init(Alimento? alimento) {
     if (alimento != null) {
       setNome(alimento.nome);
       setMarca(alimento.marca);
@@ -81,19 +81,19 @@ abstract class _AlimentoControllerBase with Store {
     }
   }
 
-  String getFirtString(String str) {
+  String? getFirtString(String? str) {
     final list = str?.split(' ');
-    return list?.isNotEmpty == true ? list[0] : null;
+    return list?.isNotEmpty == true ? list![0] : null;
   }
 
   bool addAlimento(Function(String) onError) {
     if (nome != null && calorias != null) {
-      final caloriasNum = num.tryParse(calorias.replaceAll(',', '.'));
+      final caloriasNum = num.tryParse(calorias!.replaceAll(',', '.'));
       final porcaoConsumidaNum = porcaoConsumida != null
-          ? num.tryParse(porcaoConsumida.replaceAll(',', '.'))
+          ? num.tryParse(porcaoConsumida!.replaceAll(',', '.'))
           : null;
-      final porcao = num.tryParse(getFirtString(medida));
-      num caloriasConsumidas;
+      final porcao = num.tryParse(getFirtString(medida) ?? '');
+      num? caloriasConsumidas;
       if (caloriasNum != null && porcaoConsumidaNum != null && porcao != null) {
         caloriasConsumidas = (porcaoConsumidaNum * caloriasNum) / porcao;
       }
@@ -114,28 +114,29 @@ abstract class _AlimentoControllerBase with Store {
     }
   }
 
-  void removerAlimentos() {
-    alimentosToRemove.forEach((element) async {
-      await element.delete();
-    });
-    alimentosToRemove = List<Alimento>();
+  Future<void> removerAlimentos() async {
+    for (var alimento in alimentosToRemove) {
+      await alimento.delete();
+    }
+    alimentosToRemove = <Alimento>[];
   }
 
   void salvarAlimentos(Alimentacao alimentacao, User user) {
-    alimentos.forEach((alimento) {
+    for (var alimento in alimentos) {
       alimento.alimentacao = alimentacao;
       _alimentoRepository.save(alimento, user);
-    });
+    }
 
     alimentos = ObservableList<Alimento>();
   }
 
   void removerAlimento(String nome, String marca) {
-    final alimento =
-        alimentos.firstWhere((e) => e.nome == nome && e.marca == marca);
-    if (alimento != null) {
-      alimentosToRemove.add(alimento);
-      alimentos.remove(alimento);
+    final alimentosToRemoveAux = alimentos.where(
+      (e) => e.nome == nome && e.marca == marca,
+    );
+    if (alimentosToRemoveAux.isNotEmpty) {
+      alimentosToRemove.add(alimentosToRemoveAux.first);
+      alimentos.remove(alimentosToRemoveAux.first);
     }
   }
 
@@ -145,7 +146,7 @@ abstract class _AlimentoControllerBase with Store {
     try {
       final result = await _alimentoRepository.getAllByAlimentacao(alimentacao);
       result.fold((l) => onError(l.message), (r) {
-        alimentos = (r ?? List<Alimento>()).asObservable();
+        alimentos = (r).asObservable();
       });
     } catch (e) {
       onError(e.toString());
@@ -160,7 +161,7 @@ abstract class _AlimentoControllerBase with Store {
       final result = await _alimentoAPIRepository.getAlimentos(search);
       result.fold((l) => onError(l.message), (r) {
         r.removeWhere((e) => e.codigoPais != "BR");
-        alimentosAPI = (r ?? List<Alimento>()).asObservable();
+        alimentosAPI = (r).asObservable();
       });
       isLoading = false;
     } catch (e) {

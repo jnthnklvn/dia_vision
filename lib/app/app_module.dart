@@ -5,12 +5,10 @@ import 'package:dia_vision/app/repositories/user_repository.dart';
 import 'package:dia_vision/app/modules/splash/intro_page.dart';
 import 'package:dia_vision/app/shared/utils/route_enum.dart';
 import 'package:dia_vision/app/shared/utils/utils.dart';
-import 'package:dia_vision/app/app_widget.dart';
 
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_tts/flutter_tts.dart';
-import 'package:flutter/material.dart';
 
 import 'modules/atividade_fisica/atividade_fisica_module.dart';
 import 'modules/avaliacao_pes/avaliacao_pes_module.dart';
@@ -27,38 +25,33 @@ import 'modules/home/home_module.dart';
 
 import 'app_controller.dart';
 
-class AppModule extends MainModule {
+class AppModule extends Module {
   @override
-  List<Bind> get binds => [
-        Bind((i) => Utils()),
-        Bind((i) => FlutterTts()),
-        Bind((i) => UserRepository()),
-        Bind((i) => LocalStorageShared()),
-        Bind((i) => ConfigPreferences(i())),
-        Bind((i) => AwesomeNotifications()),
-        Bind((i) => PreferenciasPreferences(i())),
-        Bind((i) => AppController(i(), i(), i())),
-      ];
+  final List<Bind> binds = [
+    Bind((i) => Utils()),
+    Bind((i) => FlutterTts()),
+    Bind((i) => UserRepository()),
+    Bind((i) => LocalStorageShared()),
+    Bind((i) => ConfigPreferences(i())),
+    Bind((i) => AwesomeNotifications()),
+    Bind((i) => PreferenciasPreferences(i())),
+    Bind((i) => AppController(i(), i(), i())),
+  ];
 
   @override
-  List<ModularRouter> get routers => [
-        ModularRouter(RouteEnum.home.name, module: HomeModule()),
-        ModularRouter(RouteEnum.splash.name, child: (_, args) => IntroPage()),
-        ModularRouter(RouteEnum.auth.name, module: AuthModule()),
-        ModularRouter(RouteEnum.profile.name, module: ProfileModule()),
-        ModularRouter(RouteEnum.medications.name, module: MedicationsModule()),
-        ModularRouter(RouteEnum.feet.name, module: AvaliacaoPesModule()),
-        ModularRouter(RouteEnum.kidney.name, module: DiureseModule()),
-        ModularRouter(RouteEnum.glicemy.name, module: GlicemiaModule()),
-        ModularRouter(RouteEnum.selfCare.name, module: AutocuidadoModule()),
-        ModularRouter(RouteEnum.medicalCenters.name,
-            module: CentroSaudeModule()),
-        ModularRouter(RouteEnum.vision.name, module: AppVisaoModule()),
-        ModularRouter(RouteEnum.exercises.name,
-            module: AtividadeFisicaModule()),
-        ModularRouter(RouteEnum.alimentation.name, module: AlimentacaoModule()),
-      ];
-
-  @override
-  Widget get bootstrap => AppWidget();
+  final List<ModularRoute> routes = [
+    ModuleRoute(RouteEnum.home.name, module: HomeModule()),
+    ChildRoute(RouteEnum.splash.name, child: (_, args) => IntroPage()),
+    ModuleRoute(RouteEnum.auth.name, module: AuthModule()),
+    ModuleRoute(RouteEnum.profile.name, module: ProfileModule()),
+    ModuleRoute(RouteEnum.medications.name, module: MedicationsModule()),
+    ModuleRoute(RouteEnum.feet.name, module: AvaliacaoPesModule()),
+    ModuleRoute(RouteEnum.kidney.name, module: DiureseModule()),
+    ModuleRoute(RouteEnum.glicemy.name, module: GlicemiaModule()),
+    ModuleRoute(RouteEnum.selfCare.name, module: AutocuidadoModule()),
+    ModuleRoute(RouteEnum.medicalCenters.name, module: CentroSaudeModule()),
+    ModuleRoute(RouteEnum.vision.name, module: AppVisaoModule()),
+    ModuleRoute(RouteEnum.exercises.name, module: AtividadeFisicaModule()),
+    ModuleRoute(RouteEnum.alimentation.name, module: AlimentacaoModule()),
+  ];
 }

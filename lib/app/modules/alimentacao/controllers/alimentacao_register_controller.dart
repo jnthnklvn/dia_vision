@@ -1,7 +1,7 @@
-import 'package:dia_vision/app/model/alimento.dart';
 import 'package:dia_vision/app/repositories/alimentacao_repository.dart';
 import 'package:dia_vision/app/model/alimentacao.dart';
 import 'package:dia_vision/app/app_controller.dart';
+import 'package:dia_vision/app/model/alimento.dart';
 
 import 'package:mobx/mobx.dart';
 
@@ -27,11 +27,11 @@ abstract class _AlimentacaoRegisterControllerBase with Store {
   );
 
   @observable
-  String tipo;
+  String? tipo;
   @observable
-  String calorias;
+  String? calorias;
 
-  Alimentacao _alimentacao;
+  Alimentacao? _alimentacao;
 
   @computed
   bool get isEdicao => _alimentacao != null;
@@ -40,11 +40,11 @@ abstract class _AlimentacaoRegisterControllerBase with Store {
   bool isLoading = false;
 
   @action
-  void setTipo(String newValue) => tipo = newValue;
+  void setTipo(String? newValue) => tipo = newValue;
   @action
-  void setCalorias(String newValue) => calorias = newValue;
+  void setCalorias(String? newValue) => calorias = newValue;
 
-  void init(Alimentacao alimentacao, Function(String) onError) {
+  void init(Alimentacao? alimentacao, Function(String) onError) {
     _alimentoController.alimentos = ObservableList<Alimento>();
     _alimentacao = alimentacao;
     if (alimentacao != null) {
@@ -63,14 +63,15 @@ abstract class _AlimentacaoRegisterControllerBase with Store {
       );
       alimentacao.objectId = _alimentacao?.objectId;
       final user = await _appController.currentUser();
-      alimentacao.paciente = user.paciente;
+      alimentacao.paciente = user?.paciente;
 
       _alimentoController.removerAlimentos();
 
-      if (this.calorias != null)
-        alimentacao.calorias = num.tryParse(calorias.replaceAll(',', '.'));
+      if (calorias != null) {
+        alimentacao.calorias = num.tryParse(calorias!.replaceAll(',', '.'));
+      }
 
-      final result = await _alimentacaoRepository.save(alimentacao, user);
+      final result = await _alimentacaoRepository.save(alimentacao, user!);
       result.fold((l) => onError(l.message), (r) {
         final idx = _alimentacaoController.alimentacoes
             .indexWhere((e) => e.objectId == r.objectId);

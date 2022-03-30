@@ -16,8 +16,8 @@ abstract class IUserRepository {
 
 class UserRepository implements IUserRepository {
   User createUserObject(String username, String password, String email,
-      {UserType userType, String phone}) {
-    final user = User(username, password: password, email: email);
+      {UserType? userType, String? phone}) {
+    final user = User(username: username, password: password, email: email);
 
     if (phone != null) user.phone = phone;
     if (userType != null) user.userType = userType;
@@ -27,7 +27,7 @@ class UserRepository implements IUserRepository {
 
   @override
   Future<Either<UserFailure, User>> signUp(User user) async {
-    user.userType = UserType.Paciente;
+    user.userType = UserType.paciente;
     final acl = ParseACL();
     acl.setPublicReadAccess(allowed: false);
     user.setACL(acl);
@@ -44,10 +44,7 @@ class UserRepository implements IUserRepository {
   }
 
   @override
-  Future<void> logout() async {
-    final ParseUser user = await ParseUser.currentUser();
-    if (user != null) await user.logout();
-  }
+  Future<void> logout() async => (await ParseUser.currentUser()).logout();
 
   @override
   Future<Either<UserFailure, User>> save(User user) async {
@@ -62,27 +59,27 @@ class UserRepository implements IUserRepository {
     return getResult(response);
   }
 
+  @override
   Future<Either<UserFailure, User>> requestPasswordReset(User user) async {
     ParseResponse response = await user.requestPasswordReset();
 
     return getResult(response);
   }
 
+  @override
   Future<Either<UserFailure, User>> currentUser() async {
-    final ParseUser user = await ParseUser.currentUser();
+    final user = (await ParseUser.currentUser())?.toJson(full: true);
     if (user == null) return Left(UserFailure("", 0));
-    // ignore: invalid_use_of_protected_member
-    return Future.value(Right(User.clone()..fromJson(user.toJson(full: true))));
+    return Future.value(Right(User.clone()..fromJson(user)));
   }
 
   Future<Either<UserFailure, User>> getResult(ParseResponse response) {
-    print(response?.result);
     if (response.success) {
       return Future.value(Right(response.result));
     } else {
       return Future.value(Left(UserFailure(
-        ParseErrors.getDescription(response.error.code),
-        response.error.code,
+        ParseErrors.getDescription(response.error?.code),
+        response.error?.code ?? -2,
       )));
     }
   }

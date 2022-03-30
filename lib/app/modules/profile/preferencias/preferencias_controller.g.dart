@@ -141,13 +141,13 @@ mixin _$PreferenciasController on _PreferenciasControllerBase, Store {
       Atom(name: '_PreferenciasControllerBase.horarioGlicemia');
 
   @override
-  String get horarioGlicemia {
+  String? get horarioGlicemia {
     _$horarioGlicemiaAtom.reportRead();
     return super.horarioGlicemia;
   }
 
   @override
-  set horarioGlicemia(String value) {
+  set horarioGlicemia(String? value) {
     _$horarioGlicemiaAtom.reportWrite(value, super.horarioGlicemia, () {
       super.horarioGlicemia = value;
     });
@@ -206,7 +206,7 @@ mixin _$PreferenciasController on _PreferenciasControllerBase, Store {
   }
 
   @override
-  void setTempoLembrete(String newValue) {
+  void setTempoLembrete(String? newValue) {
     final _$actionInfo = _$_PreferenciasControllerBaseActionController
         .startAction(name: '_PreferenciasControllerBase.setTempoLembrete');
     try {

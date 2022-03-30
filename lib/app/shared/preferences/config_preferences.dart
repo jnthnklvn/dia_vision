@@ -5,10 +5,10 @@ class ConfigPreferences {
 
   ConfigPreferences(this._preferences);
 
-  String _kIsAppFirstRun = "isAppFirstRun";
+  final String _kIsAppFirstRun = "isAppFirstRun";
 
-  Future<bool> getIsAppFirstRun() => _preferences.getBool(_kIsAppFirstRun);
+  Future<bool?> getIsAppFirstRun() => _preferences.getBool(_kIsAppFirstRun);
 
-  Future<bool> setIsAppFirstRun(bool newValue) =>
+  Future<bool?> setIsAppFirstRun(bool newValue) =>
       _preferences.setBool(_kIsAppFirstRun, newValue);
 }

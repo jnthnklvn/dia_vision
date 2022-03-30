@@ -15,18 +15,19 @@ abstract class _RecoveryControllerBase with Store {
   _RecoveryControllerBase(this._userRepository, this._utils);
 
   @observable
-  String email;
+  String? email;
   @observable
   bool isLoading = false;
 
   @computed
-  String get emailError => _utils.isValidEmail(email) ? null : "Email inválido";
+  String? get emailError =>
+      _utils.isValidEmail(email) ? null : "Email inválido";
 
   @computed
   bool get isValid => email != null && emailError == null;
 
   @action
-  void setEmail(String newEmail) => email = newEmail;
+  void setEmail(String? newEmail) => email = newEmail;
 
   Future<void> recovery(
       Function(String) onError, void Function() onSuccess) async {
@@ -34,7 +35,8 @@ abstract class _RecoveryControllerBase with Store {
     isLoading = true;
 
     try {
-      final result = await _userRepository.requestPasswordReset(User(email, email: email));
+      final result = await _userRepository
+          .requestPasswordReset(User(username: email, email: email));
       result.fold((l) => onError(l.message), (r) => onSuccess());
     } catch (e) {
       onError(e.toString());

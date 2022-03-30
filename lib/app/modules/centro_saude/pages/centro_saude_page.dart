@@ -17,7 +17,7 @@ import 'package:flutter/material.dart';
 class CentroSaudePage extends StatefulWidget with ScaffoldUtils {
   final CentroSaude _centroSaude;
 
-  CentroSaudePage(this._centroSaude);
+  CentroSaudePage(this._centroSaude, {Key? key}) : super(key: key);
 
   @override
   _CentroSaudePageState createState() =>
@@ -25,8 +25,7 @@ class CentroSaudePage extends StatefulWidget with ScaffoldUtils {
 }
 
 class _CentroSaudePageState
-    extends ModularState<CentroSaudePage, CentroSaudeController>
-    with DateUtils {
+    extends ModularState<CentroSaudePage, CentroSaudeController> with DateUtil {
   final GlobalKey<ScaffoldState> scaffoldKey;
   final CentroSaude _centroSaude;
 
@@ -39,13 +38,14 @@ class _CentroSaudePageState
     strFormatada +=
         endereco.numero != null ? ", " + endereco.numero.toString() : "";
     strFormatada +=
-        isNullOrEmpty(endereco.complemento) ? "" : ", " + endereco.complemento;
+        isNullOrEmpty(endereco.complemento) ? "" : ", " + endereco.complemento!;
     strFormatada +=
-        isNullOrEmpty(endereco.bairro) ? "" : ", " + endereco.bairro;
+        isNullOrEmpty(endereco.bairro) ? "" : ", " + endereco.bairro!;
     strFormatada +=
-        isNullOrEmpty(endereco.cidade) ? "" : ", " + endereco.cidade;
-    strFormatada += isNullOrEmpty(endereco.estado) ? "" : "/" + endereco.estado;
-    strFormatada += isNullOrEmpty(endereco.cep) ? "" : ", " + endereco.cep;
+        isNullOrEmpty(endereco.cidade) ? "" : ", " + endereco.cidade!;
+    strFormatada +=
+        isNullOrEmpty(endereco.estado) ? "" : "/" + endereco.estado!;
+    strFormatada += isNullOrEmpty(endereco.cep) ? "" : ", " + endereco.cep!;
     return strFormatada;
   }
 
@@ -54,13 +54,13 @@ class _CentroSaudePageState
     return Scaffold(
       key: scaffoldKey,
       appBar: AppBar(
-        actions: [
-          Padding(padding: const EdgeInsets.all(8.0)),
+        actions: const [
+          Padding(padding: EdgeInsets.all(8.0)),
         ],
-        leading: BackArrowButton(iconPadding: 5),
-        title: InkWellSpeakText(
+        leading: const BackArrowButton(iconPadding: 5),
+        title: const InkWellSpeakText(
           Text(
-            MEDICAL_CENTER_TITLE,
+            medicalCenterTitle,
             style: TextStyle(
               fontSize: kAppBarTitleSize,
               color: kPrimaryColor,
@@ -70,7 +70,7 @@ class _CentroSaudePageState
         ),
       ),
       body: Container(
-        margin: EdgeInsets.all(10),
+        margin: const EdgeInsets.all(10),
         child: Material(
           elevation: 4,
           borderRadius: BorderRadius.circular(6),
@@ -78,7 +78,9 @@ class _CentroSaudePageState
             children: <Widget>[
               Hero(
                 tag: _centroSaude.nome ?? "",
-                child: _getImageWidget(_centroSaude.linkImagem),
+                child: _centroSaude.linkImagem == null
+                    ? Container()
+                    : _getImageWidget(_centroSaude.linkImagem!),
               ),
               buildContainer(context),
             ],
@@ -96,20 +98,20 @@ class _CentroSaudePageState
           fit: BoxFit.cover,
         );
       }
-    } catch (e) {}
+    } catch (_) {}
     return Container();
   }
 
   Container buildContainer(BuildContext context) {
     return Container(
-      margin: EdgeInsets.all(15.0),
+      margin: const EdgeInsets.all(15.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           InkWellSpeakText(
             Text(
               _centroSaude.nome ?? "",
-              style: TextStyle(
+              style: const TextStyle(
                 color: kPrimaryColor,
                 fontWeight: FontWeight.bold,
                 fontSize: 18,
@@ -117,15 +119,15 @@ class _CentroSaudePageState
             ),
           ),
           Container(
-            margin: EdgeInsets.only(top: 5),
+            margin: const EdgeInsets.only(top: 5),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 InkWellSpeakText(
                   Text(
                     "Registrado em: " +
-                        getDataBrFromDate(_centroSaude.createdAt),
-                    style: TextStyle(
+                        (getDataBrFromDate(_centroSaude.createdAt) ?? ''),
+                    style: const TextStyle(
                       color: Colors.grey,
                       fontSize: 16,
                     ),
@@ -134,8 +136,8 @@ class _CentroSaudePageState
                 InkWellSpeakText(
                   Text(
                     "Última atualização em: " +
-                        getDataBrFromDate(_centroSaude.updatedAt),
-                    style: TextStyle(
+                        (getDataBrFromDate(_centroSaude.updatedAt) ?? ''),
+                    style: const TextStyle(
                       color: Colors.grey,
                       fontSize: 16,
                     ),
@@ -145,19 +147,20 @@ class _CentroSaudePageState
             ),
           ),
           Container(
-            margin: EdgeInsets.only(top: 15, bottom: 10),
+            margin: const EdgeInsets.only(top: 15, bottom: 10),
             child: InkWellSpeakText(
               Text(
                 _centroSaude.descricao ?? "",
                 textAlign: TextAlign.justify,
-                style: TextStyle(fontSize: 16),
+                style: const TextStyle(fontSize: 16),
               ),
             ),
           ),
           if (_centroSaude.endereco != null)
             InkWell(
-              onLongPress: () => _speak(
-                  "Endereço: ${getEnderecoFormatado(_centroSaude.endereco)}"),
+              onLongPress: () => _speak(_centroSaude.endereco == null
+                  ? "Endereço não encontrado."
+                  : "Endereço: ${getEnderecoFormatado(_centroSaude.endereco!)}."),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -170,7 +173,9 @@ class _CentroSaudePageState
                     ),
                   ),
                   Text(
-                    getEnderecoFormatado(_centroSaude.endereco),
+                    _centroSaude.endereco == null
+                        ? "Endereço não encontrado."
+                        : "Endereço: ${getEnderecoFormatado(_centroSaude.endereco!)}.",
                     style: TextStyle(
                       color: Colors.grey[600],
                       fontSize: 16,
@@ -179,7 +184,7 @@ class _CentroSaudePageState
                 ],
               ),
             ),
-          SizedBox(height: 15),
+          const SizedBox(height: 15),
           if (_centroSaude.telefone != null)
             InkWell(
               onLongPress: () =>
@@ -196,7 +201,7 @@ class _CentroSaudePageState
                     ),
                   ),
                   Text(
-                    _centroSaude.telefone,
+                    _centroSaude.telefone ?? '',
                     style: TextStyle(
                       color: Colors.grey[600],
                       fontSize: 16,
@@ -205,14 +210,14 @@ class _CentroSaudePageState
                 ],
               ),
             ),
-          SizedBox(height: 15),
+          const SizedBox(height: 15),
           if (_centroSaude.linkMaps != null)
             InkWell(
               onLongPress: () => _speak(
                   "Clique no link para ver a localização pelo Google Maps"),
-              onTap: () {
-                _launchURL(_centroSaude.linkMaps);
-              },
+              onTap: _centroSaude.linkMaps != null
+                  ? () => _launchURL(_centroSaude.linkMaps!)
+                  : null,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -227,8 +232,8 @@ class _CentroSaudePageState
                     ),
                   ),
                   Text(
-                    _centroSaude.linkMaps,
-                    style: TextStyle(
+                    _centroSaude.linkMaps ?? '',
+                    style: const TextStyle(
                         color: kPrimaryColor,
                         decoration: TextDecoration.underline),
                   ),
@@ -241,9 +246,10 @@ class _CentroSaudePageState
   }
 
   Future<void> _launchURL(String url) async {
-    if (await canLaunch(url))
+    if (await canLaunch(url)) {
       await launch(url);
-    else
+    } else {
       widget.onError("Ocorreu um erro");
+    }
   }
 }

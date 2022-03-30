@@ -5,7 +5,7 @@ import 'package:dia_vision/app/modules/medications/utils/medication_utils.dart';
 import 'package:dia_vision/app/modules/home/domain/entities/module.dart';
 import 'package:dia_vision/app/model/medicacao_prescrita.dart';
 import 'package:dia_vision/app/shared/utils/color_utils.dart';
-import 'package:dia_vision/app/shared/utils/date_utils.dart' as Dt;
+import 'package:dia_vision/app/shared/utils/date_utils.dart' as dt;
 import 'package:dia_vision/app/model/medication_notify.dart';
 import 'package:dia_vision/app/shared/utils/constants.dart';
 import 'package:dia_vision/app/shared/utils/strings.dart';
@@ -19,7 +19,7 @@ import 'package:flutter/semantics.dart';
 import 'package:flutter/material.dart';
 
 class MedicationWidget extends StatelessWidget
-    with Dt.DateUtils, MedicationUtils {
+    with dt.DateUtil, MedicationUtils {
   final MedicacaoPrescrita _medicacaoPrescrita;
   final _controller = MedicationsWidgetController(
     Modular.get<MedicationNotifyPreferences>(),
@@ -30,11 +30,16 @@ class MedicationWidget extends StatelessWidget
   final Function(String) onError;
   final Function(String) onSuccess;
 
-  MedicationWidget(this._medicacaoPrescrita, this.onError, this.onSuccess);
+  MedicationWidget(
+    this._medicacaoPrescrita,
+    this.onError,
+    this.onSuccess, {
+    Key? key,
+  }) : super(key: key);
 
   Future _speak(String txt) => Modular.get<FlutterTts>().speak(txt);
 
-  String getFullString(String fieldName, String text, {String sufix}) {
+  String? getFullString(String fieldName, String? text, {String? sufix}) {
     if (text?.isNotEmpty != true) return null;
     return "$fieldName: $text${sufix != null ? ' ' + sufix : ""}";
   }
@@ -74,8 +79,8 @@ class MedicationWidget extends StatelessWidget
                 _medicacaoPrescrita.nome.hashCode % ColorUtils.colors.length]
             .withOpacity(0.5),
       ),
-      padding: EdgeInsets.symmetric(horizontal: 4, vertical: 4),
-      margin: EdgeInsets.all(8),
+      padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 4),
+      margin: const EdgeInsets.all(8),
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16),
@@ -87,50 +92,51 @@ class MedicationWidget extends StatelessWidget
           children: [
             ListTile(
               title: Semantics(
-                sortKey: OrdinalSortKey(0),
+                sortKey: const OrdinalSortKey(0),
                 child: InkWell(
                   onTap: () => Modular.to.pushNamed(
-                    "${medications.routeName}/$REGISTER",
+                    "${medications.routeName}/$registerStr",
                     arguments: _medicacaoPrescrita,
                   ),
                   onLongPress: () => Modular.get<FlutterTts>().speak(
-                    getFullString("Nome", _medicacaoPrescrita.nome) +
-                        stringToSpeak,
+                    getFullString("Nome", _medicacaoPrescrita.nome) ??
+                        '' + stringToSpeak,
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        _medicacaoPrescrita.nome,
+                        _medicacaoPrescrita.nome ?? '',
                         maxLines: 2,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 24,
                           color: Colors.white,
                         ),
                       ),
                       ...subtitleContents
-                          .map((e) => buildSubtitlesText(e))
+                          .map((e) => buildSubtitlesText(e ?? ''))
                           .toList(),
                     ],
                   ),
                 ),
               ),
               trailing: Observer(builder: (_) {
-                if (_controller.isLoading)
-                  return Container(
+                if (_controller.isLoading) {
+                  return const SizedBox(
                     height: 38,
                     width: 38,
                     child: CircularProgressIndicator(),
                   );
+                }
                 final isNoticationOn = _controller.medication != null;
                 return Semantics(
-                  sortKey: OrdinalSortKey(1),
+                  sortKey: const OrdinalSortKey(1),
                   label:
-                      "$BUTTON ${(isNoticationOn ? '$DISABLE' : '$ENABLE')} $NOTIFICATION",
+                      "$buttonStr ${(isNoticationOn ? disableStr : enableStr)} $notificationStr",
                   child: InkWell(
                     onLongPress: () => _speak(
-                        "$BUTTON ${(isNoticationOn ? '$DISABLE' : '$ENABLE')} $NOTIFICATION"),
+                        "$buttonStr ${(isNoticationOn ? disableStr : enableStr)} $notificationStr"),
                     child: Icon(
                       isNoticationOn
                           ? Icons.notifications_off_outlined
@@ -174,7 +180,7 @@ class MedicationWidget extends StatelessWidget
     return Text(
       text,
       maxLines: 2,
-      style: TextStyle(
+      style: const TextStyle(
         fontSize: 18,
         color: Colors.white70,
       ),

@@ -18,11 +18,11 @@ abstract class _CentroSaudeControllerBase with Store {
   @observable
   ObservableList<CentroSaude> centros = ObservableList<CentroSaude>();
   @observable
-  ObservableSet<String> tipos = ObservableSet<String>();
+  ObservableSet<String?> tipos = ObservableSet<String>();
   @observable
-  String tipo;
+  String? tipo;
 
-  List<CentroSaude> _centros = List<CentroSaude>();
+  List<CentroSaude> _centros = <CentroSaude>[];
 
   Future<void> getData(Function(String) onError) async {
     isLoading = true;
@@ -31,7 +31,7 @@ abstract class _CentroSaudeControllerBase with Store {
       result.fold((l) => onError(l.message), (r) {
         _centros = r;
         tipos = r.map((e) => e.tipo).toSet().asObservable();
-        centros = (r ?? List<CentroSaude>()).asObservable();
+        centros = (r).asObservable();
       });
     } catch (e) {
       onError(e.toString());

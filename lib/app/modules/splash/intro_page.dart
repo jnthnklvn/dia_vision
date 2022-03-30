@@ -11,6 +11,8 @@ import 'package:flutter_tts/flutter_tts.dart';
 import 'package:flutter/material.dart';
 
 class IntroPage extends StatelessWidget {
+  const IntroPage({Key? key}) : super(key: key);
+
   Future<void> init() async {
     final isAppFirstRun =
         await Modular.get<ConfigPreferences>().getIsAppFirstRun() ?? true;
@@ -34,18 +36,20 @@ class IntroPage extends StatelessWidget {
               height: 175.0,
             ),
           ),
-          titleWidget: InkWellSpeakText(Text(
-            "Acessibilidade",
-            style: TextStyle(
-              fontWeight: FontWeight.w600,
-              fontSize: 24.0,
-              color: kPrimaryColor,
+          titleWidget: const InkWellSpeakText(
+            Text(
+              "Acessibilidade",
+              style: TextStyle(
+                fontWeight: FontWeight.w600,
+                fontSize: 24.0,
+                color: kPrimaryColor,
+              ),
             ),
-          )),
-          bodyWidget: Center(
+          ),
+          bodyWidget: const Center(
             child: InkWellSpeakText(
               Text(
-                INTRO_PAGE_1,
+                introPage1,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontWeight: FontWeight.w700,
@@ -54,7 +58,7 @@ class IntroPage extends StatelessWidget {
               ),
             ),
           ),
-          footer: SemanticIconPlay(text: INTRO_PAGE_1, size: 54),
+          footer: SemanticIconPlay(text: introPage1, size: 54),
         ),
       ],
       onDone: onDone,
@@ -67,8 +71,8 @@ class IntroPage extends StatelessWidget {
       done: InkWell(
         onLongPress: () => _speak("Botão: Pronto"),
         onTap: onDone,
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
+        child: const Padding(
+          padding: EdgeInsets.all(8.0),
           child: Text(
             'Pronto',
             style: TextStyle(

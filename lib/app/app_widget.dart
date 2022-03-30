@@ -6,30 +6,34 @@ import 'shared/utils/route_enum.dart';
 import 'shared/utils/constants.dart';
 
 class AppWidget extends StatelessWidget {
+  const AppWidget({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    Modular.setInitialRoute(RouteEnum.splash.name);
+
+    return MaterialApp.router(
+      routerDelegate: Modular.routerDelegate,
+      routeInformationParser: Modular.routeInformationParser,
       debugShowCheckedModeBanner: false,
-      title: APP_NAME,
+      title: appName,
       theme: ThemeData(
         backgroundColor: Colors.white,
-        accentColor: kPrimaryColor,
         primaryColor: kPrimaryColor,
-        appBarTheme: AppBarTheme(color: Colors.white, elevation: 0),
+        appBarTheme: const AppBarTheme(color: Colors.white, elevation: 0),
         visualDensity: VisualDensity.adaptivePlatformDensity,
         fontFamily: "Nunito",
+        colorScheme:
+            ColorScheme.fromSwatch().copyWith(secondary: kPrimaryColor),
       ),
-      onGenerateRoute: Modular.generateRoute,
-      initialRoute: RouteEnum.splash.name,
-      navigatorKey: Modular.navigatorKey,
-      localizationsDelegates: [
+      localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
       ],
-      supportedLocales: [
-        const Locale('pt', 'BR'),
-        const Locale('en', ''),
+      supportedLocales: const [
+        Locale('pt', 'BR'),
+        Locale('en', ''),
       ],
     );
   }

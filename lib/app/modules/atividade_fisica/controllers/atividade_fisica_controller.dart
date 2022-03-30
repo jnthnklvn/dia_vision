@@ -31,10 +31,10 @@ abstract class _AtividadeFisicaControllerBase with Store, CsvUtils, FileUtils {
   Future<void> getData(Function(String) onError) async {
     isLoading = true;
     try {
-      final result =
-          await _atividadeFisicaRepository.getAll(_appController.user.paciente);
+      final result = await _atividadeFisicaRepository
+          .getAll(_appController.user!.paciente!);
       result.fold((l) => onError(l.message), (r) {
-        atividades = (r ?? List<AtividadeFisica>()).asObservable();
+        atividades = (r).asObservable();
       });
     } catch (e) {
       onError(e.toString());
@@ -43,11 +43,13 @@ abstract class _AtividadeFisicaControllerBase with Store, CsvUtils, FileUtils {
     isLoading = false;
   }
 
-  Future<File> getRelatorioCsvFile(
+  Future<File?> getRelatorioCsvFile(
       Function(String) onError, String path) async {
     try {
-      String csv = mapListToCsv(atividades.map((e) => e.toMap()).toList());
-      return await save(csv, path);
+      String? csv = mapListToCsv(atividades.map((e) => e.toMap()).toList());
+      if (csv != null) {
+        return await save(csv, path);
+      }
     } catch (e) {
       onError(e.toString());
     }

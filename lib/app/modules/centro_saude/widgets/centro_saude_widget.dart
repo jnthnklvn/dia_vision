@@ -8,12 +8,12 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:flutter/material.dart';
 
-class CentroSaudeWidget extends StatelessWidget with DateUtils {
+class CentroSaudeWidget extends StatelessWidget with DateUtil {
   final CentroSaude _centroSaude;
 
-  const CentroSaudeWidget(this._centroSaude);
+  CentroSaudeWidget(this._centroSaude, {Key? key}) : super(key: key);
 
-  String getFullString(String fieldName, String text) {
+  String? getFullString(String? fieldName, String? text) {
     if (text?.isNotEmpty != true) return null;
     return "$fieldName: $text. ";
   }
@@ -47,8 +47,8 @@ class CentroSaudeWidget extends StatelessWidget with DateUtils {
                   ColorUtils.colors.length]
               .withOpacity(0.5),
         ),
-        padding: EdgeInsets.symmetric(horizontal: 4, vertical: 4),
-        margin: EdgeInsets.all(5),
+        padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 4),
+        margin: const EdgeInsets.all(5),
         child: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(16),
@@ -62,7 +62,7 @@ class CentroSaudeWidget extends StatelessWidget with DateUtils {
                 title: Text(
                   _centroSaude.nome ?? "",
                   maxLines: 2,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 18,
                     color: Colors.white,
@@ -71,7 +71,7 @@ class CentroSaudeWidget extends StatelessWidget with DateUtils {
                 subtitle: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: subtitleContents
-                      .map((e) => buildSubtitlesText(e))
+                      .map((e) => buildSubtitlesText(e ?? ''))
                       .toList(),
                 ),
               ),
@@ -87,7 +87,7 @@ class CentroSaudeWidget extends StatelessWidget with DateUtils {
       text,
       maxLines: 3,
       overflow: TextOverflow.ellipsis,
-      style: TextStyle(
+      style: const TextStyle(
         fontSize: 18,
         color: Colors.white70,
       ),

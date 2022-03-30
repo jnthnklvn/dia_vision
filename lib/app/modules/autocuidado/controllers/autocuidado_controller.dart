@@ -20,21 +20,21 @@ abstract class _AutocuidadoControllerBase with Store, CsvUtils, FileUtils {
   @observable
   ObservableList<Autocuidado> autocuidados = ObservableList<Autocuidado>();
   @observable
-  ObservableSet<String> categorias = ObservableSet<String>();
+  ObservableSet<String?> categorias = ObservableSet<String>();
   @observable
-  String categoria;
+  String? categoria;
 
-  List<Autocuidado> _autocuidados = List<Autocuidado>();
+  List<Autocuidado> _autocuidados = <Autocuidado>[];
 
   Future<void> getData(Function(String) onError) async {
     isLoading = true;
     try {
       final result = await _autocuidadoRepository.getAll();
       result.fold((l) => onError(l.message), (r) {
-        r?.sort((a, b) => (a.hashCode).compareTo((b.hashCode)));
+        r.sort((a, b) => (a.hashCode).compareTo((b.hashCode)));
         _autocuidados = r;
         categorias = r.map((e) => e.categoria).toSet().asObservable();
-        autocuidados = (r ?? List<Autocuidado>()).asObservable();
+        autocuidados = (r).asObservable();
       });
     } catch (e) {
       onError(e.toString());

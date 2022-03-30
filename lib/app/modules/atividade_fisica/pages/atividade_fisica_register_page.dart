@@ -18,7 +18,8 @@ import 'package:flutter/material.dart';
 class AtividadeFisicaRegisterPage extends StatefulWidget with ScaffoldUtils {
   final AtividadeFisica atividadeFisica;
 
-  AtividadeFisicaRegisterPage(this.atividadeFisica);
+  AtividadeFisicaRegisterPage(this.atividadeFisica, {Key? key})
+      : super(key: key);
 
   @override
   _AtividadeFisicaRegisterPageState createState() =>
@@ -34,10 +35,10 @@ class _AtividadeFisicaRegisterPageState extends ModularState<
   final focusNode = FocusNode();
   final focusNode1 = FocusNode();
 
-  TextEditingController tipoController;
-  TextEditingController tipo2Controller;
-  TextEditingController duracaoController;
-  TextEditingController distanciaController;
+  TextEditingController? tipoController;
+  TextEditingController? tipo2Controller;
+  TextEditingController? duracaoController;
+  TextEditingController? distanciaController;
 
   @override
   void initState() {
@@ -59,10 +60,10 @@ class _AtividadeFisicaRegisterPageState extends ModularState<
     return Scaffold(
       key: scaffoldKey,
       appBar: AppBar(
-        leading: BackArrowButton(iconPadding: 5),
-        title: InkWellSpeakText(
+        leading: const BackArrowButton(iconPadding: 5),
+        title: const InkWellSpeakText(
           Text(
-            EXERCISE_REGISTER,
+            exerciseRegister,
             style: TextStyle(
               fontSize: kAppBarTitleSize,
               color: kPrimaryColor,
@@ -77,14 +78,14 @@ class _AtividadeFisicaRegisterPageState extends ModularState<
         color: Colors.white,
         padding: const EdgeInsets.only(top: 10),
         child: SingleChildScrollView(
-          physics: BouncingScrollPhysics(),
+          physics: const BouncingScrollPhysics(),
           child: Observer(builder: (_) {
             return Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 buildDropdownButton(size),
-                (controller.tipo == ExerciseType.Caminhada.name ||
-                        controller.tipo == ExerciseType.Corrida.name)
+                (controller.tipo == ExerciseType.caminhada.name ||
+                        controller.tipo == ExerciseType.corrida.name)
                     ? RoundedInputField(
                         hintText: "Distância (km)",
                         controller: distanciaController,
@@ -98,7 +99,7 @@ class _AtividadeFisicaRegisterPageState extends ModularState<
                         ],
                       )
                     : Container(),
-                (controller.tipo == ExerciseType.Outro.name)
+                (controller.tipo == ExerciseType.outro.name)
                     ? RoundedInputField(
                         hintText: "Tipo",
                         controller: tipo2Controller,
@@ -119,19 +120,21 @@ class _AtividadeFisicaRegisterPageState extends ModularState<
                   ],
                 ),
                 Observer(builder: (_) {
-                  if (controller.isLoading)
+                  if (controller.isLoading) {
                     return Center(
                         child: Container(
-                      margin: EdgeInsets.only(top: 10, bottom: 10),
-                      child: CircularProgressIndicator(),
+                      margin: const EdgeInsets.only(top: 10, bottom: 10),
+                      child: const CircularProgressIndicator(),
                     ));
+                  }
                   return RoundedButton(
                     text: "SALVAR",
                     onPressed: () => controller.save(
                       widget.onError,
                       () async {
-                        widget.onSuccess(REGISTRED_WITH_SUCCESS);
-                        await Future.delayed(Duration(milliseconds: 1500));
+                        widget.onSuccess(registeredWithSuccess);
+                        await Future.delayed(
+                            const Duration(milliseconds: 1500));
                         Modular.to.pop();
                       },
                     ),
@@ -147,21 +150,21 @@ class _AtividadeFisicaRegisterPageState extends ModularState<
 
   Widget buildDropdownButton(Size size) {
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 10),
-      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 7),
+      margin: const EdgeInsets.symmetric(vertical: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 7),
       width: size.width * 0.9,
       decoration: BoxDecoration(
         color: kPrimaryLightColor,
         borderRadius: BorderRadius.circular(29),
       ),
       child: ListTile(
-        contentPadding: EdgeInsets.all(0),
+        contentPadding: const EdgeInsets.all(0),
         leading: Semantics(
           excludeSemantics: true,
           child: InkWell(
             onTap: () => Modular.get<FlutterTts>()
                 .speak(controller.tipo ?? "Selecione o tipo"),
-            child: Icon(
+            child: const Icon(
               Icons.play_circle_fill,
               color: kPrimaryColor,
               size: 42,
@@ -176,7 +179,7 @@ class _AtividadeFisicaRegisterPageState extends ModularState<
             size: 32,
           ),
           isExpanded: true,
-          hint: Text(
+          hint: const Text(
             "Selecione o tipo",
             style: TextStyle(
               color: kPrimaryColor,

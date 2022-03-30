@@ -130,7 +130,7 @@ bool Win32Window::CreateAndShow(const std::wstring& title,
 }
 
 // static
-LRESULT CALLBACK Win32Window::WndProc(HWND const window,
+LRESULT CALLbackStr Win32Window::WndProc(HWND const window,
                                       UINT const message,
                                       WPARAM const wparam,
                                       LPARAM const lparam) noexcept {

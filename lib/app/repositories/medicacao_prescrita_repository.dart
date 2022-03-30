@@ -27,6 +27,7 @@ class MedicacaoPrescritaRepository implements IMedicacaoPrescritaRepository {
     return _getSingleResult(response);
   }
 
+  @override
   Future<Either<MedicacaoPrescritaFailure, MedicacaoPrescrita>> getById(
       String objectId) async {
     final query = QueryBuilder(MedicacaoPrescrita.clone())
@@ -38,6 +39,7 @@ class MedicacaoPrescritaRepository implements IMedicacaoPrescritaRepository {
     return _getSingleResult(response);
   }
 
+  @override
   Future<Either<MedicacaoPrescritaFailure, List<MedicacaoPrescrita>>>
       getAllByPaciente(Paciente paciente) async {
     final query = QueryBuilder(MedicacaoPrescrita.clone())
@@ -52,12 +54,13 @@ class MedicacaoPrescritaRepository implements IMedicacaoPrescritaRepository {
 
   Either<MedicacaoPrescritaFailure, List<MedicacaoPrescrita>> _getResult(
       ParseResponse response) {
-    if (response.success) {
+    if (response.success && response.results != null) {
       final result =
-          response.results?.map((e) => e as MedicacaoPrescrita)?.toList();
+          response.results!.map((e) => e as MedicacaoPrescrita).toList();
       return Right(result);
-    } else
+    } else {
       return Left(_getFailure(response));
+    }
   }
 
   Either<MedicacaoPrescritaFailure, MedicacaoPrescrita> _getSingleResult(
@@ -66,14 +69,15 @@ class MedicacaoPrescritaRepository implements IMedicacaoPrescritaRepository {
       final result =
           response.result is List ? response.result[0] : response.result;
       return Right(result);
-    } else
+    } else {
       return Left(_getFailure(response));
+    }
   }
 
   MedicacaoPrescritaFailure _getFailure(ParseResponse response) {
     return MedicacaoPrescritaFailure(
-      ParseErrors.getDescription(response.error.code),
-      response.error.code,
+      ParseErrors.getDescription(response.error?.code),
+      response.error?.code ?? -2,
     );
   }
 }

@@ -14,6 +14,8 @@ import 'package:flutter/semantics.dart';
 import 'package:flutter/material.dart';
 
 class AppsVisaoPage extends StatefulWidget with ScaffoldUtils {
+  AppsVisaoPage({Key? key}) : super(key: key);
+
   @override
   _AppsVisaoPageState createState() => _AppsVisaoPageState(scaffoldKey);
 }
@@ -36,14 +38,14 @@ class _AppsVisaoPageState
     return Scaffold(
       key: scaffoldKey,
       floatingActionButton: FloatingAddButton(
-        "$BUTTON $SUGGEST $VISION_APP_TITLE",
-        "${vision.routeName}/$REGISTER",
+        "$buttonStr $suggestStr $visionAppTitle",
+        "${vision.routeName}/$registerStr",
       ),
       appBar: AppBar(
-        leading: BackArrowButton(iconPadding: 5),
-        title: InkWellSpeakText(
+        leading: const BackArrowButton(iconPadding: 5),
+        title: const InkWellSpeakText(
           Text(
-            VISION_APPS,
+            visionApps,
             style: TextStyle(
               fontSize: kAppBarTitleSize,
               color: kPrimaryColor,
@@ -53,25 +55,27 @@ class _AppsVisaoPageState
         ),
       ),
       body: Semantics(
-        sortKey: OrdinalSortKey(1),
+        sortKey: const OrdinalSortKey(1),
         child: Container(
           width: double.infinity,
           height: size.height,
           color: Colors.white,
           alignment: Alignment.center,
-          padding: EdgeInsets.only(top: 10),
+          padding: const EdgeInsets.only(top: 10),
           child: Observer(
             builder: (_) {
-              if (controller.isLoading)
-                return Center(child: CircularProgressIndicator());
-              if (controller.apps.isEmpty)
-                return InkWellSpeakText(
+              if (controller.isLoading) {
+                return const Center(child: CircularProgressIndicator());
+              }
+              if (controller.apps.isEmpty) {
+                return const InkWellSpeakText(
                   Text(
-                    WITHOUT_VISION_APP_REGISTERED,
+                    withoutVisionAppRegistered,
                     textAlign: TextAlign.center,
                     style: TextStyle(fontSize: 24, color: kPrimaryColor),
                   ),
                 );
+              }
               return ListView.builder(
                 itemCount: controller.apps.length,
                 itemBuilder: (BuildContext context, int index) {

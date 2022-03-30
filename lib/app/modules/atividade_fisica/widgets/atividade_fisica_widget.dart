@@ -1,6 +1,6 @@
 import 'package:dia_vision/app/modules/home/domain/entities/module.dart';
 import 'package:dia_vision/app/shared/utils/color_utils.dart';
-import 'package:dia_vision/app/shared/utils/date_utils.dart';
+import 'package:dia_vision/app/shared/utils/date_utils.dart' as dt;
 import 'package:dia_vision/app/shared/utils/constants.dart';
 import 'package:dia_vision/app/model/atividade_fisica.dart';
 import 'package:dia_vision/app/shared/utils/strings.dart';
@@ -9,12 +9,12 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:flutter/material.dart';
 
-class AtividadeFisicaWidget extends StatelessWidget with DateUtils {
+class AtividadeFisicaWidget extends StatelessWidget with dt.DateUtil {
   final AtividadeFisica _atividadeFisica;
 
-  const AtividadeFisicaWidget(this._atividadeFisica);
+  AtividadeFisicaWidget(this._atividadeFisica, {Key? key}) : super(key: key);
 
-  String getFullString(String fieldName, String text, {String finalText}) {
+  String? getFullString(String? fieldName, String? text, {String? finalText}) {
     if (text?.isNotEmpty != true) return null;
     return "$fieldName: $text${finalText ?? ""}.";
   }
@@ -37,7 +37,7 @@ class AtividadeFisicaWidget extends StatelessWidget with DateUtils {
 
     return InkWell(
       onTap: () => Modular.to.pushNamed(
-        "${exercises.routeName}/$REGISTER",
+        "${exercises.routeName}/$registerStr",
         arguments: _atividadeFisica,
       ),
       onLongPress: () => Modular.get<FlutterTts>().speak(
@@ -49,8 +49,8 @@ class AtividadeFisicaWidget extends StatelessWidget with DateUtils {
                   ColorUtils.colors.length]
               .withOpacity(0.5),
         ),
-        padding: EdgeInsets.symmetric(horizontal: 4, vertical: 4),
-        margin: EdgeInsets.all(5),
+        padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 4),
+        margin: const EdgeInsets.all(5),
         child: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(16),
@@ -64,7 +64,7 @@ class AtividadeFisicaWidget extends StatelessWidget with DateUtils {
                 title: Text(
                   _atividadeFisica.tipo ?? "",
                   maxLines: 2,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 18,
                     color: Colors.white,
@@ -73,7 +73,7 @@ class AtividadeFisicaWidget extends StatelessWidget with DateUtils {
                 subtitle: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: subtitleContents
-                      .map((e) => buildSubtitlesText(e))
+                      .map((e) => buildSubtitlesText(e ?? ''))
                       .toList(),
                 ),
               ),
@@ -87,7 +87,7 @@ class AtividadeFisicaWidget extends StatelessWidget with DateUtils {
   Widget buildSubtitlesText(String text) {
     return Text(
       text,
-      style: TextStyle(
+      style: const TextStyle(
         fontSize: 18,
         color: Colors.white70,
       ),

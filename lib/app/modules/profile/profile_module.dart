@@ -10,7 +10,7 @@ import 'my_data/my_data_page.dart';
 import 'profile_controller.dart';
 import 'profile_page.dart';
 
-class ProfileModule extends ChildModule {
+class ProfileModule extends Module {
   @override
   List<Bind> get binds => [
         Bind((i) => ProfileController()),
@@ -20,10 +20,10 @@ class ProfileModule extends ChildModule {
       ];
 
   @override
-  List<ModularRouter> get routers => [
-        ModularRouter("/", child: (_, args) => ProfilePage()),
-        ModularRouter(RouteEnum.my_data.name, child: (_, args) => MyDataPage()),
-        ModularRouter(RouteEnum.preferences.name,
-            child: (_, args) => PreferenciasPage()),
-      ];
+  final List<ModularRoute> routes = [
+    ChildRoute("/", child: (_, args) => const ProfilePage()),
+    ChildRoute(RouteEnum.myData.name, child: (_, args) => MyDataPage()),
+    ChildRoute(RouteEnum.preferences.name,
+        child: (_, args) => PreferenciasPage()),
+  ];
 }

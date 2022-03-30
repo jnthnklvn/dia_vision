@@ -10,21 +10,19 @@ import 'login/login_page.dart';
 
 import 'package:flutter_modular/flutter_modular.dart';
 
-class AuthModule extends ChildModule {
+class AuthModule extends Module {
   @override
-  List<Bind> get binds => [
-        Bind((i) => Utils()),
-        Bind((i) => LoginController(i(), i(), i())),
-        Bind((i) => RegisterController(i(), i())),
-        Bind((i) => RecoveryController(i(), i())),
-      ];
+  final List<Bind> binds = [
+    Bind((i) => Utils()),
+    Bind((i) => LoginController(i(), i(), i())),
+    Bind((i) => RegisterController(i(), i())),
+    Bind((i) => RecoveryController(i(), i())),
+  ];
 
   @override
-  List<ModularRouter> get routers => [
-        ModularRouter("/", child: (_, args) => LoginPage()),
-        ModularRouter(RouteEnum.register.name,
-            child: (_, args) => RegisterPage()),
-        ModularRouter(RouteEnum.recovery.name,
-            child: (_, args) => RecoveryPage()),
-      ];
+  final List<ModularRoute> routes = [
+    ChildRoute("/", child: (_, args) => LoginPage()),
+    ChildRoute(RouteEnum.register.name, child: (_, args) => RegisterPage()),
+    ChildRoute(RouteEnum.recovery.name, child: (_, args) => RecoveryPage()),
+  ];
 }

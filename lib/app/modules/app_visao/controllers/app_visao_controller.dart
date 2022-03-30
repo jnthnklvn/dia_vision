@@ -29,7 +29,7 @@ abstract class _AppVisaoControllerBase with Store {
               ? isNullOrEmpty(element.linkAppleStore)
               : isNullOrEmpty(element.linkGooglePlay),
         );
-        apps = (r ?? List<AppVisao>()).asObservable();
+        apps = (r).asObservable();
       });
     } catch (e) {
       onError(e.toString());

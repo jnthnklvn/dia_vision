@@ -6,8 +6,8 @@ const kMedicamentoTable = "Medicamento";
 
 class Medicamento extends ParseObject implements ParseCloneable {
   Medicamento({
-    String nomeSubstancia,
-    String nomeComercial,
+    String? nomeSubstancia,
+    String? nomeComercial,
   }) : super(kMedicamentoTable) {
     this.nomeSubstancia = nomeSubstancia;
     this.nomeComercial = nomeComercial;
@@ -25,11 +25,11 @@ class Medicamento extends ParseObject implements ParseCloneable {
     return this;
   }
 
-  String get nomeSubstancia => get<String>(kNomeSubstancia);
-  set nomeSubstancia(String nomeSubstancia) =>
-      set<String>(kNomeSubstancia, nomeSubstancia);
+  String? get nomeSubstancia => get<String?>(kNomeSubstancia);
+  set nomeSubstancia(String? nomeSubstancia) =>
+      set<String?>(kNomeSubstancia, nomeSubstancia);
 
-  String get nomeComercial => get<String>(kNomeComercial);
-  set nomeComercial(String nomeComercial) =>
-      set<String>(kNomeComercial, nomeComercial);
+  String? get nomeComercial => get<String?>(kNomeComercial);
+  set nomeComercial(String? nomeComercial) =>
+      set<String?>(kNomeComercial, nomeComercial);
 }

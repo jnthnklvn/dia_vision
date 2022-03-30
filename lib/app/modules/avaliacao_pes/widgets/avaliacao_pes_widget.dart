@@ -9,17 +9,17 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:flutter/material.dart';
 
-class AvaliacaoPesWidget extends StatelessWidget with DateUtils {
+class AvaliacaoPesWidget extends StatelessWidget with DateUtil {
   final AvaliacaoPes _avaliacaoPes;
 
-  const AvaliacaoPesWidget(this._avaliacaoPes);
+  AvaliacaoPesWidget(this._avaliacaoPes, {Key? key}) : super(key: key);
 
-  String getFullString(String fieldName, String text) {
+  String? getFullString(String? fieldName, String? text) {
     if (text?.isNotEmpty != true) return null;
     return "$fieldName: $text.";
   }
 
-  String getStringFromBool(String fieldName, bool value) {
+  String? getStringFromBool(String? fieldName, bool? value) {
     if (value == null) return null;
     return "$fieldName ${value ? 'Sim' : 'Não'}.";
   }
@@ -52,7 +52,7 @@ class AvaliacaoPesWidget extends StatelessWidget with DateUtils {
 
     return InkWell(
       onTap: () => Modular.to.pushNamed(
-        "${feet.routeName}/$REGISTER",
+        "${feet.routeName}/$registerStr",
         arguments: _avaliacaoPes,
       ),
       onLongPress: () => Modular.get<FlutterTts>().speak(stringToSpeak),
@@ -64,8 +64,8 @@ class AvaliacaoPesWidget extends StatelessWidget with DateUtils {
                       ColorUtils.colors.length]
               .withOpacity(0.5),
         ),
-        padding: EdgeInsets.symmetric(horizontal: 4, vertical: 4),
-        margin: EdgeInsets.all(8),
+        padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 4),
+        margin: const EdgeInsets.all(8),
         child: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(16),
@@ -79,7 +79,7 @@ class AvaliacaoPesWidget extends StatelessWidget with DateUtils {
                 title: Text(
                   "Dia: " + (getDataBrFromDate(_avaliacaoPes.createdAt) ?? ""),
                   maxLines: 2,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 24,
                     color: Colors.white,
@@ -88,7 +88,7 @@ class AvaliacaoPesWidget extends StatelessWidget with DateUtils {
                 subtitle: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: subtitleContents
-                      .map((e) => buildSubtitlesText(e))
+                      .map((e) => buildSubtitlesText(e ?? ''))
                       .toList(),
                 ),
               ),
@@ -103,7 +103,7 @@ class AvaliacaoPesWidget extends StatelessWidget with DateUtils {
     return Text(
       text,
       maxLines: 2,
-      style: TextStyle(
+      style: const TextStyle(
         fontSize: 18,
         color: Colors.white70,
       ),

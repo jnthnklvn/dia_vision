@@ -23,6 +23,7 @@ class PacienteRepository implements IPacienteRepository {
     return getResult(response);
   }
 
+  @override
   Future<Either<PacienteFailure, Paciente>> getById(String objectId) async {
     final query = QueryBuilder(Paciente.clone())
       ..whereEqualTo("objectId", objectId);
@@ -30,6 +31,7 @@ class PacienteRepository implements IPacienteRepository {
     return getResult(response);
   }
 
+  @override
   Future<Either<PacienteFailure, Paciente>> getByUser(User user) async {
     final query = QueryBuilder(Paciente.clone())
       ..includeObject(['user'])
@@ -40,15 +42,14 @@ class PacienteRepository implements IPacienteRepository {
   }
 
   Future<Either<PacienteFailure, Paciente>> getResult(ParseResponse response) {
-    print(response?.result);
     if (response.success) {
       final result =
           response.result is List ? response.result[0] : response.result;
       return Future.value(Right(result));
     } else {
       return Future.value(Left(PacienteFailure(
-        ParseErrors.getDescription(response.error.code),
-        response.error.code,
+        ParseErrors.getDescription(response.error?.code),
+        response.error?.code ?? -2,
       )));
     }
   }

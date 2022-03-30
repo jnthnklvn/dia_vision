@@ -16,7 +16,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 
 class AlimentoRegisterPage extends StatefulWidget with ScaffoldUtils {
-  AlimentoRegisterPage();
+  AlimentoRegisterPage({Key? key}) : super(key: key);
 
   @override
   _AlimentoRegisterPageState createState() =>
@@ -49,7 +49,7 @@ class _AlimentoRegisterPageState extends State<AlimentoRegisterPage> {
     return Scaffold(
       key: scaffoldKey,
       appBar: AppBar(
-        leading: BackArrowButton(iconPadding: 5),
+        leading: const BackArrowButton(iconPadding: 5),
         title: InkWell(
           onTap: () async {
             await showSearch(
@@ -57,8 +57,8 @@ class _AlimentoRegisterPageState extends State<AlimentoRegisterPage> {
               delegate: DataSearch(alimentoController, widget.onError),
             );
           },
-          onLongPress: () => _speak(CLICK_SEARCH_FOOD),
-          child: ListTile(
+          onLongPress: () => _speak(clickToSearchFood),
+          child: const ListTile(
             contentPadding: EdgeInsets.all(0),
             trailing: Icon(
               Icons.search,
@@ -66,7 +66,7 @@ class _AlimentoRegisterPageState extends State<AlimentoRegisterPage> {
               color: kPrimaryColor,
             ),
             title: Text(
-              "$SEARCH_FOOD...",
+              "$searchFood...",
               style: TextStyle(
                 fontSize: kAppBarTitleSize,
                 color: kPrimaryColor,
@@ -82,7 +82,7 @@ class _AlimentoRegisterPageState extends State<AlimentoRegisterPage> {
         color: Colors.white,
         padding: const EdgeInsets.only(top: 10),
         child: SingleChildScrollView(
-          physics: BouncingScrollPhysics(),
+          physics: const BouncingScrollPhysics(),
           child: Observer(builder: (_) {
             return Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -124,7 +124,7 @@ class _AlimentoRegisterPageState extends State<AlimentoRegisterPage> {
                 ),
                 RoundedInputField(
                   suffixIcon: InkWellSpeakText(Text(
-                    getLastString(alimentoController.medida) ?? "",
+                    getLastString(alimentoController.medida ?? '') ?? "",
                     style: TextStyle(fontSize: 18, color: Colors.grey[700]),
                   )),
                   hintText: "Porção consumida",
@@ -137,7 +137,7 @@ class _AlimentoRegisterPageState extends State<AlimentoRegisterPage> {
                   ],
                 ),
                 RoundedButton(
-                  text: ADD.toUpperCase(),
+                  text: addStr.toUpperCase(),
                   onPressed: () {
                     final value =
                         alimentoController.addAlimento(widget.onError);
@@ -152,8 +152,8 @@ class _AlimentoRegisterPageState extends State<AlimentoRegisterPage> {
     );
   }
 
-  String getLastString(String str) {
-    final list = str?.split(' ');
-    return list?.isNotEmpty == true ? "(${list[list.length - 1]})" : null;
+  String? getLastString(String str) {
+    final list = str.split(' ');
+    return list.isNotEmpty == true ? "(${list[list.length - 1]})" : null;
   }
 }

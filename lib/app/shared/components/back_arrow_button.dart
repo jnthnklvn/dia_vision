@@ -10,17 +10,18 @@ class BackArrowButton extends StatelessWidget {
   final double iconPadding;
 
   const BackArrowButton({
-    Key key,
+    Key? key,
     this.iconPadding = 0,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Semantics(
-      label: "$BUTTON $BACK",
+      label: "$buttonStr $backStr",
       child: InkWell(
         onTap: Modular.to.pop,
-        onLongPress: () => Modular.get<FlutterTts>().speak("$BUTTON $BACK"),
+        onLongPress: () =>
+            Modular.get<FlutterTts>().speak("$buttonStr $backStr"),
         child: Padding(
           padding: const EdgeInsets.symmetric(
             horizontal: 15,

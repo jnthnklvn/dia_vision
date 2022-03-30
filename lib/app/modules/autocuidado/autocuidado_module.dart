@@ -8,18 +8,17 @@ import 'pages/autocuidado_page.dart';
 
 import 'package:flutter_modular/flutter_modular.dart';
 
-class AutocuidadoModule extends ChildModule {
+class AutocuidadoModule extends Module {
   @override
-  List<Bind> get binds => [
-        Bind((i) => AutocuidadoRepository()),
-        Bind((i) => AutocuidadoController(i())),
-      ];
+  final List<Bind> binds = [
+    Bind((i) => AutocuidadoRepository()),
+    Bind((i) => AutocuidadoController(i())),
+  ];
 
   @override
-  List<ModularRouter> get routers => [
-        ModularRouter(selfCare.routeName,
-            child: (_, args) => AutocuidadosPage()),
-        ModularRouter("/$SELF_CARE_ARTICLE_ROUTE",
-            child: (_, args) => AutocuidadoPage(args.data)),
-      ];
+  final List<ModularRoute> routes = [
+    ChildRoute(selfCare.routeName, child: (_, args) => AutocuidadosPage()),
+    ChildRoute("/$selfCareArticleRoute",
+        child: (_, args) => AutocuidadoPage(args.data)),
+  ];
 }

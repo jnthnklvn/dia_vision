@@ -43,13 +43,13 @@ mixin _$AutocuidadoController on _AutocuidadoControllerBase, Store {
   final _$categoriasAtom = Atom(name: '_AutocuidadoControllerBase.categorias');
 
   @override
-  ObservableSet<String> get categorias {
+  ObservableSet<String?> get categorias {
     _$categoriasAtom.reportRead();
     return super.categorias;
   }
 
   @override
-  set categorias(ObservableSet<String> value) {
+  set categorias(ObservableSet<String?> value) {
     _$categoriasAtom.reportWrite(value, super.categorias, () {
       super.categorias = value;
     });
@@ -58,13 +58,13 @@ mixin _$AutocuidadoController on _AutocuidadoControllerBase, Store {
   final _$categoriaAtom = Atom(name: '_AutocuidadoControllerBase.categoria');
 
   @override
-  String get categoria {
+  String? get categoria {
     _$categoriaAtom.reportRead();
     return super.categoria;
   }
 
   @override
-  set categoria(String value) {
+  set categoria(String? value) {
     _$categoriaAtom.reportWrite(value, super.categoria, () {
       super.categoria = value;
     });

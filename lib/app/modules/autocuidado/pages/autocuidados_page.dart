@@ -12,16 +12,17 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:flutter/material.dart';
-import 'dart:ui';
 
 class AutocuidadosPage extends StatefulWidget with ScaffoldUtils {
+  AutocuidadosPage({Key? key}) : super(key: key);
+
   @override
   _AutocuidadosPageState createState() => _AutocuidadosPageState(scaffoldKey);
 }
 
 class _AutocuidadosPageState
     extends ModularState<AutocuidadosPage, AutocuidadoController>
-    with DateUtils {
+    with DateUtil {
   final GlobalKey<ScaffoldState> scaffoldKey;
 
   _AutocuidadosPageState(this.scaffoldKey);
@@ -40,10 +41,10 @@ class _AutocuidadosPageState
     return Scaffold(
       key: scaffoldKey,
       appBar: AppBar(
-        leading: BackArrowButton(iconPadding: 5),
-        title: InkWellSpeakText(
+        leading: const BackArrowButton(iconPadding: 5),
+        title: const InkWellSpeakText(
           Text(
-            SELF_CARE_TITLE,
+            selfCareTitle,
             style: TextStyle(
               fontSize: kAppBarTitleSize,
               color: kPrimaryColor,
@@ -59,18 +60,20 @@ class _AutocuidadosPageState
         alignment: Alignment.center,
         child: Observer(
           builder: (_) {
-            if (controller.isLoading)
-              return Center(child: CircularProgressIndicator());
-            if (controller.autocuidados.isEmpty)
-              return InkWellSpeakText(
+            if (controller.isLoading) {
+              return const Center(child: CircularProgressIndicator());
+            }
+            if (controller.autocuidados.isEmpty) {
+              return const InkWellSpeakText(
                 Text(
-                  WITHOUT_SELF_CARE_REGISTERED,
+                  withoutSelfCareRegistered,
                   textAlign: TextAlign.center,
                   style: TextStyle(fontSize: 24, color: kPrimaryColor),
                 ),
               );
+            }
             return ListView.builder(
-              padding: EdgeInsets.symmetric(horizontal: 10),
+              padding: const EdgeInsets.symmetric(horizontal: 10),
               itemCount: controller.autocuidados.length + 1,
               itemBuilder: (BuildContext context, int index) {
                 if (index == 0) {
@@ -93,8 +96,8 @@ class _AutocuidadosPageState
     return InkWell(
       onLongPress: () => _speak(
         "Opção " +
-            (controller.categoria ?? ALL_CATEGORIES) +
-            " selecionada, toque para $CHANGE",
+            (controller.categoria ?? allCategories) +
+            " selecionada, toque para $changeStr",
       ),
       onTap: () => showDialog(
         context: context,
@@ -109,19 +112,19 @@ class _AutocuidadosPageState
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           Text(
-            controller.categoria ?? ALL_CATEGORIES,
-            style: TextStyle(
+            controller.categoria ?? allCategories,
+            style: const TextStyle(
               fontSize: kAppBarTitleSize - 2,
               color: kPrimaryColor,
               fontWeight: FontWeight.bold,
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
+          const Padding(
+            padding: EdgeInsets.all(8.0),
             child: Icon(
               Icons.filter_alt_outlined,
               size: 32,
-              semanticLabel: "$BUTTON $CHANGE $CATEGORY",
+              semanticLabel: "$buttonStr $changeStr $categoryStr",
               color: kPrimaryColor,
             ),
           ),
@@ -130,7 +133,8 @@ class _AutocuidadosPageState
     );
   }
 
-  Color getColorToCategoria(String str) {
+  Color getColorToCategoria(String? str) {
+    if (str?.isNotEmpty != true) return ColorUtils.colors[0];
     final idx = controller.categorias.toList().indexOf(str);
     return ColorUtils.colors[idx % ColorUtils.colors.length];
   }
@@ -141,10 +145,10 @@ class _AutocuidadosPageState
           child: Column(
         children: [
           buildDropdownMenuItem(
-              ALL_CATEGORIES, getColorToCategoria(ALL_CATEGORIES)),
-          ...controller.categorias.map<DropdownMenuItem<String>>((String str) {
+              allCategories, getColorToCategoria(allCategories)),
+          ...controller.categorias.map<DropdownMenuItem<String>>((String? str) {
             return buildDropdownMenuItem(
-              str,
+              str ?? '',
               getColorToCategoria(str),
             );
           }).toList()
@@ -163,7 +167,7 @@ class _AutocuidadosPageState
         },
         onLongPress: () => _speak(str),
         child: Container(
-          margin: EdgeInsets.symmetric(vertical: 3),
+          margin: const EdgeInsets.symmetric(vertical: 3),
           decoration: BoxDecoration(
             gradient: LinearGradient(
               stops: const [0.02, 0.02],
@@ -172,10 +176,11 @@ class _AutocuidadosPageState
             borderRadius: const BorderRadius.all(Radius.circular(5)),
           ),
           child: ListTile(
-            contentPadding: EdgeInsets.symmetric(vertical: 2, horizontal: 10),
+            contentPadding:
+                const EdgeInsets.symmetric(vertical: 2, horizontal: 10),
             title: Text(
               str,
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
             ),
           ),
         ),

@@ -5,14 +5,14 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'home_controller.dart';
 import 'home_page.dart';
 
-class HomeModule extends ChildModule {
+class HomeModule extends Module {
   @override
-  List<Bind> get binds => [
-        Bind((i) => HomeController()),
-      ];
+  final List<Bind> binds = [
+    Bind((i) => HomeController()),
+  ];
 
   @override
-  List<ModularRouter> get routers => [
-        ModularRouter(RouteEnum.home.name, child: (_, args) => HomePage()),
-      ];
+  final List<ModularRoute> routes = [
+    ChildRoute(RouteEnum.home.name, child: (_, args) => const HomePage()),
+  ];
 }

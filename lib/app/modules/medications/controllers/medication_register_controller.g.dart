@@ -10,14 +10,14 @@ part of 'medication_register_controller.dart';
 
 mixin _$MedicationRegisterController
     on _MedicationRegisterControllerBase, Store {
-  Computed<bool> _$isNomeValidComputed;
+  Computed<bool>? _$isNomeValidComputed;
 
   @override
   bool get isNomeValid =>
       (_$isNomeValidComputed ??= Computed<bool>(() => super.isNomeValid,
               name: '_MedicationRegisterControllerBase.isNomeValid'))
           .value;
-  Computed<bool> _$isEdicaoComputed;
+  Computed<bool>? _$isEdicaoComputed;
 
   @override
   bool get isEdicao =>
@@ -29,13 +29,13 @@ mixin _$MedicationRegisterController
       Atom(name: '_MedicationRegisterControllerBase.medicoPrescritor');
 
   @override
-  String get medicoPrescritor {
+  String? get medicoPrescritor {
     _$medicoPrescritorAtom.reportRead();
     return super.medicoPrescritor;
   }
 
   @override
-  set medicoPrescritor(String value) {
+  set medicoPrescritor(String? value) {
     _$medicoPrescritorAtom.reportWrite(value, super.medicoPrescritor, () {
       super.medicoPrescritor = value;
     });
@@ -44,13 +44,13 @@ mixin _$MedicationRegisterController
   final _$nomeAtom = Atom(name: '_MedicationRegisterControllerBase.nome');
 
   @override
-  String get nome {
+  String? get nome {
     _$nomeAtom.reportRead();
     return super.nome;
   }
 
   @override
-  set nome(String value) {
+  set nome(String? value) {
     _$nomeAtom.reportWrite(value, super.nome, () {
       super.nome = value;
     });
@@ -60,13 +60,13 @@ mixin _$MedicationRegisterController
       Atom(name: '_MedicationRegisterControllerBase.dataFinal');
 
   @override
-  String get dataFinal {
+  String? get dataFinal {
     _$dataFinalAtom.reportRead();
     return super.dataFinal;
   }
 
   @override
-  set dataFinal(String value) {
+  set dataFinal(String? value) {
     _$dataFinalAtom.reportWrite(value, super.dataFinal, () {
       super.dataFinal = value;
     });
@@ -76,13 +76,13 @@ mixin _$MedicationRegisterController
       Atom(name: '_MedicationRegisterControllerBase.dataInicial');
 
   @override
-  String get dataInicial {
+  String? get dataInicial {
     _$dataInicialAtom.reportRead();
     return super.dataInicial;
   }
 
   @override
-  set dataInicial(String value) {
+  set dataInicial(String? value) {
     _$dataInicialAtom.reportWrite(value, super.dataInicial, () {
       super.dataInicial = value;
     });
@@ -92,13 +92,13 @@ mixin _$MedicationRegisterController
       Atom(name: '_MedicationRegisterControllerBase.posologia');
 
   @override
-  Tuple2<String, int> get posologia {
+  Tuple2<String, int>? get posologia {
     _$posologiaAtom.reportRead();
     return super.posologia;
   }
 
   @override
-  set posologia(Tuple2<String, int> value) {
+  set posologia(Tuple2<String, int>? value) {
     _$posologiaAtom.reportWrite(value, super.posologia, () {
       super.posologia = value;
     });
@@ -107,13 +107,13 @@ mixin _$MedicationRegisterController
   final _$dosagemAtom = Atom(name: '_MedicationRegisterControllerBase.dosagem');
 
   @override
-  String get dosagem {
+  String? get dosagem {
     _$dosagemAtom.reportRead();
     return super.dosagem;
   }
 
   @override
-  set dosagem(String value) {
+  set dosagem(String? value) {
     _$dosagemAtom.reportWrite(value, super.dosagem, () {
       super.dosagem = value;
     });
@@ -123,13 +123,13 @@ mixin _$MedicationRegisterController
       Atom(name: '_MedicationRegisterControllerBase.medidaDosagem');
 
   @override
-  String get medidaDosagem {
+  String? get medidaDosagem {
     _$medidaDosagemAtom.reportRead();
     return super.medidaDosagem;
   }
 
   @override
-  set medidaDosagem(String value) {
+  set medidaDosagem(String? value) {
     _$medidaDosagemAtom.reportWrite(value, super.medidaDosagem, () {
       super.medidaDosagem = value;
     });
@@ -139,13 +139,13 @@ mixin _$MedicationRegisterController
       Atom(name: '_MedicationRegisterControllerBase.efeitosColaterais');
 
   @override
-  String get efeitosColaterais {
+  String? get efeitosColaterais {
     _$efeitosColateraisAtom.reportRead();
     return super.efeitosColaterais;
   }
 
   @override
-  set efeitosColaterais(String value) {
+  set efeitosColaterais(String? value) {
     _$efeitosColateraisAtom.reportWrite(value, super.efeitosColaterais, () {
       super.efeitosColaterais = value;
     });
@@ -155,13 +155,13 @@ mixin _$MedicationRegisterController
       Atom(name: '_MedicationRegisterControllerBase.horarioInicial');
 
   @override
-  String get horarioInicial {
+  String? get horarioInicial {
     _$horarioInicialAtom.reportRead();
     return super.horarioInicial;
   }
 
   @override
-  set horarioInicial(String value) {
+  set horarioInicial(String? value) {
     _$horarioInicialAtom.reportWrite(value, super.horarioInicial, () {
       super.horarioInicial = value;
     });
@@ -235,7 +235,7 @@ mixin _$MedicationRegisterController
       ActionController(name: '_MedicationRegisterControllerBase');
 
   @override
-  void setNome(String newNome) {
+  void setNome(String? newNome) {
     final _$actionInfo = _$_MedicationRegisterControllerBaseActionController
         .startAction(name: '_MedicationRegisterControllerBase.setNome');
     try {
@@ -247,7 +247,7 @@ mixin _$MedicationRegisterController
   }
 
   @override
-  void setMedicoPrescritor(String newMedicoPrescritor) {
+  void setMedicoPrescritor(String? newMedicoPrescritor) {
     final _$actionInfo =
         _$_MedicationRegisterControllerBaseActionController.startAction(
             name: '_MedicationRegisterControllerBase.setMedicoPrescritor');
@@ -260,7 +260,7 @@ mixin _$MedicationRegisterController
   }
 
   @override
-  void setEfeitosColaterais(String newEfeitosColaterais) {
+  void setEfeitosColaterais(String? newEfeitosColaterais) {
     final _$actionInfo =
         _$_MedicationRegisterControllerBaseActionController.startAction(
             name: '_MedicationRegisterControllerBase.setEfeitosColaterais');
@@ -273,7 +273,7 @@ mixin _$MedicationRegisterController
   }
 
   @override
-  void setHorarioInicial(String newHorarioInicial) {
+  void setHorarioInicial(String? newHorarioInicial) {
     final _$actionInfo =
         _$_MedicationRegisterControllerBaseActionController.startAction(
             name: '_MedicationRegisterControllerBase.setHorarioInicial');
@@ -286,7 +286,7 @@ mixin _$MedicationRegisterController
   }
 
   @override
-  void setHorario(String newHorario) {
+  void setHorario(String? newHorario) {
     final _$actionInfo = _$_MedicationRegisterControllerBaseActionController
         .startAction(name: '_MedicationRegisterControllerBase.setHorario');
     try {
@@ -346,7 +346,7 @@ mixin _$MedicationRegisterController
   }
 
   @override
-  void setPosologia(String newPosologia) {
+  void setPosologia(String? newPosologia) {
     final _$actionInfo = _$_MedicationRegisterControllerBaseActionController
         .startAction(name: '_MedicationRegisterControllerBase.setPosologia');
     try {
@@ -358,7 +358,7 @@ mixin _$MedicationRegisterController
   }
 
   @override
-  void setDosagem(String newDosagem) {
+  void setDosagem(String? newDosagem) {
     final _$actionInfo = _$_MedicationRegisterControllerBaseActionController
         .startAction(name: '_MedicationRegisterControllerBase.setDosagem');
     try {

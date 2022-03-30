@@ -3,7 +3,7 @@ enum RouteEnum {
   auth,
   register,
   recovery,
-  my_data,
+  myData,
   preferences,
   home,
   profile,
@@ -21,5 +21,5 @@ enum RouteEnum {
 }
 
 extension RouteEnumExtension on RouteEnum {
-  String get name => "/" + this.toString().replaceAll('RouteEnum.', '');
+  String get name => "/" + toString().replaceAll('RouteEnum.', '');
 }

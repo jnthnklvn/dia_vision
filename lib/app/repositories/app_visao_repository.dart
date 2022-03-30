@@ -22,6 +22,7 @@ class AppVisaoRepository implements IAppVisaoRepository {
     return _getSingleResult(response);
   }
 
+  @override
   Future<Either<AppVisaoFailure, AppVisao>> getById(String objectId) async {
     final query = QueryBuilder(AppVisao.clone())
       ..whereEqualTo("objectId", objectId);
@@ -30,6 +31,7 @@ class AppVisaoRepository implements IAppVisaoRepository {
     return _getSingleResult(response);
   }
 
+  @override
   Future<Either<AppVisaoFailure, List<AppVisao>>> getAll() async {
     final query = QueryBuilder(AppVisao.clone())
       ..whereEqualTo('verificado', true)
@@ -40,11 +42,12 @@ class AppVisaoRepository implements IAppVisaoRepository {
   }
 
   Either<AppVisaoFailure, List<AppVisao>> _getResult(ParseResponse response) {
-    if (response.success) {
-      final result = response.results?.map((e) => e as AppVisao)?.toList();
+    if (response.success && response.results != null) {
+      final result = response.results!.map((e) => e as AppVisao).toList();
       return Right(result);
-    } else
+    } else {
       return Left(_getFailure(response));
+    }
   }
 
   Either<AppVisaoFailure, AppVisao> _getSingleResult(ParseResponse response) {
@@ -52,14 +55,15 @@ class AppVisaoRepository implements IAppVisaoRepository {
       final result =
           response.result is List ? response.result[0] : response.result;
       return Right(result);
-    } else
+    } else {
       return Left(_getFailure(response));
+    }
   }
 
   AppVisaoFailure _getFailure(ParseResponse response) {
     return AppVisaoFailure(
-      ParseErrors.getDescription(response.error.code),
-      response.error.code,
+      ParseErrors.getDescription(response.error?.code),
+      response.error?.code ?? -2,
     );
   }
 }

@@ -9,18 +9,18 @@ import 'pages/glicemia_page.dart';
 
 import 'package:flutter_modular/flutter_modular.dart';
 
-class GlicemiaModule extends ChildModule {
+class GlicemiaModule extends Module {
   @override
-  List<Bind> get binds => [
-        Bind((i) => GlicemiaRepository()),
-        Bind((i) => GlicemiaController(i(), i(), i())),
-        Bind((i) => GlicemiaRegisterController(i(), i(), i(), i())),
-      ];
+  final List<Bind> binds = [
+    Bind((i) => GlicemiaRepository()),
+    Bind((i) => GlicemiaController(i(), i(), i())),
+    Bind((i) => GlicemiaRegisterController(i(), i(), i(), i())),
+  ];
 
   @override
-  List<ModularRouter> get routers => [
-        ModularRouter(glicemy.routeName, child: (_, args) => GlicemiaPage()),
-        ModularRouter("/$REGISTER",
-            child: (_, args) => GlicemiaRegisterPage(args.data)),
-      ];
+  final List<ModularRoute> routes = [
+    ChildRoute(glicemy.routeName, child: (_, args) => GlicemiaPage()),
+    ChildRoute("/$registerStr",
+        child: (_, args) => GlicemiaRegisterPage(args.data)),
+  ];
 }

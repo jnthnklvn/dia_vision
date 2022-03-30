@@ -13,17 +13,19 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_tts/flutter_tts.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:flutter/semantics.dart';
 import 'package:flutter/material.dart';
-import 'package:share/share.dart';
 
 class DiuresePage extends StatefulWidget with ScaffoldUtils {
+  DiuresePage({Key? key}) : super(key: key);
+
   @override
   _DiuresePageState createState() => _DiuresePageState(scaffoldKey);
 }
 
 class _DiuresePageState extends ModularState<DiuresePage, DiureseController>
-    with DateUtils {
+    with DateUtil {
   Future _speak(String txt) => Modular.get<FlutterTts>().speak(txt);
   final GlobalKey<ScaffoldState> scaffoldKey;
 
@@ -50,29 +52,29 @@ class _DiuresePageState extends ModularState<DiuresePage, DiureseController>
     return Scaffold(
       key: scaffoldKey,
       floatingActionButton: FloatingAddButton(
-        "$BUTTON $ADD $REGISTRY",
-        "${kidney.routeName}/$REGISTER",
+        "$buttonStr $addStr $registryStr",
+        "${kidney.routeName}/$registerStr",
       ),
       appBar: AppBar(
         actions: [
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: InkWell(
-              onLongPress: () => _speak("$BUTTON $SHARE $REGISTRY"),
+              onLongPress: () => _speak("$buttonStr $shareStr $registryStr"),
               onTap: saveRelatorioCsv,
-              child: Icon(
+              child: const Icon(
                 Icons.share,
                 size: 32,
-                semanticLabel: "$BUTTON $SHARE $REGISTRY",
+                semanticLabel: "$buttonStr $shareStr $registryStr",
                 color: kPrimaryColor,
               ),
             ),
           ),
         ],
-        leading: BackArrowButton(iconPadding: 5),
-        title: InkWellSpeakText(
+        leading: const BackArrowButton(iconPadding: 5),
+        title: const InkWellSpeakText(
           Text(
-            KIDNEY_DIURESIS,
+            kidneyDiuresis,
             style: TextStyle(
               fontSize: kAppBarTitleSize,
               color: kPrimaryColor,
@@ -82,25 +84,27 @@ class _DiuresePageState extends ModularState<DiuresePage, DiureseController>
         ),
       ),
       body: Semantics(
-        sortKey: OrdinalSortKey(1),
+        sortKey: const OrdinalSortKey(1),
         child: Container(
           width: double.infinity,
           height: size.height,
           color: Colors.white,
           alignment: Alignment.center,
-          padding: EdgeInsets.only(top: 10),
+          padding: const EdgeInsets.only(top: 10),
           child: Observer(
             builder: (_) {
-              if (controller.isLoading)
-                return Center(child: CircularProgressIndicator());
-              if (controller.diureses.isEmpty)
-                return InkWellSpeakText(
+              if (controller.isLoading) {
+                return const Center(child: CircularProgressIndicator());
+              }
+              if (controller.diureses.isEmpty) {
+                return const InkWellSpeakText(
                   Text(
-                    WITHOUT_DIURESIS_REGISTERED,
+                    withoutDiuresisRegistered,
                     textAlign: TextAlign.center,
                     style: TextStyle(fontSize: 24, color: kPrimaryColor),
                   ),
                 );
+              }
               return ListView.builder(
                 itemCount: controller.diureses.length,
                 itemBuilder: (BuildContext context, int index) {

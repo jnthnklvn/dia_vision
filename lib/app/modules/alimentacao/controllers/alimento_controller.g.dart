@@ -93,13 +93,13 @@ mixin _$AlimentoController on _AlimentoControllerBase, Store {
   final _$nomeAtom = Atom(name: '_AlimentoControllerBase.nome');
 
   @override
-  String get nome {
+  String? get nome {
     _$nomeAtom.reportRead();
     return super.nome;
   }
 
   @override
-  set nome(String value) {
+  set nome(String? value) {
     _$nomeAtom.reportWrite(value, super.nome, () {
       super.nome = value;
     });
@@ -108,13 +108,13 @@ mixin _$AlimentoController on _AlimentoControllerBase, Store {
   final _$marcaAtom = Atom(name: '_AlimentoControllerBase.marca');
 
   @override
-  String get marca {
+  String? get marca {
     _$marcaAtom.reportRead();
     return super.marca;
   }
 
   @override
-  set marca(String value) {
+  set marca(String? value) {
     _$marcaAtom.reportWrite(value, super.marca, () {
       super.marca = value;
     });
@@ -123,13 +123,13 @@ mixin _$AlimentoController on _AlimentoControllerBase, Store {
   final _$medidaAtom = Atom(name: '_AlimentoControllerBase.medida');
 
   @override
-  String get medida {
+  String? get medida {
     _$medidaAtom.reportRead();
     return super.medida;
   }
 
   @override
-  set medida(String value) {
+  set medida(String? value) {
     _$medidaAtom.reportWrite(value, super.medida, () {
       super.medida = value;
     });
@@ -138,13 +138,13 @@ mixin _$AlimentoController on _AlimentoControllerBase, Store {
   final _$caloriasAtom = Atom(name: '_AlimentoControllerBase.calorias');
 
   @override
-  String get calorias {
+  String? get calorias {
     _$caloriasAtom.reportRead();
     return super.calorias;
   }
 
   @override
-  set calorias(String value) {
+  set calorias(String? value) {
     _$caloriasAtom.reportWrite(value, super.calorias, () {
       super.calorias = value;
     });
@@ -154,13 +154,13 @@ mixin _$AlimentoController on _AlimentoControllerBase, Store {
       Atom(name: '_AlimentoControllerBase.porcaoConsumida');
 
   @override
-  String get porcaoConsumida {
+  String? get porcaoConsumida {
     _$porcaoConsumidaAtom.reportRead();
     return super.porcaoConsumida;
   }
 
   @override
-  set porcaoConsumida(String value) {
+  set porcaoConsumida(String? value) {
     _$porcaoConsumidaAtom.reportWrite(value, super.porcaoConsumida, () {
       super.porcaoConsumida = value;
     });
@@ -230,7 +230,7 @@ mixin _$AlimentoController on _AlimentoControllerBase, Store {
       ActionController(name: '_AlimentoControllerBase');
 
   @override
-  void setNome(String newValue) {
+  void setNome(String? newValue) {
     final _$actionInfo = _$_AlimentoControllerBaseActionController.startAction(
         name: '_AlimentoControllerBase.setNome');
     try {
@@ -241,7 +241,7 @@ mixin _$AlimentoController on _AlimentoControllerBase, Store {
   }
 
   @override
-  void setMarca(String newValue) {
+  void setMarca(String? newValue) {
     final _$actionInfo = _$_AlimentoControllerBaseActionController.startAction(
         name: '_AlimentoControllerBase.setMarca');
     try {
@@ -252,7 +252,7 @@ mixin _$AlimentoController on _AlimentoControllerBase, Store {
   }
 
   @override
-  void setMedida(String newValue) {
+  void setMedida(String? newValue) {
     final _$actionInfo = _$_AlimentoControllerBaseActionController.startAction(
         name: '_AlimentoControllerBase.setMedida');
     try {
@@ -263,7 +263,7 @@ mixin _$AlimentoController on _AlimentoControllerBase, Store {
   }
 
   @override
-  void setCalorias(String newValue) {
+  void setCalorias(String? newValue) {
     final _$actionInfo = _$_AlimentoControllerBaseActionController.startAction(
         name: '_AlimentoControllerBase.setCalorias');
     try {
@@ -274,7 +274,7 @@ mixin _$AlimentoController on _AlimentoControllerBase, Store {
   }
 
   @override
-  void setPorcaoConsumida(String newValue) {
+  void setPorcaoConsumida(String? newValue) {
     final _$actionInfo = _$_AlimentoControllerBaseActionController.startAction(
         name: '_AlimentoControllerBase.setPorcaoConsumida');
     try {

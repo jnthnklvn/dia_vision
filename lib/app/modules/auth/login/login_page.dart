@@ -18,6 +18,8 @@ import 'package:flutter/material.dart';
 import 'login_controller.dart';
 
 class LoginPage extends StatefulWidget with ScaffoldUtils {
+  LoginPage({Key? key}) : super(key: key);
+
   @override
   _LoginPageState createState() => _LoginPageState(scaffoldKey);
 }
@@ -39,8 +41,8 @@ class _LoginPageState extends ModularState<LoginPage, LoginController>
       builder: (BuildContext context) {
         return ConfirmDialog(
           onConfirm,
-          ALLOW_NOTIFICATIONS,
-          WISH_ALLOW_NOTIFICATIONS,
+          allowNotifications,
+          wishToAllowNotifications,
         );
       },
     );
@@ -73,7 +75,7 @@ class _LoginPageState extends ModularState<LoginPage, LoginController>
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       key: scaffoldKey,
-      body: Container(
+      body: SizedBox(
         width: double.infinity,
         height: size.height,
         child: SingleChildScrollView(
@@ -106,8 +108,8 @@ class _LoginPageState extends ModularState<LoginPage, LoginController>
                 controller.isLoading
                     ? Center(
                         child: Container(
-                        margin: EdgeInsets.only(top: 10),
-                        child: CircularProgressIndicator(),
+                        margin: const EdgeInsets.only(top: 10),
+                        child: const CircularProgressIndicator(),
                       ))
                     : RoundedButton(
                         text: "ENTRAR",
@@ -126,16 +128,16 @@ class _LoginPageState extends ModularState<LoginPage, LoginController>
                   onTap: () => Modular.to
                       .pushNamed(RouteEnum.auth.name + RouteEnum.recovery.name),
                   onLongPress: () =>
-                      _speak(ASK_FORGOT_YOUR_PASSWORD + RECOVERY_PASSWORD),
+                      _speak(forgotPasswordQst + recoveryPassword),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
+                    children: const [
                       Text(
-                        ASK_FORGOT_YOUR_PASSWORD,
+                        forgotPasswordQst,
                         style: TextStyle(color: kPrimaryColor, fontSize: 18),
                       ),
                       Text(
-                        RECOVERY_PASSWORD,
+                        recoveryPassword,
                         style: TextStyle(
                           color: kPrimaryColor,
                           fontWeight: FontWeight.bold,

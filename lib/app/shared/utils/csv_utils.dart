@@ -2,8 +2,8 @@ import 'package:csv/csv.dart';
 
 class CsvUtils {
   /// Convert a map list to csv
-  String mapListToCsv(List<Map<String, dynamic>> mapList,
-      {ListToCsvConverter converter}) {
+  String? mapListToCsv(List<Map<String, dynamic>>? mapList,
+      {ListToCsvConverter? converter}) {
     if (mapList == null) {
       return null;
     }
@@ -25,7 +25,7 @@ class CsvUtils {
 
     for (var map in mapList) {
       // This list might grow if a new key is found
-      var dataRow = List(keyIndexMap.length);
+      var dataRow = List.filled(keyIndexMap.length, null, growable: false);
       // Fix missing key
       map.forEach((key, value) {
         var keyIndex = keyIndexMap[key];
@@ -41,8 +41,6 @@ class CsvUtils {
       });
       data.add(dataRow);
     }
-    return converter.convert(<List>[]
-      ..add(keys)
-      ..addAll(data));
+    return converter.convert(<List>[keys, ...data]);
   }
 }

@@ -23,6 +23,7 @@ class CentroSaudeRepository implements ICentroSaudeRepository {
     return _getSingleResult(response);
   }
 
+  @override
   Future<Either<CentroSaudeFailure, CentroSaude>> getById(
       String objectId) async {
     final query = QueryBuilder(CentroSaude.clone())
@@ -33,6 +34,7 @@ class CentroSaudeRepository implements ICentroSaudeRepository {
     return _getSingleResult(response);
   }
 
+  @override
   Future<Either<CentroSaudeFailure, List<CentroSaude>>> getAll() async {
     final query = QueryBuilder(CentroSaude.clone())
       ..whereEqualTo('verificado', true)
@@ -46,10 +48,11 @@ class CentroSaudeRepository implements ICentroSaudeRepository {
   Either<CentroSaudeFailure, List<CentroSaude>> _getResult(
       ParseResponse response) {
     if (response.success) {
-      final result = response.results?.map((e) => e as CentroSaude)?.toList();
+      final result = response.results!.map((e) => e as CentroSaude).toList();
       return Right(result);
-    } else
+    } else {
       return Left(_getFailure(response));
+    }
   }
 
   Either<CentroSaudeFailure, CentroSaude> _getSingleResult(
@@ -58,14 +61,15 @@ class CentroSaudeRepository implements ICentroSaudeRepository {
       final result =
           response.result is List ? response.result[0] : response.result;
       return Right(result);
-    } else
+    } else {
       return Left(_getFailure(response));
+    }
   }
 
   CentroSaudeFailure _getFailure(ParseResponse response) {
     return CentroSaudeFailure(
-      ParseErrors.getDescription(response.error.code),
-      response.error.code,
+      ParseErrors.getDescription(response.error?.code),
+      response.error?.code ?? -2,
     );
   }
 }

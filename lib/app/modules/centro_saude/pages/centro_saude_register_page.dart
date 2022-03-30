@@ -17,7 +17,7 @@ import 'package:flutter/material.dart';
 class CentroSaudeRegisterPage extends StatefulWidget with ScaffoldUtils {
   final CentroSaude centroSaude;
 
-  CentroSaudeRegisterPage(this.centroSaude);
+  CentroSaudeRegisterPage(this.centroSaude, {Key? key}) : super(key: key);
 
   @override
   _CentroSaudeRegisterPageState createState() =>
@@ -58,10 +58,10 @@ class _CentroSaudeRegisterPageState extends ModularState<
     return Scaffold(
       key: scaffoldKey,
       appBar: AppBar(
-        leading: BackArrowButton(iconPadding: 5),
-        title: InkWellSpeakText(
+        leading: const BackArrowButton(iconPadding: 5),
+        title: const InkWellSpeakText(
           Text(
-            SUGGEST_MEDICAL_CENTER_REGISTER,
+            suggestMedicalCenterRegister,
             style: TextStyle(
               fontSize: kAppBarTitleSize,
               color: kPrimaryColor,
@@ -76,7 +76,7 @@ class _CentroSaudeRegisterPageState extends ModularState<
         color: Colors.white,
         padding: const EdgeInsets.only(top: 10),
         child: SingleChildScrollView(
-          physics: BouncingScrollPhysics(),
+          physics: const BouncingScrollPhysics(),
           child: Observer(builder: (_) {
             return Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -126,9 +126,9 @@ class _CentroSaudeRegisterPageState extends ModularState<
                   nextFocusNode: focusNode5,
                 ),
                 Container(
-                  margin: EdgeInsets.only(left: 15, right: 10),
+                  margin: const EdgeInsets.only(left: 15, right: 10),
                   child: ListTile(
-                    title: InkWellSpeakText(
+                    title: const InkWellSpeakText(
                       Text(
                         "Adicionar endereço?",
                         style: TextStyle(
@@ -191,19 +191,21 @@ class _CentroSaudeRegisterPageState extends ModularState<
                     ],
                   ),
                 Observer(builder: (_) {
-                  if (controller.isLoading)
+                  if (controller.isLoading) {
                     return Center(
                         child: Container(
-                      margin: EdgeInsets.only(top: 10, bottom: 10),
-                      child: CircularProgressIndicator(),
+                      margin: const EdgeInsets.only(top: 10, bottom: 10),
+                      child: const CircularProgressIndicator(),
                     ));
+                  }
                   return RoundedButton(
                     text: "SALVAR",
                     onPressed: () => controller.save(
                       widget.onError,
                       () async {
                         widget.onSuccess("Solicitação enviada!");
-                        await Future.delayed(Duration(milliseconds: 1500));
+                        await Future.delayed(
+                            const Duration(milliseconds: 1500));
                         Modular.to.pop();
                       },
                     ),

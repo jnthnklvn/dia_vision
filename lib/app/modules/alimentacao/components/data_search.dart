@@ -16,8 +16,8 @@ class DataSearch extends SearchDelegate<String> {
 
   DataSearch(this._alimentoController, this.onError)
       : super(
-          searchFieldLabel: SEARCH,
-          searchFieldStyle: TextStyle(
+          searchFieldLabel: searchStr,
+          searchFieldStyle: const TextStyle(
             fontSize: kAppBarTitleSize,
             color: kPrimaryColor,
             fontWeight: FontWeight.bold,
@@ -28,13 +28,13 @@ class DataSearch extends SearchDelegate<String> {
   List<Widget> buildActions(BuildContext context) {
     return [
       InkWell(
-        child: Icon(
+        child: const Icon(
           Icons.clear,
           size: 32,
           color: kPrimaryColor,
-          semanticLabel: CLEAR_SEARCH_TEXT,
+          semanticLabel: clearSearchText,
         ),
-        onLongPress: () => _speak(CLEAR_SEARCH_TEXT),
+        onLongPress: () => _speak(clearSearchText),
         onTap: () {
           query = '';
         },
@@ -50,12 +50,12 @@ class DataSearch extends SearchDelegate<String> {
           icon: AnimatedIcons.menu_arrow,
           color: kPrimaryColor,
           size: 32,
-          semanticLabel: CLOSE_SEARCH_PAGE,
+          semanticLabel: closeSearchPage,
           progress: transitionAnimation,
         ),
       ),
-      onLongPress: () => _speak(CLOSE_SEARCH_PAGE),
-      onTap: () => close(context, null),
+      onLongPress: () => _speak(closeSearchPage),
+      onTap: () => close(context, ''),
     );
   }
 
@@ -64,10 +64,10 @@ class DataSearch extends SearchDelegate<String> {
     if (query.length < 3) {
       return Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
+        children: const <Widget>[
           Center(
             child: Text(
-              NOT_ENOUGH_LETTERS,
+              notEnoughLetters,
             ),
           )
         ],
@@ -81,19 +81,19 @@ class DataSearch extends SearchDelegate<String> {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
+          children: const <Widget>[
             Center(child: CircularProgressIndicator()),
           ],
         );
-      } else if (_alimentoController.alimentosAPI.length == 0) {
+      } else if (_alimentoController.alimentosAPI.isEmpty) {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
+          children: const <Widget>[
             Center(
               child: InkWellSpeakText(
                 Text(
-                  NO_FOODS_FOUND,
+                  noFoodsFound,
                   textAlign: TextAlign.center,
                   style: TextStyle(fontSize: 24, color: kPrimaryColor),
                 ),
@@ -114,9 +114,9 @@ class DataSearch extends SearchDelegate<String> {
               _alimentoController.medida = result.medida;
               _alimentoController.caloriasController.text =
                   result.calorias.toString();
-              _alimentoController.marcaController.text = result.marca;
-              _alimentoController.medidaController.text = result.medida;
-              _alimentoController.nomeController.text = result.nome;
+              _alimentoController.marcaController.text = result.marca ?? '';
+              _alimentoController.medidaController.text = result.medida ?? '';
+              _alimentoController.nomeController.text = result.nome ?? '';
               Navigator.of(context).pop();
             },
             onLongPress: () => _speak(
@@ -139,7 +139,7 @@ class DataSearch extends SearchDelegate<String> {
     });
   }
 
-  String getFieldAndText(String field, String text) {
+  String? getFieldAndText(String field, String? text) {
     if (text?.isNotEmpty != true) return null;
     return "$field: $text.";
   }

@@ -78,7 +78,7 @@ class Win32Window {
   // non-client DPI scaling so that the non-client area automatically
   // responsponds to changes in DPI. All other messages are handled by
   // MessageHandler.
-  static LRESULT CALLBACK WndProc(HWND const window,
+  static LRESULT CALLbackStr WndProc(HWND const window,
                                   UINT const message,
                                   WPARAM const wparam,
                                   LPARAM const lparam) noexcept;

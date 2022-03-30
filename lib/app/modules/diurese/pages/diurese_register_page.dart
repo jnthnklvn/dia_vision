@@ -18,7 +18,7 @@ import 'package:flutter/material.dart';
 class DiureseRegisterPage extends StatefulWidget with ScaffoldUtils {
   final Diurese diurese;
 
-  DiureseRegisterPage(this.diurese);
+  DiureseRegisterPage(this.diurese, {Key? key}) : super(key: key);
 
   @override
   _DiureseRegisterPageState createState() =>
@@ -33,8 +33,8 @@ class _DiureseRegisterPageState
 
   _DiureseRegisterPageState(this.scaffoldKey);
 
-  TextEditingController volumeController;
-  TextEditingController coloracaoController;
+  TextEditingController? volumeController;
+  TextEditingController? coloracaoController;
 
   @override
   void initState() {
@@ -55,10 +55,10 @@ class _DiureseRegisterPageState
     return Scaffold(
       key: scaffoldKey,
       appBar: AppBar(
-        leading: BackArrowButton(iconPadding: 5),
-        title: InkWellSpeakText(
+        leading: const BackArrowButton(iconPadding: 5),
+        title: const InkWellSpeakText(
           Text(
-            DIURESIS_CHECK_REGISTER,
+            diuresisCheckRegister,
             style: TextStyle(
               fontSize: kAppBarTitleSize,
               color: kPrimaryColor,
@@ -73,7 +73,7 @@ class _DiureseRegisterPageState
         color: Colors.white,
         padding: const EdgeInsets.only(top: 20),
         child: SingleChildScrollView(
-          physics: BouncingScrollPhysics(),
+          physics: const BouncingScrollPhysics(),
           child: Observer(builder: (_) {
             return Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -92,9 +92,9 @@ class _DiureseRegisterPageState
                 ),
                 buildDropdownButton(size),
                 Container(
-                  margin: EdgeInsets.only(left: 15, right: 10),
+                  margin: const EdgeInsets.only(left: 15, right: 10),
                   child: ListTile(
-                    title: InkWellSpeakText(
+                    title: const InkWellSpeakText(
                       Text(
                         "Houve ardor?",
                         style: TextStyle(
@@ -113,12 +113,13 @@ class _DiureseRegisterPageState
                   ),
                 ),
                 Observer(builder: (_) {
-                  if (controller.isLoading)
+                  if (controller.isLoading) {
                     return Center(
                         child: Container(
-                      margin: EdgeInsets.only(top: 10, bottom: 10),
-                      child: CircularProgressIndicator(),
+                      margin: const EdgeInsets.only(top: 10, bottom: 10),
+                      child: const CircularProgressIndicator(),
                     ));
+                  }
                   return RoundedButton(
                     text: "SALVAR",
                     onPressed: () => controller.save(
@@ -144,8 +145,8 @@ class _DiureseRegisterPageState
       onLongPress: () => Modular.get<FlutterTts>()
           .speak(controller.coloracao ?? "Selecione uma coloração"),
       child: Container(
-        margin: EdgeInsets.symmetric(vertical: 10),
-        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 7),
+        margin: const EdgeInsets.symmetric(vertical: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 7),
         width: size.width * 0.9,
         decoration: BoxDecoration(
           color: kPrimaryLightColor,
@@ -160,7 +161,7 @@ class _DiureseRegisterPageState
             size: 32,
           ),
           isExpanded: true,
-          hint: Text(
+          hint: const Text(
             "Selecione uma coloração",
             style: TextStyle(
               color: kPrimaryColor,

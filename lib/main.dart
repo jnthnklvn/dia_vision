@@ -1,6 +1,7 @@
 import 'package:dia_vision/app/shared/utils/constants.dart';
 import 'package:dia_vision/app/shared/utils/strings.dart';
 import 'package:dia_vision/app/app_module.dart';
+import 'package:dia_vision/app/app_widget.dart';
 
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:parse_server_sdk/parse_server_sdk.dart';
@@ -15,7 +16,10 @@ main() async {
 
   await initializateNotifications();
 
-  runApp(ModularApp(module: AppModule()));
+  runApp(ModularApp(
+    module: AppModule(),
+    child: const AppWidget(),
+  ));
 }
 
 Future<void> initializateNotifications() async {

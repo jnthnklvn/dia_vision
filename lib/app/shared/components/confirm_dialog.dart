@@ -7,14 +7,15 @@ class ConfirmDialog extends StatelessWidget {
   final String title;
   final String content;
   final Function() onConfirm;
-  final Function() onCancell;
+  final Function()? onCancell;
 
   const ConfirmDialog(
     this.onConfirm,
     this.title,
     this.content, {
+    Key? key,
     this.onCancell,
-  });
+  }) : super(key: key);
 
   Future _speak(String txt) => Modular.get<FlutterTts>().speak(txt);
 
@@ -22,12 +23,13 @@ class ConfirmDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return AlertDialog(
       title: InkWellSpeakText(Text(title,
-          style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600))),
-      contentPadding: EdgeInsets.only(left: 25, right: 25, top: 20, bottom: 10),
+          style: const TextStyle(fontSize: 24, fontWeight: FontWeight.w600))),
+      contentPadding:
+          const EdgeInsets.only(left: 25, right: 25, top: 20, bottom: 10),
       content: InkWellSpeakText(
         Text(
           content,
-          style: TextStyle(fontSize: 18),
+          style: const TextStyle(fontSize: 18),
           textAlign: TextAlign.justify,
         ),
       ),
@@ -36,12 +38,12 @@ class ConfirmDialog extends StatelessWidget {
           minWidth: 100,
           color: Colors.red,
           onLongPress: () => _speak("Botão: não"),
-          child: Text('Não',
+          child: const Text('Não',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
           onPressed: onCancell != null
               ? () {
                   Navigator.of(context).pop();
-                  onCancell();
+                  onCancell!();
                 }
               : Navigator.of(context).pop,
         ),
@@ -49,7 +51,7 @@ class ConfirmDialog extends StatelessWidget {
           minWidth: 100,
           color: Colors.blue,
           onLongPress: () => _speak("Botão: sim"),
-          child: Text('Sim',
+          child: const Text('Sim',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
           onPressed: () {
             Navigator.of(context).pop();

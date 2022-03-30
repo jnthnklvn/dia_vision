@@ -4,21 +4,22 @@ import 'package:flutter/material.dart';
 
 class ChooseDialog extends StatelessWidget {
   final Function() onConfirm;
-  final Function() onCancell;
+  final Function()? onCancell;
 
   const ChooseDialog(
     this.onConfirm,
-    this.onCancell,
-  );
+    this.onCancell, {
+    Key? key,
+  }) : super(key: key);
 
   Future _speak(String txt) => Modular.get<FlutterTts>().speak(txt);
 
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      contentPadding: EdgeInsets.all(0),
-      actionsPadding: EdgeInsets.all(0),
-      titlePadding: EdgeInsets.all(0),
+      contentPadding: const EdgeInsets.all(0),
+      actionsPadding: const EdgeInsets.all(0),
+      titlePadding: const EdgeInsets.all(0),
       content: Container(
         color: Colors.yellowAccent,
         height: 100,
@@ -29,7 +30,7 @@ class ChooseDialog extends StatelessWidget {
               width: double.infinity,
               child: RaisedButton(
                 onLongPress: () => _speak("Botão: editar"),
-                child: Text('Editar',
+                child: const Text('Editar',
                     style:
                         TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
                 onPressed: () {
@@ -43,13 +44,13 @@ class ChooseDialog extends StatelessWidget {
               width: double.infinity,
               child: RaisedButton(
                 onLongPress: () => _speak("Botão: remover"),
-                child: Text('Remover',
+                child: const Text('Remover',
                     style:
                         TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
                 onPressed: onCancell != null
                     ? () {
                         Navigator.of(context).pop();
-                        onCancell();
+                        onCancell!();
                       }
                     : Navigator.of(context).pop,
               ),

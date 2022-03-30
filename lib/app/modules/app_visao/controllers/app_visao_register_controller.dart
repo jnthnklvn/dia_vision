@@ -14,25 +14,25 @@ abstract class _AppVisaoRegisterControllerBase with Store {
   _AppVisaoRegisterControllerBase(this._appVisaoRepository);
 
   @observable
-  String descricao;
+  String? descricao;
   @observable
-  String titulo;
+  String? titulo;
   @observable
-  String linkGooglePlay;
+  String? linkGooglePlay;
   @observable
-  String linkAppleStore;
+  String? linkAppleStore;
 
   @observable
   bool isLoading = false;
 
   @action
-  void setDescricao(String newValue) => descricao = newValue;
+  void setDescricao(String? newValue) => descricao = newValue;
   @action
-  void setLinkAppleStore(String newValue) => linkAppleStore = newValue;
+  void setLinkAppleStore(String? newValue) => linkAppleStore = newValue;
   @action
-  void setTitulo(String newValue) => titulo = newValue;
+  void setTitulo(String? newValue) => titulo = newValue;
   @action
-  void setLinkGooglePlay(String newValue) => linkGooglePlay = newValue;
+  void setLinkGooglePlay(String? newValue) => linkGooglePlay = newValue;
 
   Future<void> save(Function(String) onError, void Function() onSuccess) async {
     isLoading = true;

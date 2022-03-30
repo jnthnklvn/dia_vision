@@ -8,7 +8,7 @@ import 'package:dartz/dartz.dart';
 abstract class IMedicamentoRepository {
   Future<Either<MedicamentoFailure, List<Medicamento>>> getByText(
       String nomeMedicamento,
-      {int limit});
+      {int? limit});
   Future<Either<MedicamentoFailure, Medicamento>> getById(String objectId);
 }
 
@@ -16,7 +16,7 @@ class MedicamentoRepository implements IMedicamentoRepository {
   @override
   Future<Either<MedicamentoFailure, List<Medicamento>>> getByText(
       String nomeMedicamento,
-      {int limit}) async {
+      {int? limit}) async {
     final medicamentoObj = Medicamento.clone();
     final queryNomeSubstancia = QueryBuilder(medicamentoObj)
       ..whereContains("nomeSubstancia", nomeMedicamento);
@@ -29,17 +29,18 @@ class MedicamentoRepository implements IMedicamentoRepository {
     )..setLimit(limit ?? 200);
 
     final response = await mainQuery.query();
-    if (response.success) {
-      final result = response.results?.map((e) => e as Medicamento)?.toList();
+    if (response.success && response.results != null) {
+      final result = response.results!.map((e) => e as Medicamento).toList();
       return Right(result);
     } else {
       return Left(MedicamentoFailure(
-        ParseErrors.getDescription(response.error.code),
-        response.error.code,
+        ParseErrors.getDescription(response.error?.code),
+        response.error?.code ?? -2,
       ));
     }
   }
 
+  @override
   Future<Either<MedicamentoFailure, Medicamento>> getById(
       String objectId) async {
     final query = QueryBuilder(Medicamento.clone())
@@ -51,8 +52,8 @@ class MedicamentoRepository implements IMedicamentoRepository {
       return Right(result);
     } else {
       return Left(MedicamentoFailure(
-        ParseErrors.getDescription(response.error.code),
-        response.error.code,
+        ParseErrors.getDescription(response.error?.code),
+        response.error?.code ?? -2,
       ));
     }
   }

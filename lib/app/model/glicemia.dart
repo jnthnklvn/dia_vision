@@ -9,31 +9,24 @@ const kHorarioFixo = "horarioFixo";
 const keyPaciente = 'paciente';
 const kGlicemiaTable = "Glicemia";
 
-enum HorarioType {
-  JEJUM,
-  PRE_REFEICAO,
-  POS_REFEICAO,
-  AO_DEITAR,
-  MADRUGADA,
-  OUTRO
-}
+enum HorarioType { jejum, preRefeicao, posRefeicao, aoDeitar, madrugada, outro }
 
 extension HorarioTypeExtension on HorarioType {
-  String get name => this.toString().replaceAll('HorarioType.', '');
+  String get name => toString().replaceAll('HorarioType.', '');
 
-  String get displayTitle {
+  String? get displayTitle {
     switch (this) {
-      case HorarioType.JEJUM:
+      case HorarioType.jejum:
         return 'Em jejum';
-      case HorarioType.POS_REFEICAO:
+      case HorarioType.posRefeicao:
         return '2h pós refeição';
-      case HorarioType.PRE_REFEICAO:
+      case HorarioType.preRefeicao:
         return 'Pré refeição';
-      case HorarioType.AO_DEITAR:
+      case HorarioType.aoDeitar:
         return 'Ao deitar';
-      case HorarioType.MADRUGADA:
+      case HorarioType.madrugada:
         return 'Madrugada';
-      case HorarioType.OUTRO:
+      case HorarioType.outro:
         return 'Outro';
       default:
         return null;
@@ -41,8 +34,9 @@ extension HorarioTypeExtension on HorarioType {
   }
 }
 
-class Glicemia extends ParseObject with DateUtils implements ParseCloneable {
-  Glicemia({String nivel, HorarioType horario, num valor, Paciente paciente})
+class Glicemia extends ParseObject with DateUtil implements ParseCloneable {
+  Glicemia(
+      {String? nivel, HorarioType? horario, num? valor, Paciente? paciente})
       : super(kGlicemiaTable) {
     this.horario = horario;
     this.valor = valor;
@@ -60,23 +54,28 @@ class Glicemia extends ParseObject with DateUtils implements ParseCloneable {
     return this;
   }
 
-  set createdAt(DateTime data) => set<DateTime>("createdAt", data);
+  set createdAt(DateTime? data) => set<DateTime?>("createdAt", data);
 
-  num get valor => get<num>(kValor);
-  set valor(num valor) => set<num>(kValor, valor);
+  num? get valor => get<num?>(kValor);
+  set valor(num? valor) => set<num?>(kValor, valor);
 
-  HorarioType get horario => HorarioType.values.firstWhere(
-      (e) => e.displayTitle == get<String>(kHorario),
-      orElse: () => null);
-  set horario(HorarioType horario) =>
-      set<String>(kHorario, horario?.displayTitle);
+  HorarioType? get horario => HorarioType?.values
+      .firstWhere((e) => e.displayTitle == get<String?>(kHorario));
+  set horario(HorarioType? horario) =>
+      set<String?>(kHorario, horario?.displayTitle);
 
-  String get horarioFixo => get<String>(kHorarioFixo);
-  set horarioFixo(String horarioFixo) => set<String>(kHorarioFixo, horarioFixo);
+  String? get horarioFixo => get<String?>(kHorarioFixo);
+  set horarioFixo(String? horarioFixo) =>
+      set<String?>(kHorarioFixo, horarioFixo);
 
-  Paciente get paciente =>
-      Paciente.clone()..fromJson(get<ParseObject>(keyPaciente)?.toJson());
-  set paciente(Paciente paciente) => set(keyPaciente, paciente);
+  Paciente? get paciente {
+    final pacienteAux = get<ParseObject?>(keyPaciente)?.toJson();
+    return pacienteAux != null
+        ? (Paciente.clone()..fromJson(pacienteAux))
+        : null;
+  }
+
+  set paciente(Paciente? paciente) => set(keyPaciente, paciente);
 
   Map<String, dynamic> toMap() => <String, dynamic>{
         'Data de registro': getDataBrFromDate(createdAt) ?? "",

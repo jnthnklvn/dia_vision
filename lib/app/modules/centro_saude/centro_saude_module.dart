@@ -11,21 +11,21 @@ import 'pages/centro_saude_page.dart';
 
 import 'package:flutter_modular/flutter_modular.dart';
 
-class CentroSaudeModule extends ChildModule {
+class CentroSaudeModule extends Module {
   @override
-  List<Bind> get binds => [
-        Bind((i) => EnderecoRepository()),
-        Bind((i) => CentroSaudeRepository()),
-        Bind((i) => CentroSaudeController(i())),
-        Bind((i) => CentroSaudeRegisterController(i(), i())),
-      ];
+  final List<Bind> binds = [
+    Bind((i) => EnderecoRepository()),
+    Bind((i) => CentroSaudeRepository()),
+    Bind((i) => CentroSaudeController(i())),
+    Bind((i) => CentroSaudeRegisterController(i(), i())),
+  ];
 
   @override
-  List<ModularRouter> get routers => [
-        ModularRouter(medicalCenters.routeName,
-            child: (_, args) => CentrosSaudePage()),
-        ModularRouter("/$REGISTER",
-            child: (_, args) => CentroSaudeRegisterPage(args.data)),
-        ModularRouter("/page", child: (_, args) => CentroSaudePage(args.data)),
-      ];
+  final List<ModularRoute> routes = [
+    ChildRoute(medicalCenters.routeName,
+        child: (_, args) => CentrosSaudePage()),
+    ChildRoute("/$registerStr",
+        child: (_, args) => CentroSaudeRegisterPage(args.data)),
+    ChildRoute("/page", child: (_, args) => CentroSaudePage(args.data)),
+  ];
 }

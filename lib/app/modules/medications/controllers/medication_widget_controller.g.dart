@@ -13,13 +13,13 @@ mixin _$MedicationsWidgetController on _MedicationsWidgetControllerBase, Store {
       Atom(name: '_MedicationsWidgetControllerBase.medication');
 
   @override
-  MedicationNotify get medication {
+  MedicationNotify? get medication {
     _$medicationAtom.reportRead();
     return super.medication;
   }
 
   @override
-  set medication(MedicationNotify value) {
+  set medication(MedicationNotify? value) {
     _$medicationAtom.reportWrite(value, super.medication, () {
       super.medication = value;
     });

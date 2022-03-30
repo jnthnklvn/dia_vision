@@ -13,7 +13,7 @@ part 'glicemia_register_controller.g.dart';
 class GlicemiaRegisterController = _GlicemiaRegisterControllerBase
     with _$GlicemiaRegisterController;
 
-abstract class _GlicemiaRegisterControllerBase with Store, DateUtils {
+abstract class _GlicemiaRegisterControllerBase with Store, DateUtil {
   final IGlicemiaRepository _glicemiaRepository;
   final GlicemiaController _glicemiaController;
   final PreferenciasPreferences _preferences;
@@ -27,11 +27,11 @@ abstract class _GlicemiaRegisterControllerBase with Store, DateUtils {
   );
 
   @observable
-  String valor;
+  String? valor;
   @observable
-  String horario;
+  String? horario;
   @observable
-  String horarioFixo;
+  String? horarioFixo;
 
   @observable
   bool isLoading = false;
@@ -42,19 +42,19 @@ abstract class _GlicemiaRegisterControllerBase with Store, DateUtils {
   @observable
   List<Glicemia> glicemias = [];
 
-  Glicemia _glicemia;
+  Glicemia? _glicemia;
 
   @computed
   bool get isEdicao => _glicemia != null;
 
   @action
-  void setValor(String newValue) => valor = newValue;
+  void setValor(String? newValue) => valor = newValue;
   @action
-  void setHorario(String newValue) => horario = newValue;
+  void setHorario(String? newValue) => horario = newValue;
   @action
-  void setHorarioFixo(String newValue) => horarioFixo = newValue;
+  void setHorarioFixo(String? newValue) => horarioFixo = newValue;
 
-  void init(Glicemia glicemia) {
+  void init(Glicemia? glicemia) {
     _glicemia = glicemia;
     if (glicemia != null) {
       setValor(glicemia.valor?.toString());
@@ -72,12 +72,12 @@ abstract class _GlicemiaRegisterControllerBase with Store, DateUtils {
           ? HorarioType.values.firstWhere((e) => e.displayTitle == horario)
           : null;
       final user = await _appController.currentUser();
-      glicemia.paciente = user.paciente;
+      glicemia.paciente = user!.paciente;
       glicemia.objectId = _glicemia?.objectId;
       glicemia.horarioFixo = horarioFixo;
 
       final dValor =
-          valor != null ? num.tryParse(valor.replaceAll(',', '.')) : null;
+          valor != null ? num.tryParse(valor!.replaceAll(',', '.')) : null;
       if (dValor != null) {
         glicemia.valor = dValor;
 
@@ -97,7 +97,7 @@ abstract class _GlicemiaRegisterControllerBase with Store, DateUtils {
 
           isHiperGlicemia = alertarHip && (dValor > maxGlicemia);
           isHipoGlicemia = alertarHip && (dValor < minGlicemia);
-        } catch (e) {}
+        } catch (_) {}
       }
 
       final result = await _glicemiaRepository.save(glicemia, user);

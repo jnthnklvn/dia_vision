@@ -11,12 +11,12 @@ const kDataNascimento = "dataNascimento";
 
 class Paciente extends ParseObject implements ParseCloneable {
   Paciente(
-      {String nome,
-      DateTime dataNascimento,
-      String telefone,
-      num peso,
-      num altura,
-      User user})
+      {String? nome,
+      DateTime? dataNascimento,
+      String? telefone,
+      num? peso,
+      num? altura,
+      User? user})
       : super(kPacienteTable) {
     this.nome = nome;
     this.telefone = telefone;
@@ -37,22 +37,26 @@ class Paciente extends ParseObject implements ParseCloneable {
     return this;
   }
 
-  String get nome => get<String>(kNome);
-  set nome(String nome) => set<String>(kNome, nome);
+  String? get nome => get<String?>(kNome);
+  set nome(String? nome) => set<String?>(kNome, nome);
 
-  DateTime get dataNascimento => get<DateTime>(kDataNascimento);
-  set dataNascimento(DateTime dataNascimento) =>
-      set<DateTime>(kDataNascimento, dataNascimento);
+  DateTime? get dataNascimento => get<DateTime?>(kDataNascimento);
+  set dataNascimento(DateTime? dataNascimento) =>
+      set<DateTime?>(kDataNascimento, dataNascimento);
 
-  String get telefone => get<String>(kTelefone);
-  set telefone(String telefone) => set<String>(kTelefone, telefone);
+  String? get telefone => get<String?>(kTelefone);
+  set telefone(String? telefone) => set<String?>(kTelefone, telefone);
 
-  num get peso => get<num>(kPeso);
-  set peso(num peso) => set<num>(kPeso, peso);
+  num? get peso => get<num?>(kPeso);
+  set peso(num? peso) => set<num?>(kPeso, peso);
 
-  num get altura => get<num>(kAltura);
-  set altura(num altura) => set<num>(kAltura, altura);
+  num? get altura => get<num?>(kAltura);
+  set altura(num? altura) => set<num?>(kAltura, altura);
 
-  User get user => User.clone()..fromJson(get<ParseUser>(keyUser)?.toJson());
-  set user(User user) => set(keyUser, user);
+  User? get user {
+    final userAux = get<ParseUser?>(keyUser)?.toJson();
+    return userAux != null ? (User.clone()..fromJson(userAux)) : null;
+  }
+
+  set user(User? user) => set(keyUser, user);
 }

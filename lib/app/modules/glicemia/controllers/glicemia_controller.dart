@@ -26,7 +26,7 @@ abstract class _GlicemiaControllerBase with Store, CsvUtils, FileUtils {
   @observable
   bool isLoading = false;
   @observable
-  bool isValorPadraoGlicemia;
+  bool? isValorPadraoGlicemia;
 
   @observable
   ObservableList<Glicemia> glicemias = ObservableList<Glicemia>();
@@ -38,7 +38,7 @@ abstract class _GlicemiaControllerBase with Store, CsvUtils, FileUtils {
         (await _preferences.getIsValorPadraoGlicemia()) ?? true;
 
     if (valorMinGlic == null || valorMaxGlic == null) {
-      if (!isValorPadraoGlicemia) {
+      if (isValorPadraoGlicemia == false) {
         _preferences.setValorMaximoGlicemia("120");
         _preferences.setValorMinimoGlicemia("70");
       } else {
@@ -47,7 +47,7 @@ abstract class _GlicemiaControllerBase with Store, CsvUtils, FileUtils {
     }
   }
 
-  Future<bool> setIsValorPadraoGlicemia(bool newValue) async {
+  Future<bool?> setIsValorPadraoGlicemia(bool newValue) async {
     isValorPadraoGlicemia = newValue;
     return _preferences.setIsValorPadraoGlicemia(newValue);
   }
@@ -57,9 +57,9 @@ abstract class _GlicemiaControllerBase with Store, CsvUtils, FileUtils {
     try {
       checkValoresGlicemia();
       final result = await _glicemiaRepository
-          .getAllByPaciente(_appController.user.paciente);
+          .getAllByPaciente(_appController.user!.paciente!);
       result.fold((l) => onError(l.message), (r) {
-        glicemias = (r ?? List<Glicemia>()).asObservable();
+        glicemias = (r).asObservable();
       });
     } catch (e) {
       onError(e.toString());
@@ -68,11 +68,13 @@ abstract class _GlicemiaControllerBase with Store, CsvUtils, FileUtils {
     isLoading = false;
   }
 
-  Future<File> getRelatorioCsvFile(
+  Future<File?> getRelatorioCsvFile(
       Function(String) onError, String path) async {
     try {
-      String csv = mapListToCsv(glicemias.map((e) => e.toMap()).toList());
-      return await save(csv, path);
+      String? csv = mapListToCsv(glicemias.map((e) => e.toMap()).toList());
+      if (csv != null) {
+        return await save(csv, path);
+      }
     } catch (e) {
       onError(e.toString());
     }

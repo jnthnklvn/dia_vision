@@ -14,13 +14,15 @@ import 'package:flutter/material.dart';
 import 'my_data_controller.dart';
 
 class MyDataPage extends StatefulWidget with ScaffoldUtils {
+  MyDataPage({Key? key}) : super(key: key);
+
   @override
   _MyDataPageState createState() => _MyDataPageState(scaffoldKey);
 }
 
 class _MyDataPageState extends ModularState<MyDataPage, MyDataController>
     with SingleTickerProviderStateMixin {
-  final GlobalKey<ScaffoldState> scaffoldKey;
+  final GlobalKey<ScaffoldState>? scaffoldKey;
   final _focusNode1 = FocusNode();
   final _focusNode2 = FocusNode();
   final _focusNode3 = FocusNode();
@@ -28,12 +30,12 @@ class _MyDataPageState extends ModularState<MyDataPage, MyDataController>
   final _focusNode5 = FocusNode();
   final _focusNode6 = FocusNode();
 
-  TextEditingController dataController;
-  TextEditingController emailController;
-  TextEditingController nomeController;
-  TextEditingController pesoController;
-  TextEditingController alturaController;
-  TextEditingController telefoneController;
+  TextEditingController? dataController;
+  TextEditingController? emailController;
+  TextEditingController? nomeController;
+  TextEditingController? pesoController;
+  TextEditingController? alturaController;
+  TextEditingController? telefoneController;
 
   _MyDataPageState(this.scaffoldKey);
 
@@ -58,8 +60,8 @@ class _MyDataPageState extends ModularState<MyDataPage, MyDataController>
     return Scaffold(
       key: scaffoldKey,
       appBar: AppBar(
-        leading: BackArrowButton(iconPadding: 5),
-        title: InkWellSpeakText(
+        leading: const BackArrowButton(iconPadding: 5),
+        title: const InkWellSpeakText(
           Text(
             "Edite seus dados",
             style: TextStyle(
@@ -76,10 +78,11 @@ class _MyDataPageState extends ModularState<MyDataPage, MyDataController>
         color: Colors.white,
         padding: const EdgeInsets.only(top: 10),
         child: Observer(builder: (_) {
-          if (!controller.isDataReady)
-            return Center(child: CircularProgressIndicator());
+          if (!controller.isDataReady) {
+            return const Center(child: CircularProgressIndicator());
+          }
           return SingleChildScrollView(
-            physics: BouncingScrollPhysics(),
+            physics: const BouncingScrollPhysics(),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
@@ -150,8 +153,8 @@ class _MyDataPageState extends ModularState<MyDataPage, MyDataController>
                 controller.isLoading
                     ? Center(
                         child: Container(
-                        margin: EdgeInsets.only(top: 10),
-                        child: CircularProgressIndicator(),
+                        margin: const EdgeInsets.only(top: 10),
+                        child: const CircularProgressIndicator(),
                       ))
                     : RoundedButton(
                         text: "SALVAR",

@@ -11,23 +11,24 @@ class AutocuidadoWidget extends StatelessWidget {
   final Autocuidado _autocuidado;
   final Color categoriaColor;
 
-  const AutocuidadoWidget(this._autocuidado, this.categoriaColor);
+  const AutocuidadoWidget(this._autocuidado, this.categoriaColor, {Key? key})
+      : super(key: key);
 
-  String getFullString(String fieldName, String text) {
+  String? getFullString(String? fieldName, String? text) {
     if (text?.isNotEmpty != true) return null;
     return "$fieldName: $text.";
   }
 
   Widget buildExpandedTexts() {
     return Container(
-      padding: EdgeInsets.all(15),
+      padding: const EdgeInsets.all(15),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Text(
             _autocuidado.titulo ?? "",
             maxLines: 5,
-            style: TextStyle(
+            style: const TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 18,
               color: Colors.white,
@@ -36,11 +37,11 @@ class AutocuidadoWidget extends StatelessWidget {
           ),
           if (_autocuidado.categoria?.isNotEmpty == true)
             Container(
-              margin: EdgeInsets.only(top: 10),
+              margin: const EdgeInsets.only(top: 10),
               child: Text(
-                "Categoria: " + _autocuidado.categoria,
+                "Categoria: " + (_autocuidado.categoria ?? ''),
                 maxLines: 3,
-                style: TextStyle(
+                style: const TextStyle(
                   color: Colors.white,
                   fontSize: 16,
                 ),
@@ -67,19 +68,19 @@ class AutocuidadoWidget extends StatelessWidget {
 
     return InkWell(
       onTap: () => Modular.to.pushNamed(
-        "${selfCare.routeName}/$SELF_CARE_ARTICLE_ROUTE",
+        "${selfCare.routeName}/$selfCareArticleRoute",
         arguments: _autocuidado,
       ),
       onLongPress: () => Modular.get<FlutterTts>().speak(stringToSpeak),
       child: Container(
-        margin: EdgeInsets.symmetric(horizontal: 5, vertical: 15),
+        margin: const EdgeInsets.symmetric(horizontal: 5, vertical: 15),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8),
           color: categoriaColor,
         ),
         child: Card(
           color: kSecondaryColor,
-          margin: EdgeInsets.all(5),
+          margin: const EdgeInsets.all(5),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
           elevation: 3,
           child: buildExpandedTexts(),

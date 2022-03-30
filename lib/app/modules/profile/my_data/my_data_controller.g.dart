@@ -9,21 +9,21 @@ part of 'my_data_controller.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$MyDataController on _MyDataControllerBase, Store {
-  Computed<String> _$emailErrorComputed;
+  Computed<String?>? _$emailErrorComputed;
 
   @override
-  String get emailError =>
-      (_$emailErrorComputed ??= Computed<String>(() => super.emailError,
+  String? get emailError =>
+      (_$emailErrorComputed ??= Computed<String?>(() => super.emailError,
               name: '_MyDataControllerBase.emailError'))
           .value;
-  Computed<bool> _$isValidEmailComputed;
+  Computed<bool>? _$isValidEmailComputed;
 
   @override
   bool get isValidEmail =>
       (_$isValidEmailComputed ??= Computed<bool>(() => super.isValidEmail,
               name: '_MyDataControllerBase.isValidEmail'))
           .value;
-  Computed<bool> _$isValidDataComputed;
+  Computed<bool>? _$isValidDataComputed;
 
   @override
   bool get isValidData =>
@@ -34,13 +34,13 @@ mixin _$MyDataController on _MyDataControllerBase, Store {
   final _$emailAtom = Atom(name: '_MyDataControllerBase.email');
 
   @override
-  String get email {
+  String? get email {
     _$emailAtom.reportRead();
     return super.email;
   }
 
   @override
-  set email(String value) {
+  set email(String? value) {
     _$emailAtom.reportWrite(value, super.email, () {
       super.email = value;
     });
@@ -49,13 +49,13 @@ mixin _$MyDataController on _MyDataControllerBase, Store {
   final _$nomeAtom = Atom(name: '_MyDataControllerBase.nome');
 
   @override
-  String get nome {
+  String? get nome {
     _$nomeAtom.reportRead();
     return super.nome;
   }
 
   @override
-  set nome(String value) {
+  set nome(String? value) {
     _$nomeAtom.reportWrite(value, super.nome, () {
       super.nome = value;
     });
@@ -64,13 +64,13 @@ mixin _$MyDataController on _MyDataControllerBase, Store {
   final _$telefoneAtom = Atom(name: '_MyDataControllerBase.telefone');
 
   @override
-  String get telefone {
+  String? get telefone {
     _$telefoneAtom.reportRead();
     return super.telefone;
   }
 
   @override
-  set telefone(String value) {
+  set telefone(String? value) {
     _$telefoneAtom.reportWrite(value, super.telefone, () {
       super.telefone = value;
     });
@@ -80,13 +80,13 @@ mixin _$MyDataController on _MyDataControllerBase, Store {
       Atom(name: '_MyDataControllerBase.dataNascimento');
 
   @override
-  String get dataNascimento {
+  String? get dataNascimento {
     _$dataNascimentoAtom.reportRead();
     return super.dataNascimento;
   }
 
   @override
-  set dataNascimento(String value) {
+  set dataNascimento(String? value) {
     _$dataNascimentoAtom.reportWrite(value, super.dataNascimento, () {
       super.dataNascimento = value;
     });
@@ -95,13 +95,13 @@ mixin _$MyDataController on _MyDataControllerBase, Store {
   final _$pesoAtom = Atom(name: '_MyDataControllerBase.peso');
 
   @override
-  String get peso {
+  String? get peso {
     _$pesoAtom.reportRead();
     return super.peso;
   }
 
   @override
-  set peso(String value) {
+  set peso(String? value) {
     _$pesoAtom.reportWrite(value, super.peso, () {
       super.peso = value;
     });
@@ -110,13 +110,13 @@ mixin _$MyDataController on _MyDataControllerBase, Store {
   final _$alturaAtom = Atom(name: '_MyDataControllerBase.altura');
 
   @override
-  String get altura {
+  String? get altura {
     _$alturaAtom.reportRead();
     return super.altura;
   }
 
   @override
-  set altura(String value) {
+  set altura(String? value) {
     _$alturaAtom.reportWrite(value, super.altura, () {
       super.altura = value;
     });
@@ -156,7 +156,7 @@ mixin _$MyDataController on _MyDataControllerBase, Store {
       ActionController(name: '_MyDataControllerBase');
 
   @override
-  void setEmail(String newEmail) {
+  void setEmail(String? newEmail) {
     final _$actionInfo = _$_MyDataControllerBaseActionController.startAction(
         name: '_MyDataControllerBase.setEmail');
     try {
@@ -167,7 +167,7 @@ mixin _$MyDataController on _MyDataControllerBase, Store {
   }
 
   @override
-  void setNome(String newNome) {
+  void setNome(String? newNome) {
     final _$actionInfo = _$_MyDataControllerBaseActionController.startAction(
         name: '_MyDataControllerBase.setNome');
     try {
@@ -178,7 +178,7 @@ mixin _$MyDataController on _MyDataControllerBase, Store {
   }
 
   @override
-  void setTelefone(String newTelefone) {
+  void setTelefone(String? newTelefone) {
     final _$actionInfo = _$_MyDataControllerBaseActionController.startAction(
         name: '_MyDataControllerBase.setTelefone');
     try {
@@ -189,7 +189,7 @@ mixin _$MyDataController on _MyDataControllerBase, Store {
   }
 
   @override
-  void setDataNascimento(String newDataNascimento) {
+  void setDataNascimento(String? newDataNascimento) {
     final _$actionInfo = _$_MyDataControllerBaseActionController.startAction(
         name: '_MyDataControllerBase.setDataNascimento');
     try {
@@ -200,7 +200,7 @@ mixin _$MyDataController on _MyDataControllerBase, Store {
   }
 
   @override
-  void setPeso(String newPeso) {
+  void setPeso(String? newPeso) {
     final _$actionInfo = _$_MyDataControllerBaseActionController.startAction(
         name: '_MyDataControllerBase.setPeso');
     try {
@@ -211,7 +211,7 @@ mixin _$MyDataController on _MyDataControllerBase, Store {
   }
 
   @override
-  void setAltura(String newAltura) {
+  void setAltura(String? newAltura) {
     final _$actionInfo = _$_MyDataControllerBaseActionController.startAction(
         name: '_MyDataControllerBase.setAltura');
     try {

@@ -21,7 +21,7 @@ import 'package:flutter/material.dart';
 class AlimentacaoRegisterPage extends StatefulWidget with ScaffoldUtils {
   final Alimentacao alimentacao;
 
-  AlimentacaoRegisterPage(this.alimentacao);
+  AlimentacaoRegisterPage(this.alimentacao, {Key? key}) : super(key: key);
 
   @override
   _AlimentacaoRegisterPageState createState() =>
@@ -37,8 +37,8 @@ class _AlimentacaoRegisterPageState extends ModularState<
 
   final focusNode = FocusNode();
 
-  TextEditingController tipoController;
-  TextEditingController caloriasController;
+  TextEditingController? tipoController;
+  TextEditingController? caloriasController;
 
   @override
   void initState() {
@@ -60,10 +60,10 @@ class _AlimentacaoRegisterPageState extends ModularState<
     return Scaffold(
       key: scaffoldKey,
       appBar: AppBar(
-        leading: BackArrowButton(iconPadding: 5),
-        title: InkWellSpeakText(
+        leading: const BackArrowButton(iconPadding: 5),
+        title: const InkWellSpeakText(
           Text(
-            ALIMENTATION_REGISTER,
+            alimentationRegister,
             style: TextStyle(
               fontSize: kAppBarTitleSize,
               color: kPrimaryColor,
@@ -78,7 +78,7 @@ class _AlimentacaoRegisterPageState extends ModularState<
         color: Colors.white,
         padding: const EdgeInsets.only(top: 10),
         child: SingleChildScrollView(
-          physics: BouncingScrollPhysics(),
+          physics: const BouncingScrollPhysics(),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
@@ -86,10 +86,10 @@ class _AlimentacaoRegisterPageState extends ModularState<
                 return buildDropdownButton(size);
               }),
               InkWell(
-                onTap: () => Modular.to
-                    .pushNamed("${alimentation.routeName}/alimento/$REGISTER"),
+                onTap: () => Modular.to.pushNamed(
+                    "${alimentation.routeName}/alimento/$registerStr"),
                 onLongPress: () => _speak("Toque para adicionar alimento"),
-                child: TextFieldContainer(
+                child: const TextFieldContainer(
                   height: 68,
                   child: ListTile(
                     contentPadding: EdgeInsets.all(0),
@@ -99,7 +99,7 @@ class _AlimentacaoRegisterPageState extends ModularState<
                       size: 42,
                     ),
                     title: Text(
-                      ADD_FOOD,
+                      addFood,
                       style: TextStyle(
                         fontWeight: FontWeight.w500,
                         fontSize: 18,
@@ -110,13 +110,14 @@ class _AlimentacaoRegisterPageState extends ModularState<
                 ),
               ),
               Observer(builder: (_) {
-                if (!alimentoController.isDataReady)
+                if (!alimentoController.isDataReady) {
                   return Center(
                       child: Container(
-                    margin: EdgeInsets.only(top: 10, bottom: 10),
-                    child: CircularProgressIndicator(),
+                    margin: const EdgeInsets.only(top: 10, bottom: 10),
+                    child: const CircularProgressIndicator(),
                   ));
-                if (alimentoController.alimentos.length > 0) {
+                }
+                if (alimentoController.alimentos.isNotEmpty) {
                   final calorias = alimentoController.alimentos
                       .fold<num>(
                           0,
@@ -124,13 +125,15 @@ class _AlimentacaoRegisterPageState extends ModularState<
                               prev + (element.caloriasConsumidas ?? 0))
                       .toString();
                   controller.setCalorias(calorias);
-                  caloriasController.text = calorias;
+                  caloriasController?.text = calorias;
                 } else {
                   return Container();
                 }
                 return Column(
                   children: alimentoController.alimentos
-                      .map((a) => buildAlimentoWidget(a.nome, a.marca,
+                      .map((a) => buildAlimentoWidget(
+                          a.nome ?? '',
+                          a.marca ?? '',
                           a.caloriasConsumidas?.toString() ?? ""))
                       .toList(),
                 );
@@ -146,19 +149,20 @@ class _AlimentacaoRegisterPageState extends ModularState<
                 ],
               ),
               Observer(builder: (_) {
-                if (controller.isLoading)
+                if (controller.isLoading) {
                   return Center(
                       child: Container(
-                    margin: EdgeInsets.only(top: 10, bottom: 10),
-                    child: CircularProgressIndicator(),
+                    margin: const EdgeInsets.only(top: 10, bottom: 10),
+                    child: const CircularProgressIndicator(),
                   ));
+                }
                 return RoundedButton(
                   text: "SALVAR",
                   onPressed: () => controller.save(
                     widget.onError,
                     () async {
-                      widget.onSuccess(REGISTRED_WITH_SUCCESS);
-                      await Future.delayed(Duration(milliseconds: 1500));
+                      widget.onSuccess(registeredWithSuccess);
+                      await Future.delayed(const Duration(milliseconds: 1500));
                       Modular.to.pop();
                     },
                   ),
@@ -180,14 +184,14 @@ class _AlimentacaoRegisterPageState extends ModularState<
           () {
             alimentoController.removerAlimento(nome, marca);
           },
-          DEL_FOOD,
-          WISH_REMOVE_FOOD,
+          delFood,
+          wishToRemoveFood,
         );
       },
     );
   }
 
-  String getTextAndField(String field, String text) {
+  String getTextAndField(String? field, String text) {
     return field != null ? "$field: $text." : "";
   }
 
@@ -198,9 +202,9 @@ class _AlimentacaoRegisterPageState extends ModularState<
           "${getTextAndField('Nome', nome)} ${getTextAndField('Marca', marca)} ${getTextAndField('Calorias consumidas', calorias)}"),
       child: TextFieldContainer(
         child: ListTile(
-          title: Text(nome ?? ""),
+          title: Text(nome),
           trailing: Text("$calorias cal"),
-          subtitle: Text(marca ?? ""),
+          subtitle: Text(marca),
         ),
       ),
     );
@@ -208,21 +212,21 @@ class _AlimentacaoRegisterPageState extends ModularState<
 
   Widget buildDropdownButton(Size size) {
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 10),
-      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 7),
+      margin: const EdgeInsets.symmetric(vertical: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 7),
       width: size.width * 0.9,
       decoration: BoxDecoration(
         color: kPrimaryLightColor,
         borderRadius: BorderRadius.circular(29),
       ),
       child: ListTile(
-        contentPadding: EdgeInsets.all(0),
+        contentPadding: const EdgeInsets.all(0),
         leading: Semantics(
           excludeSemantics: true,
           child: InkWell(
             onTap: () =>
-                Modular.get<FlutterTts>().speak(controller.tipo ?? SELECT_TYPE),
-            child: Icon(
+                Modular.get<FlutterTts>().speak(controller.tipo ?? selectType),
+            child: const Icon(
               Icons.play_circle_fill,
               color: kPrimaryColor,
               size: 42,
@@ -237,8 +241,8 @@ class _AlimentacaoRegisterPageState extends ModularState<
             size: 32,
           ),
           isExpanded: true,
-          hint: Text(
-            SELECT_TYPE,
+          hint: const Text(
+            selectType,
             style: TextStyle(
               color: kPrimaryColor,
               fontSize: 20,
@@ -255,7 +259,7 @@ class _AlimentacaoRegisterPageState extends ModularState<
               MealType.values.map<DropdownMenuItem<String>>((MealType value) {
             return DropdownMenuItem<String>(
               value: value.displayTitle,
-              child: Text(value.displayTitle),
+              child: Text(value.displayTitle ?? ''),
             );
           }).toList(),
         ),

@@ -25,6 +25,7 @@ class GlicemiaRepository implements IGlicemiaRepository {
     return _getSingleResult(response);
   }
 
+  @override
   Future<Either<GlicemiaFailure, Glicemia>> getById(String objectId) async {
     final query = QueryBuilder(Glicemia.clone())
       ..whereEqualTo("objectId", objectId)
@@ -34,6 +35,7 @@ class GlicemiaRepository implements IGlicemiaRepository {
     return _getSingleResult(response);
   }
 
+  @override
   Future<Either<GlicemiaFailure, List<Glicemia>>> getAllByPaciente(
       Paciente paciente) async {
     final query = QueryBuilder(Glicemia.clone())
@@ -45,11 +47,12 @@ class GlicemiaRepository implements IGlicemiaRepository {
   }
 
   Either<GlicemiaFailure, List<Glicemia>> _getResult(ParseResponse response) {
-    if (response.success) {
-      final result = response.results?.map((e) => e as Glicemia)?.toList();
+    if (response.success && response.results != null) {
+      final result = response.results!.map((e) => e as Glicemia).toList();
       return Right(result);
-    } else
+    } else {
       return Left(_getFailure(response));
+    }
   }
 
   Either<GlicemiaFailure, Glicemia> _getSingleResult(ParseResponse response) {
@@ -57,14 +60,15 @@ class GlicemiaRepository implements IGlicemiaRepository {
       final result =
           response.result is List ? response.result[0] : response.result;
       return Right(result);
-    } else
+    } else {
       return Left(_getFailure(response));
+    }
   }
 
   GlicemiaFailure _getFailure(ParseResponse response) {
     return GlicemiaFailure(
-      ParseErrors.getDescription(response.error.code),
-      response.error.code,
+      ParseErrors.getDescription(response.error?.code),
+      response.error?.code ?? -2,
     );
   }
 }

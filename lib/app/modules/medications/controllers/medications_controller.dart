@@ -1,6 +1,6 @@
 import 'package:dia_vision/app/repositories/medicacao_prescrita_repository.dart';
-import 'package:dia_vision/app/model/medicacao_prescrita.dart';
 import 'package:dia_vision/app/shared/preferences/preferencias_preferences.dart';
+import 'package:dia_vision/app/model/medicacao_prescrita.dart';
 import 'package:dia_vision/app/shared/utils/date_utils.dart';
 import 'package:dia_vision/app/shared/utils/file_utils.dart';
 import 'package:dia_vision/app/shared/utils/csv_utils.dart';
@@ -15,7 +15,7 @@ class MedicationsController = _MedicationsControllerBase
     with _$MedicationsController;
 
 abstract class _MedicationsControllerBase
-    with Store, DateUtils, CsvUtils, FileUtils {
+    with Store, DateUtil, CsvUtils, FileUtils {
   final IMedicacaoPrescritaRepository _medicacaoPrescritaRepository;
   final PreferenciasPreferences _preferenciasPreferences;
   final AppController _appController;
@@ -33,7 +33,7 @@ abstract class _MedicationsControllerBase
   }
 
   @observable
-  String tempoLembrete;
+  String? tempoLembrete;
 
   @observable
   bool isLoading = false;
@@ -45,9 +45,9 @@ abstract class _MedicationsControllerBase
     isLoading = true;
     try {
       final result = await _medicacaoPrescritaRepository
-          .getAllByPaciente(_appController.user.paciente);
+          .getAllByPaciente(_appController.user!.paciente!);
       result.fold((l) => onError(l.message), (r) {
-        medicacoes = (r ?? List<MedicacaoPrescrita>()).asObservable();
+        medicacoes = (r).asObservable();
       });
     } catch (e) {
       onError(e.toString());
@@ -56,11 +56,13 @@ abstract class _MedicationsControllerBase
     isLoading = false;
   }
 
-  Future<File> getRelatorioCsvFile(
+  Future<File?> getRelatorioCsvFile(
       Function(String) onError, String path) async {
     try {
-      String csv = mapListToCsv(medicacoes.map((e) => e.toMap()).toList());
-      return await save(csv, path);
+      String? csv = mapListToCsv(medicacoes.map((e) => e.toMap()).toList());
+      if (csv != null) {
+        return await save(csv, path);
+      }
     } catch (e) {
       onError(e.toString());
     }

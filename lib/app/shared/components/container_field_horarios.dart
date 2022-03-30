@@ -1,5 +1,5 @@
 import 'package:dia_vision/app/shared/components/text_field_container.dart';
-import 'package:dia_vision/app/shared/utils/date_utils.dart';
+import 'package:dia_vision/app/shared/utils/date_utils.dart' as dt;
 import 'package:dia_vision/app/shared/utils/constants.dart';
 import 'package:dia_vision/app/shared/utils/strings.dart';
 
@@ -10,22 +10,21 @@ import 'package:flutter/material.dart';
 
 import 'choose_dialog.dart';
 
-class ContainerFieldHorarios extends StatelessWidget with DateUtils {
-  const ContainerFieldHorarios({
-    @required this.context,
-    @required this.horarios,
-    @required this.setHorario,
-    @required this.addHorario,
-    @required this.removeHorario,
-    @required this.horario,
-  });
+class ContainerFieldHorarios extends StatelessWidget with dt.DateUtil {
+  ContainerFieldHorarios({
+    Key? key,
+    required this.context,
+    required this.horarios,
+    required this.setHorario,
+    required this.addHorario,
+    required this.removeHorario,
+  }) : super(key: key);
 
   final void Function(String) setHorario;
   final void Function() addHorario;
   final void Function(String) removeHorario;
   final List<String> horarios;
   final BuildContext context;
-  final String horario;
 
   Future<dynamic> _speak(String txt) => Modular.get<FlutterTts>().speak(txt);
 
@@ -33,12 +32,12 @@ class ContainerFieldHorarios extends StatelessWidget with DateUtils {
     return Navigator.of(context).push(
       showPicker(
         context: context,
-        cancelText: CANCELL,
-        okText: ADD,
+        cancelText: cancellStr,
+        okText: addStr,
         is24HrFormat: true,
         hourLabel: "horas",
         minuteLabel: "minutos",
-        value: TimeOfDay(hour: 12, minute: 00),
+        value: const TimeOfDay(hour: 12, minute: 00),
         onChange: (TimeOfDay time) {
           setHorario(getHorarioFromTime(time));
           addHorario();
@@ -51,7 +50,7 @@ class ContainerFieldHorarios extends StatelessWidget with DateUtils {
   Widget build(BuildContext context) {
     return TextFieldContainer(
       child: ListTile(
-        contentPadding: EdgeInsets.symmetric(vertical: 3),
+        contentPadding: const EdgeInsets.symmetric(vertical: 3),
         trailing: InkWell(
           child: const Icon(
             Icons.add,
@@ -64,25 +63,24 @@ class ContainerFieldHorarios extends StatelessWidget with DateUtils {
         leading: Semantics(
           excludeSemantics: true,
           child: InkWell(
-            onTap: () => _speak(horarios.length == 0
-                ? "Adicione um horário"
-                : horarios.toString()),
-            child: Icon(
+            onTap: () => _speak(
+                horarios.isEmpty ? "Adicione um horário" : horarios.toString()),
+            child: const Icon(
               Icons.play_circle_fill,
               color: kPrimaryColor,
               size: 42,
             ),
           ),
         ),
-        title: horarios.length == 0
+        title: horarios.isEmpty
             ? Text(
                 "Adicione um horário",
                 style: TextStyle(color: Colors.grey[700]),
               )
             : NotificationListener<OverscrollIndicatorNotification>(
                 onNotification: (OverscrollIndicatorNotification overscroll) {
-                  overscroll.disallowGlow();
-                  return;
+                  overscroll.disallowIndicator();
+                  return false;
                 },
                 child: SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
@@ -90,7 +88,7 @@ class ContainerFieldHorarios extends StatelessWidget with DateUtils {
                     children: horarios
                         .map(
                           (e) => Container(
-                            margin: EdgeInsets.only(right: 10),
+                            margin: const EdgeInsets.only(right: 10),
                             child: RaisedButton(
                               onLongPress: () =>
                                   _speak("$e. Toque para editar/remover."),
@@ -109,7 +107,8 @@ class ContainerFieldHorarios extends StatelessWidget with DateUtils {
                               ),
                               child: Text(
                                 e.toString(),
-                                style: TextStyle(fontWeight: FontWeight.w600),
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.w600),
                               ),
                             ),
                           ),

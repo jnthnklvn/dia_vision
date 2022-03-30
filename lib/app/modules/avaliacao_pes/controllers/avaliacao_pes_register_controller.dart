@@ -13,7 +13,7 @@ part 'avaliacao_pes_register_controller.g.dart';
 class AvaliacaoPesRegisterController = _AvaliacaoPesRegisterControllerBase
     with _$AvaliacaoPesRegisterController;
 
-abstract class _AvaliacaoPesRegisterControllerBase with Store, DateUtils {
+abstract class _AvaliacaoPesRegisterControllerBase with Store, DateUtil {
   final IAvaliacaoPesRepository _avaliacaoPesRepository;
   final AvaliacaoPesController _pesController;
   final AppController _appController;
@@ -25,62 +25,62 @@ abstract class _AvaliacaoPesRegisterControllerBase with Store, DateUtils {
   );
 
   @observable
-  bool usaProtetorSolarPes = false;
+  bool? usaProtetorSolarPes = false;
   @observable
-  String dataUltimaConsulta;
+  String? dataUltimaConsulta;
   @observable
-  String temperaturaLavagem;
+  String? temperaturaLavagem;
   @observable
-  bool checaAntesCalcar = false;
+  bool? checaAntesCalcar = false;
   @observable
-  bool pontosVermelhos = false;
+  bool? pontosVermelhos = false;
   @observable
-  bool rachaduras = false;
+  bool? rachaduras = false;
   @observable
-  bool hidratados = false;
+  bool? hidratados = false;
   @observable
-  bool cortaUnhas = false;
+  bool? cortaUnhas = false;
   @observable
-  bool calos = false;
+  bool? calos = false;
   @observable
-  bool lavou = false;
+  bool? lavou = false;
   @observable
-  bool secou = false;
+  bool? secou = false;
 
   @observable
   bool isLoading = false;
   @observable
   List<AvaliacaoPes> avaliacoes = [];
 
-  AvaliacaoPes _avaliacaoPes;
+  AvaliacaoPes? _avaliacaoPes;
 
   @computed
   bool get isEdicao => _avaliacaoPes != null;
 
   @action
-  void setUsaProtetorSolarPes(bool newValue) => usaProtetorSolarPes = newValue;
+  void setUsaProtetorSolarPes(bool? newValue) => usaProtetorSolarPes = newValue;
   @action
-  void setDataUltimaConsulta(String newValue) => dataUltimaConsulta = newValue;
+  void setDataUltimaConsulta(String? newValue) => dataUltimaConsulta = newValue;
   @action
-  void setTemperaturaLavagem(String newValue) => temperaturaLavagem = newValue;
+  void setTemperaturaLavagem(String? newValue) => temperaturaLavagem = newValue;
   @action
-  void setChecaAntesCalcar(bool newValue) => checaAntesCalcar = newValue;
+  void setChecaAntesCalcar(bool? newValue) => checaAntesCalcar = newValue;
   @action
-  void setPontosVermelhos(bool newValue) => pontosVermelhos = newValue;
+  void setPontosVermelhos(bool? newValue) => pontosVermelhos = newValue;
   @action
-  void setRachaduras(bool newValue) => rachaduras = newValue;
+  void setRachaduras(bool? newValue) => rachaduras = newValue;
   @action
-  void setHidratados(bool newValue) => hidratados = newValue;
+  void setHidratados(bool? newValue) => hidratados = newValue;
   @action
-  void setCortaUnhas(bool newValue) => cortaUnhas = newValue;
+  void setCortaUnhas(bool? newValue) => cortaUnhas = newValue;
   @action
-  void setCalos(bool newValue) => calos = newValue;
+  void setCalos(bool? newValue) => calos = newValue;
   @action
-  void setLavou(bool newValue) => lavou = newValue;
+  void setLavou(bool? newValue) => lavou = newValue;
   @action
-  void setSecou(bool newValue) => secou = newValue;
+  void setSecou(bool? newValue) => secou = newValue;
 
-  void init(AvaliacaoPes avaliacao) {
+  void init(AvaliacaoPes? avaliacao) {
     _avaliacaoPes = avaliacao;
     if (avaliacao != null) {
       setUsaProtetorSolarPes(avaliacao.usaProtetorSolarPes);
@@ -94,9 +94,10 @@ abstract class _AvaliacaoPesRegisterControllerBase with Store, DateUtils {
       setLavou(avaliacao.lavou);
       setSecou(avaliacao.secou);
 
-      if (avaliacao.dataUltimaConsulta != null)
+      if (avaliacao.dataUltimaConsulta != null) {
         setDataUltimaConsulta(
-            UtilData.obterDataDDMMAAAA(avaliacao.dataUltimaConsulta));
+            UtilData.obterDataDDMMAAAA(avaliacao.dataUltimaConsulta!));
+      }
     }
   }
 
@@ -117,14 +118,15 @@ abstract class _AvaliacaoPesRegisterControllerBase with Store, DateUtils {
       );
 
       final user = await _appController.currentUser();
-      avaliacaoPes.paciente = user.paciente;
+      avaliacaoPes.paciente = user!.paciente;
       avaliacaoPes.objectId = _avaliacaoPes?.objectId;
       avaliacaoPes.temperaturaLavagem = temperaturaLavagem;
 
       final dDataUltimaConsulta =
           dataUltimaConsulta != null ? getDateTime(dataUltimaConsulta) : null;
-      if (dataUltimaConsulta != null)
+      if (dataUltimaConsulta != null) {
         avaliacaoPes.dataUltimaConsulta = dDataUltimaConsulta;
+      }
 
       final result = await _avaliacaoPesRepository.save(avaliacaoPes, user);
       result.fold((l) => onError(l.message), (r) {

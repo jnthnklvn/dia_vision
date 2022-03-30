@@ -20,6 +20,7 @@ class EnderecoRepository implements IEnderecoRepository {
     return _getSingleResult(response);
   }
 
+  @override
   Future<Either<EnderecoFailure, Endereco>> getById(String objectId) async {
     final query = QueryBuilder(Endereco.clone())
       ..whereEqualTo("objectId", objectId);
@@ -33,14 +34,15 @@ class EnderecoRepository implements IEnderecoRepository {
       final result =
           response.result is List ? response.result[0] : response.result;
       return Right(result);
-    } else
+    } else {
       return Left(_getFailure(response));
+    }
   }
 
   EnderecoFailure _getFailure(ParseResponse response) {
     return EnderecoFailure(
-      ParseErrors.getDescription(response.error.code),
-      response.error.code,
+      ParseErrors.getDescription(response.error?.code),
+      response.error?.code ?? -2,
     );
   }
 }

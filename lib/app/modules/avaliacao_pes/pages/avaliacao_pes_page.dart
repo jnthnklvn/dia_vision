@@ -14,17 +14,19 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_tts/flutter_tts.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:flutter/material.dart';
-import 'package:share/share.dart';
 
 class AvaliacaoPesPage extends StatefulWidget with ScaffoldUtils {
+  AvaliacaoPesPage({Key? key}) : super(key: key);
+
   @override
   _AvaliacaoPesPageState createState() => _AvaliacaoPesPageState(scaffoldKey);
 }
 
 class _AvaliacaoPesPageState
     extends ModularState<AvaliacaoPesPage, AvaliacaoPesController>
-    with DateUtils {
+    with DateUtil {
   Future _speak(String txt) => Modular.get<FlutterTts>().speak(txt);
   final GlobalKey<ScaffoldState> scaffoldKey;
 
@@ -51,29 +53,29 @@ class _AvaliacaoPesPageState
     return Scaffold(
       key: scaffoldKey,
       floatingActionButton: FloatingAddButton(
-        "$BUTTON $ADD $REGISTRY",
-        "${feet.routeName}/$REGISTER",
+        "$buttonStr $addStr $registryStr",
+        "${feet.routeName}/$registerStr",
       ),
       appBar: AppBar(
         actions: [
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: InkWell(
-              onLongPress: () => _speak("$BUTTON $SHARE $REGISTRY"),
+              onLongPress: () => _speak("$buttonStr $shareStr $registryStr"),
               onTap: saveRelatorioCsv,
-              child: Icon(
+              child: const Icon(
                 Icons.share,
                 size: 32,
-                semanticLabel: "$BUTTON $SHARE $REGISTRY",
+                semanticLabel: "$buttonStr $shareStr $registryStr",
                 color: kPrimaryColor,
               ),
             ),
           ),
         ],
-        leading: BackArrowButton(iconPadding: 5),
-        title: InkWellSpeakText(
+        leading: const BackArrowButton(iconPadding: 5),
+        title: const InkWellSpeakText(
           Text(
-            FEET_CHECK,
+            feetCheck,
             style: TextStyle(
               fontSize: kAppBarTitleSize,
               color: kPrimaryColor,
@@ -83,25 +85,27 @@ class _AvaliacaoPesPageState
         ),
       ),
       body: Semantics(
-        sortKey: OrdinalSortKey(1),
+        sortKey: const OrdinalSortKey(1),
         child: Container(
           width: double.infinity,
           height: size.height,
           color: Colors.white,
           alignment: Alignment.center,
-          padding: EdgeInsets.only(top: 10),
+          padding: const EdgeInsets.only(top: 10),
           child: Observer(
             builder: (_) {
-              if (controller.isLoading)
-                return Center(child: CircularProgressIndicator());
-              if (controller.avaliacoes.isEmpty)
-                return InkWellSpeakText(
+              if (controller.isLoading) {
+                return const Center(child: CircularProgressIndicator());
+              }
+              if (controller.avaliacoes.isEmpty) {
+                return const InkWellSpeakText(
                   Text(
-                    WITHOUT_FEET_CHECK_REGISTERED,
+                    withoutFeetCheckRegistered,
                     textAlign: TextAlign.center,
                     style: TextStyle(fontSize: 24, color: kPrimaryColor),
                   ),
                 );
+              }
               return ListView.builder(
                 itemCount: controller.avaliacoes.length,
                 itemBuilder: (BuildContext context, int index) {

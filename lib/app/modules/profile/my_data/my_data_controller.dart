@@ -12,7 +12,7 @@ part 'my_data_controller.g.dart';
 
 class MyDataController = _MyDataControllerBase with _$MyDataController;
 
-abstract class _MyDataControllerBase with Store, DateUtils {
+abstract class _MyDataControllerBase with Store, DateUtil {
   final Utils _utils;
   final AppController _appController;
   final IUserRepository _userRepository;
@@ -26,24 +26,25 @@ abstract class _MyDataControllerBase with Store, DateUtils {
   );
 
   @observable
-  String email;
+  String? email;
   @observable
-  String nome;
+  String? nome;
   @observable
-  String telefone;
+  String? telefone;
   @observable
-  String dataNascimento;
+  String? dataNascimento;
   @observable
-  String peso;
+  String? peso;
   @observable
-  String altura;
+  String? altura;
   @observable
   bool isLoading = false;
   @observable
   bool isDataReady = false;
 
   @computed
-  String get emailError => _utils.isValidEmail(email) ? null : "Email inválido";
+  String? get emailError =>
+      _utils.isValidEmail(email) ? null : "Email inválido";
 
   @computed
   bool get isValidEmail => email != null && emailError == null;
@@ -57,41 +58,41 @@ abstract class _MyDataControllerBase with Store, DateUtils {
       altura != null;
 
   @action
-  void setEmail(String newEmail) => email = newEmail;
+  void setEmail(String? newEmail) => email = newEmail;
   @action
-  void setNome(String newNome) => nome = newNome;
+  void setNome(String? newNome) => nome = newNome;
   @action
-  void setTelefone(String newTelefone) => telefone = newTelefone;
+  void setTelefone(String? newTelefone) => telefone = newTelefone;
   @action
-  void setDataNascimento(String newDataNascimento) =>
+  void setDataNascimento(String? newDataNascimento) =>
       dataNascimento = newDataNascimento;
   @action
-  void setPeso(String newPeso) => peso = newPeso;
+  void setPeso(String? newPeso) => peso = newPeso;
   @action
-  void setAltura(String newAltura) => altura = newAltura;
+  void setAltura(String? newAltura) => altura = newAltura;
 
-  Paciente _paciente;
+  Paciente? _paciente;
 
   Future<void> getData(
       Function(String) onError, void Function() onFinish) async {
     if (await _appController.isLogged()) {
-      setEmail(_appController.user.email);
+      setEmail(_appController.user?.email);
       try {
-        final result = await _pacienteRepository.getByUser(_appController.user);
+        final result =
+            await _pacienteRepository.getByUser(_appController.user!);
         result.fold((l) => onError(l.message), (r) {
           _paciente = r;
 
-          setPeso(_paciente.peso?.toString());
-          setAltura(_paciente.altura?.toString());
-          if (_paciente.dataNascimento != null)
+          setPeso(_paciente?.peso?.toString());
+          setAltura(_paciente?.altura?.toString());
+          if (_paciente?.dataNascimento != null) {
             setDataNascimento(
-                UtilData.obterDataDDMMAAAA(_paciente.dataNascimento));
-          setNome(_paciente.nome);
-          setTelefone(_paciente.telefone);
+                UtilData.obterDataDDMMAAAA(_paciente!.dataNascimento!));
+          }
+          setNome(_paciente?.nome);
+          setTelefone(_paciente?.telefone);
         });
-      } catch (e) {
-        print(e.toString());
-      }
+      } catch (_) {}
       onFinish();
     }
     isDataReady = true;
@@ -101,11 +102,11 @@ abstract class _MyDataControllerBase with Store, DateUtils {
     isLoading = true;
 
     try {
-      if (isValidEmail && _appController.user.email != email) {
-        _appController.user.username = email;
-        _appController.user.email = email;
+      if (isValidEmail && _appController.user?.email != email) {
+        _appController.user?.username = email;
+        _appController.user?.email = email;
 
-        final result = await _userRepository.save(_appController.user);
+        final result = await _userRepository.save(_appController.user!);
         result.fold((l) => onError(l.message), (_) => {});
 
         _appController.user = null;
@@ -119,10 +120,10 @@ abstract class _MyDataControllerBase with Store, DateUtils {
         paciente.objectId = _paciente?.objectId;
 
         final dAltura = altura != null
-            ? double.tryParse(altura.replaceAll(',', '.'))
+            ? double.tryParse(altura!.replaceAll(',', '.'))
             : null;
         final dPeso =
-            peso != null ? double.tryParse(peso.replaceAll(',', '.')) : null;
+            peso != null ? double.tryParse(peso!.replaceAll(',', '.')) : null;
         final dData =
             dataNascimento != null ? getDateTime(dataNascimento) : null;
         if (dAltura != null) paciente.altura = dAltura;
@@ -133,7 +134,7 @@ abstract class _MyDataControllerBase with Store, DateUtils {
         result.fold((l) => onError(l.message), (r) async {
           final user = await _appController.currentUser();
           _paciente = r;
-          user.paciente = _paciente;
+          user!.paciente = _paciente;
           await user.save();
           onSuccess();
         });

@@ -9,20 +9,20 @@ const keyPaciente = 'paciente';
 
 const kAlimentacaoTable = "Alimentacao";
 
-enum MealType { CAFE, ALMOCO, JANTAR, LANCHE }
+enum MealType { cafe, almoco, jantar, lanche }
 
 extension MealTypeExtension on MealType {
-  String get name => this.toString().replaceAll('MealType.', '');
+  String get name => toString().replaceAll('MealType.', '');
 
-  String get displayTitle {
+  String? get displayTitle {
     switch (this) {
-      case MealType.CAFE:
+      case MealType.cafe:
         return 'Café da manhã';
-      case MealType.ALMOCO:
+      case MealType.almoco:
         return 'Almoço';
-      case MealType.JANTAR:
+      case MealType.jantar:
         return 'Jantar';
-      case MealType.LANCHE:
+      case MealType.lanche:
         return 'Lanche';
       default:
         return null;
@@ -30,11 +30,11 @@ extension MealTypeExtension on MealType {
   }
 }
 
-class Alimentacao extends ParseObject with DateUtils implements ParseCloneable {
+class Alimentacao extends ParseObject with DateUtil implements ParseCloneable {
   Alimentacao({
-    String tipo,
-    num calorias,
-    Paciente paciente,
+    String? tipo,
+    num? calorias,
+    Paciente? paciente,
   }) : super(kAlimentacaoTable) {
     this.paciente = paciente;
     this.calorias = calorias;
@@ -53,17 +53,22 @@ class Alimentacao extends ParseObject with DateUtils implements ParseCloneable {
     return this;
   }
 
-  Paciente get paciente =>
-      Paciente.clone()..fromJson(get<ParseObject>(keyPaciente)?.toJson());
-  set paciente(Paciente paciente) => set(keyPaciente, paciente);
+  Paciente? get paciente {
+    final pacienteAux = get<ParseObject?>(keyPaciente)?.toJson();
+    return pacienteAux != null
+        ? (Paciente.clone()..fromJson(pacienteAux))
+        : null;
+  }
 
-  set createdAt(DateTime data) => set<DateTime>("createdAt", data);
+  set paciente(Paciente? paciente) => set(keyPaciente, paciente);
 
-  String get tipo => get<String>(kTipo);
-  set tipo(String tipo) => set<String>(kTipo, tipo);
+  set createdAt(DateTime? data) => set<DateTime?>("createdAt", data);
 
-  num get calorias => get<num>(kCalorias);
-  set calorias(num calorias) => set<num>(kCalorias, calorias);
+  String? get tipo => get<String?>(kTipo);
+  set tipo(String? tipo) => set<String?>(kTipo, tipo);
+
+  num? get calorias => get<num?>(kCalorias);
+  set calorias(num? calorias) => set<num?>(kCalorias, calorias);
 
   Map<String, dynamic> toMap() => <String, dynamic>{
         'Data de registro': getDataBrFromDate(createdAt) ?? "",

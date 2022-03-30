@@ -11,6 +11,7 @@ abstract class IAutocuidadoRepository {
 }
 
 class AutocuidadoRepository implements IAutocuidadoRepository {
+  @override
   Future<Either<AutocuidadoFailure, Autocuidado>> getById(
       String objectId) async {
     final query = QueryBuilder(Autocuidado.clone())
@@ -20,6 +21,7 @@ class AutocuidadoRepository implements IAutocuidadoRepository {
     return _getSingleResult(response);
   }
 
+  @override
   Future<Either<AutocuidadoFailure, List<Autocuidado>>> getAll() async {
     final query = QueryBuilder(Autocuidado.clone())
       ..orderByDescending("createdAt");
@@ -31,10 +33,11 @@ class AutocuidadoRepository implements IAutocuidadoRepository {
   Either<AutocuidadoFailure, List<Autocuidado>> _getResult(
       ParseResponse response) {
     if (response.success) {
-      final result = response.results?.map((e) => e as Autocuidado)?.toList();
+      final result = response.results!.map((e) => e as Autocuidado).toList();
       return Right(result);
-    } else
+    } else {
       return Left(_getFailure(response));
+    }
   }
 
   Either<AutocuidadoFailure, Autocuidado> _getSingleResult(
@@ -43,14 +46,15 @@ class AutocuidadoRepository implements IAutocuidadoRepository {
       final result =
           response.result is List ? response.result[0] : response.result;
       return Right(result);
-    } else
+    } else {
       return Left(_getFailure(response));
+    }
   }
 
   AutocuidadoFailure _getFailure(ParseResponse response) {
     return AutocuidadoFailure(
-      ParseErrors.getDescription(response.error.code),
-      response.error.code,
+      ParseErrors.getDescription(response.error?.code),
+      response.error?.code ?? -2,
     );
   }
 }

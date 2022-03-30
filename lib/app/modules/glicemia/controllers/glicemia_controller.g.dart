@@ -28,13 +28,13 @@ mixin _$GlicemiaController on _GlicemiaControllerBase, Store {
       Atom(name: '_GlicemiaControllerBase.isValorPadraoGlicemia');
 
   @override
-  bool get isValorPadraoGlicemia {
+  bool? get isValorPadraoGlicemia {
     _$isValorPadraoGlicemiaAtom.reportRead();
     return super.isValorPadraoGlicemia;
   }
 
   @override
-  set isValorPadraoGlicemia(bool value) {
+  set isValorPadraoGlicemia(bool? value) {
     _$isValorPadraoGlicemiaAtom.reportWrite(value, super.isValorPadraoGlicemia,
         () {
       super.isValorPadraoGlicemia = value;

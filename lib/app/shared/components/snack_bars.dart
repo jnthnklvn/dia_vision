@@ -5,7 +5,7 @@ class SnackBars {
     return SnackBar(
       content: Text(message),
       backgroundColor: Colors.red,
-      duration: Duration(seconds: 3),
+      duration: const Duration(seconds: 3),
     );
   }
 
@@ -13,7 +13,7 @@ class SnackBars {
     return SnackBar(
       content: Text(message),
       backgroundColor: Colors.green,
-      duration: Duration(seconds: 2),
+      duration: const Duration(seconds: 2),
     );
   }
 }

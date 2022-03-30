@@ -18,7 +18,7 @@ import 'package:flutter/material.dart';
 class AvaliacaoPesRegisterPage extends StatefulWidget with ScaffoldUtils {
   final AvaliacaoPes avaliacaoPes;
 
-  AvaliacaoPesRegisterPage(this.avaliacaoPes);
+  AvaliacaoPesRegisterPage(this.avaliacaoPes, {Key? key}) : super(key: key);
 
   @override
   _AvaliacaoPesRegisterPageState createState() =>
@@ -31,8 +31,8 @@ class _AvaliacaoPesRegisterPageState extends ModularState<
 
   _AvaliacaoPesRegisterPageState(this.scaffoldKey);
 
-  TextEditingController temperaturaLavagemController;
-  TextEditingController dataUltimaConsultaController;
+  TextEditingController? temperaturaLavagemController;
+  TextEditingController? dataUltimaConsultaController;
 
   @override
   void initState() {
@@ -55,10 +55,10 @@ class _AvaliacaoPesRegisterPageState extends ModularState<
     return Scaffold(
       key: scaffoldKey,
       appBar: AppBar(
-        leading: BackArrowButton(iconPadding: 5),
-        title: InkWellSpeakText(
+        leading: const BackArrowButton(iconPadding: 5),
+        title: const InkWellSpeakText(
           Text(
-            FEET_CHECK_REGISTER,
+            feetCheckRegister,
             style: TextStyle(
               fontSize: kAppBarTitleSize,
               color: kPrimaryColor,
@@ -73,7 +73,7 @@ class _AvaliacaoPesRegisterPageState extends ModularState<
         color: Colors.white,
         padding: const EdgeInsets.only(top: 10),
         child: SingleChildScrollView(
-          physics: BouncingScrollPhysics(),
+          physics: const BouncingScrollPhysics(),
           child: Observer(builder: (_) {
             return Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -90,57 +90,58 @@ class _AvaliacaoPesRegisterPageState extends ModularState<
                 ),
                 buildDropdownButton(size),
                 buildListTileSwitch(
-                  controller.pontosVermelhos,
+                  controller.pontosVermelhos ?? false,
                   "Possuem pontos vermelhos?",
                   controller.setPontosVermelhos,
                 ),
                 buildListTileSwitch(
-                  controller.calos,
+                  controller.calos ?? false,
                   "Possuem calos?",
                   controller.setCalos,
                 ),
                 buildListTileSwitch(
-                  controller.usaProtetorSolarPes,
+                  controller.usaProtetorSolarPes ?? false,
                   "Usa protetor solar nos pés?",
                   controller.setUsaProtetorSolarPes,
                 ),
                 buildListTileSwitch(
-                  controller.checaAntesCalcar,
+                  controller.checaAntesCalcar ?? false,
                   "Checa sapatos antes de calçar?",
                   controller.setChecaAntesCalcar,
                 ),
                 buildListTileSwitch(
-                  controller.rachaduras,
+                  controller.rachaduras ?? false,
                   "Possuem rachaduras?",
                   controller.setRachaduras,
                 ),
                 buildListTileSwitch(
-                  controller.hidratados,
+                  controller.hidratados ?? false,
                   "Estão hidratados?",
                   controller.setHidratados,
                 ),
                 buildListTileSwitch(
-                  controller.cortaUnhas,
+                  controller.cortaUnhas ?? false,
                   "Corta as unhas?",
                   controller.setCortaUnhas,
                 ),
                 buildListTileSwitch(
-                  controller.secou,
+                  controller.secou ?? false,
                   "Secou?",
                   controller.setSecou,
                 ),
                 buildListTileSwitch(
-                  controller.lavou,
+                  controller.lavou ?? false,
                   "Lavou?",
                   controller.setLavou,
                 ),
                 Observer(builder: (_) {
-                  if (controller.isLoading)
+                  if (controller.isLoading) {
                     return Center(
                         child: Container(
-                      margin: EdgeInsets.only(top: 10, bottom: 10),
-                      child: CircularProgressIndicator(),
+                      margin: const EdgeInsets.only(top: 10, bottom: 10),
+                      child: const CircularProgressIndicator(),
                     ));
+                  }
                   return RoundedButton(
                     text: "SALVAR",
                     onPressed: () => controller.save(
@@ -167,12 +168,12 @@ class _AvaliacaoPesRegisterPageState extends ModularState<
     void Function(bool) onChanged,
   ) {
     return Container(
-      margin: EdgeInsets.only(left: 15, right: 10),
+      margin: const EdgeInsets.only(left: 15, right: 10),
       child: ListTile(
         title: InkWellSpeakText(
           Text(
             text,
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 20,
               color: kPrimaryColor,
               fontWeight: FontWeight.w600,
@@ -191,22 +192,22 @@ class _AvaliacaoPesRegisterPageState extends ModularState<
 
   Widget buildDropdownButton(Size size) {
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 10),
-      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 7),
+      margin: const EdgeInsets.symmetric(vertical: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 7),
       width: size.width * 0.9,
       decoration: BoxDecoration(
         color: kPrimaryLightColor,
         borderRadius: BorderRadius.circular(29),
       ),
       child: ListTile(
-        contentPadding: EdgeInsets.all(0),
+        contentPadding: const EdgeInsets.all(0),
         leading: Semantics(
           excludeSemantics: true,
           child: InkWell(
             onTap: () => Modular.get<FlutterTts>().speak(
                 controller.temperaturaLavagem ??
                     "Selecione a temperatura de lavagem"),
-            child: Icon(
+            child: const Icon(
               Icons.play_circle_fill,
               color: kPrimaryColor,
               size: 42,

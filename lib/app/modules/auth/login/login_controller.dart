@@ -17,19 +17,20 @@ abstract class _LoginControllerBase with Store {
   _LoginControllerBase(this._userRepository, this._utils, this._appController);
 
   @observable
-  String email;
+  String? email;
   @observable
-  String password;
+  String? password;
   @observable
   bool isPasswordHide = true;
   @observable
   bool isLoading = false;
 
   @computed
-  String get emailError => _utils.isValidEmail(email) ? null : "Email inválido";
+  String? get emailError =>
+      _utils.isValidEmail(email) ? null : "Email inválido";
 
   @computed
-  String get passwordError => password != null && password.length < 4
+  String? get passwordError => password != null && password!.length < 4
       ? "Deve ter pelo menos 4 digitos"
       : null;
 
@@ -56,7 +57,7 @@ abstract class _LoginControllerBase with Store {
 
     try {
       final result = await _userRepository
-          .login(User(email, password: password, email: email));
+          .login(User(username: email, password: password, email: email));
       result.fold((l) => onError(l.message), (r) {
         onSuccess();
         _appController.user = r;

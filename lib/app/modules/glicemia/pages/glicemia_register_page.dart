@@ -20,7 +20,7 @@ import 'package:flutter/material.dart';
 class GlicemiaRegisterPage extends StatefulWidget with ScaffoldUtils {
   final Glicemia glicemia;
 
-  GlicemiaRegisterPage(this.glicemia);
+  GlicemiaRegisterPage(this.glicemia, {Key? key}) : super(key: key);
 
   @override
   _GlicemiaRegisterPageState createState() =>
@@ -35,8 +35,8 @@ class _GlicemiaRegisterPageState
 
   _GlicemiaRegisterPageState(this.scaffoldKey);
 
-  TextEditingController valorController;
-  TextEditingController horarioController;
+  TextEditingController? valorController;
+  TextEditingController? horarioController;
 
   @override
   void initState() {
@@ -73,10 +73,10 @@ class _GlicemiaRegisterPageState
     return Scaffold(
       key: scaffoldKey,
       appBar: AppBar(
-        leading: BackArrowButton(iconPadding: 5),
-        title: InkWellSpeakText(
+        leading: const BackArrowButton(iconPadding: 5),
+        title: const InkWellSpeakText(
           Text(
-            GLICEMY_REGISTER,
+            glicemyRegister,
             style: TextStyle(
               fontSize: kAppBarTitleSize,
               color: kPrimaryColor,
@@ -91,7 +91,7 @@ class _GlicemiaRegisterPageState
         color: Colors.white,
         padding: const EdgeInsets.only(top: 20),
         child: SingleChildScrollView(
-          physics: BouncingScrollPhysics(),
+          physics: const BouncingScrollPhysics(),
           child: Observer(builder: (_) {
             return Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -121,12 +121,13 @@ class _GlicemiaRegisterPageState
                         ],
                       ),
                 Observer(builder: (_) {
-                  if (controller.isLoading)
+                  if (controller.isLoading) {
                     return Center(
                         child: Container(
-                      margin: EdgeInsets.only(top: 10, bottom: 10),
-                      child: CircularProgressIndicator(),
+                      margin: const EdgeInsets.only(top: 10, bottom: 10),
+                      child: const CircularProgressIndicator(),
                     ));
+                  }
                   return RoundedButton(
                     text: "SALVAR",
                     onPressed: () => controller.save(
@@ -154,21 +155,21 @@ class _GlicemiaRegisterPageState
 
   Widget buildDropdownButton(Size size) {
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 10),
-      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 7),
+      margin: const EdgeInsets.symmetric(vertical: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 7),
       width: size.width * 0.9,
       decoration: BoxDecoration(
         color: kPrimaryLightColor,
         borderRadius: BorderRadius.circular(29),
       ),
       child: ListTile(
-        contentPadding: EdgeInsets.all(0),
+        contentPadding: const EdgeInsets.all(0),
         leading: Semantics(
           excludeSemantics: true,
           child: InkWell(
             onTap: () => Modular.get<FlutterTts>()
                 .speak(controller.horario ?? "Selecione o horário"),
-            child: Icon(
+            child: const Icon(
               Icons.play_circle_fill,
               color: kPrimaryColor,
               size: 42,
@@ -184,7 +185,7 @@ class _GlicemiaRegisterPageState
             size: 32,
           ),
           isExpanded: true,
-          hint: Text(
+          hint: const Text(
             "Selecione o horário",
             style: TextStyle(
               color: kPrimaryColor,
@@ -202,7 +203,7 @@ class _GlicemiaRegisterPageState
               .map<DropdownMenuItem<String>>((HorarioType value) {
             return DropdownMenuItem<String>(
               value: value.displayTitle,
-              child: Text(value.displayTitle),
+              child: Text(value.displayTitle ?? ''),
             );
           }).toList(),
         ),

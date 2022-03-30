@@ -5,12 +5,14 @@ import 'package:flutter_tts/flutter_tts.dart';
 import 'package:flutter/material.dart';
 
 class AlertMsgDialog extends StatelessWidget {
-  final Function() onConfirm;
+  final Function()? onConfirm;
   final String btnName;
   final String content;
   final String title;
 
-  const AlertMsgDialog(this.onConfirm, this.btnName, this.content, this.title);
+  const AlertMsgDialog(this.onConfirm, this.btnName, this.content, this.title,
+      {Key? key})
+      : super(key: key);
 
   Future _speak(String txt) => Modular.get<FlutterTts>().speak(txt);
 
@@ -18,12 +20,13 @@ class AlertMsgDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return AlertDialog(
       title: InkWellSpeakText(Text(title,
-          style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600))),
-      contentPadding: EdgeInsets.only(left: 25, right: 25, top: 20, bottom: 10),
+          style: const TextStyle(fontSize: 24, fontWeight: FontWeight.w600))),
+      contentPadding:
+          const EdgeInsets.only(left: 25, right: 25, top: 20, bottom: 10),
       content: InkWellSpeakText(
         Text(
           content,
-          style: TextStyle(fontSize: 18),
+          style: const TextStyle(fontSize: 18),
           textAlign: TextAlign.justify,
         ),
       ),
@@ -33,11 +36,12 @@ class AlertMsgDialog extends StatelessWidget {
           color: Colors.blue,
           onLongPress: () => _speak("Botão: $btnName"),
           child: Text(btnName,
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
+              style:
+                  const TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
           onPressed: onConfirm != null
               ? () {
                   Navigator.of(context).pop();
-                  onConfirm();
+                  onConfirm!();
                 }
               : Navigator.of(context).pop,
         ),

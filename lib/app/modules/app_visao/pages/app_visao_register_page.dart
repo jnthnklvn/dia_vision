@@ -10,13 +10,12 @@ import 'package:dia_vision/app/model/app_visao.dart';
 
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 
 class AppVisaoRegisterPage extends StatefulWidget with ScaffoldUtils {
   final AppVisao appVisao;
 
-  AppVisaoRegisterPage(this.appVisao);
+  AppVisaoRegisterPage(this.appVisao, {Key? key}) : super(key: key);
 
   @override
   _AppVisaoRegisterPageState createState() =>
@@ -45,10 +44,10 @@ class _AppVisaoRegisterPageState
     return Scaffold(
       key: scaffoldKey,
       appBar: AppBar(
-        leading: BackArrowButton(iconPadding: 5),
-        title: InkWellSpeakText(
+        leading: const BackArrowButton(iconPadding: 5),
+        title: const InkWellSpeakText(
           Text(
-            SUGGEST_VISION_APP_REGISTER,
+            suggestVisionAppRegister,
             style: TextStyle(
               fontSize: kAppBarTitleSize,
               color: kPrimaryColor,
@@ -63,7 +62,7 @@ class _AppVisaoRegisterPageState
         color: Colors.white,
         padding: const EdgeInsets.only(top: 10),
         child: SingleChildScrollView(
-          physics: BouncingScrollPhysics(),
+          physics: const BouncingScrollPhysics(),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
@@ -99,19 +98,20 @@ class _AppVisaoRegisterPageState
                 focusNode: focusNode3,
               ),
               Observer(builder: (_) {
-                if (controller.isLoading)
+                if (controller.isLoading) {
                   return Center(
                       child: Container(
-                    margin: EdgeInsets.only(top: 10, bottom: 10),
-                    child: CircularProgressIndicator(),
+                    margin: const EdgeInsets.only(top: 10, bottom: 10),
+                    child: const CircularProgressIndicator(),
                   ));
+                }
                 return RoundedButton(
                   text: "SALVAR",
                   onPressed: () => controller.save(
                     widget.onError,
                     () async {
                       widget.onSuccess("Solicitação enviada!");
-                      await Future.delayed(Duration(milliseconds: 1500));
+                      await Future.delayed(const Duration(milliseconds: 1500));
                       Modular.to.pop();
                     },
                   ),

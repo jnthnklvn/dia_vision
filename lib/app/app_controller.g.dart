@@ -12,13 +12,13 @@ mixin _$AppController on _RegisterControllerBase, Store {
   final _$errorAtom = Atom(name: '_RegisterControllerBase.error');
 
   @override
-  String get error {
+  String? get error {
     _$errorAtom.reportRead();
     return super.error;
   }
 
   @override
-  set error(String value) {
+  set error(String? value) {
     _$errorAtom.reportWrite(value, super.error, () {
       super.error = value;
     });
@@ -27,13 +27,13 @@ mixin _$AppController on _RegisterControllerBase, Store {
   final _$userAtom = Atom(name: '_RegisterControllerBase.user');
 
   @override
-  User get user {
+  User? get user {
     _$userAtom.reportRead();
     return super.user;
   }
 
   @override
-  set user(User value) {
+  set user(User? value) {
     _$userAtom.reportWrite(value, super.user, () {
       super.user = value;
     });

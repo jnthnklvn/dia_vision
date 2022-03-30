@@ -7,17 +7,19 @@ import 'package:flutter/material.dart';
 
 class FloatingAddButton extends StatelessWidget {
   final String semanticsLabel;
-  final Function onPressed;
+  final void Function()? onPressed;
   final String route;
 
-  const FloatingAddButton(this.semanticsLabel, this.route, {this.onPressed});
+  const FloatingAddButton(this.semanticsLabel, this.route,
+      {Key? key, this.onPressed})
+      : super(key: key);
 
   Future _speak(String txt) => Modular.get<FlutterTts>().speak(txt);
 
   @override
   Widget build(BuildContext context) {
     return Semantics(
-      sortKey: OrdinalSortKey(0),
+      sortKey: const OrdinalSortKey(0),
       child: InkWell(
         onLongPress: () => _speak(semanticsLabel),
         onTap: () => Modular.to.pushNamed(route),
@@ -26,7 +28,7 @@ class FloatingAddButton extends StatelessWidget {
           child: FloatingActionButton(
             onPressed: onPressed ?? () => Modular.to.pushNamed(route),
             backgroundColor: kPrimaryColor,
-            child: Icon(
+            child: const Icon(
               Icons.add,
               size: 32,
             ),

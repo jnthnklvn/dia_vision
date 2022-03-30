@@ -15,7 +15,7 @@ import 'package:flutter/material.dart';
 class AutocuidadoPage extends StatefulWidget with ScaffoldUtils {
   final Autocuidado _autocuidado;
 
-  AutocuidadoPage(this._autocuidado);
+  AutocuidadoPage(this._autocuidado, {Key? key}) : super(key: key);
 
   @override
   _AutocuidadoPageState createState() =>
@@ -23,8 +23,7 @@ class AutocuidadoPage extends StatefulWidget with ScaffoldUtils {
 }
 
 class _AutocuidadoPageState
-    extends ModularState<AutocuidadoPage, AutocuidadoController>
-    with DateUtils {
+    extends ModularState<AutocuidadoPage, AutocuidadoController> with DateUtil {
   final GlobalKey<ScaffoldState> scaffoldKey;
   final Autocuidado _autocuidado;
 
@@ -37,13 +36,13 @@ class _AutocuidadoPageState
     return Scaffold(
       key: scaffoldKey,
       appBar: AppBar(
-        actions: [
-          Padding(padding: const EdgeInsets.all(8.0)),
+        actions: const [
+          Padding(padding: EdgeInsets.all(8.0)),
         ],
-        leading: BackArrowButton(iconPadding: 5),
-        title: InkWellSpeakText(
+        leading: const BackArrowButton(iconPadding: 5),
+        title: const InkWellSpeakText(
           Text(
-            SELF_CARE_TITLE,
+            selfCareTitle,
             style: TextStyle(
               fontSize: kAppBarTitleSize,
               color: kPrimaryColor,
@@ -53,15 +52,17 @@ class _AutocuidadoPageState
         ),
       ),
       body: Container(
-        margin: EdgeInsets.all(10),
+        margin: const EdgeInsets.all(10),
         child: Material(
           elevation: 4,
           borderRadius: BorderRadius.circular(6),
           child: ListView(
             children: <Widget>[
               Hero(
-                tag: _autocuidado.titulo ?? "",
-                child: _getImageWidget(_autocuidado.linkImagem),
+                tag: _autocuidado.titulo ?? '',
+                child: _autocuidado.linkImagem != null
+                    ? _getImageWidget(_autocuidado.linkImagem!)
+                    : Container(),
               ),
               buildContainer(context),
             ],
@@ -80,20 +81,20 @@ class _AutocuidadoPageState
           excludeFromSemantics: true,
         );
       }
-    } catch (e) {}
+    } catch (_) {}
     return Container();
   }
 
   Container buildContainer(BuildContext context) {
     return Container(
-      margin: EdgeInsets.all(15.0),
+      margin: const EdgeInsets.all(15.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           InkWellSpeakText(
             Text(
               _autocuidado.titulo ?? "",
-              style: TextStyle(
+              style: const TextStyle(
                 color: kPrimaryColor,
                 fontWeight: FontWeight.bold,
                 fontSize: 18,
@@ -101,15 +102,15 @@ class _AutocuidadoPageState
             ),
           ),
           Container(
-            margin: EdgeInsets.only(top: 5),
+            margin: const EdgeInsets.only(top: 5),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 InkWellSpeakText(
                   Text(
                     "Publicado em: " +
-                        getDataBrFromDate(_autocuidado.createdAt),
-                    style: TextStyle(
+                        (getDataBrFromDate(_autocuidado.createdAt) ?? ''),
+                    style: const TextStyle(
                       color: Colors.grey,
                       fontSize: 16,
                     ),
@@ -118,8 +119,8 @@ class _AutocuidadoPageState
                 InkWellSpeakText(
                   Text(
                     "Última atualização em: " +
-                        getDataBrFromDate(_autocuidado.updatedAt),
-                    style: TextStyle(
+                        (getDataBrFromDate(_autocuidado.updatedAt) ?? ''),
+                    style: const TextStyle(
                       color: Colors.grey,
                       fontSize: 16,
                     ),
@@ -129,20 +130,20 @@ class _AutocuidadoPageState
             ),
           ),
           Container(
-            margin: EdgeInsets.only(top: 20, bottom: 20),
+            margin: const EdgeInsets.only(top: 20, bottom: 20),
             child: InkWellSpeakText(
               Text(
                 _autocuidado.resumo ?? "",
-                style: TextStyle(fontSize: 16),
+                style: const TextStyle(fontSize: 16),
               ),
             ),
           ),
           if (_autocuidado.link != null)
             InkWell(
               onLongPress: () => _speak("Para mais detalhes clique no link"),
-              onTap: () {
-                _launchURL(_autocuidado.link);
-              },
+              onTap: (_autocuidado.link != null)
+                  ? () => _launchURL(_autocuidado.link!)
+                  : null,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -157,10 +158,11 @@ class _AutocuidadoPageState
                     ),
                   ),
                   Text(
-                    _autocuidado.link,
-                    style: TextStyle(
-                        color: kPrimaryColor,
-                        decoration: TextDecoration.underline),
+                    _autocuidado.link ?? '',
+                    style: const TextStyle(
+                      color: kPrimaryColor,
+                      decoration: TextDecoration.underline,
+                    ),
                   ),
                 ],
               ),
@@ -171,9 +173,10 @@ class _AutocuidadoPageState
   }
 
   Future<void> _launchURL(String url) async {
-    if (await canLaunch(url))
+    if (await canLaunch(url)) {
       await launch(url);
-    else
+    } else {
       widget.onError("Ocorreu um erro");
+    }
   }
 }

@@ -9,7 +9,7 @@ part of 'glicemia_register_controller.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$GlicemiaRegisterController on _GlicemiaRegisterControllerBase, Store {
-  Computed<bool> _$isEdicaoComputed;
+  Computed<bool>? _$isEdicaoComputed;
 
   @override
   bool get isEdicao =>
@@ -20,13 +20,13 @@ mixin _$GlicemiaRegisterController on _GlicemiaRegisterControllerBase, Store {
   final _$valorAtom = Atom(name: '_GlicemiaRegisterControllerBase.valor');
 
   @override
-  String get valor {
+  String? get valor {
     _$valorAtom.reportRead();
     return super.valor;
   }
 
   @override
-  set valor(String value) {
+  set valor(String? value) {
     _$valorAtom.reportWrite(value, super.valor, () {
       super.valor = value;
     });
@@ -35,13 +35,13 @@ mixin _$GlicemiaRegisterController on _GlicemiaRegisterControllerBase, Store {
   final _$horarioAtom = Atom(name: '_GlicemiaRegisterControllerBase.horario');
 
   @override
-  String get horario {
+  String? get horario {
     _$horarioAtom.reportRead();
     return super.horario;
   }
 
   @override
-  set horario(String value) {
+  set horario(String? value) {
     _$horarioAtom.reportWrite(value, super.horario, () {
       super.horario = value;
     });
@@ -51,13 +51,13 @@ mixin _$GlicemiaRegisterController on _GlicemiaRegisterControllerBase, Store {
       Atom(name: '_GlicemiaRegisterControllerBase.horarioFixo');
 
   @override
-  String get horarioFixo {
+  String? get horarioFixo {
     _$horarioFixoAtom.reportRead();
     return super.horarioFixo;
   }
 
   @override
-  set horarioFixo(String value) {
+  set horarioFixo(String? value) {
     _$horarioFixoAtom.reportWrite(value, super.horarioFixo, () {
       super.horarioFixo = value;
     });
@@ -131,7 +131,7 @@ mixin _$GlicemiaRegisterController on _GlicemiaRegisterControllerBase, Store {
       ActionController(name: '_GlicemiaRegisterControllerBase');
 
   @override
-  void setValor(String newValue) {
+  void setValor(String? newValue) {
     final _$actionInfo = _$_GlicemiaRegisterControllerBaseActionController
         .startAction(name: '_GlicemiaRegisterControllerBase.setValor');
     try {
@@ -142,7 +142,7 @@ mixin _$GlicemiaRegisterController on _GlicemiaRegisterControllerBase, Store {
   }
 
   @override
-  void setHorario(String newValue) {
+  void setHorario(String? newValue) {
     final _$actionInfo = _$_GlicemiaRegisterControllerBaseActionController
         .startAction(name: '_GlicemiaRegisterControllerBase.setHorario');
     try {
@@ -153,7 +153,7 @@ mixin _$GlicemiaRegisterController on _GlicemiaRegisterControllerBase, Store {
   }
 
   @override
-  void setHorarioFixo(String newValue) {
+  void setHorarioFixo(String? newValue) {
     final _$actionInfo = _$_GlicemiaRegisterControllerBaseActionController
         .startAction(name: '_GlicemiaRegisterControllerBase.setHorarioFixo');
     try {

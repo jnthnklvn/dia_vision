@@ -9,14 +9,14 @@ part of 'recovery_controller.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$RecoveryController on _RecoveryControllerBase, Store {
-  Computed<String> _$emailErrorComputed;
+  Computed<String?>? _$emailErrorComputed;
 
   @override
-  String get emailError =>
-      (_$emailErrorComputed ??= Computed<String>(() => super.emailError,
+  String? get emailError =>
+      (_$emailErrorComputed ??= Computed<String?>(() => super.emailError,
               name: '_RecoveryControllerBase.emailError'))
           .value;
-  Computed<bool> _$isValidComputed;
+  Computed<bool>? _$isValidComputed;
 
   @override
   bool get isValid => (_$isValidComputed ??= Computed<bool>(() => super.isValid,
@@ -26,13 +26,13 @@ mixin _$RecoveryController on _RecoveryControllerBase, Store {
   final _$emailAtom = Atom(name: '_RecoveryControllerBase.email');
 
   @override
-  String get email {
+  String? get email {
     _$emailAtom.reportRead();
     return super.email;
   }
 
   @override
-  set email(String value) {
+  set email(String? value) {
     _$emailAtom.reportWrite(value, super.email, () {
       super.email = value;
     });
@@ -57,7 +57,7 @@ mixin _$RecoveryController on _RecoveryControllerBase, Store {
       ActionController(name: '_RecoveryControllerBase');
 
   @override
-  void setEmail(String newEmail) {
+  void setEmail(String? newEmail) {
     final _$actionInfo = _$_RecoveryControllerBaseActionController.startAction(
         name: '_RecoveryControllerBase.setEmail');
     try {

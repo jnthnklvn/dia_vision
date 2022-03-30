@@ -9,12 +9,12 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:flutter/material.dart';
 
-class GlicemiaWidget extends StatelessWidget with DateUtils {
+class GlicemiaWidget extends StatelessWidget with DateUtil {
   final Glicemia _glicemia;
 
   const GlicemiaWidget(this._glicemia);
 
-  String getFullString(String fieldName, String text) {
+  String? getFullString(String? fieldName, String? text) {
     if (text?.isNotEmpty != true) return null;
     return "$fieldName: $text.";
   }
@@ -25,9 +25,9 @@ class GlicemiaWidget extends StatelessWidget with DateUtils {
       getFullString("Valor (mg/dL)", _glicemia.valor?.toString()),
       getFullString(
         "Horário",
-        _glicemia.horario == HorarioType.OUTRO
+        _glicemia.horario == HorarioType.outro
             ? _glicemia.horarioFixo
-            : _glicemia.horario.displayTitle,
+            : _glicemia.horario?.displayTitle,
       ),
     ];
     subtitleContents.removeWhere((e) => e == null);
@@ -39,7 +39,7 @@ class GlicemiaWidget extends StatelessWidget with DateUtils {
 
     return InkWell(
       onTap: () => Modular.to.pushNamed(
-        "${glicemy.routeName}/$REGISTER",
+        "${glicemy.routeName}/$registerStr",
         arguments: _glicemia,
       ),
       onLongPress: () => Modular.get<FlutterTts>().speak(stringToSpeak),
@@ -47,12 +47,12 @@ class GlicemiaWidget extends StatelessWidget with DateUtils {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16),
           color: ColorUtils.colors[
-                  _glicemia.horario?.displayTitle.toString().hashCode %
+                  (_glicemia.horario?.displayTitle.toString().hashCode ?? 0) %
                       ColorUtils.colors.length]
               .withOpacity(0.5),
         ),
-        padding: EdgeInsets.symmetric(horizontal: 4, vertical: 4),
-        margin: EdgeInsets.all(8),
+        padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 4),
+        margin: const EdgeInsets.all(8),
         child: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(16),
@@ -66,7 +66,7 @@ class GlicemiaWidget extends StatelessWidget with DateUtils {
                 title: Text(
                   "Dia: " + (getDataBrFromDate(_glicemia.createdAt) ?? ""),
                   maxLines: 2,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 24,
                     color: Colors.white,
@@ -75,7 +75,7 @@ class GlicemiaWidget extends StatelessWidget with DateUtils {
                 subtitle: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: subtitleContents
-                      .map((e) => buildSubtitlesText(e))
+                      .map((e) => buildSubtitlesText(e ?? ''))
                       .toList(),
                 ),
               ),
@@ -90,7 +90,7 @@ class GlicemiaWidget extends StatelessWidget with DateUtils {
     return Text(
       text,
       maxLines: 2,
-      style: TextStyle(
+      style: const TextStyle(
         fontSize: 18,
         color: Colors.white70,
       ),

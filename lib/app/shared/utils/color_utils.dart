@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ColorUtils {
-  static List<ColorSwatch> _colors = [];
+  static final List<ColorSwatch> _colors = [];
 
   static List<ColorSwatch> get colors {
     if (_colors.isEmpty) {

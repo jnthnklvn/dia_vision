@@ -15,6 +15,8 @@ import 'package:flutter/material.dart';
 import 'preferencias_controller.dart';
 
 class PreferenciasPage extends StatefulWidget with ScaffoldUtils {
+  PreferenciasPage({Key? key}) : super(key: key);
+
   @override
   _PreferenciasPageState createState() => _PreferenciasPageState(scaffoldKey);
 }
@@ -22,16 +24,16 @@ class PreferenciasPage extends StatefulWidget with ScaffoldUtils {
 class _PreferenciasPageState
     extends ModularState<PreferenciasPage, PreferenciasController>
     with SingleTickerProviderStateMixin {
-  final GlobalKey<ScaffoldState> scaffoldKey;
+  final GlobalKey<ScaffoldState>? scaffoldKey;
   final _focusNode1 = FocusNode();
   final _focusNode2 = FocusNode();
   final _focusNode3 = FocusNode();
 
   _PreferenciasPageState(this.scaffoldKey);
 
-  TextEditingController valorMinimoController;
-  TextEditingController valorMaximoController;
-  TextEditingController horarioGlicemiaController;
+  TextEditingController? valorMinimoController;
+  TextEditingController? valorMaximoController;
+  TextEditingController? horarioGlicemiaController;
 
   @override
   void initState() {
@@ -55,8 +57,8 @@ class _PreferenciasPageState
     return Scaffold(
       key: scaffoldKey,
       appBar: AppBar(
-        leading: BackArrowButton(iconPadding: 5),
-        title: InkWellSpeakText(
+        leading: const BackArrowButton(iconPadding: 5),
+        title: const InkWellSpeakText(
           Text(
             "Preferências",
             style: TextStyle(
@@ -72,17 +74,18 @@ class _PreferenciasPageState
         height: size.height,
         color: Colors.white,
         child: Observer(builder: (_) {
-          if (!controller.isDataReady)
-            return Center(child: CircularProgressIndicator());
+          if (!controller.isDataReady) {
+            return const Center(child: CircularProgressIndicator());
+          }
           return SingleChildScrollView(
-            physics: BouncingScrollPhysics(),
+            physics: const BouncingScrollPhysics(),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
                 Container(
-                  padding: EdgeInsets.only(left: 10),
+                  padding: const EdgeInsets.only(left: 10),
                   alignment: Alignment.centerLeft,
-                  child: InkWellSpeakText(
+                  child: const InkWellSpeakText(
                     Text(
                       "Notificações e alertas",
                       textAlign: TextAlign.start,
@@ -115,11 +118,11 @@ class _PreferenciasPageState
                   "Medicação",
                   controller.setAlertarMedicacao,
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 Container(
-                  padding: EdgeInsets.only(left: 10),
+                  padding: const EdgeInsets.only(left: 10),
                   alignment: Alignment.centerLeft,
-                  child: InkWellSpeakText(
+                  child: const InkWellSpeakText(
                     Text(
                       "Tempo para relembrete",
                       textAlign: TextAlign.start,
@@ -132,11 +135,11 @@ class _PreferenciasPageState
                   ),
                 ),
                 buildDropdownButton(size),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 Container(
-                  padding: EdgeInsets.only(left: 10),
+                  padding: const EdgeInsets.only(left: 10),
                   alignment: Alignment.centerLeft,
-                  child: InkWellSpeakText(
+                  child: const InkWellSpeakText(
                     Text(
                       "Glicemia",
                       textAlign: TextAlign.start,
@@ -175,7 +178,6 @@ class _PreferenciasPageState
                         builder: (_) {
                           return ContainerFieldHorarios(
                             context: context,
-                            horario: controller.horario,
                             horarios: controller.horarios,
                             setHorario: controller.setHorario,
                             addHorario: controller.addHorario,
@@ -185,12 +187,13 @@ class _PreferenciasPageState
                       )
                     : Container(),
                 Observer(builder: (_) {
-                  if (controller.isLoading)
+                  if (controller.isLoading) {
                     return Center(
                         child: Container(
-                      margin: EdgeInsets.only(top: 10, bottom: 10),
-                      child: CircularProgressIndicator(),
+                      margin: const EdgeInsets.only(top: 10, bottom: 10),
+                      child: const CircularProgressIndicator(),
                     ));
+                  }
                   return RoundedButton(
                     text: "SALVAR",
                     onPressed: () => controller.save(
@@ -215,12 +218,12 @@ class _PreferenciasPageState
     void Function(bool) onChanged,
   ) {
     return Container(
-      margin: EdgeInsets.only(left: 15, right: 10),
+      margin: const EdgeInsets.only(left: 15, right: 10),
       child: ListTile(
         title: InkWellSpeakText(
           Text(
             text,
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: kAppBarTitleSize,
               color: kPrimaryColor,
               fontWeight: FontWeight.w600,
@@ -239,21 +242,21 @@ class _PreferenciasPageState
 
   Widget buildDropdownButton(Size size) {
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 10),
-      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 7),
+      margin: const EdgeInsets.symmetric(vertical: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 7),
       width: size.width * 0.9,
       decoration: BoxDecoration(
         color: kPrimaryLightColor,
         borderRadius: BorderRadius.circular(29),
       ),
       child: ListTile(
-        contentPadding: EdgeInsets.all(0),
+        contentPadding: const EdgeInsets.all(0),
         leading: Semantics(
           excludeSemantics: true,
           child: InkWell(
             onTap: () =>
                 Modular.get<FlutterTts>().speak(controller.tempoLembrete),
-            child: Icon(
+            child: const Icon(
               Icons.play_circle_fill,
               color: kPrimaryColor,
               size: 42,

@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 
 class ProfilePic extends StatelessWidget {
   const ProfilePic({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -16,10 +16,10 @@ class ProfilePic extends StatelessWidget {
         height: 115,
         width: 115,
         child: Stack(
+          clipBehavior: Clip.none,
           fit: StackFit.expand,
-          overflow: Overflow.visible,
           children: [
-            CircleAvatar(
+            const CircleAvatar(
               child: Icon(Icons.person, size: 100),
               backgroundColor: kSecondaryColor,
             ),
@@ -32,9 +32,9 @@ class ProfilePic extends StatelessWidget {
                 child: FlatButton(
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(50),
-                    side: BorderSide(color: Colors.white),
+                    side: const BorderSide(color: Colors.white),
                   ),
-                  color: Color(0xFFF5F6F9),
+                  color: const Color(0xFFF5F6F9),
                   onPressed: () {},
                   child: SvgPicture.asset("assets/icons/Camera Icon.svg"),
                 ),

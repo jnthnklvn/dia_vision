@@ -26,6 +26,7 @@ class AvaliacaoPesRepository implements IAvaliacaoPesRepository {
     return _getSingleResult(response);
   }
 
+  @override
   Future<Either<AvaliacaoPesFailure, AvaliacaoPes>> getById(
       String objectId) async {
     final query = QueryBuilder(AvaliacaoPes.clone())
@@ -36,6 +37,7 @@ class AvaliacaoPesRepository implements IAvaliacaoPesRepository {
     return _getSingleResult(response);
   }
 
+  @override
   Future<Either<AvaliacaoPesFailure, List<AvaliacaoPes>>> getAllByPaciente(
       Paciente paciente) async {
     final query = QueryBuilder(AvaliacaoPes.clone())
@@ -49,10 +51,11 @@ class AvaliacaoPesRepository implements IAvaliacaoPesRepository {
   Either<AvaliacaoPesFailure, List<AvaliacaoPes>> _getResult(
       ParseResponse response) {
     if (response.success) {
-      final result = response.results?.map((e) => e as AvaliacaoPes)?.toList();
+      final result = response.results!.map((e) => e as AvaliacaoPes).toList();
       return Right(result);
-    } else
+    } else {
       return Left(_getFailure(response));
+    }
   }
 
   Either<AvaliacaoPesFailure, AvaliacaoPes> _getSingleResult(
@@ -61,14 +64,15 @@ class AvaliacaoPesRepository implements IAvaliacaoPesRepository {
       final result =
           response.result is List ? response.result[0] : response.result;
       return Right(result);
-    } else
+    } else {
       return Left(_getFailure(response));
+    }
   }
 
   AvaliacaoPesFailure _getFailure(ParseResponse response) {
     return AvaliacaoPesFailure(
-      ParseErrors.getDescription(response.error.code),
-      response.error.code,
+      ParseErrors.getDescription(response.error?.code),
+      response.error?.code ?? -2,
     );
   }
 }

@@ -12,6 +12,8 @@ import 'package:flutter/material.dart';
 import 'recovery_controller.dart';
 
 class RecoveryPage extends StatefulWidget with ScaffoldUtils {
+  RecoveryPage({Key? key}) : super(key: key);
+
   @override
   _RecoveryPageState createState() => _RecoveryPageState(scaffoldKey);
 }
@@ -38,7 +40,7 @@ class _RecoveryPageState extends ModularState<RecoveryPage, RecoveryController>
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Row(
-                  children: [
+                  children: const [
                     BackArrowButton(),
                   ],
                 ),
@@ -59,8 +61,8 @@ class _RecoveryPageState extends ModularState<RecoveryPage, RecoveryController>
                 controller.isLoading
                     ? Center(
                         child: Container(
-                        margin: EdgeInsets.only(top: 10),
-                        child: CircularProgressIndicator(),
+                        margin: const EdgeInsets.only(top: 10),
+                        child: const CircularProgressIndicator(),
                       ))
                     : RoundedButton(
                         text: "RECUPERAR",
@@ -74,8 +76,8 @@ class _RecoveryPageState extends ModularState<RecoveryPage, RecoveryController>
                         ),
                       ),
                 SizedBox(height: size.height * 0.08),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 30),
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 30),
                   child: InkWellSpeakText(
                     Text(
                       "Informe o email cadastrado e confirme. Se for um email válido, um link para recuperação da senha será enviado para o endereço.",

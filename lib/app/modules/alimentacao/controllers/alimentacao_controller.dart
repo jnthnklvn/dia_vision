@@ -30,9 +30,9 @@ abstract class _AlimentacaoControllerBase with Store, CsvUtils, FileUtils {
     isLoading = true;
     try {
       final result = await _alimentacaoRepository
-          .getAllByPaciente(_appController.user.paciente);
+          .getAllByPaciente(_appController.user!.paciente!);
       result.fold((l) => onError(l.message), (r) {
-        alimentacoes = (r ?? List<Alimentacao>()).asObservable();
+        alimentacoes = (r).asObservable();
       });
     } catch (e) {
       onError(e.toString());
@@ -41,11 +41,13 @@ abstract class _AlimentacaoControllerBase with Store, CsvUtils, FileUtils {
     isLoading = false;
   }
 
-  Future<File> getRelatorioCsvFile(
+  Future<File?> getRelatorioCsvFile(
       Function(String) onError, String path) async {
     try {
-      String csv = mapListToCsv(alimentacoes.map((e) => e.toMap()).toList());
-      return await save(csv, path);
+      String? csv = mapListToCsv(alimentacoes.map((e) => e.toMap()).toList());
+      if (csv != null) {
+        return await save(csv, path);
+      }
     } catch (e) {
       onError(e.toString());
     }

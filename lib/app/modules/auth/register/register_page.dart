@@ -13,6 +13,8 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter/material.dart';
 
 class RegisterPage extends StatefulWidget with ScaffoldUtils {
+  RegisterPage({Key? key}) : super(key: key);
+
   @override
   _RegisterPageState createState() => _RegisterPageState(scaffoldKey);
 }
@@ -41,9 +43,7 @@ class _RegisterPageState extends ModularState<RegisterPage, RegisterController>
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Row(
-                  children: [
-                    BackArrowButton(),
-                  ],
+                  children: const [BackArrowButton()],
                 ),
                 SizedBox(height: size.height * 0.08),
                 Image.asset(
@@ -70,18 +70,18 @@ class _RegisterPageState extends ModularState<RegisterPage, RegisterController>
                 controller.isLoading
                     ? Center(
                         child: Container(
-                        margin: EdgeInsets.only(top: 10),
-                        child: CircularProgressIndicator(),
+                        margin: const EdgeInsets.only(top: 10),
+                        child: const CircularProgressIndicator(),
                       ))
                     : RoundedButton(
                         text: "REGISTRAR",
                         onPressed: () => controller.register(
                           widget.onError,
                           () async {
-                            widget.onSuccess(REGISTRED_WITH_SUCCESS);
+                            widget.onSuccess(registeredWithSuccess);
                             controller.setPassword(null);
                             controller.setEmail(null);
-                            await Future.delayed(Duration(seconds: 1));
+                            await Future.delayed(const Duration(seconds: 1));
                             Modular.to
                                 .pushReplacementNamed(RouteEnum.home.name);
                           },

@@ -5,9 +5,9 @@ import 'package:flutter/material.dart';
 class InkWellSpeakText extends StatelessWidget {
   final Text text;
 
-  const InkWellSpeakText(this.text);
+  const InkWellSpeakText(this.text, {Key? key}) : super(key: key);
 
-  Future _speak() => Modular.get<FlutterTts>().speak(text.data);
+  Future _speak() => Modular.get<FlutterTts>().speak(text.data ?? '');
 
   @override
   Widget build(BuildContext context) {

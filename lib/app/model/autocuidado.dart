@@ -9,13 +9,13 @@ const kCategoria = 'categoria';
 const kLinkImagem = 'linkImagem';
 const kAutoCuidadoTable = "AutoCuidado";
 
-class Autocuidado extends ParseObject with DateUtils implements ParseCloneable {
+class Autocuidado extends ParseObject with DateUtil implements ParseCloneable {
   Autocuidado(
-      {String titulo,
-      String resumo,
-      String categoria,
-      String link,
-      String linkImagem})
+      {String? titulo,
+      String? resumo,
+      String? categoria,
+      String? link,
+      String? linkImagem})
       : super(kAutoCuidadoTable) {
     this.titulo = titulo;
     this.resumo = resumo;
@@ -36,20 +36,20 @@ class Autocuidado extends ParseObject with DateUtils implements ParseCloneable {
     return this;
   }
 
-  set createdAt(DateTime data) => set<DateTime>("createdAt", data);
+  set createdAt(DateTime? data) => set<DateTime?>("createdAt", data);
 
-  String get link => get<String>(kLink);
-  set link(String link) => set<String>(kLink, link);
+  String? get link => get<String?>(kLink);
+  set link(String? link) => set<String?>(kLink, link);
 
-  String get linkImagem => get<String>(kLinkImagem);
-  set linkImagem(String linkImagem) => set<String>(kLinkImagem, linkImagem);
+  String? get linkImagem => get<String?>(kLinkImagem);
+  set linkImagem(String? linkImagem) => set<String?>(kLinkImagem, linkImagem);
 
-  String get resumo => get<String>(kResumo);
-  set resumo(String resumo) => set<String>(kResumo, resumo);
+  String? get resumo => get<String?>(kResumo);
+  set resumo(String? resumo) => set<String?>(kResumo, resumo);
 
-  String get titulo => get<String>(kTitulo);
-  set titulo(String titulo) => set<String>(kTitulo, titulo);
+  String? get titulo => get<String?>(kTitulo);
+  set titulo(String? titulo) => set<String?>(kTitulo, titulo);
 
-  String get categoria => get<String>(kCategoria);
-  set categoria(String categoria) => set<String>(kCategoria, categoria);
+  String? get categoria => get<String?>(kCategoria);
+  set categoria(String? categoria) => set<String?>(kCategoria, categoria);
 }

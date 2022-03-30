@@ -15,6 +15,7 @@ abstract class IAlimentoRepository {
 }
 
 class AlimentoRepository implements IAlimentoRepository {
+  @override
   Future<Either<AlimentoFailure, Alimento>> getById(String objectId) async {
     final query = QueryBuilder(Alimento.clone())
       ..whereEqualTo("objectId", objectId);
@@ -23,10 +24,11 @@ class AlimentoRepository implements IAlimentoRepository {
     return _getSingleResult(response);
   }
 
+  @override
   Future<Either<AlimentoFailure, List<Alimento>>> getAllByAlimentacao(
       Alimentacao alimentacao) async {
-      final query = QueryBuilder(Alimento.clone())
-        ..whereEqualTo('alimentacao', alimentacao)
+    final query = QueryBuilder(Alimento.clone())
+      ..whereEqualTo('alimentacao', alimentacao)
       ..orderByDescending("createdAt");
     final response = await query.query();
 
@@ -34,11 +36,12 @@ class AlimentoRepository implements IAlimentoRepository {
   }
 
   Either<AlimentoFailure, List<Alimento>> _getResult(ParseResponse response) {
-    if (response.success) {
-      final result = response.results?.map((e) => e as Alimento)?.toList();
+    if (response.success && response.results != null) {
+      final result = response.results!.map((e) => e as Alimento).toList();
       return Right(result);
-    } else
+    } else {
       return Left(_getFailure(response));
+    }
   }
 
   Either<AlimentoFailure, Alimento> _getSingleResult(ParseResponse response) {
@@ -46,14 +49,15 @@ class AlimentoRepository implements IAlimentoRepository {
       final result =
           response.result is List ? response.result[0] : response.result;
       return Right(result);
-    } else
+    } else {
       return Left(_getFailure(response));
+    }
   }
 
   AlimentoFailure _getFailure(ParseResponse response) {
     return AlimentoFailure(
-      ParseErrors.getDescription(response.error.code),
-      response.error.code,
+      ParseErrors.getDescription(response.error?.code),
+      response.error?.code ?? -2,
     );
   }
 

@@ -9,7 +9,7 @@ import 'package:dia_vision/app/shared/components/back_arrow_button.dart';
 import 'package:dia_vision/app/shared/components/rounded_button.dart';
 import 'package:dia_vision/app/shared/utils/scaffold_utils.dart';
 import 'package:dia_vision/app/model/medicacao_prescrita.dart';
-import 'package:dia_vision/app/shared/utils/date_utils.dart';
+import 'package:dia_vision/app/shared/utils/date_utils.dart' as dt;
 import 'package:dia_vision/app/shared/utils/constants.dart';
 import 'package:dia_vision/app/shared/utils/strings.dart';
 import 'package:dia_vision/app/model/medicamento.dart';
@@ -18,7 +18,6 @@ import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:brasil_fields/brasil_fields.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:dartz/dartz.dart';
@@ -26,7 +25,7 @@ import 'package:dartz/dartz.dart';
 class MedicationRegisterPage extends StatefulWidget with ScaffoldUtils {
   final MedicacaoPrescrita medicacaoPrescrita;
 
-  MedicationRegisterPage(this.medicacaoPrescrita);
+  MedicationRegisterPage(this.medicacaoPrescrita, {Key? key}) : super(key: key);
 
   @override
   _MedicationRegisterPageState createState() =>
@@ -35,7 +34,7 @@ class MedicationRegisterPage extends StatefulWidget with ScaffoldUtils {
 
 class _MedicationRegisterPageState
     extends ModularState<MedicationRegisterPage, MedicationRegisterController>
-    with DateUtils {
+    with dt.DateUtil {
   final GlobalKey<ScaffoldState> scaffoldKey;
   final _focusNodes = List<FocusNode>.generate(6, (index) => FocusNode());
 
@@ -43,14 +42,14 @@ class _MedicationRegisterPageState
     nomeController = TextEditingController();
   }
 
-  TextEditingController nomeController;
-  TextEditingController horarioInicialController;
-  TextEditingController dataFinalController;
-  TextEditingController dataInicialController;
-  TextEditingController posologiaController;
-  TextEditingController dosagemController;
-  TextEditingController medicoPrescritorController;
-  TextEditingController efeitosColateraisController;
+  TextEditingController? nomeController;
+  TextEditingController? horarioInicialController;
+  TextEditingController? dataFinalController;
+  TextEditingController? dataInicialController;
+  TextEditingController? posologiaController;
+  TextEditingController? dosagemController;
+  TextEditingController? medicoPrescritorController;
+  TextEditingController? efeitosColateraisController;
 
   @override
   void initState() {
@@ -81,10 +80,10 @@ class _MedicationRegisterPageState
     return Scaffold(
       key: scaffoldKey,
       appBar: AppBar(
-        leading: BackArrowButton(iconPadding: 5),
-        title: InkWellSpeakText(
+        leading: const BackArrowButton(iconPadding: 5),
+        title: const InkWellSpeakText(
           Text(
-            MEDICATION_REGISTER,
+            medicationRegister,
             style: TextStyle(
               fontSize: kAppBarTitleSize,
               color: kPrimaryColor,
@@ -99,7 +98,7 @@ class _MedicationRegisterPageState
         color: Colors.white,
         padding: const EdgeInsets.only(top: 10),
         child: SingleChildScrollView(
-          physics: BouncingScrollPhysics(),
+          physics: const BouncingScrollPhysics(),
           child: Observer(builder: (_) {
             return Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -148,7 +147,6 @@ class _MedicationRegisterPageState
                         builder: (_) {
                           return ContainerFieldHorarios(
                             context: context,
-                            horario: controller.horario,
                             horarios: controller.horarios,
                             setHorario: controller.setHorario,
                             addHorario: controller.addHorario,
@@ -209,12 +207,13 @@ class _MedicationRegisterPageState
                   focusNode: _focusNodes[5],
                 ),
                 Observer(builder: (_) {
-                  if (controller.isLoading)
+                  if (controller.isLoading) {
                     return Center(
                         child: Container(
-                      margin: EdgeInsets.only(top: 10, bottom: 10),
-                      child: CircularProgressIndicator(),
+                      margin: const EdgeInsets.only(top: 10, bottom: 10),
+                      child: const CircularProgressIndicator(),
                     ));
+                  }
                   return RoundedButton(
                     text: "SALVAR",
                     onPressed: () => controller.save(
@@ -253,10 +252,10 @@ class _MedicationRegisterPageState
               if (controller.isSearching) {
                 return Transform.scale(
                   scale: 0.6,
-                  child: CircularProgressIndicator(strokeWidth: 5),
+                  child: const CircularProgressIndicator(strokeWidth: 5),
                 );
               }
-              return SizedBox();
+              return const SizedBox();
             }),
             icon: Semantics(
               excludeSemantics: true,
@@ -273,15 +272,15 @@ class _MedicationRegisterPageState
         itemBuilder: (_, Medicamento suggestion) {
           return ListTile(
             trailing: SemanticIconPlay(
-              text: suggestion.nomeComercial ?? suggestion.nomeSubstancia,
+              text: suggestion.nomeComercial ?? suggestion.nomeSubstancia ?? '',
             ),
-            title: Text(suggestion.nomeComercial),
-            subtitle: Text(suggestion.nomeSubstancia),
+            title: Text(suggestion.nomeComercial ?? ''),
+            subtitle: Text(suggestion.nomeSubstancia ?? ''),
           );
         },
         hideOnEmpty: true,
         onSuggestionSelected: (Medicamento suggestion) {
-          nomeController.text = suggestion.nomeComercial;
+          nomeController!.text = suggestion.nomeComercial ?? '';
           controller.setNome(suggestion.nomeComercial);
           controller.medicamentoSelecionado = suggestion;
         },
@@ -291,15 +290,15 @@ class _MedicationRegisterPageState
 
   Widget buildDropdownButton(Size size) {
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 10),
-      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 7),
+      margin: const EdgeInsets.symmetric(vertical: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 7),
       width: size.width * 0.9,
       decoration: BoxDecoration(
         color: kPrimaryLightColor,
         borderRadius: BorderRadius.circular(29),
       ),
       child: ListTile(
-        contentPadding: EdgeInsets.all(0),
+        contentPadding: const EdgeInsets.all(0),
         leading: SemanticIconPlay(
           text: controller.posologia?.value1 ??
               "Selecione a posologia (intervalo em horas)",

@@ -27,6 +27,7 @@ class AtividadeFisicaRepository implements IAtividadeFisicaRepository {
     return _getSingleResult(response);
   }
 
+  @override
   Future<Either<AtividadeFisicaFailure, AtividadeFisica>> getById(
       String objectId) async {
     final query = QueryBuilder(AtividadeFisica.clone())
@@ -37,6 +38,7 @@ class AtividadeFisicaRepository implements IAtividadeFisicaRepository {
     return _getSingleResult(response);
   }
 
+  @override
   Future<Either<AtividadeFisicaFailure, List<AtividadeFisica>>> getAll(
       Paciente paciente) async {
     final query = QueryBuilder(AtividadeFisica.clone())
@@ -51,10 +53,11 @@ class AtividadeFisicaRepository implements IAtividadeFisicaRepository {
       ParseResponse response) {
     if (response.success) {
       final result =
-          response.results?.map((e) => e as AtividadeFisica)?.toList();
+          response.results!.map((e) => e as AtividadeFisica).toList();
       return Right(result);
-    } else
+    } else {
       return Left(_getFailure(response));
+    }
   }
 
   Either<AtividadeFisicaFailure, AtividadeFisica> _getSingleResult(
@@ -63,14 +66,15 @@ class AtividadeFisicaRepository implements IAtividadeFisicaRepository {
       final result =
           response.result is List ? response.result[0] : response.result;
       return Right(result);
-    } else
+    } else {
       return Left(_getFailure(response));
+    }
   }
 
   AtividadeFisicaFailure _getFailure(ParseResponse response) {
     return AtividadeFisicaFailure(
-      ParseErrors.getDescription(response.error.code),
-      response.error.code,
+      ParseErrors.getDescription(response.error?.code),
+      response.error?.code ?? -2,
     );
   }
 }

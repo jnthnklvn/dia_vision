@@ -14,6 +14,8 @@ import 'package:flutter_tts/flutter_tts.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
+  const HomePage({Key? key}) : super(key: key);
+
   @override
   _HomePageState createState() => _HomePageState();
 }
@@ -33,18 +35,18 @@ class _HomePageState extends State<HomePage> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: InkWellSpeakText(
+          title: const InkWellSpeakText(
             Text(
               'Dados de Paciente',
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600),
             ),
           ),
           contentPadding:
-              EdgeInsets.only(left: 25, right: 25, top: 20, bottom: 10),
-          content: InkWellSpeakText(
+              const EdgeInsets.only(left: 25, right: 25, top: 20, bottom: 10),
+          content: const InkWellSpeakText(
             Text(
-              "Para acessar esse módulo é necessário preencher algumas informações como nome, peso e altura no perfil. " +
-                  "Clique no botão 'Ir' abaixo para ir para a tela de preenchimento.",
+              "Para acessar esse módulo é necessário preencher algumas informações como nome, peso e altura no perfil. "
+              "Clique no botão 'Ir' abaixo para ir para a tela de preenchimento.",
               style: TextStyle(fontSize: 18),
               textAlign: TextAlign.justify,
             ),
@@ -54,12 +56,12 @@ class _HomePageState extends State<HomePage> {
               minWidth: 100,
               color: kPrimaryColor,
               onLongPress: () => _speak("Botão: ir"),
-              child: Text('Ir',
+              child: const Text('Ir',
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
               onPressed: () {
                 Navigator.of(context).pop();
                 Modular.to
-                    .pushNamed(RouteEnum.profile.name + RouteEnum.my_data.name);
+                    .pushNamed(RouteEnum.profile.name + RouteEnum.myData.name);
               },
             ),
           ],
@@ -87,10 +89,10 @@ class _HomePageState extends State<HomePage> {
                   excludeFromSemantics: true,
                 ),
                 Semantics(
-                  label: "$BUTTON $SETTINGS",
+                  label: "$buttonStr $settingsStr",
                   child: InkWell(
                     onTap: () => Modular.to.pushNamed(RouteEnum.profile.name),
-                    onLongPress: () => _speak("$BUTTON $SETTINGS"),
+                    onLongPress: () => _speak("$buttonStr $settingsStr"),
                     child: Padding(
                       padding: const EdgeInsets.all(5),
                       child: SvgPicture.asset(
@@ -104,22 +106,22 @@ class _HomePageState extends State<HomePage> {
                 ),
               ],
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             InkWellSpeakText(
               Text(
                 "Seja bem-vindo",
                 style: headingStyle,
               ),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Expanded(
-              child: StaggeredGridView.countBuilder(
-                padding: EdgeInsets.all(0),
+              child: AlignedGridView.count(
+                padding: const EdgeInsets.all(0),
                 crossAxisCount: 2,
                 itemCount: modules.length,
                 crossAxisSpacing: 20,
                 mainAxisSpacing: 20,
-                physics: BouncingScrollPhysics(),
+                physics: const BouncingScrollPhysics(),
                 itemBuilder: (context, index) {
                   return InkWell(
                     onTap: () async {
@@ -130,18 +132,23 @@ class _HomePageState extends State<HomePage> {
                         Modular.to.pushNamed(modules[index].routeName);
                       }
                     },
-                    onLongPress: () => _speak("$MODULE " + modules[index].name),
+                    onLongPress: () =>
+                        _speak("$moduleStr " + modules[index].name),
                     child: Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(16),
-                        color: Color(0xFF00778C),
+                        color: const Color(0xFF00778C),
                       ),
-                      width: SizeConfig.screenWidth / 2.5,
-                      height: SizeConfig.screenWidth / 2.5,
+                      width: SizeConfig.screenWidth != null
+                          ? SizeConfig.screenWidth! / 2.5
+                          : null,
+                      height: SizeConfig.screenHeight != null
+                          ? SizeConfig.screenHeight! / 2.5
+                          : null,
                       child: Stack(
                         children: [
                           Container(
-                            padding: EdgeInsets.fromLTRB(30, 30, 5, 5),
+                            padding: const EdgeInsets.fromLTRB(30, 30, 5, 5),
                             child: modules[index].svg
                                 ? SvgPicture.asset(
                                     modules[index].imageSrc,
@@ -157,10 +164,11 @@ class _HomePageState extends State<HomePage> {
                                   ),
                           ),
                           Container(
-                            padding: EdgeInsets.fromLTRB(10, 10, 20, 20),
+                            padding: const EdgeInsets.fromLTRB(10, 10, 20, 20),
                             child: Text(
                               modules[index].name,
-                              semanticsLabel: "$MODULE ${modules[index].name}",
+                              semanticsLabel:
+                                  "$moduleStr ${modules[index].name}",
                               style: kTitleTextStyle.apply(
                                 backgroundColor: Colors.white.withOpacity(0.5),
                               ),
@@ -171,7 +179,6 @@ class _HomePageState extends State<HomePage> {
                     ),
                   );
                 },
-                staggeredTileBuilder: (index) => StaggeredTile.fit(1),
               ),
             ),
           ],

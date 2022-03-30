@@ -42,13 +42,13 @@ mixin _$CentroSaudeController on _CentroSaudeControllerBase, Store {
   final _$tiposAtom = Atom(name: '_CentroSaudeControllerBase.tipos');
 
   @override
-  ObservableSet<String> get tipos {
+  ObservableSet<String?> get tipos {
     _$tiposAtom.reportRead();
     return super.tipos;
   }
 
   @override
-  set tipos(ObservableSet<String> value) {
+  set tipos(ObservableSet<String?> value) {
     _$tiposAtom.reportWrite(value, super.tipos, () {
       super.tipos = value;
     });
@@ -57,13 +57,13 @@ mixin _$CentroSaudeController on _CentroSaudeControllerBase, Store {
   final _$tipoAtom = Atom(name: '_CentroSaudeControllerBase.tipo');
 
   @override
-  String get tipo {
+  String? get tipo {
     _$tipoAtom.reportRead();
     return super.tipo;
   }
 
   @override
-  set tipo(String value) {
+  set tipo(String? value) {
     _$tipoAtom.reportWrite(value, super.tipo, () {
       super.tipo = value;
     });

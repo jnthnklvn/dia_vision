@@ -13,13 +13,13 @@ mixin _$MedicationsController on _MedicationsControllerBase, Store {
       Atom(name: '_MedicationsControllerBase.tempoLembrete');
 
   @override
-  String get tempoLembrete {
+  String? get tempoLembrete {
     _$tempoLembreteAtom.reportRead();
     return super.tempoLembrete;
   }
 
   @override
-  set tempoLembrete(String value) {
+  set tempoLembrete(String? value) {
     _$tempoLembreteAtom.reportWrite(value, super.tempoLembrete, () {
       super.tempoLembrete = value;
     });

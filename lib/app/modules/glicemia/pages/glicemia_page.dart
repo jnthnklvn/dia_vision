@@ -16,16 +16,18 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_tts/flutter_tts.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:flutter/material.dart';
-import 'package:share/share.dart';
 
 class GlicemiaPage extends StatefulWidget with ScaffoldUtils {
+  GlicemiaPage({Key? key}) : super(key: key);
+
   @override
   _GlicemiaPageState createState() => _GlicemiaPageState(scaffoldKey);
 }
 
 class _GlicemiaPageState extends ModularState<GlicemiaPage, GlicemiaController>
-    with DateUtils {
+    with DateUtil {
   Future _speak(String txt) => Modular.get<FlutterTts>().speak(txt);
   final GlobalKey<ScaffoldState> scaffoldKey;
 
@@ -57,7 +59,7 @@ class _GlicemiaPageState extends ModularState<GlicemiaPage, GlicemiaController>
           'Limites de glicemia',
           'Você ainda não definiu os valores minimo e máximo para glicemia. O valor padrão de 120 mg/dL para máxima e 70 mg/dL para minima está sendo utilizado. Gostaria de defini-los agora?',
           onCancell: () {
-            Modular.to.pushNamed("${glicemy.routeName}/$REGISTER");
+            Modular.to.pushNamed("${glicemy.routeName}/$registerStr");
             controller.setIsValorPadraoGlicemia(false);
           },
         );
@@ -71,32 +73,32 @@ class _GlicemiaPageState extends ModularState<GlicemiaPage, GlicemiaController>
     return Scaffold(
       key: scaffoldKey,
       floatingActionButton: FloatingAddButton(
-        "$BUTTON $ADD $REGISTRY",
-        "${glicemy.routeName}/$REGISTER",
-        onPressed: () => controller.isValorPadraoGlicemia
-            ? _showMyDialog()
-            : Modular.to.pushNamed("${glicemy.routeName}/$REGISTER"),
+        "$buttonStr $addStr $registryStr",
+        "${glicemy.routeName}/$registerStr",
+        onPressed: () => controller.isValorPadraoGlicemia == false
+            ? Modular.to.pushNamed("${glicemy.routeName}/$registerStr")
+            : _showMyDialog(),
       ),
       appBar: AppBar(
         actions: [
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: InkWell(
-              onLongPress: () => _speak("$BUTTON $SHARE $REGISTRY"),
+              onLongPress: () => _speak("$buttonStr $shareStr $registryStr"),
               onTap: saveRelatorioCsv,
-              child: Icon(
+              child: const Icon(
                 Icons.share,
                 size: 32,
-                semanticLabel: "$BUTTON $SHARE $REGISTRY",
+                semanticLabel: "$buttonStr $shareStr $registryStr",
                 color: kPrimaryColor,
               ),
             ),
           ),
         ],
-        leading: BackArrowButton(iconPadding: 5),
-        title: InkWellSpeakText(
+        leading: const BackArrowButton(iconPadding: 5),
+        title: const InkWellSpeakText(
           Text(
-            GLICEMY,
+            glicemyStr,
             style: TextStyle(
               fontSize: kAppBarTitleSize,
               color: kPrimaryColor,
@@ -106,25 +108,27 @@ class _GlicemiaPageState extends ModularState<GlicemiaPage, GlicemiaController>
         ),
       ),
       body: Semantics(
-        sortKey: OrdinalSortKey(1),
+        sortKey: const OrdinalSortKey(1),
         child: Container(
           width: double.infinity,
           height: size.height,
           color: Colors.white,
           alignment: Alignment.center,
-          padding: EdgeInsets.only(top: 10),
+          padding: const EdgeInsets.only(top: 10),
           child: Observer(
             builder: (_) {
-              if (controller.isLoading)
-                return Center(child: CircularProgressIndicator());
-              if (controller.glicemias.isEmpty)
-                return InkWellSpeakText(
+              if (controller.isLoading) {
+                return const Center(child: CircularProgressIndicator());
+              }
+              if (controller.glicemias.isEmpty) {
+                return const InkWellSpeakText(
                   Text(
-                    WITHOUT_GLICEMY_REGISTERED,
+                    withoutGlicemyRegistered,
                     textAlign: TextAlign.center,
                     style: TextStyle(fontSize: 24, color: kPrimaryColor),
                   ),
                 );
+              }
               return ListView.builder(
                 itemCount: controller.glicemias.length,
                 itemBuilder: (BuildContext context, int index) {

@@ -23,15 +23,15 @@ abstract class _AtividadeFisicaRegisterControllerBase with Store {
   );
 
   @observable
-  String tipo;
+  String? tipo;
   @observable
-  String tipo2;
+  String? tipo2;
   @observable
-  String duracao;
+  String? duracao;
   @observable
-  String distancia;
+  String? distancia;
 
-  AtividadeFisica _atividadeFisica;
+  AtividadeFisica? _atividadeFisica;
 
   @computed
   bool get isEdicao => _atividadeFisica != null;
@@ -40,23 +40,23 @@ abstract class _AtividadeFisicaRegisterControllerBase with Store {
   bool isLoading = false;
 
   @action
-  void setTipo(String newValue) => tipo = newValue;
+  void setTipo(String? newValue) => tipo = newValue;
   @action
-  void setTipo2(String newValue) => tipo2 = newValue;
+  void setTipo2(String? newValue) => tipo2 = newValue;
   @action
-  void setDuracao(String newValue) => duracao = newValue;
+  void setDuracao(String? newValue) => duracao = newValue;
   @action
-  void setDistancia(String newValue) => distancia = newValue;
+  void setDistancia(String? newValue) => distancia = newValue;
 
-  void init(AtividadeFisica atividadeFisica) {
+  void init(AtividadeFisica? atividadeFisica) {
     _atividadeFisica = atividadeFisica;
     if (atividadeFisica != null) {
-      setTipo(ExerciseType.values
-          .firstWhere(
-            (e) => e.name == atividadeFisica.tipo,
-            orElse: () => ExerciseType.Outro,
-          )
-          ?.name);
+      for (var element in ExerciseType.values) {
+        if (element.name == atividadeFisica.tipo) {
+          setTipo(element.name);
+          return;
+        }
+      }
       setTipo2(atividadeFisica.tipo);
       setDuracao(atividadeFisica.duracao?.toString());
       setDistancia(atividadeFisica.distancia?.toString());
@@ -68,19 +68,21 @@ abstract class _AtividadeFisicaRegisterControllerBase with Store {
 
     try {
       final atividadeFisica = AtividadeFisica(
-        tipo: tipo == ExerciseType.Outro.name && tipo2?.isNotEmpty == true
+        tipo: tipo == ExerciseType.outro.name && tipo2?.isNotEmpty == true
             ? tipo2
             : tipo,
       );
       atividadeFisica.objectId = _atividadeFisica?.objectId;
       final user = await _appController.currentUser();
-      atividadeFisica.paciente = user.paciente;
+      atividadeFisica.paciente = user!.paciente;
 
-      if (this.distancia != null && tipo != ExerciseType.Outro.name)
+      if (distancia != null && tipo != ExerciseType.outro.name) {
         atividadeFisica.distancia =
-            num.tryParse(distancia.replaceAll(',', '.'));
-      if (this.duracao != null)
-        atividadeFisica.duracao = num.tryParse(duracao.replaceAll(',', '.'));
+            num.tryParse(distancia!.replaceAll(',', '.'));
+      }
+      if (duracao != null) {
+        atividadeFisica.duracao = num.tryParse(duracao!.replaceAll(',', '.'));
+      }
 
       final result =
           await _atividadeFisicaRepository.save(atividadeFisica, user);

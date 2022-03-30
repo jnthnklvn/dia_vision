@@ -3,7 +3,7 @@ import 'size_config.dart';
 import 'package:flutter/material.dart';
 
 /// Titles
-const APP_NAME = "DiaVision";
+const appName = "DiaVision";
 
 const kAppBarTitleSize = 22.0;
 

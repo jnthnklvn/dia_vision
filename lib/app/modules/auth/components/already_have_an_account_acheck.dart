@@ -7,9 +7,9 @@ import 'package:flutter/material.dart';
 
 class AlreadyHaveAnAccountCheck extends StatelessWidget {
   final bool login;
-  final Function() onPressed;
+  final Function()? onPressed;
   const AlreadyHaveAnAccountCheck({
-    Key key,
+    Key? key,
     this.login = true,
     this.onPressed,
   }) : super(key: key);
@@ -21,20 +21,18 @@ class AlreadyHaveAnAccountCheck extends StatelessWidget {
     return GestureDetector(
       onTap: onPressed,
       onLongPress: () => _speak(
-        login
-            ? ASK_DOESNT_HAVE_ACCOUNT + REGISTER_YOUR
-            : ASK_HAVE_ACCOUNT + GO_IN,
+        login ? doesntHaveAccountQst + signUp : hasAccountQst + signIn,
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Text(
-            login ? ASK_DOESNT_HAVE_ACCOUNT : ASK_HAVE_ACCOUNT,
-            style: TextStyle(color: kPrimaryColor, fontSize: 18),
+            login ? doesntHaveAccountQst : hasAccountQst,
+            style: const TextStyle(color: kPrimaryColor, fontSize: 18),
           ),
           Text(
-            login ? REGISTER_YOUR : GO_IN,
-            style: TextStyle(
+            login ? signUp : signIn,
+            style: const TextStyle(
               color: kPrimaryColor,
               fontWeight: FontWeight.bold,
               fontSize: 18,

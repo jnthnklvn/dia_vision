@@ -8,20 +8,20 @@ import 'package:flutter/material.dart';
 import 'text_field_container.dart';
 
 class RoundedInputField extends StatelessWidget {
-  final String hintText;
-  final IconData icon;
-  final String errorText;
+  final String? hintText;
+  final IconData? icon;
+  final String? errorText;
   final bool enabled;
-  final ValueChanged<String> onChanged;
+  final ValueChanged<String>? onChanged;
   final TextInputType keyboardType;
-  final FocusNode focusNode;
-  final FocusNode nextFocusNode;
-  final List<TextInputFormatter> inputFormatters;
-  final TextEditingController controller;
-  final Widget suffixIcon;
+  final FocusNode? focusNode;
+  final FocusNode? nextFocusNode;
+  final List<TextInputFormatter>? inputFormatters;
+  final TextEditingController? controller;
+  final Widget? suffixIcon;
 
   const RoundedInputField({
-    Key key,
+    Key? key,
     this.hintText,
     this.icon,
     this.onChanged,
@@ -40,7 +40,7 @@ class RoundedInputField extends StatelessWidget {
     final hasNextNode = nextFocusNode != null;
     return TextFieldContainer(
       child: TextField(
-        style: TextStyle(fontSize: 18),
+        style: const TextStyle(fontSize: 18),
         inputFormatters: inputFormatters,
         enabled: enabled,
         controller: controller,
@@ -48,7 +48,7 @@ class RoundedInputField extends StatelessWidget {
         focusNode: focusNode,
         onSubmitted: hasNextNode
             ? (_) {
-                focusNode.unfocus();
+                focusNode?.unfocus();
                 FocusScope.of(context).requestFocus(nextFocusNode);
               }
             : null,
@@ -71,7 +71,7 @@ class RoundedInputField extends StatelessWidget {
                 : InkWell(
                     onTap: () => Modular.get<FlutterTts>()
                         .speak("$hintText: ${controller?.text ?? ""}"),
-                    child: Icon(
+                    child: const Icon(
                       Icons.play_circle_fill,
                       color: kPrimaryColor,
                       size: 42,

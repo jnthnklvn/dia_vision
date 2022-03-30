@@ -5,7 +5,7 @@ import 'dart:async';
 import 'i_local_storage.dart';
 
 class LocalStorageShared implements ILocalStorage {
-  Completer<SharedPreferences> _instance = Completer<SharedPreferences>();
+  final Completer<SharedPreferences> _instance = Completer<SharedPreferences>();
 
   LocalStorageShared() {
     _init();
@@ -28,25 +28,25 @@ class LocalStorageShared implements ILocalStorage {
   }
 
   @override
-  Future<bool> getBool(String key) async {
+  Future<bool?> getBool(String key) async {
     var shared = await _instance.future;
     return shared.getBool(key);
   }
 
   @override
-  Future<String> getString(String key) async {
+  Future<String?> getString(String key) async {
     var shared = await _instance.future;
     return shared.getString(key);
   }
 
   @override
-  Future<int> getInt(String key) async {
+  Future<int?> getInt(String key) async {
     var shared = await _instance.future;
     return shared.getInt(key);
   }
 
   @override
-  Future<List<String>> getStringList(String key) async {
+  Future<List<String>?> getStringList(String key) async {
     var shared = await _instance.future;
     return shared.getStringList(key);
   }

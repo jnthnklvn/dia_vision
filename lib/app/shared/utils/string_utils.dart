@@ -1,23 +1,23 @@
-String firstCharUpperCase(String string) {
+String? firstCharUpperCase(String? string) {
   return string?.isNotEmpty == true
-      ? string.split("")[0].toUpperCase() + string.substring(1)
+      ? string!.split("")[0].toUpperCase() + string.substring(1)
       : string;
 }
 
-bool isNullOrEmpty(String str) {
+bool isNullOrEmpty(String? str) {
   return str?.isEmpty != false;
 }
 
-String getCronHorario(
-    int horarioPos, List<String> horarios, int tempoLembrete) {
+String? getCronHorario(
+    int? horarioPos, List<String> horarios, int? tempoLembrete) {
   if (horarioPos == null ||
       !(horarios.isNotEmpty == true) && tempoLembrete == null) return null;
   final list = horarios[horarioPos].split(':');
-  int hour = int.tryParse(list[0]);
-  int min = int.tryParse(list[1]);
+  int? hour = int.tryParse(list[0]);
+  int? min = int.tryParse(list[1]);
 
   if (hour == null || min == null) return null;
-  if (min < tempoLembrete) {
+  if (min < tempoLembrete!) {
     hour = hour < 1 ? 23 : hour - 1;
     min += 60;
   }

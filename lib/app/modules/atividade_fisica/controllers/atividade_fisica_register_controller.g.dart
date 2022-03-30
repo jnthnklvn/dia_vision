@@ -10,7 +10,7 @@ part of 'atividade_fisica_register_controller.dart';
 
 mixin _$AtividadeFisicaRegisterController
     on _AtividadeFisicaRegisterControllerBase, Store {
-  Computed<bool> _$isEdicaoComputed;
+  Computed<bool>? _$isEdicaoComputed;
 
   @override
   bool get isEdicao =>
@@ -21,13 +21,13 @@ mixin _$AtividadeFisicaRegisterController
   final _$tipoAtom = Atom(name: '_AtividadeFisicaRegisterControllerBase.tipo');
 
   @override
-  String get tipo {
+  String? get tipo {
     _$tipoAtom.reportRead();
     return super.tipo;
   }
 
   @override
-  set tipo(String value) {
+  set tipo(String? value) {
     _$tipoAtom.reportWrite(value, super.tipo, () {
       super.tipo = value;
     });
@@ -37,13 +37,13 @@ mixin _$AtividadeFisicaRegisterController
       Atom(name: '_AtividadeFisicaRegisterControllerBase.tipo2');
 
   @override
-  String get tipo2 {
+  String? get tipo2 {
     _$tipo2Atom.reportRead();
     return super.tipo2;
   }
 
   @override
-  set tipo2(String value) {
+  set tipo2(String? value) {
     _$tipo2Atom.reportWrite(value, super.tipo2, () {
       super.tipo2 = value;
     });
@@ -53,13 +53,13 @@ mixin _$AtividadeFisicaRegisterController
       Atom(name: '_AtividadeFisicaRegisterControllerBase.duracao');
 
   @override
-  String get duracao {
+  String? get duracao {
     _$duracaoAtom.reportRead();
     return super.duracao;
   }
 
   @override
-  set duracao(String value) {
+  set duracao(String? value) {
     _$duracaoAtom.reportWrite(value, super.duracao, () {
       super.duracao = value;
     });
@@ -69,13 +69,13 @@ mixin _$AtividadeFisicaRegisterController
       Atom(name: '_AtividadeFisicaRegisterControllerBase.distancia');
 
   @override
-  String get distancia {
+  String? get distancia {
     _$distanciaAtom.reportRead();
     return super.distancia;
   }
 
   @override
-  set distancia(String value) {
+  set distancia(String? value) {
     _$distanciaAtom.reportWrite(value, super.distancia, () {
       super.distancia = value;
     });
@@ -101,7 +101,7 @@ mixin _$AtividadeFisicaRegisterController
       ActionController(name: '_AtividadeFisicaRegisterControllerBase');
 
   @override
-  void setTipo(String newValue) {
+  void setTipo(String? newValue) {
     final _$actionInfo =
         _$_AtividadeFisicaRegisterControllerBaseActionController.startAction(
             name: '_AtividadeFisicaRegisterControllerBase.setTipo');
@@ -114,7 +114,7 @@ mixin _$AtividadeFisicaRegisterController
   }
 
   @override
-  void setTipo2(String newValue) {
+  void setTipo2(String? newValue) {
     final _$actionInfo =
         _$_AtividadeFisicaRegisterControllerBaseActionController.startAction(
             name: '_AtividadeFisicaRegisterControllerBase.setTipo2');
@@ -127,7 +127,7 @@ mixin _$AtividadeFisicaRegisterController
   }
 
   @override
-  void setDuracao(String newValue) {
+  void setDuracao(String? newValue) {
     final _$actionInfo =
         _$_AtividadeFisicaRegisterControllerBaseActionController.startAction(
             name: '_AtividadeFisicaRegisterControllerBase.setDuracao');
@@ -140,7 +140,7 @@ mixin _$AtividadeFisicaRegisterController
   }
 
   @override
-  void setDistancia(String newValue) {
+  void setDistancia(String? newValue) {
     final _$actionInfo =
         _$_AtividadeFisicaRegisterControllerBaseActionController.startAction(
             name: '_AtividadeFisicaRegisterControllerBase.setDistancia');

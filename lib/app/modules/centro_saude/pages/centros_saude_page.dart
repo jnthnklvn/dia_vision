@@ -15,6 +15,8 @@ import 'package:flutter/semantics.dart';
 import 'package:flutter/material.dart';
 
 class CentrosSaudePage extends StatefulWidget with ScaffoldUtils {
+  CentrosSaudePage({Key? key}) : super(key: key);
+
   @override
   _CentrosSaudePageState createState() => _CentrosSaudePageState(scaffoldKey);
 }
@@ -39,14 +41,14 @@ class _CentrosSaudePageState
     return Scaffold(
       key: scaffoldKey,
       floatingActionButton: FloatingAddButton(
-        "$BUTTON $SUGGEST $MEDICAL_CENTER_TITLE",
-        "${medicalCenters.routeName}/$REGISTER",
+        "$buttonStr $suggestStr $medicalCenterTitle",
+        "${medicalCenters.routeName}/$registerStr",
       ),
       appBar: AppBar(
-        leading: BackArrowButton(iconPadding: 5),
-        title: InkWellSpeakText(
+        leading: const BackArrowButton(iconPadding: 5),
+        title: const InkWellSpeakText(
           Text(
-            MEDICAL_CENTERS,
+            medicalCenters,
             style: TextStyle(
               fontSize: kAppBarTitleSize,
               color: kPrimaryColor,
@@ -56,7 +58,7 @@ class _CentrosSaudePageState
         ),
       ),
       body: Semantics(
-        sortKey: OrdinalSortKey(1),
+        sortKey: const OrdinalSortKey(1),
         child: Container(
           width: double.infinity,
           height: size.height,
@@ -64,16 +66,18 @@ class _CentrosSaudePageState
           alignment: Alignment.center,
           child: Observer(
             builder: (_) {
-              if (controller.isLoading)
-                return Center(child: CircularProgressIndicator());
-              if (controller.centros.isEmpty)
-                return InkWellSpeakText(
+              if (controller.isLoading) {
+                return const Center(child: CircularProgressIndicator());
+              }
+              if (controller.centros.isEmpty) {
+                return const InkWellSpeakText(
                   Text(
-                    WITHOUT_MEDICAL_CENTER_REGISTERED,
+                    withoutMedicalCenterRegistered,
                     textAlign: TextAlign.center,
                     style: TextStyle(fontSize: 24, color: kPrimaryColor),
                   ),
                 );
+              }
               return ListView.builder(
                 itemCount: controller.centros.length + 1,
                 itemBuilder: (BuildContext context, int index) {
@@ -95,7 +99,7 @@ class _CentrosSaudePageState
       onLongPress: () => _speak(
         "Opção " +
             (controller.tipo ?? "Todas os tipos") +
-            " selecionada, toque para $CHANGE",
+            " selecionada, toque para $changeStr",
       ),
       onTap: () => showDialog(
         context: context,
@@ -111,18 +115,18 @@ class _CentrosSaudePageState
         children: [
           Text(
             controller.tipo ?? "Todas os tipos",
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: kAppBarTitleSize - 2,
               color: kPrimaryColor,
               fontWeight: FontWeight.bold,
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
+          const Padding(
+            padding: EdgeInsets.all(8.0),
             child: Icon(
               Icons.filter_alt_outlined,
               size: 32,
-              semanticLabel: "$BUTTON $CHANGE $TYPE",
+              semanticLabel: "$buttonStr $changeStr $typeStr",
               color: kPrimaryColor,
             ),
           ),
@@ -137,8 +141,8 @@ class _CentrosSaudePageState
           child: Column(
         children: [
           buildDropdownMenuItem("Todas os tipos"),
-          ...controller.tipos.map<DropdownMenuItem<String>>((String str) {
-            return buildDropdownMenuItem(str);
+          ...controller.tipos.map<DropdownMenuItem<String>>((String? str) {
+            return buildDropdownMenuItem(str ?? '');
           }).toList()
         ],
       ));
@@ -155,10 +159,10 @@ class _CentrosSaudePageState
         },
         onLongPress: () => _speak(str),
         child: ListTile(
-          contentPadding: EdgeInsets.all(0),
+          contentPadding: const EdgeInsets.all(0),
           title: Text(
             str,
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
           ),
         ),
       ),

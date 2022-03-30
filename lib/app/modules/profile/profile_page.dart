@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 
 class ProfilePage extends StatefulWidget {
   final String title;
-  const ProfilePage({Key key, this.title = "Profile"}) : super(key: key);
+  const ProfilePage({Key? key, this.title = "Profile"}) : super(key: key);
 
   @override
   _ProfilePageState createState() => _ProfilePageState();
@@ -26,18 +26,18 @@ class _ProfilePageState extends State<ProfilePage> {
           child: Column(
             children: <Widget>[
               Row(
-                children: [
+                children: const [
                   BackArrowButton(),
                 ],
               ),
-              SizedBox(height: 20),
-              ProfilePic(),
-              SizedBox(height: 40),
+              const SizedBox(height: 20),
+              const ProfilePic(),
+              const SizedBox(height: 40),
               ProfileMenu(
                 text: "Meus dados",
                 icon: "assets/icons/User Icon.svg",
                 onPressed: () => Modular.to
-                    .pushNamed(RouteEnum.profile.name + RouteEnum.my_data.name),
+                    .pushNamed(RouteEnum.profile.name + RouteEnum.myData.name),
               ),
               ProfileMenu(
                 text: "Preferências",

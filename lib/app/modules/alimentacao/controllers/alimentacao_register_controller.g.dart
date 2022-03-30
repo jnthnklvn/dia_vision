@@ -10,7 +10,7 @@ part of 'alimentacao_register_controller.dart';
 
 mixin _$AlimentacaoRegisterController
     on _AlimentacaoRegisterControllerBase, Store {
-  Computed<bool> _$isEdicaoComputed;
+  Computed<bool>? _$isEdicaoComputed;
 
   @override
   bool get isEdicao =>
@@ -21,13 +21,13 @@ mixin _$AlimentacaoRegisterController
   final _$tipoAtom = Atom(name: '_AlimentacaoRegisterControllerBase.tipo');
 
   @override
-  String get tipo {
+  String? get tipo {
     _$tipoAtom.reportRead();
     return super.tipo;
   }
 
   @override
-  set tipo(String value) {
+  set tipo(String? value) {
     _$tipoAtom.reportWrite(value, super.tipo, () {
       super.tipo = value;
     });
@@ -37,13 +37,13 @@ mixin _$AlimentacaoRegisterController
       Atom(name: '_AlimentacaoRegisterControllerBase.calorias');
 
   @override
-  String get calorias {
+  String? get calorias {
     _$caloriasAtom.reportRead();
     return super.calorias;
   }
 
   @override
-  set calorias(String value) {
+  set calorias(String? value) {
     _$caloriasAtom.reportWrite(value, super.calorias, () {
       super.calorias = value;
     });
@@ -69,7 +69,7 @@ mixin _$AlimentacaoRegisterController
       ActionController(name: '_AlimentacaoRegisterControllerBase');
 
   @override
-  void setTipo(String newValue) {
+  void setTipo(String? newValue) {
     final _$actionInfo = _$_AlimentacaoRegisterControllerBaseActionController
         .startAction(name: '_AlimentacaoRegisterControllerBase.setTipo');
     try {
@@ -81,7 +81,7 @@ mixin _$AlimentacaoRegisterController
   }
 
   @override
-  void setCalorias(String newValue) {
+  void setCalorias(String? newValue) {
     final _$actionInfo = _$_AlimentacaoRegisterControllerBaseActionController
         .startAction(name: '_AlimentacaoRegisterControllerBase.setCalorias');
     try {

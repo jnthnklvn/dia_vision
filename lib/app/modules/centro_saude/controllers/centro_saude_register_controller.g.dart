@@ -13,13 +13,13 @@ mixin _$CentroSaudeRegisterController
   final _$nomeAtom = Atom(name: '_CentroSaudeRegisterControllerBase.nome');
 
   @override
-  String get nome {
+  String? get nome {
     _$nomeAtom.reportRead();
     return super.nome;
   }
 
   @override
-  set nome(String value) {
+  set nome(String? value) {
     _$nomeAtom.reportWrite(value, super.nome, () {
       super.nome = value;
     });
@@ -29,13 +29,13 @@ mixin _$CentroSaudeRegisterController
       Atom(name: '_CentroSaudeRegisterControllerBase.descricao');
 
   @override
-  String get descricao {
+  String? get descricao {
     _$descricaoAtom.reportRead();
     return super.descricao;
   }
 
   @override
-  set descricao(String value) {
+  set descricao(String? value) {
     _$descricaoAtom.reportWrite(value, super.descricao, () {
       super.descricao = value;
     });
@@ -45,13 +45,13 @@ mixin _$CentroSaudeRegisterController
       Atom(name: '_CentroSaudeRegisterControllerBase.telefone');
 
   @override
-  String get telefone {
+  String? get telefone {
     _$telefoneAtom.reportRead();
     return super.telefone;
   }
 
   @override
-  set telefone(String value) {
+  set telefone(String? value) {
     _$telefoneAtom.reportWrite(value, super.telefone, () {
       super.telefone = value;
     });
@@ -60,13 +60,13 @@ mixin _$CentroSaudeRegisterController
   final _$tipoAtom = Atom(name: '_CentroSaudeRegisterControllerBase.tipo');
 
   @override
-  String get tipo {
+  String? get tipo {
     _$tipoAtom.reportRead();
     return super.tipo;
   }
 
   @override
-  set tipo(String value) {
+  set tipo(String? value) {
     _$tipoAtom.reportWrite(value, super.tipo, () {
       super.tipo = value;
     });
@@ -76,13 +76,13 @@ mixin _$CentroSaudeRegisterController
       Atom(name: '_CentroSaudeRegisterControllerBase.linkMaps');
 
   @override
-  String get linkMaps {
+  String? get linkMaps {
     _$linkMapsAtom.reportRead();
     return super.linkMaps;
   }
 
   @override
-  set linkMaps(String value) {
+  set linkMaps(String? value) {
     _$linkMapsAtom.reportWrite(value, super.linkMaps, () {
       super.linkMaps = value;
     });
@@ -91,13 +91,13 @@ mixin _$CentroSaudeRegisterController
   final _$cidadeAtom = Atom(name: '_CentroSaudeRegisterControllerBase.cidade');
 
   @override
-  String get cidade {
+  String? get cidade {
     _$cidadeAtom.reportRead();
     return super.cidade;
   }
 
   @override
-  set cidade(String value) {
+  set cidade(String? value) {
     _$cidadeAtom.reportWrite(value, super.cidade, () {
       super.cidade = value;
     });
@@ -106,13 +106,13 @@ mixin _$CentroSaudeRegisterController
   final _$estadoAtom = Atom(name: '_CentroSaudeRegisterControllerBase.estado');
 
   @override
-  String get estado {
+  String? get estado {
     _$estadoAtom.reportRead();
     return super.estado;
   }
 
   @override
-  set estado(String value) {
+  set estado(String? value) {
     _$estadoAtom.reportWrite(value, super.estado, () {
       super.estado = value;
     });
@@ -121,13 +121,13 @@ mixin _$CentroSaudeRegisterController
   final _$numeroAtom = Atom(name: '_CentroSaudeRegisterControllerBase.numero');
 
   @override
-  String get numero {
+  String? get numero {
     _$numeroAtom.reportRead();
     return super.numero;
   }
 
   @override
-  set numero(String value) {
+  set numero(String? value) {
     _$numeroAtom.reportWrite(value, super.numero, () {
       super.numero = value;
     });
@@ -136,13 +136,13 @@ mixin _$CentroSaudeRegisterController
   final _$ruaAtom = Atom(name: '_CentroSaudeRegisterControllerBase.rua');
 
   @override
-  String get rua {
+  String? get rua {
     _$ruaAtom.reportRead();
     return super.rua;
   }
 
   @override
-  set rua(String value) {
+  set rua(String? value) {
     _$ruaAtom.reportWrite(value, super.rua, () {
       super.rua = value;
     });
@@ -151,13 +151,13 @@ mixin _$CentroSaudeRegisterController
   final _$bairroAtom = Atom(name: '_CentroSaudeRegisterControllerBase.bairro');
 
   @override
-  String get bairro {
+  String? get bairro {
     _$bairroAtom.reportRead();
     return super.bairro;
   }
 
   @override
-  set bairro(String value) {
+  set bairro(String? value) {
     _$bairroAtom.reportWrite(value, super.bairro, () {
       super.bairro = value;
     });
@@ -211,7 +211,7 @@ mixin _$CentroSaudeRegisterController
   }
 
   @override
-  void setDescricao(String newValue) {
+  void setDescricao(String? newValue) {
     final _$actionInfo = _$_CentroSaudeRegisterControllerBaseActionController
         .startAction(name: '_CentroSaudeRegisterControllerBase.setDescricao');
     try {
@@ -223,7 +223,7 @@ mixin _$CentroSaudeRegisterController
   }
 
   @override
-  void setTelefone(String newValue) {
+  void setTelefone(String? newValue) {
     final _$actionInfo = _$_CentroSaudeRegisterControllerBaseActionController
         .startAction(name: '_CentroSaudeRegisterControllerBase.setTelefone');
     try {
@@ -235,7 +235,7 @@ mixin _$CentroSaudeRegisterController
   }
 
   @override
-  void setTipo(String newValue) {
+  void setTipo(String? newValue) {
     final _$actionInfo = _$_CentroSaudeRegisterControllerBaseActionController
         .startAction(name: '_CentroSaudeRegisterControllerBase.setTipo');
     try {
@@ -247,7 +247,7 @@ mixin _$CentroSaudeRegisterController
   }
 
   @override
-  void setLinkMaps(String newValue) {
+  void setLinkMaps(String? newValue) {
     final _$actionInfo = _$_CentroSaudeRegisterControllerBaseActionController
         .startAction(name: '_CentroSaudeRegisterControllerBase.setLinkMaps');
     try {
@@ -259,7 +259,7 @@ mixin _$CentroSaudeRegisterController
   }
 
   @override
-  void setNome(String newValue) {
+  void setNome(String? newValue) {
     final _$actionInfo = _$_CentroSaudeRegisterControllerBaseActionController
         .startAction(name: '_CentroSaudeRegisterControllerBase.setNome');
     try {
@@ -271,7 +271,7 @@ mixin _$CentroSaudeRegisterController
   }
 
   @override
-  void setCidade(String newValue) {
+  void setCidade(String? newValue) {
     final _$actionInfo = _$_CentroSaudeRegisterControllerBaseActionController
         .startAction(name: '_CentroSaudeRegisterControllerBase.setCidade');
     try {
@@ -283,7 +283,7 @@ mixin _$CentroSaudeRegisterController
   }
 
   @override
-  void setBairro(String newValue) {
+  void setBairro(String? newValue) {
     final _$actionInfo = _$_CentroSaudeRegisterControllerBaseActionController
         .startAction(name: '_CentroSaudeRegisterControllerBase.setBairro');
     try {
@@ -295,7 +295,7 @@ mixin _$CentroSaudeRegisterController
   }
 
   @override
-  void setEstado(String newValue) {
+  void setEstado(String? newValue) {
     final _$actionInfo = _$_CentroSaudeRegisterControllerBaseActionController
         .startAction(name: '_CentroSaudeRegisterControllerBase.setEstado');
     try {
@@ -307,7 +307,7 @@ mixin _$CentroSaudeRegisterController
   }
 
   @override
-  void setNumero(String newValue) {
+  void setNumero(String? newValue) {
     final _$actionInfo = _$_CentroSaudeRegisterControllerBaseActionController
         .startAction(name: '_CentroSaudeRegisterControllerBase.setNumero');
     try {
@@ -319,7 +319,7 @@ mixin _$CentroSaudeRegisterController
   }
 
   @override
-  void setRua(String newValue) {
+  void setRua(String? newValue) {
     final _$actionInfo = _$_CentroSaudeRegisterControllerBaseActionController
         .startAction(name: '_CentroSaudeRegisterControllerBase.setRua');
     try {

@@ -17,7 +17,10 @@ abstract class _PreferenciasControllerBase with Store {
   final AppController _appController;
 
   _PreferenciasControllerBase(
-      this._preferences, this._awesomeNotifications, this._appController);
+    this._preferences,
+    this._awesomeNotifications,
+    this._appController,
+  );
 
   @observable
   bool isLoading = false;
@@ -36,10 +39,10 @@ abstract class _PreferenciasControllerBase with Store {
   @observable
   String valorMaximoGlicemia = "120";
   @observable
-  String horarioGlicemia;
+  String? horarioGlicemia;
   @observable
-  List<String> horarios = List<String>();
-  String horario;
+  List<String> horarios = <String>[];
+  String? horario;
   final idGlicemia = "glicemia".hashCode;
 
   @action
@@ -61,14 +64,14 @@ abstract class _PreferenciasControllerBase with Store {
   }
 
   @action
-  void setTempoLembrete(String newValue) {
-    tempoLembrete = newValue;
-    _preferences.setTempoLembrete(newValue);
+  void setTempoLembrete(String? newValue) {
+    tempoLembrete = newValue ?? tempoLembrete;
+    _preferences.setTempoLembrete(tempoLembrete);
   }
 
   @action
   void addHorario() {
-    horarios.add(horario);
+    if (horario != null) horarios.add(horario!);
     horarios = horarios.asObservable();
   }
 
@@ -137,18 +140,18 @@ abstract class _PreferenciasControllerBase with Store {
       onError('O limite máximo de horários para notificação é 6.');
     } else {
       final intTempoLembrete =
-          int.tryParse(tempoLembrete?.split(' ')?.elementAt(0) ?? '10');
+          int.tryParse(tempoLembrete.split(' ').elementAt(0));
       try {
         if (horarios.isNotEmpty == true && alertarGlicemia) {
           for (var i = 0; i < horarios.length; i++) {
             await _appController.createNotification(
               idGlicemia + i,
-              "${tempoLembrete ?? '10 min'} $TO_GLICEMY_REGISTER_TIME",
-              GLICEMY_REGISTER_TIME,
-              NotificationSchedule(
+              title: "$tempoLembrete $toGlicemyRegisterTime",
+              body: glicemyRegisterTime,
+              notificationSchedule: NotificationAndroidCrontab(
                 allowWhileIdle: true,
                 initialDateTime: DateTime.now().toUtc(),
-                crontabSchedule:
+                crontabExpression:
                     "0 ${getCronHorario(i, horarios, intTempoLembrete)} * * ? *",
               ),
               tempoLembrete: tempoLembrete,
@@ -156,7 +159,7 @@ abstract class _PreferenciasControllerBase with Store {
           }
         }
       } catch (e) {
-        onError(REGISTER_NOTIFICATION_FAIL);
+        onError(registerNotificationFail);
       }
     }
     isLoading = false;
@@ -170,10 +173,10 @@ abstract class _PreferenciasControllerBase with Store {
         for (var i = 0; i < 6; i++) {
           _awesomeNotifications.cancelSchedule(idGlicemia + i);
         }
-        onSuccess(DISABLE_NOTIFICATION_SUCCESS);
+        onSuccess(notificationSuccessDisabled);
       }
     } catch (e) {
-      onError(DELETE_NOTIFICATION_FAIL);
+      onError(deleteNotificationFail);
     }
     isLoading = false;
   }

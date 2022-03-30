@@ -9,19 +9,18 @@ import 'pages/atividade_fisica_page.dart';
 
 import 'package:flutter_modular/flutter_modular.dart';
 
-class AtividadeFisicaModule extends ChildModule {
+class AtividadeFisicaModule extends Module {
   @override
-  List<Bind> get binds => [
-        Bind((i) => AtividadeFisicaRepository()),
-        Bind((i) => AtividadeFisicaController(i(), i())),
-        Bind((i) => AtividadeFisicaRegisterController(i(), i(), i())),
-      ];
+  final List<Bind> binds = [
+    Bind((i) => AtividadeFisicaRepository()),
+    Bind((i) => AtividadeFisicaController(i(), i())),
+    Bind((i) => AtividadeFisicaRegisterController(i(), i(), i())),
+  ];
 
   @override
-  List<ModularRouter> get routers => [
-        ModularRouter(exercises.routeName,
-            child: (_, args) => AtividadeFisicaPage()),
-        ModularRouter("/$REGISTER",
-            child: (_, args) => AtividadeFisicaRegisterPage(args.data)),
-      ];
+  final List<ModularRoute> routes = [
+    ChildRoute(exercises.routeName, child: (_, args) => AtividadeFisicaPage()),
+    ChildRoute("/$registerStr",
+        child: (_, args) => AtividadeFisicaRegisterPage(args.data)),
+  ];
 }

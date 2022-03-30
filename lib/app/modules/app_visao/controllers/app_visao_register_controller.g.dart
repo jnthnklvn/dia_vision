@@ -13,13 +13,13 @@ mixin _$AppVisaoRegisterController on _AppVisaoRegisterControllerBase, Store {
       Atom(name: '_AppVisaoRegisterControllerBase.descricao');
 
   @override
-  String get descricao {
+  String? get descricao {
     _$descricaoAtom.reportRead();
     return super.descricao;
   }
 
   @override
-  set descricao(String value) {
+  set descricao(String? value) {
     _$descricaoAtom.reportWrite(value, super.descricao, () {
       super.descricao = value;
     });
@@ -28,13 +28,13 @@ mixin _$AppVisaoRegisterController on _AppVisaoRegisterControllerBase, Store {
   final _$tituloAtom = Atom(name: '_AppVisaoRegisterControllerBase.titulo');
 
   @override
-  String get titulo {
+  String? get titulo {
     _$tituloAtom.reportRead();
     return super.titulo;
   }
 
   @override
-  set titulo(String value) {
+  set titulo(String? value) {
     _$tituloAtom.reportWrite(value, super.titulo, () {
       super.titulo = value;
     });
@@ -44,13 +44,13 @@ mixin _$AppVisaoRegisterController on _AppVisaoRegisterControllerBase, Store {
       Atom(name: '_AppVisaoRegisterControllerBase.linkGooglePlay');
 
   @override
-  String get linkGooglePlay {
+  String? get linkGooglePlay {
     _$linkGooglePlayAtom.reportRead();
     return super.linkGooglePlay;
   }
 
   @override
-  set linkGooglePlay(String value) {
+  set linkGooglePlay(String? value) {
     _$linkGooglePlayAtom.reportWrite(value, super.linkGooglePlay, () {
       super.linkGooglePlay = value;
     });
@@ -60,13 +60,13 @@ mixin _$AppVisaoRegisterController on _AppVisaoRegisterControllerBase, Store {
       Atom(name: '_AppVisaoRegisterControllerBase.linkAppleStore');
 
   @override
-  String get linkAppleStore {
+  String? get linkAppleStore {
     _$linkAppleStoreAtom.reportRead();
     return super.linkAppleStore;
   }
 
   @override
-  set linkAppleStore(String value) {
+  set linkAppleStore(String? value) {
     _$linkAppleStoreAtom.reportWrite(value, super.linkAppleStore, () {
       super.linkAppleStore = value;
     });
@@ -92,7 +92,7 @@ mixin _$AppVisaoRegisterController on _AppVisaoRegisterControllerBase, Store {
       ActionController(name: '_AppVisaoRegisterControllerBase');
 
   @override
-  void setDescricao(String newValue) {
+  void setDescricao(String? newValue) {
     final _$actionInfo = _$_AppVisaoRegisterControllerBaseActionController
         .startAction(name: '_AppVisaoRegisterControllerBase.setDescricao');
     try {
@@ -103,7 +103,7 @@ mixin _$AppVisaoRegisterController on _AppVisaoRegisterControllerBase, Store {
   }
 
   @override
-  void setLinkAppleStore(String newValue) {
+  void setLinkAppleStore(String? newValue) {
     final _$actionInfo = _$_AppVisaoRegisterControllerBaseActionController
         .startAction(name: '_AppVisaoRegisterControllerBase.setLinkAppleStore');
     try {
@@ -114,7 +114,7 @@ mixin _$AppVisaoRegisterController on _AppVisaoRegisterControllerBase, Store {
   }
 
   @override
-  void setTitulo(String newValue) {
+  void setTitulo(String? newValue) {
     final _$actionInfo = _$_AppVisaoRegisterControllerBaseActionController
         .startAction(name: '_AppVisaoRegisterControllerBase.setTitulo');
     try {
@@ -125,7 +125,7 @@ mixin _$AppVisaoRegisterController on _AppVisaoRegisterControllerBase, Store {
   }
 
   @override
-  void setLinkGooglePlay(String newValue) {
+  void setLinkGooglePlay(String? newValue) {
     final _$actionInfo = _$_AppVisaoRegisterControllerBaseActionController
         .startAction(name: '_AppVisaoRegisterControllerBase.setLinkGooglePlay');
     try {

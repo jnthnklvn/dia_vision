@@ -25,6 +25,7 @@ class DiureseRepository implements IDiureseRepository {
     return _getSingleResult(response);
   }
 
+  @override
   Future<Either<DiureseFailure, Diurese>> getById(String objectId) async {
     final query = QueryBuilder(Diurese.clone())
       ..whereEqualTo("objectId", objectId)
@@ -34,6 +35,7 @@ class DiureseRepository implements IDiureseRepository {
     return _getSingleResult(response);
   }
 
+  @override
   Future<Either<DiureseFailure, List<Diurese>>> getAllByPaciente(
       Paciente paciente) async {
     final query = QueryBuilder(Diurese.clone())
@@ -45,11 +47,12 @@ class DiureseRepository implements IDiureseRepository {
   }
 
   Either<DiureseFailure, List<Diurese>> _getResult(ParseResponse response) {
-    if (response.success) {
-      final result = response.results?.map((e) => e as Diurese)?.toList();
+    if (response.success && response.results != null) {
+      final result = response.results!.map((e) => e as Diurese).toList();
       return Right(result);
-    } else
+    } else {
       return Left(_getFailure(response));
+    }
   }
 
   Either<DiureseFailure, Diurese> _getSingleResult(ParseResponse response) {
@@ -57,14 +60,15 @@ class DiureseRepository implements IDiureseRepository {
       final result =
           response.result is List ? response.result[0] : response.result;
       return Right(result);
-    } else
+    } else {
       return Left(_getFailure(response));
+    }
   }
 
   DiureseFailure _getFailure(ParseResponse response) {
     return DiureseFailure(
-      ParseErrors.getDescription(response.error.code),
-      response.error.code,
+      ParseErrors.getDescription(response.error?.code),
+      response.error?.code ?? -2,
     );
   }
 }

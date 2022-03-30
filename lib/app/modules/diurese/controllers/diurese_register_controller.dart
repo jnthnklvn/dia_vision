@@ -12,7 +12,7 @@ part 'diurese_register_controller.g.dart';
 class DiureseRegisterController = _DiureseRegisterControllerBase
     with _$DiureseRegisterController;
 
-abstract class _DiureseRegisterControllerBase with Store, DateUtils {
+abstract class _DiureseRegisterControllerBase with Store, DateUtil {
   final IDiureseRepository _diureseRepository;
   final DiureseController _diureseController;
   final AppController _appController;
@@ -24,9 +24,9 @@ abstract class _DiureseRegisterControllerBase with Store, DateUtils {
   );
 
   @observable
-  String coloracao;
+  String? coloracao;
   @observable
-  String volume;
+  String? volume;
   @observable
   bool ardor = false;
 
@@ -35,24 +35,24 @@ abstract class _DiureseRegisterControllerBase with Store, DateUtils {
   @observable
   List<Diurese> diureses = [];
 
-  Diurese _diurese;
+  Diurese? _diurese;
 
   @computed
   bool get isEdicao => _diurese != null;
 
   @action
-  void setColoracao(String newValue) => coloracao = newValue;
+  void setColoracao(String? newValue) => coloracao = newValue;
   @action
-  void setVolume(String newValue) => volume = newValue;
+  void setVolume(String? newValue) => volume = newValue;
   @action
   void setArdor(bool newValue) => ardor = newValue;
 
-  void init(Diurese diurese) {
+  void init(Diurese? diurese) {
     _diurese = diurese;
     if (diurese != null) {
       setVolume(diurese.volume?.toString());
       setColoracao(diurese.coloracao);
-      setArdor(diurese.ardor);
+      setArdor(diurese.ardor ?? ardor);
     }
   }
 
@@ -63,11 +63,11 @@ abstract class _DiureseRegisterControllerBase with Store, DateUtils {
       final diurese = Diurese(ardor: ardor, coloracao: coloracao);
 
       final user = await _appController.currentUser();
-      diurese.paciente = user.paciente;
+      diurese.paciente = user!.paciente;
       diurese.objectId = _diurese?.objectId;
 
       final dVolume =
-          volume != null ? num.tryParse(volume.replaceAll(',', '.')) : null;
+          volume != null ? num.tryParse(volume!.replaceAll(',', '.')) : null;
       if (dVolume != null) diurese.volume = dVolume;
 
       final result = await _diureseRepository.save(diurese, user);

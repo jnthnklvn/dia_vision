@@ -19,14 +19,17 @@ abstract class _RegisterControllerBase with Store {
   final AwesomeNotifications _awesomeNotifications;
 
   _RegisterControllerBase(
-      this._userRepository, this._awesomeNotifications, this._preferences);
+    this._userRepository,
+    this._awesomeNotifications,
+    this._preferences,
+  );
 
   @observable
-  String error;
+  String? error;
   @observable
-  User user;
+  User? user;
 
-  StreamSubscription<ReceivedAction> receivedNotificationAction;
+  StreamSubscription<ReceivedAction>? receivedNotificationAction;
 
   Future<bool> isLogged() async {
     user = user ?? await currentUser();
@@ -38,15 +41,14 @@ abstract class _RegisterControllerBase with Store {
     return user?.paciente?.objectId != null;
   }
 
-  Future<User> currentUser() async {
+  Future<User?> currentUser() async {
     try {
       final result = await _userRepository.currentUser();
-      return result?.fold((l) => null, (r) {
+      return result.fold((l) => null, (r) {
         user = r;
         return user;
       });
-    } catch (e) {
-      print(e.toString());
+    } catch (_) {
       return null;
     }
   }
@@ -56,17 +58,16 @@ abstract class _RegisterControllerBase with Store {
       receivedNotificationAction = Modular.get<AwesomeNotifications>()
           .actionStream
           .listen((receivedNotification) async {
-        print(receivedNotification.buttonKeyPressed);
-        if (receivedNotification.buttonKeyPressed?.isNotEmpty == true) {
+        if (receivedNotification.buttonKeyPressed.isNotEmpty == true) {
           final tempoLembrete =
               await _preferences.getTempoLembrete() ?? '10 min';
           final intTempoLembrete =
-              int.tryParse(tempoLembrete?.split(' ')?.elementAt(0) ?? '10');
+              int.tryParse(tempoLembrete.split(' ').elementAt(0)) ?? 10;
           await createNotification(
-            receivedNotification.id + 1001,
-            receivedNotification.body,
-            receivedNotification.body,
-            NotificationSchedule(
+            (receivedNotification.id ?? 0) + 1001,
+            title: receivedNotification.body,
+            body: receivedNotification.body,
+            notificationSchedule: NotificationAndroidCrontab(
               allowWhileIdle: true,
               preciseSchedules: [
                 DateTime.now().toUtc().add(Duration(minutes: intTempoLembrete))
@@ -83,18 +84,22 @@ abstract class _RegisterControllerBase with Store {
           Modular.to.pushReplacementNamed(RouteEnum.medications.name);
         }
       });
-    } catch (e) {}
+    } catch (_) {}
   }
 
-  Future<bool> createNotification(int id, String title, String body,
-      NotificationSchedule notificationSchedule,
-      {String tempoLembrete}) {
+  Future<bool> createNotification(
+    int id, {
+    String? title,
+    String? body,
+    NotificationSchedule? notificationSchedule,
+    String? tempoLembrete,
+  }) {
     return _awesomeNotifications.createNotification(
       actionButtons: [
         NotificationActionButton(
           label: "Adiar ${tempoLembrete ?? ''}",
           buttonType: ActionButtonType.KeepOnTop,
-          key: title,
+          key: title ?? '',
         ),
       ],
       schedule: notificationSchedule,
@@ -114,8 +119,6 @@ abstract class _RegisterControllerBase with Store {
       Modular.get<AwesomeNotifications>().cancelAllSchedules();
       receivedNotificationAction?.cancel();
       await _userRepository.logout();
-    } catch (e) {
-      print(e.toString());
-    }
+    } catch (_) {}
   }
 }

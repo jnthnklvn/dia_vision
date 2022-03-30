@@ -9,7 +9,7 @@ part of 'diurese_register_controller.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$DiureseRegisterController on _DiureseRegisterControllerBase, Store {
-  Computed<bool> _$isEdicaoComputed;
+  Computed<bool>? _$isEdicaoComputed;
 
   @override
   bool get isEdicao =>
@@ -21,13 +21,13 @@ mixin _$DiureseRegisterController on _DiureseRegisterControllerBase, Store {
       Atom(name: '_DiureseRegisterControllerBase.coloracao');
 
   @override
-  String get coloracao {
+  String? get coloracao {
     _$coloracaoAtom.reportRead();
     return super.coloracao;
   }
 
   @override
-  set coloracao(String value) {
+  set coloracao(String? value) {
     _$coloracaoAtom.reportWrite(value, super.coloracao, () {
       super.coloracao = value;
     });
@@ -36,13 +36,13 @@ mixin _$DiureseRegisterController on _DiureseRegisterControllerBase, Store {
   final _$volumeAtom = Atom(name: '_DiureseRegisterControllerBase.volume');
 
   @override
-  String get volume {
+  String? get volume {
     _$volumeAtom.reportRead();
     return super.volume;
   }
 
   @override
-  set volume(String value) {
+  set volume(String? value) {
     _$volumeAtom.reportWrite(value, super.volume, () {
       super.volume = value;
     });
@@ -98,7 +98,7 @@ mixin _$DiureseRegisterController on _DiureseRegisterControllerBase, Store {
       ActionController(name: '_DiureseRegisterControllerBase');
 
   @override
-  void setColoracao(String newValue) {
+  void setColoracao(String? newValue) {
     final _$actionInfo = _$_DiureseRegisterControllerBaseActionController
         .startAction(name: '_DiureseRegisterControllerBase.setColoracao');
     try {
@@ -109,7 +109,7 @@ mixin _$DiureseRegisterController on _DiureseRegisterControllerBase, Store {
   }
 
   @override
-  void setVolume(String newValue) {
+  void setVolume(String? newValue) {
     final _$actionInfo = _$_DiureseRegisterControllerBaseActionController
         .startAction(name: '_DiureseRegisterControllerBase.setVolume');
     try {

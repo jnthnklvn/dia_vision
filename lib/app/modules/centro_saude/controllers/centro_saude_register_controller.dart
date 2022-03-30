@@ -20,26 +20,26 @@ abstract class _CentroSaudeRegisterControllerBase with Store {
   );
 
   @observable
-  String nome;
+  String? nome;
   @observable
-  String descricao;
+  String? descricao;
   @observable
-  String telefone;
+  String? telefone;
   @observable
-  String tipo;
+  String? tipo;
   @observable
-  String linkMaps;
+  String? linkMaps;
 
   @observable
-  String cidade;
+  String? cidade;
   @observable
-  String estado;
+  String? estado;
   @observable
-  String numero;
+  String? numero;
   @observable
-  String rua;
+  String? rua;
   @observable
-  String bairro;
+  String? bairro;
 
   @observable
   bool isLoading = false;
@@ -49,31 +49,31 @@ abstract class _CentroSaudeRegisterControllerBase with Store {
   @action
   void setAdcEndereco(bool newValue) => adcEndereco = newValue;
   @action
-  void setDescricao(String newValue) => descricao = newValue;
+  void setDescricao(String? newValue) => descricao = newValue;
   @action
-  void setTelefone(String newValue) => telefone = newValue;
+  void setTelefone(String? newValue) => telefone = newValue;
   @action
-  void setTipo(String newValue) => tipo = newValue;
+  void setTipo(String? newValue) => tipo = newValue;
   @action
-  void setLinkMaps(String newValue) => linkMaps = newValue;
+  void setLinkMaps(String? newValue) => linkMaps = newValue;
   @action
-  void setNome(String newValue) => nome = newValue;
+  void setNome(String? newValue) => nome = newValue;
 
   @action
-  void setCidade(String newValue) => cidade = newValue;
+  void setCidade(String? newValue) => cidade = newValue;
   @action
-  void setBairro(String newValue) => bairro = newValue;
+  void setBairro(String? newValue) => bairro = newValue;
   @action
-  void setEstado(String newValue) => estado = newValue;
+  void setEstado(String? newValue) => estado = newValue;
   @action
-  void setNumero(String newValue) => numero = newValue;
+  void setNumero(String? newValue) => numero = newValue;
   @action
-  void setRua(String newValue) => rua = newValue;
+  void setRua(String? newValue) => rua = newValue;
 
   Future<void> save(Function(String) onError, void Function() onSuccess) async {
     isLoading = true;
 
-    Endereco endereco;
+    Endereco? endereco;
 
     try {
       if (adcEndereco &&
@@ -88,7 +88,7 @@ abstract class _CentroSaudeRegisterControllerBase with Store {
           estado: estado,
           rua: rua,
         );
-        if (this.numero != null) enderecoAux.numero = num.tryParse(numero);
+        if (numero != null) enderecoAux.numero = num.tryParse(numero!);
         final result = await _enderecoRepository.save(enderecoAux);
         result.fold((l) => onError(l.message), (r) => endereco = r);
       }

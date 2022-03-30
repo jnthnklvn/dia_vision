@@ -9,18 +9,18 @@ import 'pages/diurese_page.dart';
 
 import 'package:flutter_modular/flutter_modular.dart';
 
-class DiureseModule extends ChildModule {
+class DiureseModule extends Module {
   @override
-  List<Bind> get binds => [
-        Bind((i) => DiureseRepository()),
-        Bind((i) => DiureseController(i(), i())),
-        Bind((i) => DiureseRegisterController(i(), i(), i())),
-      ];
+  final List<Bind> binds = [
+    Bind((i) => DiureseRepository()),
+    Bind((i) => DiureseController(i(), i())),
+    Bind((i) => DiureseRegisterController(i(), i(), i())),
+  ];
 
   @override
-  List<ModularRouter> get routers => [
-        ModularRouter(kidney.routeName, child: (_, args) => DiuresePage()),
-        ModularRouter("/$REGISTER",
-            child: (_, args) => DiureseRegisterPage(args.data)),
-      ];
+  final List<ModularRoute> routes = [
+    ChildRoute(kidney.routeName, child: (_, args) => DiuresePage()),
+    ChildRoute("/$registerStr",
+        child: (_, args) => DiureseRegisterPage(args.data)),
+  ];
 }

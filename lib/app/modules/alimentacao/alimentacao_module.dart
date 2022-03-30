@@ -1,5 +1,5 @@
 import 'package:dia_vision/app/repositories/alimentacao_repository.dart';
-import 'package:dia_vision/app/modules/home/domain/entities/module.dart';
+import 'package:dia_vision/app/modules/home/domain/entities/module.dart' as md;
 import 'package:dia_vision/app/repositories/alimento_api_repository.dart';
 import 'package:dia_vision/app/repositories/alimento_repository.dart';
 import 'package:dia_vision/app/shared/utils/strings.dart';
@@ -15,25 +15,25 @@ import 'package:dio/dio.dart';
 
 import 'pages/alimento_register_page.dart';
 
-class AlimentacaoModule extends ChildModule {
+class AlimentacaoModule extends Module {
   @override
-  List<Bind> get binds => [
-        Bind((i) => Dio()),
-        Bind((i) => AlimentoRepository()),
-        Bind((i) => AlimentacaoRepository()),
-        Bind((i) => AlimentoAPIRepository(i())),
-        Bind((i) => AlimentoController(i(), i())),
-        Bind((i) => AlimentacaoController(i(), i())),
-        Bind((i) => AlimentacaoRegisterController(i(), i(), i(), i())),
-      ];
+  final List<Bind> binds = [
+    Bind((i) => Dio()),
+    Bind((i) => AlimentoRepository()),
+    Bind((i) => AlimentacaoRepository()),
+    Bind((i) => AlimentoAPIRepository(i())),
+    Bind((i) => AlimentoController(i(), i())),
+    Bind((i) => AlimentacaoController(i(), i())),
+    Bind((i) => AlimentacaoRegisterController(i(), i(), i(), i())),
+  ];
 
   @override
-  List<ModularRouter> get routers => [
-        ModularRouter(alimentation.routeName,
-            child: (_, args) => AlimentacaoPage()),
-        ModularRouter("/$REGISTER",
-            child: (_, args) => AlimentacaoRegisterPage(args.data)),
-        ModularRouter("alimento/$REGISTER",
-            child: (_, args) => AlimentoRegisterPage()),
-      ];
+  final List<ModularRoute> routes = [
+    ChildRoute(md.alimentation.routeName,
+        child: (_, args) => AlimentacaoPage()),
+    ChildRoute("/$registerStr",
+        child: (_, args) => AlimentacaoRegisterPage(args.data)),
+    ChildRoute("alimento/$registerStr",
+        child: (_, args) => AlimentoRegisterPage()),
+  ];
 }

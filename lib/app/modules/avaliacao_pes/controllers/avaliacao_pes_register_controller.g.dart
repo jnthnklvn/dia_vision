@@ -10,7 +10,7 @@ part of 'avaliacao_pes_register_controller.dart';
 
 mixin _$AvaliacaoPesRegisterController
     on _AvaliacaoPesRegisterControllerBase, Store {
-  Computed<bool> _$isEdicaoComputed;
+  Computed<bool>? _$isEdicaoComputed;
 
   @override
   bool get isEdicao =>
@@ -22,13 +22,13 @@ mixin _$AvaliacaoPesRegisterController
       Atom(name: '_AvaliacaoPesRegisterControllerBase.usaProtetorSolarPes');
 
   @override
-  bool get usaProtetorSolarPes {
+  bool? get usaProtetorSolarPes {
     _$usaProtetorSolarPesAtom.reportRead();
     return super.usaProtetorSolarPes;
   }
 
   @override
-  set usaProtetorSolarPes(bool value) {
+  set usaProtetorSolarPes(bool? value) {
     _$usaProtetorSolarPesAtom.reportWrite(value, super.usaProtetorSolarPes, () {
       super.usaProtetorSolarPes = value;
     });
@@ -38,13 +38,13 @@ mixin _$AvaliacaoPesRegisterController
       Atom(name: '_AvaliacaoPesRegisterControllerBase.dataUltimaConsulta');
 
   @override
-  String get dataUltimaConsulta {
+  String? get dataUltimaConsulta {
     _$dataUltimaConsultaAtom.reportRead();
     return super.dataUltimaConsulta;
   }
 
   @override
-  set dataUltimaConsulta(String value) {
+  set dataUltimaConsulta(String? value) {
     _$dataUltimaConsultaAtom.reportWrite(value, super.dataUltimaConsulta, () {
       super.dataUltimaConsulta = value;
     });
@@ -54,13 +54,13 @@ mixin _$AvaliacaoPesRegisterController
       Atom(name: '_AvaliacaoPesRegisterControllerBase.temperaturaLavagem');
 
   @override
-  String get temperaturaLavagem {
+  String? get temperaturaLavagem {
     _$temperaturaLavagemAtom.reportRead();
     return super.temperaturaLavagem;
   }
 
   @override
-  set temperaturaLavagem(String value) {
+  set temperaturaLavagem(String? value) {
     _$temperaturaLavagemAtom.reportWrite(value, super.temperaturaLavagem, () {
       super.temperaturaLavagem = value;
     });
@@ -70,13 +70,13 @@ mixin _$AvaliacaoPesRegisterController
       Atom(name: '_AvaliacaoPesRegisterControllerBase.checaAntesCalcar');
 
   @override
-  bool get checaAntesCalcar {
+  bool? get checaAntesCalcar {
     _$checaAntesCalcarAtom.reportRead();
     return super.checaAntesCalcar;
   }
 
   @override
-  set checaAntesCalcar(bool value) {
+  set checaAntesCalcar(bool? value) {
     _$checaAntesCalcarAtom.reportWrite(value, super.checaAntesCalcar, () {
       super.checaAntesCalcar = value;
     });
@@ -86,13 +86,13 @@ mixin _$AvaliacaoPesRegisterController
       Atom(name: '_AvaliacaoPesRegisterControllerBase.pontosVermelhos');
 
   @override
-  bool get pontosVermelhos {
+  bool? get pontosVermelhos {
     _$pontosVermelhosAtom.reportRead();
     return super.pontosVermelhos;
   }
 
   @override
-  set pontosVermelhos(bool value) {
+  set pontosVermelhos(bool? value) {
     _$pontosVermelhosAtom.reportWrite(value, super.pontosVermelhos, () {
       super.pontosVermelhos = value;
     });
@@ -102,13 +102,13 @@ mixin _$AvaliacaoPesRegisterController
       Atom(name: '_AvaliacaoPesRegisterControllerBase.rachaduras');
 
   @override
-  bool get rachaduras {
+  bool? get rachaduras {
     _$rachadurasAtom.reportRead();
     return super.rachaduras;
   }
 
   @override
-  set rachaduras(bool value) {
+  set rachaduras(bool? value) {
     _$rachadurasAtom.reportWrite(value, super.rachaduras, () {
       super.rachaduras = value;
     });
@@ -118,13 +118,13 @@ mixin _$AvaliacaoPesRegisterController
       Atom(name: '_AvaliacaoPesRegisterControllerBase.hidratados');
 
   @override
-  bool get hidratados {
+  bool? get hidratados {
     _$hidratadosAtom.reportRead();
     return super.hidratados;
   }
 
   @override
-  set hidratados(bool value) {
+  set hidratados(bool? value) {
     _$hidratadosAtom.reportWrite(value, super.hidratados, () {
       super.hidratados = value;
     });
@@ -134,13 +134,13 @@ mixin _$AvaliacaoPesRegisterController
       Atom(name: '_AvaliacaoPesRegisterControllerBase.cortaUnhas');
 
   @override
-  bool get cortaUnhas {
+  bool? get cortaUnhas {
     _$cortaUnhasAtom.reportRead();
     return super.cortaUnhas;
   }
 
   @override
-  set cortaUnhas(bool value) {
+  set cortaUnhas(bool? value) {
     _$cortaUnhasAtom.reportWrite(value, super.cortaUnhas, () {
       super.cortaUnhas = value;
     });
@@ -149,13 +149,13 @@ mixin _$AvaliacaoPesRegisterController
   final _$calosAtom = Atom(name: '_AvaliacaoPesRegisterControllerBase.calos');
 
   @override
-  bool get calos {
+  bool? get calos {
     _$calosAtom.reportRead();
     return super.calos;
   }
 
   @override
-  set calos(bool value) {
+  set calos(bool? value) {
     _$calosAtom.reportWrite(value, super.calos, () {
       super.calos = value;
     });
@@ -164,13 +164,13 @@ mixin _$AvaliacaoPesRegisterController
   final _$lavouAtom = Atom(name: '_AvaliacaoPesRegisterControllerBase.lavou');
 
   @override
-  bool get lavou {
+  bool? get lavou {
     _$lavouAtom.reportRead();
     return super.lavou;
   }
 
   @override
-  set lavou(bool value) {
+  set lavou(bool? value) {
     _$lavouAtom.reportWrite(value, super.lavou, () {
       super.lavou = value;
     });
@@ -179,13 +179,13 @@ mixin _$AvaliacaoPesRegisterController
   final _$secouAtom = Atom(name: '_AvaliacaoPesRegisterControllerBase.secou');
 
   @override
-  bool get secou {
+  bool? get secou {
     _$secouAtom.reportRead();
     return super.secou;
   }
 
   @override
-  set secou(bool value) {
+  set secou(bool? value) {
     _$secouAtom.reportWrite(value, super.secou, () {
       super.secou = value;
     });
@@ -227,7 +227,7 @@ mixin _$AvaliacaoPesRegisterController
       ActionController(name: '_AvaliacaoPesRegisterControllerBase');
 
   @override
-  void setUsaProtetorSolarPes(bool newValue) {
+  void setUsaProtetorSolarPes(bool? newValue) {
     final _$actionInfo =
         _$_AvaliacaoPesRegisterControllerBaseActionController.startAction(
             name: '_AvaliacaoPesRegisterControllerBase.setUsaProtetorSolarPes');
@@ -240,7 +240,7 @@ mixin _$AvaliacaoPesRegisterController
   }
 
   @override
-  void setDataUltimaConsulta(String newValue) {
+  void setDataUltimaConsulta(String? newValue) {
     final _$actionInfo =
         _$_AvaliacaoPesRegisterControllerBaseActionController.startAction(
             name: '_AvaliacaoPesRegisterControllerBase.setDataUltimaConsulta');
@@ -253,7 +253,7 @@ mixin _$AvaliacaoPesRegisterController
   }
 
   @override
-  void setTemperaturaLavagem(String newValue) {
+  void setTemperaturaLavagem(String? newValue) {
     final _$actionInfo =
         _$_AvaliacaoPesRegisterControllerBaseActionController.startAction(
             name: '_AvaliacaoPesRegisterControllerBase.setTemperaturaLavagem');
@@ -266,7 +266,7 @@ mixin _$AvaliacaoPesRegisterController
   }
 
   @override
-  void setChecaAntesCalcar(bool newValue) {
+  void setChecaAntesCalcar(bool? newValue) {
     final _$actionInfo =
         _$_AvaliacaoPesRegisterControllerBaseActionController.startAction(
             name: '_AvaliacaoPesRegisterControllerBase.setChecaAntesCalcar');
@@ -279,7 +279,7 @@ mixin _$AvaliacaoPesRegisterController
   }
 
   @override
-  void setPontosVermelhos(bool newValue) {
+  void setPontosVermelhos(bool? newValue) {
     final _$actionInfo =
         _$_AvaliacaoPesRegisterControllerBaseActionController.startAction(
             name: '_AvaliacaoPesRegisterControllerBase.setPontosVermelhos');
@@ -292,7 +292,7 @@ mixin _$AvaliacaoPesRegisterController
   }
 
   @override
-  void setRachaduras(bool newValue) {
+  void setRachaduras(bool? newValue) {
     final _$actionInfo = _$_AvaliacaoPesRegisterControllerBaseActionController
         .startAction(name: '_AvaliacaoPesRegisterControllerBase.setRachaduras');
     try {
@@ -304,7 +304,7 @@ mixin _$AvaliacaoPesRegisterController
   }
 
   @override
-  void setHidratados(bool newValue) {
+  void setHidratados(bool? newValue) {
     final _$actionInfo = _$_AvaliacaoPesRegisterControllerBaseActionController
         .startAction(name: '_AvaliacaoPesRegisterControllerBase.setHidratados');
     try {
@@ -316,7 +316,7 @@ mixin _$AvaliacaoPesRegisterController
   }
 
   @override
-  void setCortaUnhas(bool newValue) {
+  void setCortaUnhas(bool? newValue) {
     final _$actionInfo = _$_AvaliacaoPesRegisterControllerBaseActionController
         .startAction(name: '_AvaliacaoPesRegisterControllerBase.setCortaUnhas');
     try {
@@ -328,7 +328,7 @@ mixin _$AvaliacaoPesRegisterController
   }
 
   @override
-  void setCalos(bool newValue) {
+  void setCalos(bool? newValue) {
     final _$actionInfo = _$_AvaliacaoPesRegisterControllerBaseActionController
         .startAction(name: '_AvaliacaoPesRegisterControllerBase.setCalos');
     try {
@@ -340,7 +340,7 @@ mixin _$AvaliacaoPesRegisterController
   }
 
   @override
-  void setLavou(bool newValue) {
+  void setLavou(bool? newValue) {
     final _$actionInfo = _$_AvaliacaoPesRegisterControllerBaseActionController
         .startAction(name: '_AvaliacaoPesRegisterControllerBase.setLavou');
     try {
@@ -352,7 +352,7 @@ mixin _$AvaliacaoPesRegisterController
   }
 
   @override
-  void setSecou(bool newValue) {
+  void setSecou(bool? newValue) {
     final _$actionInfo = _$_AvaliacaoPesRegisterControllerBaseActionController
         .startAction(name: '_AvaliacaoPesRegisterControllerBase.setSecou');
     try {

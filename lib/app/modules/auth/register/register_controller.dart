@@ -15,19 +15,20 @@ abstract class _RegisterControllerBase with Store {
   _RegisterControllerBase(this._userRepository, this._utils);
 
   @observable
-  String email;
+  String? email;
   @observable
-  String password;
+  String? password;
   @observable
   bool isPasswordHide = true;
   @observable
   bool isLoading = false;
 
   @computed
-  String get emailError => _utils.isValidEmail(email) ? null : "Email inválido";
+  String? get emailError =>
+      _utils.isValidEmail(email) ? null : "Email inválido";
 
   @computed
-  String get passwordError => password != null && password.length < 4
+  String? get passwordError => password != null && password!.length < 4
       ? "Deve ter pelo menos 4 digitos"
       : null;
 
@@ -39,10 +40,10 @@ abstract class _RegisterControllerBase with Store {
       passwordError == null;
 
   @action
-  void setEmail(String newEmail) => email = newEmail;
+  void setEmail(String? newEmail) => email = newEmail;
 
   @action
-  void setPassword(String newPassword) => password = newPassword;
+  void setPassword(String? newPassword) => password = newPassword;
 
   @action
   void setIsPasswordHide() => isPasswordHide = !isPasswordHide;
@@ -54,7 +55,7 @@ abstract class _RegisterControllerBase with Store {
 
     try {
       final result = await _userRepository
-          .signUp(User(email, password: password, email: email));
+          .signUp(User(username: email, password: password, email: email));
       result.fold((l) => onError(l.message), (r) => onSuccess());
     } catch (e) {
       onError(e.toString());

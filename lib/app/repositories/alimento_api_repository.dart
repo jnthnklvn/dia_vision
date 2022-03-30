@@ -1,6 +1,8 @@
 import 'package:dia_vision/app/shared/utils/http_connection.dart';
 import 'package:dia_vision/app/errors/alimento_failure.dart';
+import 'package:dia_vision/app/shared/utils/strings.dart';
 import 'package:dia_vision/app/model/alimento.dart';
+
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 
@@ -15,13 +17,16 @@ class AlimentoAPIRepository {
       String alimento) async {
     final response = await _dio.get(_endpoint + alimento);
 
-    if (response.statusCode == HTTP_OK) {
-      final items = response?.data["items"];
+    if (response.statusCode == httpOk) {
+      final items = response.data["items"];
       return Right(items?.map<Alimento>((r) => toModel(r))?.toList());
     } else {
-      return Left(AlimentoFailure(response.statusMessage, response.statusCode));
+      return Left(AlimentoFailure(
+        response.statusMessage ?? unknowError,
+        response.statusCode ?? -2,
+      ));
     }
   }
 
-  Alimento toModel(Map map) => Alimento().fromAPIJson(map);
+  Alimento toModel(Map<String, dynamic> map) => Alimento().fromAPIJson(map);
 }
