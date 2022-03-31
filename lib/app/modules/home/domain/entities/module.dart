@@ -32,7 +32,7 @@ final selfCare = ModuleItem(
   RouteEnum.selfCare.name,
   false,
 );
-final medicalCenters = ModuleItem(
+final medicalCentersModule = ModuleItem(
   "Centros de Saúde",
   "assets/images/medical-center.png",
   false,
@@ -87,10 +87,9 @@ List<ModuleItem> modules = [
   vision,
   exercises,
   selfCare,
-  medicalCenters,
+  medicalCentersModule,
   glicemy,
   medications,
   feet,
-  // doctors,
   kidney,
 ];

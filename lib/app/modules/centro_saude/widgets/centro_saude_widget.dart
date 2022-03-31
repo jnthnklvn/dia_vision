@@ -34,7 +34,7 @@ class CentroSaudeWidget extends StatelessWidget with DateUtil {
 
     return InkWell(
       onTap: () => Modular.to.pushNamed(
-        "${medicalCenters.routeName}/page",
+        "${medicalCentersModule.routeName}/page",
         arguments: _centroSaude,
       ),
       onLongPress: () => Modular.get<FlutterTts>().speak(

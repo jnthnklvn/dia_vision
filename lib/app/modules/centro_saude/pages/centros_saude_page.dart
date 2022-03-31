@@ -42,7 +42,7 @@ class _CentrosSaudePageState
       key: scaffoldKey,
       floatingActionButton: FloatingAddButton(
         "$buttonStr $suggestStr $medicalCenterTitle",
-        "${medicalCenters.routeName}/$registerStr",
+        "${medicalCentersModule.routeName}/$registerStr",
       ),
       appBar: AppBar(
         leading: const BackArrowButton(iconPadding: 5),

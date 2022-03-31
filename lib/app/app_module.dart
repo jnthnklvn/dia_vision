@@ -41,7 +41,7 @@ class AppModule extends Module {
   @override
   final List<ModularRoute> routes = [
     ModuleRoute(RouteEnum.home.name, module: HomeModule()),
-    ChildRoute(RouteEnum.splash.name, child: (_, args) => IntroPage()),
+    ChildRoute(RouteEnum.splash.name, child: (_, args) => const IntroPage()),
     ModuleRoute(RouteEnum.auth.name, module: AuthModule()),
     ModuleRoute(RouteEnum.profile.name, module: ProfileModule()),
     ModuleRoute(RouteEnum.medications.name, module: MedicationsModule()),

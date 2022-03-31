@@ -22,7 +22,7 @@ class CentroSaudeModule extends Module {
 
   @override
   final List<ModularRoute> routes = [
-    ChildRoute(medicalCenters.routeName,
+    ChildRoute(medicalCentersModule.routeName,
         child: (_, args) => CentrosSaudePage()),
     ChildRoute("/$registerStr",
         child: (_, args) => CentroSaudeRegisterPage(args.data)),
