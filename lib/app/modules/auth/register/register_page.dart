@@ -16,22 +16,19 @@ class RegisterPage extends StatefulWidget with ScaffoldUtils {
   RegisterPage({Key? key}) : super(key: key);
 
   @override
-  _RegisterPageState createState() => _RegisterPageState(scaffoldKey);
+  _RegisterPageState createState() => _RegisterPageState();
 }
 
 class _RegisterPageState extends ModularState<RegisterPage, RegisterController>
     with SingleTickerProviderStateMixin {
-  final GlobalKey<ScaffoldState> scaffoldKey;
   final _focusNode1 = FocusNode();
   final _focusNode2 = FocusNode();
-
-  _RegisterPageState(this.scaffoldKey);
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      key: scaffoldKey,
+      key: widget.scaffoldKey,
       body: Container(
         width: double.infinity,
         height: size.height,
@@ -82,8 +79,8 @@ class _RegisterPageState extends ModularState<RegisterPage, RegisterController>
                             controller.setPassword(null);
                             controller.setEmail(null);
                             await Future.delayed(const Duration(seconds: 1));
-                            Modular.to
-                                .pushReplacementNamed(RouteEnum.home.name);
+                            Modular.to.pushReplacementNamed(
+                                '${RouteEnum.home.name}/');
                           },
                         ),
                       ),

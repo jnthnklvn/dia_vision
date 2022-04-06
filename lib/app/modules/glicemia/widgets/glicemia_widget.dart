@@ -12,7 +12,7 @@ import 'package:flutter/material.dart';
 class GlicemiaWidget extends StatelessWidget with DateUtil {
   final Glicemia _glicemia;
 
-  const GlicemiaWidget(this._glicemia);
+  GlicemiaWidget(this._glicemia, {Key? key}) : super(key: key);
 
   String? getFullString(String? fieldName, String? text) {
     if (text?.isNotEmpty != true) return null;
@@ -39,7 +39,7 @@ class GlicemiaWidget extends StatelessWidget with DateUtil {
 
     return InkWell(
       onTap: () => Modular.to.pushNamed(
-        "${glicemy.routeName}/$registerStr",
+        "${glicemy.routeName}/$registerStr/",
         arguments: _glicemia,
       ),
       onLongPress: () => Modular.get<FlutterTts>().speak(stringToSpeak),

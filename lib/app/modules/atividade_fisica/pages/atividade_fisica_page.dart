@@ -21,17 +21,13 @@ class AtividadeFisicaPage extends StatefulWidget with ScaffoldUtils {
   AtividadeFisicaPage({Key? key}) : super(key: key);
 
   @override
-  _AtividadeFisicaPageState createState() =>
-      _AtividadeFisicaPageState(scaffoldKey);
+  _AtividadeFisicaPageState createState() => _AtividadeFisicaPageState();
 }
 
 class _AtividadeFisicaPageState
     extends ModularState<AtividadeFisicaPage, AtividadeFisicaController>
     with DateUtil {
   Future _speak(String txt) => Modular.get<FlutterTts>().speak(txt);
-  final GlobalKey<ScaffoldState> scaffoldKey;
-
-  _AtividadeFisicaPageState(this.scaffoldKey);
 
   @override
   void initState() {
@@ -52,10 +48,10 @@ class _AtividadeFisicaPageState
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      key: scaffoldKey,
+      key: widget.scaffoldKey,
       floatingActionButton: FloatingAddButton(
         "$buttonStr $registerStr $exercisesStr",
-        "${exercises.routeName}/$registerStr",
+        "${exercises.routeName}/$registerStr/",
       ),
       appBar: AppBar(
         actions: [

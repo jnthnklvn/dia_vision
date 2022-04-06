@@ -1,5 +1,6 @@
 import 'package:dia_vision/app/modules/alimentacao/controllers/alimentacao_register_controller.dart';
 import 'package:dia_vision/app/modules/alimentacao/controllers/alimento_controller.dart';
+import 'package:dia_vision/app/shared/components/floating_options_button.dart';
 import 'package:dia_vision/app/shared/components/text_field_container.dart';
 import 'package:dia_vision/app/shared/components/ink_well_speak_text.dart';
 import 'package:dia_vision/app/shared/components/rounded_input_field.dart';
@@ -19,21 +20,18 @@ import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 
 class AlimentacaoRegisterPage extends StatefulWidget with ScaffoldUtils {
-  final Alimentacao alimentacao;
+  final Alimentacao? alimentacao;
 
   AlimentacaoRegisterPage(this.alimentacao, {Key? key}) : super(key: key);
 
   @override
   _AlimentacaoRegisterPageState createState() =>
-      _AlimentacaoRegisterPageState(scaffoldKey);
+      _AlimentacaoRegisterPageState();
 }
 
 class _AlimentacaoRegisterPageState extends ModularState<
     AlimentacaoRegisterPage, AlimentacaoRegisterController> {
-  final GlobalKey<ScaffoldState> scaffoldKey;
   final alimentoController = Modular.get<AlimentoController>();
-
-  _AlimentacaoRegisterPageState(this.scaffoldKey);
 
   final focusNode = FocusNode();
 
@@ -52,13 +50,13 @@ class _AlimentacaoRegisterPageState extends ModularState<
     caloriasController = TextEditingController(text: controller.calorias);
   }
 
-  Future _speak(String txt) => Modular.get<FlutterTts>().speak(txt);
-
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      key: scaffoldKey,
+      key: widget.scaffoldKey,
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: FloatingOptionsButton(),
       appBar: AppBar(
         leading: const BackArrowButton(iconPadding: 5),
         title: const InkWellSpeakText(
@@ -75,7 +73,7 @@ class _AlimentacaoRegisterPageState extends ModularState<
       body: Container(
         width: double.infinity,
         height: size.height,
-        color: Colors.white,
+        color: Theme.of(context).backgroundColor,
         padding: const EdgeInsets.only(top: 10),
         child: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
@@ -87,13 +85,14 @@ class _AlimentacaoRegisterPageState extends ModularState<
               }),
               InkWell(
                 onTap: () => Modular.to.pushNamed(
-                    "${alimentation.routeName}/alimento/$registerStr"),
-                onLongPress: () => _speak("Toque para adicionar alimento"),
-                child: const TextFieldContainer(
+                    "${alimentation.routeName}/alimento/$registerStr/"),
+                onLongPress: () =>
+                    widget.speak("Toque para adicionar alimento"),
+                child: TextFieldContainer(
                   height: 68,
                   child: ListTile(
-                    contentPadding: EdgeInsets.all(0),
-                    leading: Icon(
+                    contentPadding: const EdgeInsets.all(0),
+                    leading: const Icon(
                       Icons.add,
                       color: kPrimaryColor,
                       size: 42,
@@ -103,7 +102,7 @@ class _AlimentacaoRegisterPageState extends ModularState<
                       style: TextStyle(
                         fontWeight: FontWeight.w500,
                         fontSize: 18,
-                        color: Colors.black54,
+                        color: Theme.of(context).textTheme.bodyText1?.color,
                       ),
                     ),
                   ),
@@ -198,7 +197,7 @@ class _AlimentacaoRegisterPageState extends ModularState<
   InkWell buildAlimentoWidget(String nome, String marca, String calorias) {
     return InkWell(
       onTap: () => _showMyDialog(nome, marca),
-      onLongPress: () => _speak(
+      onLongPress: () => widget.speak(
           "${getTextAndField('Nome', nome)} ${getTextAndField('Marca', marca)} ${getTextAndField('Calorias consumidas', calorias)}"),
       child: TextFieldContainer(
         child: ListTile(
@@ -216,7 +215,9 @@ class _AlimentacaoRegisterPageState extends ModularState<
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 7),
       width: size.width * 0.9,
       decoration: BoxDecoration(
-        color: kPrimaryLightColor,
+        color: Theme.of(context).brightness == Brightness.dark
+            ? const Color.fromARGB(246, 36, 36, 36)
+            : kPrimaryLightColor,
         borderRadius: BorderRadius.circular(29),
       ),
       child: ListTile(

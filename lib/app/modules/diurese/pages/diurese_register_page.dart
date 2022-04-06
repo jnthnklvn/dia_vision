@@ -21,17 +21,13 @@ class DiureseRegisterPage extends StatefulWidget with ScaffoldUtils {
   DiureseRegisterPage(this.diurese, {Key? key}) : super(key: key);
 
   @override
-  _DiureseRegisterPageState createState() =>
-      _DiureseRegisterPageState(scaffoldKey);
+  _DiureseRegisterPageState createState() => _DiureseRegisterPageState();
 }
 
 class _DiureseRegisterPageState
     extends ModularState<DiureseRegisterPage, DiureseRegisterController> {
-  final GlobalKey<ScaffoldState> scaffoldKey;
   final _focusNode1 = FocusNode();
   final _focusNode2 = FocusNode();
-
-  _DiureseRegisterPageState(this.scaffoldKey);
 
   TextEditingController? volumeController;
   TextEditingController? coloracaoController;
@@ -53,7 +49,7 @@ class _DiureseRegisterPageState
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      key: scaffoldKey,
+      key: widget.scaffoldKey,
       appBar: AppBar(
         leading: const BackArrowButton(iconPadding: 5),
         title: const InkWellSpeakText(

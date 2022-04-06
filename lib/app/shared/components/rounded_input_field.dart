@@ -59,6 +59,8 @@ class RoundedInputField extends StatelessWidget {
         decoration: InputDecoration(
           errorText: errorText,
           labelText: hintText,
+          labelStyle:
+              TextStyle(color: Theme.of(context).textTheme.bodyText1?.color),
           suffixIcon: suffixIcon,
           icon: Semantics(
             excludeSemantics: true,
@@ -78,6 +80,8 @@ class RoundedInputField extends StatelessWidget {
                     ),
                   ),
           ),
+          hintStyle:
+              TextStyle(color: Theme.of(context).textTheme.bodyText1?.color),
           hintText: hintText,
           border: InputBorder.none,
         ),

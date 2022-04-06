@@ -37,7 +37,7 @@ class AtividadeFisicaWidget extends StatelessWidget with dt.DateUtil {
 
     return InkWell(
       onTap: () => Modular.to.pushNamed(
-        "${exercises.routeName}/$registerStr",
+        "${exercises.routeName}/$registerStr/",
         arguments: _atividadeFisica,
       ),
       onLongPress: () => Modular.get<FlutterTts>().speak(

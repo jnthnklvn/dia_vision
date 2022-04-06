@@ -52,7 +52,7 @@ class AvaliacaoPesWidget extends StatelessWidget with DateUtil {
 
     return InkWell(
       onTap: () => Modular.to.pushNamed(
-        "${feet.routeName}/$registerStr",
+        "${feet.routeName}/$registerStr/",
         arguments: _avaliacaoPes,
       ),
       onLongPress: () => Modular.get<FlutterTts>().speak(stringToSpeak),

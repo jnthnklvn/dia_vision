@@ -1,5 +1,3 @@
-import 'package:dia_vision/app/shared/utils/constants.dart';
-
 import 'package:flutter/material.dart';
 
 class TextFieldContainer extends StatelessWidget {
@@ -21,7 +19,9 @@ class TextFieldContainer extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 20),
       width: size.width * 0.9,
       decoration: BoxDecoration(
-        color: kPrimaryLightColor,
+        color: Theme.of(context).brightness == Brightness.dark
+            ? const Color.fromARGB(246, 36, 36, 36)
+            : const Color(0xFFF5F6F9),
         borderRadius: BorderRadius.circular(29),
       ),
       child: child,

@@ -1,3 +1,4 @@
+import 'package:dia_vision/app/shared/components/floating_options_button.dart';
 import 'package:dia_vision/app/shared/components/ink_well_speak_text.dart';
 import 'package:dia_vision/app/shared/components/rounded_input_field.dart';
 import 'package:dia_vision/app/shared/components/back_arrow_button.dart';
@@ -17,12 +18,11 @@ class MyDataPage extends StatefulWidget with ScaffoldUtils {
   MyDataPage({Key? key}) : super(key: key);
 
   @override
-  _MyDataPageState createState() => _MyDataPageState(scaffoldKey);
+  _MyDataPageState createState() => _MyDataPageState();
 }
 
 class _MyDataPageState extends ModularState<MyDataPage, MyDataController>
     with SingleTickerProviderStateMixin {
-  final GlobalKey<ScaffoldState>? scaffoldKey;
   final _focusNode1 = FocusNode();
   final _focusNode2 = FocusNode();
   final _focusNode3 = FocusNode();
@@ -36,8 +36,6 @@ class _MyDataPageState extends ModularState<MyDataPage, MyDataController>
   TextEditingController? pesoController;
   TextEditingController? alturaController;
   TextEditingController? telefoneController;
-
-  _MyDataPageState(this.scaffoldKey);
 
   @override
   void initState() {
@@ -56,9 +54,11 @@ class _MyDataPageState extends ModularState<MyDataPage, MyDataController>
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
+    final size = MediaQuery.of(context).size;
     return Scaffold(
-      key: scaffoldKey,
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: FloatingOptionsButton(),
+      key: widget.scaffoldKey,
       appBar: AppBar(
         leading: const BackArrowButton(iconPadding: 5),
         title: const InkWellSpeakText(
@@ -75,7 +75,7 @@ class _MyDataPageState extends ModularState<MyDataPage, MyDataController>
       body: Container(
         width: double.infinity,
         height: size.height,
-        color: Colors.white,
+        color: Theme.of(context).backgroundColor,
         padding: const EdgeInsets.only(top: 10),
         child: Observer(builder: (_) {
           if (!controller.isDataReady) {

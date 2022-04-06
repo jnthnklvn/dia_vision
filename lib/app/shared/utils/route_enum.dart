@@ -21,5 +21,5 @@ enum RouteEnum {
 }
 
 extension RouteEnumExtension on RouteEnum {
-  String get name => "/" + toString().replaceAll('RouteEnum.', '');
+  String get name => "/${toString().replaceAll('RouteEnum.', '')}";
 }

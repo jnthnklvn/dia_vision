@@ -17,16 +17,12 @@ class AutocuidadosPage extends StatefulWidget with ScaffoldUtils {
   AutocuidadosPage({Key? key}) : super(key: key);
 
   @override
-  _AutocuidadosPageState createState() => _AutocuidadosPageState(scaffoldKey);
+  _AutocuidadosPageState createState() => _AutocuidadosPageState();
 }
 
 class _AutocuidadosPageState
     extends ModularState<AutocuidadosPage, AutocuidadoController>
     with DateUtil {
-  final GlobalKey<ScaffoldState> scaffoldKey;
-
-  _AutocuidadosPageState(this.scaffoldKey);
-
   @override
   void didChangeDependencies() {
     controller.getData(widget.onError);
@@ -39,7 +35,7 @@ class _AutocuidadosPageState
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      key: scaffoldKey,
+      key: widget.scaffoldKey,
       appBar: AppBar(
         leading: const BackArrowButton(iconPadding: 5),
         title: const InkWellSpeakText(

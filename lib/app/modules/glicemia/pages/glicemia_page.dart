@@ -15,7 +15,6 @@ import 'package:flutter/semantics.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:flutter_tts/flutter_tts.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:flutter/material.dart';
 
@@ -23,16 +22,11 @@ class GlicemiaPage extends StatefulWidget with ScaffoldUtils {
   GlicemiaPage({Key? key}) : super(key: key);
 
   @override
-  _GlicemiaPageState createState() => _GlicemiaPageState(scaffoldKey);
+  _GlicemiaPageState createState() => _GlicemiaPageState();
 }
 
 class _GlicemiaPageState extends ModularState<GlicemiaPage, GlicemiaController>
     with DateUtil {
-  Future _speak(String txt) => Modular.get<FlutterTts>().speak(txt);
-  final GlobalKey<ScaffoldState> scaffoldKey;
-
-  _GlicemiaPageState(this.scaffoldKey);
-
   @override
   void initState() {
     super.initState();
@@ -59,7 +53,7 @@ class _GlicemiaPageState extends ModularState<GlicemiaPage, GlicemiaController>
           'Limites de glicemia',
           'Você ainda não definiu os valores minimo e máximo para glicemia. O valor padrão de 120 mg/dL para máxima e 70 mg/dL para minima está sendo utilizado. Gostaria de defini-los agora?',
           onCancell: () {
-            Modular.to.pushNamed("${glicemy.routeName}/$registerStr");
+            Modular.to.pushNamed("${glicemy.routeName}/$registerStr/");
             controller.setIsValorPadraoGlicemia(false);
           },
         );
@@ -71,12 +65,12 @@ class _GlicemiaPageState extends ModularState<GlicemiaPage, GlicemiaController>
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      key: scaffoldKey,
+      key: widget.scaffoldKey,
       floatingActionButton: FloatingAddButton(
         "$buttonStr $addStr $registryStr",
         "${glicemy.routeName}/$registerStr",
         onPressed: () => controller.isValorPadraoGlicemia == false
-            ? Modular.to.pushNamed("${glicemy.routeName}/$registerStr")
+            ? Modular.to.pushNamed("${glicemy.routeName}/$registerStr/")
             : _showMyDialog(),
       ),
       appBar: AppBar(
@@ -84,7 +78,8 @@ class _GlicemiaPageState extends ModularState<GlicemiaPage, GlicemiaController>
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: InkWell(
-              onLongPress: () => _speak("$buttonStr $shareStr $registryStr"),
+              onLongPress: () =>
+                  widget.speak("$buttonStr $shareStr $registryStr"),
               onTap: saveRelatorioCsv,
               child: const Icon(
                 Icons.share,

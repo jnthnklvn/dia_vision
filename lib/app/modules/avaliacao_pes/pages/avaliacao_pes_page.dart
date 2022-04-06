@@ -13,7 +13,6 @@ import 'package:flutter/semantics.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:flutter_tts/flutter_tts.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:flutter/material.dart';
 
@@ -21,17 +20,12 @@ class AvaliacaoPesPage extends StatefulWidget with ScaffoldUtils {
   AvaliacaoPesPage({Key? key}) : super(key: key);
 
   @override
-  _AvaliacaoPesPageState createState() => _AvaliacaoPesPageState(scaffoldKey);
+  _AvaliacaoPesPageState createState() => _AvaliacaoPesPageState();
 }
 
 class _AvaliacaoPesPageState
     extends ModularState<AvaliacaoPesPage, AvaliacaoPesController>
     with DateUtil {
-  Future _speak(String txt) => Modular.get<FlutterTts>().speak(txt);
-  final GlobalKey<ScaffoldState> scaffoldKey;
-
-  _AvaliacaoPesPageState(this.scaffoldKey);
-
   @override
   void initState() {
     super.initState();
@@ -51,7 +45,7 @@ class _AvaliacaoPesPageState
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      key: scaffoldKey,
+      key: widget.scaffoldKey,
       floatingActionButton: FloatingAddButton(
         "$buttonStr $addStr $registryStr",
         "${feet.routeName}/$registerStr",
@@ -61,7 +55,8 @@ class _AvaliacaoPesPageState
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: InkWell(
-              onLongPress: () => _speak("$buttonStr $shareStr $registryStr"),
+              onLongPress: () =>
+                  widget.speak("$buttonStr $shareStr $registryStr"),
               onTap: saveRelatorioCsv,
               child: const Icon(
                 Icons.share,

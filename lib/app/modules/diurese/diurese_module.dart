@@ -1,4 +1,3 @@
-import 'package:dia_vision/app/modules/home/domain/entities/module.dart';
 import 'package:dia_vision/app/repositories/diurese_repository.dart';
 import 'package:dia_vision/app/shared/utils/strings.dart';
 
@@ -19,8 +18,8 @@ class DiureseModule extends Module {
 
   @override
   final List<ModularRoute> routes = [
-    ChildRoute(kidney.routeName, child: (_, args) => DiuresePage()),
-    ChildRoute("/$registerStr",
+    ChildRoute('/', child: (_, args) => DiuresePage()),
+    ChildRoute("/$registerStr/",
         child: (_, args) => DiureseRegisterPage(args.data)),
   ];
 }

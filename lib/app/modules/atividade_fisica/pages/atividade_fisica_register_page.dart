@@ -16,22 +16,18 @@ import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 
 class AtividadeFisicaRegisterPage extends StatefulWidget with ScaffoldUtils {
-  final AtividadeFisica atividadeFisica;
+  final AtividadeFisica? atividadeFisica;
 
   AtividadeFisicaRegisterPage(this.atividadeFisica, {Key? key})
       : super(key: key);
 
   @override
   _AtividadeFisicaRegisterPageState createState() =>
-      _AtividadeFisicaRegisterPageState(scaffoldKey);
+      _AtividadeFisicaRegisterPageState();
 }
 
 class _AtividadeFisicaRegisterPageState extends ModularState<
     AtividadeFisicaRegisterPage, AtividadeFisicaRegisterController> {
-  final GlobalKey<ScaffoldState> scaffoldKey;
-
-  _AtividadeFisicaRegisterPageState(this.scaffoldKey);
-
   final focusNode = FocusNode();
   final focusNode1 = FocusNode();
 
@@ -58,7 +54,7 @@ class _AtividadeFisicaRegisterPageState extends ModularState<
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      key: scaffoldKey,
+      key: widget.scaffoldKey,
       appBar: AppBar(
         leading: const BackArrowButton(iconPadding: 5),
         title: const InkWellSpeakText(

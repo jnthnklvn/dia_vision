@@ -53,10 +53,9 @@ class Paciente extends ParseObject implements ParseCloneable {
   num? get altura => get<num?>(kAltura);
   set altura(num? altura) => set<num?>(kAltura, altura);
 
-  User? get user {
-    final userAux = get<ParseUser?>(keyUser)?.toJson();
-    return userAux != null ? (User.clone()..fromJson(userAux)) : null;
+  ParseUser? get user {
+    return get<ParseUser?>(keyUser);
   }
 
-  set user(User? user) => set(keyUser, user);
+  set user(ParseUser? user) => set(keyUser, user);
 }

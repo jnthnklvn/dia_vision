@@ -1,5 +1,6 @@
 import 'package:dia_vision/app/modules/alimentacao/controllers/alimento_controller.dart';
 import 'package:dia_vision/app/modules/alimentacao/components/data_search.dart';
+import 'package:dia_vision/app/shared/components/floating_options_button.dart';
 import 'package:dia_vision/app/shared/components/ink_well_speak_text.dart';
 import 'package:dia_vision/app/shared/components/rounded_input_field.dart';
 import 'package:dia_vision/app/shared/components/back_arrow_button.dart';
@@ -19,15 +20,11 @@ class AlimentoRegisterPage extends StatefulWidget with ScaffoldUtils {
   AlimentoRegisterPage({Key? key}) : super(key: key);
 
   @override
-  _AlimentoRegisterPageState createState() =>
-      _AlimentoRegisterPageState(scaffoldKey);
+  _AlimentoRegisterPageState createState() => _AlimentoRegisterPageState();
 }
 
 class _AlimentoRegisterPageState extends State<AlimentoRegisterPage> {
-  final GlobalKey<ScaffoldState> scaffoldKey;
   final alimentoController = Modular.get<AlimentoController>();
-
-  _AlimentoRegisterPageState(this.scaffoldKey);
 
   final focusNode = FocusNode();
   final focusNode1 = FocusNode();
@@ -47,7 +44,9 @@ class _AlimentoRegisterPageState extends State<AlimentoRegisterPage> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      key: scaffoldKey,
+      key: widget.scaffoldKey,
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: FloatingOptionsButton(),
       appBar: AppBar(
         leading: const BackArrowButton(iconPadding: 5),
         title: InkWell(
@@ -79,7 +78,7 @@ class _AlimentoRegisterPageState extends State<AlimentoRegisterPage> {
       body: Container(
         width: double.infinity,
         height: size.height,
-        color: Colors.white,
+        color: Theme.of(context).backgroundColor,
         padding: const EdgeInsets.only(top: 10),
         child: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),

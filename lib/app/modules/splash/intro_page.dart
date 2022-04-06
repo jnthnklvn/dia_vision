@@ -17,7 +17,7 @@ class IntroPage extends StatelessWidget {
     final isAppFirstRun =
         await Modular.get<ConfigPreferences>().getIsAppFirstRun() ?? true;
     if (!isAppFirstRun) {
-      Modular.to.pushReplacementNamed(RouteEnum.auth.name);
+      Modular.to.pushReplacementNamed('${RouteEnum.auth.name}/');
     }
   }
 
@@ -98,6 +98,6 @@ class IntroPage extends StatelessWidget {
 
   void onDone() {
     Modular.get<ConfigPreferences>().setIsAppFirstRun(false);
-    Modular.to.pushReplacementNamed(RouteEnum.auth.name);
+    Modular.to.pushReplacementNamed('${RouteEnum.auth.name}/');
   }
 }

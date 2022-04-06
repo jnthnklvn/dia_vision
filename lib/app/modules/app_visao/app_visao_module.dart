@@ -1,4 +1,3 @@
-import 'package:dia_vision/app/modules/home/domain/entities/module.dart' as md;
 import 'package:dia_vision/app/repositories/app_visao_repository.dart';
 import 'package:dia_vision/app/shared/utils/strings.dart';
 
@@ -19,8 +18,8 @@ class AppVisaoModule extends Module {
 
   @override
   final List<ModularRoute> routes = [
-    ChildRoute(md.vision.routeName, child: (_, args) => AppsVisaoPage()),
-    ChildRoute("/$registerStr",
+    ChildRoute('/', child: (_, args) => AppsVisaoPage()),
+    ChildRoute('/$registerStr/',
         child: (_, args) => AppVisaoRegisterPage(args.data)),
   ];
 }

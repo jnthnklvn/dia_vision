@@ -42,7 +42,6 @@ Future<void> initializeParser() async {
     kParseBaseUrl,
     clientKey: kParseClientKey,
     autoSendSessionId: true,
-    // debug: true,
     coreStore: await CoreStoreSembastImp.getInstance(
       appDocDir.path + "/data",
       password: kParseApplicationId,

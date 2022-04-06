@@ -40,7 +40,7 @@ class DiureseWidget extends StatelessWidget with DateUtil {
 
     return InkWell(
       onTap: () => Modular.to.pushNamed(
-        "${kidney.routeName}/$registerStr",
+        "${kidney.routeName}/$registerStr/",
         arguments: _diurese,
       ),
       onLongPress: () => Modular.get<FlutterTts>().speak(stringToSpeak),

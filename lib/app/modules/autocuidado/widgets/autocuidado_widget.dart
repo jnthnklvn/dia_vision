@@ -68,7 +68,7 @@ class AutocuidadoWidget extends StatelessWidget {
 
     return InkWell(
       onTap: () => Modular.to.pushNamed(
-        "${selfCare.routeName}/$selfCareArticleRoute",
+        "${selfCare.routeName}/$selfCareArticleRoute/",
         arguments: _autocuidado,
       ),
       onLongPress: () => Modular.get<FlutterTts>().speak(stringToSpeak),

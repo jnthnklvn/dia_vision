@@ -66,40 +66,35 @@ abstract class _AtividadeFisicaRegisterControllerBase with Store {
   Future<void> save(Function(String) onError, void Function() onSuccess) async {
     isLoading = true;
 
-    try {
-      final atividadeFisica = AtividadeFisica(
-        tipo: tipo == ExerciseType.outro.name && tipo2?.isNotEmpty == true
-            ? tipo2
-            : tipo,
-      );
-      atividadeFisica.objectId = _atividadeFisica?.objectId;
-      final user = await _appController.currentUser();
-      atividadeFisica.paciente = user!.paciente;
+    final atividadeFisica = AtividadeFisica(
+      tipo: tipo == ExerciseType.outro.name && tipo2?.isNotEmpty == true
+          ? tipo2
+          : tipo,
+    );
+    atividadeFisica.objectId = _atividadeFisica?.objectId;
+    final user = await _appController.currentUser();
+    atividadeFisica.paciente = user!.paciente;
+    atividadeFisica.paciente?.user = null;
 
-      if (distancia != null && tipo != ExerciseType.outro.name) {
-        atividadeFisica.distancia =
-            num.tryParse(distancia!.replaceAll(',', '.'));
-      }
-      if (duracao != null) {
-        atividadeFisica.duracao = num.tryParse(duracao!.replaceAll(',', '.'));
-      }
-
-      final result =
-          await _atividadeFisicaRepository.save(atividadeFisica, user);
-      result.fold((l) => onError(l.message), (r) {
-        final idx = _atividadeFisicaController.atividades
-            .indexWhere((e) => e.objectId == r.objectId);
-        if (idx == -1) {
-          _atividadeFisicaController.atividades.insert(0, r);
-        } else {
-          r.createdAt = _atividadeFisicaController.atividades[idx].createdAt;
-          _atividadeFisicaController.atividades[idx] = r;
-        }
-        onSuccess();
-      });
-    } catch (e) {
-      onError(e.toString());
+    if (distancia != null && tipo != ExerciseType.outro.name) {
+      atividadeFisica.distancia = num.tryParse(distancia!.replaceAll(',', '.'));
     }
+    if (duracao != null) {
+      atividadeFisica.duracao = num.tryParse(duracao!);
+    }
+
+    final result = await _atividadeFisicaRepository.save(atividadeFisica, user);
+    result.fold((l) => onError(l.message), (r) {
+      final idx = _atividadeFisicaController.atividades
+          .indexWhere((e) => e.objectId == r.objectId);
+      if (idx == -1) {
+        _atividadeFisicaController.atividades.insert(0, r);
+      } else {
+        r.createdAt = _atividadeFisicaController.atividades[idx].createdAt;
+        _atividadeFisicaController.atividades[idx] = r;
+      }
+      onSuccess();
+    });
 
     isLoading = false;
   }

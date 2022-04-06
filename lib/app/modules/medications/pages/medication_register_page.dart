@@ -28,17 +28,15 @@ class MedicationRegisterPage extends StatefulWidget with ScaffoldUtils {
   MedicationRegisterPage(this.medicacaoPrescrita, {Key? key}) : super(key: key);
 
   @override
-  _MedicationRegisterPageState createState() =>
-      _MedicationRegisterPageState(scaffoldKey);
+  _MedicationRegisterPageState createState() => _MedicationRegisterPageState();
 }
 
 class _MedicationRegisterPageState
     extends ModularState<MedicationRegisterPage, MedicationRegisterController>
     with dt.DateUtil {
-  final GlobalKey<ScaffoldState> scaffoldKey;
   final _focusNodes = List<FocusNode>.generate(6, (index) => FocusNode());
 
-  _MedicationRegisterPageState(this.scaffoldKey) {
+  _MedicationRegisterPageState() {
     nomeController = TextEditingController();
   }
 
@@ -78,7 +76,7 @@ class _MedicationRegisterPageState
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      key: scaffoldKey,
+      key: widget.scaffoldKey,
       appBar: AppBar(
         leading: const BackArrowButton(iconPadding: 5),
         title: const InkWellSpeakText(

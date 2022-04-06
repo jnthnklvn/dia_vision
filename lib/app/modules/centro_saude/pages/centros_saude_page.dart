@@ -18,15 +18,11 @@ class CentrosSaudePage extends StatefulWidget with ScaffoldUtils {
   CentrosSaudePage({Key? key}) : super(key: key);
 
   @override
-  _CentrosSaudePageState createState() => _CentrosSaudePageState(scaffoldKey);
+  _CentrosSaudePageState createState() => _CentrosSaudePageState();
 }
 
 class _CentrosSaudePageState
     extends ModularState<CentrosSaudePage, CentroSaudeController> {
-  final GlobalKey<ScaffoldState> scaffoldKey;
-
-  _CentrosSaudePageState(this.scaffoldKey);
-
   @override
   void initState() {
     super.initState();
@@ -39,7 +35,7 @@ class _CentrosSaudePageState
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      key: scaffoldKey,
+      key: widget.scaffoldKey,
       floatingActionButton: FloatingAddButton(
         "$buttonStr $suggestStr $medicalCenterTitle",
         "${medicalCentersModule.routeName}/$registerStr",

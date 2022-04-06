@@ -13,21 +13,16 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter/material.dart';
 
 class AppVisaoRegisterPage extends StatefulWidget with ScaffoldUtils {
-  final AppVisao appVisao;
+  final AppVisao? appVisao;
 
   AppVisaoRegisterPage(this.appVisao, {Key? key}) : super(key: key);
 
   @override
-  _AppVisaoRegisterPageState createState() =>
-      _AppVisaoRegisterPageState(scaffoldKey);
+  _AppVisaoRegisterPageState createState() => _AppVisaoRegisterPageState();
 }
 
 class _AppVisaoRegisterPageState
     extends ModularState<AppVisaoRegisterPage, AppVisaoRegisterController> {
-  final GlobalKey<ScaffoldState> scaffoldKey;
-
-  _AppVisaoRegisterPageState(this.scaffoldKey);
-
   final focusNode = FocusNode();
   final focusNode1 = FocusNode();
   final focusNode2 = FocusNode();
@@ -42,7 +37,7 @@ class _AppVisaoRegisterPageState
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      key: scaffoldKey,
+      key: widget.scaffoldKey,
       appBar: AppBar(
         leading: const BackArrowButton(iconPadding: 5),
         title: const InkWellSpeakText(

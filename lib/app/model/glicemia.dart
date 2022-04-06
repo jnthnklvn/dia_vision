@@ -59,7 +59,7 @@ class Glicemia extends ParseObject with DateUtil implements ParseCloneable {
   num? get valor => get<num?>(kValor);
   set valor(num? valor) => set<num?>(kValor, valor);
 
-  HorarioType? get horario => HorarioType?.values
+  HorarioType? get horario => HorarioType.values
       .firstWhere((e) => e.displayTitle == get<String?>(kHorario));
   set horario(HorarioType? horario) =>
       set<String?>(kHorario, horario?.displayTitle);

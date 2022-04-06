@@ -15,20 +15,16 @@ class RecoveryPage extends StatefulWidget with ScaffoldUtils {
   RecoveryPage({Key? key}) : super(key: key);
 
   @override
-  _RecoveryPageState createState() => _RecoveryPageState(scaffoldKey);
+  _RecoveryPageState createState() => _RecoveryPageState();
 }
 
 class _RecoveryPageState extends ModularState<RecoveryPage, RecoveryController>
     with SingleTickerProviderStateMixin {
-  final GlobalKey<ScaffoldState> scaffoldKey;
-
-  _RecoveryPageState(this.scaffoldKey);
-
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      key: scaffoldKey,
+      key: widget.scaffoldKey,
       body: Container(
         color: Colors.white,
         width: double.infinity,

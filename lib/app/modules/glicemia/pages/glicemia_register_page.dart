@@ -18,22 +18,18 @@ import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 
 class GlicemiaRegisterPage extends StatefulWidget with ScaffoldUtils {
-  final Glicemia glicemia;
+  final Glicemia? glicemia;
 
   GlicemiaRegisterPage(this.glicemia, {Key? key}) : super(key: key);
 
   @override
-  _GlicemiaRegisterPageState createState() =>
-      _GlicemiaRegisterPageState(scaffoldKey);
+  _GlicemiaRegisterPageState createState() => _GlicemiaRegisterPageState();
 }
 
 class _GlicemiaRegisterPageState
     extends ModularState<GlicemiaRegisterPage, GlicemiaRegisterController> {
-  final GlobalKey<ScaffoldState> scaffoldKey;
   final _focusNode1 = FocusNode();
   final _focusNode2 = FocusNode();
-
-  _GlicemiaRegisterPageState(this.scaffoldKey);
 
   TextEditingController? valorController;
   TextEditingController? horarioController;
@@ -71,7 +67,7 @@ class _GlicemiaRegisterPageState
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      key: scaffoldKey,
+      key: widget.scaffoldKey,
       appBar: AppBar(
         leading: const BackArrowButton(iconPadding: 5),
         title: const InkWellSpeakText(

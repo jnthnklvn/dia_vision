@@ -9,32 +9,23 @@ import 'package:dia_vision/app/model/autocuidado.dart';
 
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:flutter_tts/flutter_tts.dart';
 import 'package:flutter/material.dart';
 
 class AutocuidadoPage extends StatefulWidget with ScaffoldUtils {
-  final Autocuidado _autocuidado;
+  final Autocuidado autocuidado;
 
-  AutocuidadoPage(this._autocuidado, {Key? key}) : super(key: key);
+  AutocuidadoPage(this.autocuidado, {Key? key}) : super(key: key);
 
   @override
-  _AutocuidadoPageState createState() =>
-      _AutocuidadoPageState(scaffoldKey, _autocuidado);
+  _AutocuidadoPageState createState() => _AutocuidadoPageState();
 }
 
 class _AutocuidadoPageState
     extends ModularState<AutocuidadoPage, AutocuidadoController> with DateUtil {
-  final GlobalKey<ScaffoldState> scaffoldKey;
-  final Autocuidado _autocuidado;
-
-  Future _speak(String txt) => Modular.get<FlutterTts>().speak(txt);
-
-  _AutocuidadoPageState(this.scaffoldKey, this._autocuidado);
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: scaffoldKey,
+      key: widget.scaffoldKey,
       appBar: AppBar(
         actions: const [
           Padding(padding: EdgeInsets.all(8.0)),
@@ -59,9 +50,9 @@ class _AutocuidadoPageState
           child: ListView(
             children: <Widget>[
               Hero(
-                tag: _autocuidado.titulo ?? '',
-                child: _autocuidado.linkImagem != null
-                    ? _getImageWidget(_autocuidado.linkImagem!)
+                tag: widget.autocuidado.titulo ?? '',
+                child: widget.autocuidado.linkImagem != null
+                    ? _getImageWidget(widget.autocuidado.linkImagem!)
                     : Container(),
               ),
               buildContainer(context),
@@ -93,7 +84,7 @@ class _AutocuidadoPageState
         children: <Widget>[
           InkWellSpeakText(
             Text(
-              _autocuidado.titulo ?? "",
+              widget.autocuidado.titulo ?? "",
               style: const TextStyle(
                 color: kPrimaryColor,
                 fontWeight: FontWeight.bold,
@@ -109,7 +100,7 @@ class _AutocuidadoPageState
                 InkWellSpeakText(
                   Text(
                     "Publicado em: " +
-                        (getDataBrFromDate(_autocuidado.createdAt) ?? ''),
+                        (getDataBrFromDate(widget.autocuidado.createdAt) ?? ''),
                     style: const TextStyle(
                       color: Colors.grey,
                       fontSize: 16,
@@ -119,7 +110,7 @@ class _AutocuidadoPageState
                 InkWellSpeakText(
                   Text(
                     "Última atualização em: " +
-                        (getDataBrFromDate(_autocuidado.updatedAt) ?? ''),
+                        (getDataBrFromDate(widget.autocuidado.updatedAt) ?? ''),
                     style: const TextStyle(
                       color: Colors.grey,
                       fontSize: 16,
@@ -133,16 +124,17 @@ class _AutocuidadoPageState
             margin: const EdgeInsets.only(top: 20, bottom: 20),
             child: InkWellSpeakText(
               Text(
-                _autocuidado.resumo ?? "",
+                widget.autocuidado.resumo ?? "",
                 style: const TextStyle(fontSize: 16),
               ),
             ),
           ),
-          if (_autocuidado.link != null)
+          if (widget.autocuidado.link != null)
             InkWell(
-              onLongPress: () => _speak("Para mais detalhes clique no link"),
-              onTap: (_autocuidado.link != null)
-                  ? () => _launchURL(_autocuidado.link!)
+              onLongPress: () =>
+                  widget.speak("Para mais detalhes clique no link"),
+              onTap: (widget.autocuidado.link != null)
+                  ? () => _launchURL(widget.autocuidado.link!)
                   : null,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -158,7 +150,7 @@ class _AutocuidadoPageState
                     ),
                   ),
                   Text(
-                    _autocuidado.link ?? '',
+                    widget.autocuidado.link ?? '',
                     style: const TextStyle(
                       color: kPrimaryColor,
                       decoration: TextDecoration.underline,

@@ -21,16 +21,13 @@ class LoginPage extends StatefulWidget with ScaffoldUtils {
   LoginPage({Key? key}) : super(key: key);
 
   @override
-  _LoginPageState createState() => _LoginPageState(scaffoldKey);
+  _LoginPageState createState() => _LoginPageState();
 }
 
 class _LoginPageState extends ModularState<LoginPage, LoginController>
     with SingleTickerProviderStateMixin {
-  final GlobalKey<ScaffoldState> scaffoldKey;
   final _focusNode1 = FocusNode();
   final _focusNode2 = FocusNode();
-
-  _LoginPageState(this.scaffoldKey);
 
   Future _speak(String txt) => Modular.get<FlutterTts>().speak(txt);
 
@@ -60,7 +57,7 @@ class _LoginPageState extends ModularState<LoginPage, LoginController>
 
   Future<void> isUserLogged() async {
     final isLogged = await Modular.get<AppController>().isLogged();
-    if (isLogged) Modular.to.pushReplacementNamed(RouteEnum.home.name);
+    if (isLogged) Modular.to.pushReplacementNamed('${RouteEnum.home.name}/');
     await requestNotificationPermission();
   }
 
@@ -74,7 +71,7 @@ class _LoginPageState extends ModularState<LoginPage, LoginController>
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      key: scaffoldKey,
+      key: widget.scaffoldKey,
       body: SizedBox(
         width: double.infinity,
         height: size.height,
@@ -116,7 +113,7 @@ class _LoginPageState extends ModularState<LoginPage, LoginController>
                         onPressed: () => controller.login(
                           widget.onError,
                           () => Modular.to
-                              .pushReplacementNamed(RouteEnum.home.name),
+                              .pushReplacementNamed('${RouteEnum.home.name}/'),
                         ),
                       ),
                 SizedBox(height: size.height * 0.03),

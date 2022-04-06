@@ -95,7 +95,7 @@ class MedicationWidget extends StatelessWidget
                 sortKey: const OrdinalSortKey(0),
                 child: InkWell(
                   onTap: () => Modular.to.pushNamed(
-                    "${medications.routeName}/$registerStr",
+                    "${medications.routeName}/$registerStr/",
                     arguments: _medicacaoPrescrita,
                   ),
                   onLongPress: () => Modular.get<FlutterTts>().speak(

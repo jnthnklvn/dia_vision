@@ -21,16 +21,13 @@ class AlimentacaoPage extends StatefulWidget with ScaffoldUtils {
   AlimentacaoPage({Key? key}) : super(key: key);
 
   @override
-  _AlimentacaoPageState createState() => _AlimentacaoPageState(scaffoldKey);
+  _AlimentacaoPageState createState() => _AlimentacaoPageState();
 }
 
 class _AlimentacaoPageState
     extends ModularState<AlimentacaoPage, AlimentacaoController>
     with dt.DateUtil {
   Future _speak(String txt) => Modular.get<FlutterTts>().speak(txt);
-  final GlobalKey<ScaffoldState> scaffoldKey;
-
-  _AlimentacaoPageState(this.scaffoldKey);
 
   @override
   void initState() {
@@ -51,7 +48,7 @@ class _AlimentacaoPageState
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      key: scaffoldKey,
+      key: widget.scaffoldKey,
       floatingActionButton: FloatingAddButton(
         "$buttonStr $registerStr $alimentationStr",
         "${alimentation.routeName}/$registerStr",
@@ -89,7 +86,7 @@ class _AlimentacaoPageState
         child: Container(
           width: double.infinity,
           height: size.height,
-          color: Colors.white,
+          color: Theme.of(context).backgroundColor,
           alignment: Alignment.center,
           padding: const EdgeInsets.only(top: 10),
           child: Observer(

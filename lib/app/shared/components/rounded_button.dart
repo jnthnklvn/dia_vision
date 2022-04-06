@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 class RoundedButton extends StatelessWidget {
   final String? text;
   final Function()? onPressed;
-  final Color color, textColor;
+  final Color? color, textColor;
   final double? width;
 
   const RoundedButton({
@@ -16,7 +16,7 @@ class RoundedButton extends StatelessWidget {
     this.text,
     this.onPressed,
     this.color = kPrimaryColor,
-    this.textColor = Colors.white,
+    this.textColor,
     this.width,
   }) : super(key: key);
 
@@ -26,17 +26,18 @@ class RoundedButton extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 10),
       width: width ?? (size.width * 0.9),
+      height: 50,
       child: ClipRRect(
         borderRadius: BorderRadius.circular(29),
-        child: FlatButton(
-          padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 40),
-          color: color,
+        child: ElevatedButton(
           onPressed: onPressed,
+          style: ElevatedButton.styleFrom(primary: kPrimaryColor),
           onLongPress: () =>
               Modular.get<FlutterTts>().speak("$buttonStr " + (text ?? '')),
           child: Text(
             (text ?? ''),
-            style: TextStyle(color: textColor, fontWeight: FontWeight.bold),
+            style: TextStyle(
+                color: textColor ?? Colors.white, fontWeight: FontWeight.bold),
           ),
         ),
       ),

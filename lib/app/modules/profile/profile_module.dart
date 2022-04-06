@@ -21,9 +21,9 @@ class ProfileModule extends Module {
 
   @override
   final List<ModularRoute> routes = [
-    ChildRoute("/", child: (_, args) => const ProfilePage()),
-    ChildRoute(RouteEnum.myData.name, child: (_, args) => MyDataPage()),
-    ChildRoute(RouteEnum.preferences.name,
+    ChildRoute('/', child: (_, args) => const ProfilePage()),
+    ChildRoute('${RouteEnum.myData.name}/', child: (_, args) => MyDataPage()),
+    ChildRoute('${RouteEnum.preferences.name}/',
         child: (_, args) => PreferenciasPage()),
   ];
 }

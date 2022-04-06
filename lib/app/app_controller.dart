@@ -1,11 +1,13 @@
 import 'package:dia_vision/app/shared/preferences/preferencias_preferences.dart';
 import 'package:dia_vision/app/shared/local_storage/local_storage_shared.dart';
+import 'package:dia_vision/app/shared/local_storage/i_local_storage.dart';
 import 'package:dia_vision/app/repositories/user_repository.dart';
 import 'package:dia_vision/app/shared/utils/route_enum.dart';
 import 'package:dia_vision/app/model/user.dart';
 
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:flutter/foundation.dart';
 import 'package:mobx/mobx.dart';
 import 'dart:async';
 
@@ -14,22 +16,40 @@ part 'app_controller.g.dart';
 class AppController = _RegisterControllerBase with _$AppController;
 
 abstract class _RegisterControllerBase with Store {
+  final ILocalStorage _storage;
   final IUserRepository _userRepository;
   final PreferenciasPreferences _preferences;
   final AwesomeNotifications _awesomeNotifications;
+  final _themeSwitch = ValueNotifier<bool>(false);
 
-  _RegisterControllerBase(
-    this._userRepository,
-    this._awesomeNotifications,
-    this._preferences,
-  );
+  bool get isDarkMode => _themeSwitch.value;
+  ValueNotifier<bool> get themeSwitch => _themeSwitch;
+  StreamSubscription<ReceivedAction>? receivedNotificationAction;
 
   @observable
   String? error;
   @observable
   User? user;
 
-  StreamSubscription<ReceivedAction>? receivedNotificationAction;
+  _RegisterControllerBase(
+    this._userRepository,
+    this._awesomeNotifications,
+    this._preferences,
+    this._storage,
+  ) {
+    init();
+  }
+
+  Future init() async {
+    await _storage.getBool('isDarkMode').then((value) {
+      if (value != null) _themeSwitch.value = value;
+    });
+  }
+
+  Future<bool?> toggleTheme(bool value) {
+    _themeSwitch.value = value;
+    return _storage.setBool('isDarkMode', value);
+  }
 
   Future<bool> isLogged() async {
     user = user ?? await currentUser();
@@ -77,11 +97,11 @@ abstract class _RegisterControllerBase with Store {
           );
           return;
         }
-        await Modular.to.pushReplacementNamed(RouteEnum.home.name);
+        await Modular.to.pushReplacementNamed('${RouteEnum.home.name}/');
         if (receivedNotification.title?.contains('glicemia') == true) {
-          Modular.to.pushReplacementNamed(RouteEnum.glicemy.name);
+          Modular.to.pushReplacementNamed('${RouteEnum.glicemy.name}/');
         } else {
-          Modular.to.pushReplacementNamed(RouteEnum.medications.name);
+          Modular.to.pushReplacementNamed('${RouteEnum.medications.name}/');
         }
       });
     } catch (_) {}

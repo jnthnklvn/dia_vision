@@ -1,4 +1,5 @@
 import 'package:dia_vision/app/shared/components/container_field_horarios.dart';
+import 'package:dia_vision/app/shared/components/floating_options_button.dart';
 import 'package:dia_vision/app/shared/components/rounded_input_field.dart';
 import 'package:dia_vision/app/shared/components/ink_well_speak_text.dart';
 import 'package:dia_vision/app/shared/components/back_arrow_button.dart';
@@ -18,18 +19,15 @@ class PreferenciasPage extends StatefulWidget with ScaffoldUtils {
   PreferenciasPage({Key? key}) : super(key: key);
 
   @override
-  _PreferenciasPageState createState() => _PreferenciasPageState(scaffoldKey);
+  _PreferenciasPageState createState() => _PreferenciasPageState();
 }
 
 class _PreferenciasPageState
     extends ModularState<PreferenciasPage, PreferenciasController>
     with SingleTickerProviderStateMixin {
-  final GlobalKey<ScaffoldState>? scaffoldKey;
   final _focusNode1 = FocusNode();
   final _focusNode2 = FocusNode();
   final _focusNode3 = FocusNode();
-
-  _PreferenciasPageState(this.scaffoldKey);
 
   TextEditingController? valorMinimoController;
   TextEditingController? valorMaximoController;
@@ -55,7 +53,8 @@ class _PreferenciasPageState
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      key: scaffoldKey,
+      key: widget.scaffoldKey,
+      floatingActionButton: FloatingOptionsButton(),
       appBar: AppBar(
         leading: const BackArrowButton(iconPadding: 5),
         title: const InkWellSpeakText(
@@ -72,7 +71,7 @@ class _PreferenciasPageState
       body: Container(
         width: double.infinity,
         height: size.height,
-        color: Colors.white,
+        color: Theme.of(context).backgroundColor,
         child: Observer(builder: (_) {
           if (!controller.isDataReady) {
             return const Center(child: CircularProgressIndicator());
@@ -85,12 +84,12 @@ class _PreferenciasPageState
                 Container(
                   padding: const EdgeInsets.only(left: 10),
                   alignment: Alignment.centerLeft,
-                  child: const InkWellSpeakText(
+                  child: InkWellSpeakText(
                     Text(
                       "Notificações e alertas",
                       textAlign: TextAlign.start,
                       style: TextStyle(
-                        color: Colors.black,
+                        color: Theme.of(context).textTheme.bodyText1?.color,
                         fontSize: 22,
                         fontWeight: FontWeight.w600,
                       ),
@@ -122,12 +121,12 @@ class _PreferenciasPageState
                 Container(
                   padding: const EdgeInsets.only(left: 10),
                   alignment: Alignment.centerLeft,
-                  child: const InkWellSpeakText(
+                  child: InkWellSpeakText(
                     Text(
                       "Tempo para relembrete",
                       textAlign: TextAlign.start,
                       style: TextStyle(
-                        color: Colors.black,
+                        color: Theme.of(context).textTheme.bodyText1?.color,
                         fontSize: 22,
                         fontWeight: FontWeight.w600,
                       ),
@@ -139,12 +138,12 @@ class _PreferenciasPageState
                 Container(
                   padding: const EdgeInsets.only(left: 10),
                   alignment: Alignment.centerLeft,
-                  child: const InkWellSpeakText(
+                  child: InkWellSpeakText(
                     Text(
                       "Glicemia",
                       textAlign: TextAlign.start,
                       style: TextStyle(
-                        color: Colors.black,
+                        color: Theme.of(context).textTheme.bodyText1?.color,
                         fontSize: 22,
                         fontWeight: FontWeight.w600,
                       ),
@@ -246,7 +245,9 @@ class _PreferenciasPageState
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 7),
       width: size.width * 0.9,
       decoration: BoxDecoration(
-        color: kPrimaryLightColor,
+        color: Theme.of(context).brightness == Brightness.dark
+            ? const Color.fromARGB(246, 36, 36, 36)
+            : kPrimaryLightColor,
         borderRadius: BorderRadius.circular(29),
       ),
       child: ListTile(
@@ -274,13 +275,13 @@ class _PreferenciasPageState
           hint: Text(
             "Selecione o tempo para relembrete",
             style: TextStyle(
-              color: Colors.grey[700],
+              color: Theme.of(context).textTheme.bodyText1?.color,
               fontSize: 20,
             ),
           ),
           elevation: 16,
           style: TextStyle(
-            color: Colors.grey[700],
+            color: Theme.of(context).textTheme.bodyText1?.color,
             fontSize: 20,
           ),
           underline: Container(),

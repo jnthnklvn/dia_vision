@@ -17,15 +17,11 @@ class AppsVisaoPage extends StatefulWidget with ScaffoldUtils {
   AppsVisaoPage({Key? key}) : super(key: key);
 
   @override
-  _AppsVisaoPageState createState() => _AppsVisaoPageState(scaffoldKey);
+  _AppsVisaoPageState createState() => _AppsVisaoPageState();
 }
 
 class _AppsVisaoPageState
     extends ModularState<AppsVisaoPage, AppVisaoController> {
-  final GlobalKey<ScaffoldState> scaffoldKey;
-
-  _AppsVisaoPageState(this.scaffoldKey);
-
   @override
   void initState() {
     super.initState();
@@ -36,7 +32,7 @@ class _AppsVisaoPageState
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      key: scaffoldKey,
+      key: widget.scaffoldKey,
       floatingActionButton: FloatingAddButton(
         "$buttonStr $suggestStr $visionAppTitle",
         "${vision.routeName}/$registerStr",

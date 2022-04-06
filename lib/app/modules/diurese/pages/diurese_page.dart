@@ -12,7 +12,6 @@ import 'package:dia_vision/app/shared/utils/strings.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:flutter_tts/flutter_tts.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:flutter/semantics.dart';
 import 'package:flutter/material.dart';
@@ -21,16 +20,11 @@ class DiuresePage extends StatefulWidget with ScaffoldUtils {
   DiuresePage({Key? key}) : super(key: key);
 
   @override
-  _DiuresePageState createState() => _DiuresePageState(scaffoldKey);
+  _DiuresePageState createState() => _DiuresePageState();
 }
 
 class _DiuresePageState extends ModularState<DiuresePage, DiureseController>
     with DateUtil {
-  Future _speak(String txt) => Modular.get<FlutterTts>().speak(txt);
-  final GlobalKey<ScaffoldState> scaffoldKey;
-
-  _DiuresePageState(this.scaffoldKey);
-
   @override
   void initState() {
     super.initState();
@@ -50,7 +44,7 @@ class _DiuresePageState extends ModularState<DiuresePage, DiureseController>
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      key: scaffoldKey,
+      key: widget.scaffoldKey,
       floatingActionButton: FloatingAddButton(
         "$buttonStr $addStr $registryStr",
         "${kidney.routeName}/$registerStr",
@@ -60,7 +54,8 @@ class _DiuresePageState extends ModularState<DiuresePage, DiureseController>
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: InkWell(
-              onLongPress: () => _speak("$buttonStr $shareStr $registryStr"),
+              onLongPress: () =>
+                  widget.speak("$buttonStr $shareStr $registryStr"),
               onTap: saveRelatorioCsv,
               child: const Icon(
                 Icons.share,

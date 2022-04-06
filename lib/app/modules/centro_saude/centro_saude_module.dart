@@ -1,5 +1,4 @@
 import 'package:dia_vision/app/repositories/centro_saude_repository.dart';
-import 'package:dia_vision/app/modules/home/domain/entities/module.dart';
 import 'package:dia_vision/app/repositories/endereco_repository.dart';
 import 'package:dia_vision/app/shared/utils/strings.dart';
 
@@ -22,10 +21,9 @@ class CentroSaudeModule extends Module {
 
   @override
   final List<ModularRoute> routes = [
-    ChildRoute(medicalCentersModule.routeName,
-        child: (_, args) => CentrosSaudePage()),
-    ChildRoute("/$registerStr",
+    ChildRoute('/', child: (_, args) => CentrosSaudePage()),
+    ChildRoute('/$registerStr/',
         child: (_, args) => CentroSaudeRegisterPage(args.data)),
-    ChildRoute("/page", child: (_, args) => CentroSaudePage(args.data)),
+    ChildRoute('/page/', child: (_, args) => CentroSaudePage(args.data)),
   ];
 }

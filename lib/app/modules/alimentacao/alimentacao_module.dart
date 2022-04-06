@@ -1,6 +1,5 @@
-import 'package:dia_vision/app/repositories/alimentacao_repository.dart';
-import 'package:dia_vision/app/modules/home/domain/entities/module.dart' as md;
 import 'package:dia_vision/app/repositories/alimento_api_repository.dart';
+import 'package:dia_vision/app/repositories/alimentacao_repository.dart';
 import 'package:dia_vision/app/repositories/alimento_repository.dart';
 import 'package:dia_vision/app/shared/utils/strings.dart';
 
@@ -29,11 +28,10 @@ class AlimentacaoModule extends Module {
 
   @override
   final List<ModularRoute> routes = [
-    ChildRoute(md.alimentation.routeName,
-        child: (_, args) => AlimentacaoPage()),
-    ChildRoute("/$registerStr",
+    ChildRoute('/', child: (_, args) => AlimentacaoPage()),
+    ChildRoute('/$registerStr/',
         child: (_, args) => AlimentacaoRegisterPage(args.data)),
-    ChildRoute("alimento/$registerStr",
+    ChildRoute('/alimento/$registerStr/',
         child: (_, args) => AlimentoRegisterPage()),
   ];
 }

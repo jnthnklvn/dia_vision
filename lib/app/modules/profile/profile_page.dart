@@ -1,3 +1,4 @@
+import 'package:dia_vision/app/shared/components/floating_options_button.dart';
 import 'package:dia_vision/app/shared/components/back_arrow_button.dart';
 import 'package:dia_vision/app/shared/utils/route_enum.dart';
 import 'package:dia_vision/app/app_controller.dart';
@@ -20,6 +21,8 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: FloatingOptionsButton(),
       body: Padding(
         padding: const EdgeInsets.fromLTRB(20, 50, 20, 0),
         child: SingleChildScrollView(
@@ -36,21 +39,21 @@ class _ProfilePageState extends State<ProfilePage> {
               ProfileMenu(
                 text: "Meus dados",
                 icon: "assets/icons/User Icon.svg",
-                onPressed: () => Modular.to
-                    .pushNamed(RouteEnum.profile.name + RouteEnum.myData.name),
+                onPressed: () => Modular.to.pushNamed(
+                    "${RouteEnum.profile.name}${RouteEnum.myData.name}/"),
               ),
               ProfileMenu(
                 text: "Preferências",
                 icon: "assets/icons/Settings.svg",
                 onPressed: () => Modular.to.pushNamed(
-                    RouteEnum.profile.name + RouteEnum.preferences.name),
+                    "${RouteEnum.profile.name}${RouteEnum.preferences.name}/"),
               ),
               ProfileMenu(
                 text: "Sair",
                 icon: "assets/icons/Log out.svg",
                 onPressed: () async {
                   await Modular.get<AppController>().logout();
-                  Modular.to.pushReplacementNamed(RouteEnum.auth.name);
+                  Modular.to.pushReplacementNamed('${RouteEnum.auth.name}/');
                 },
               ),
             ],

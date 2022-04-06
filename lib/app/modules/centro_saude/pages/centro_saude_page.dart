@@ -11,28 +11,19 @@ import 'package:dia_vision/app/model/endereco.dart';
 
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:flutter_tts/flutter_tts.dart';
 import 'package:flutter/material.dart';
 
 class CentroSaudePage extends StatefulWidget with ScaffoldUtils {
-  final CentroSaude _centroSaude;
+  final CentroSaude centroSaude;
 
-  CentroSaudePage(this._centroSaude, {Key? key}) : super(key: key);
+  CentroSaudePage(this.centroSaude, {Key? key}) : super(key: key);
 
   @override
-  _CentroSaudePageState createState() =>
-      _CentroSaudePageState(scaffoldKey, _centroSaude);
+  _CentroSaudePageState createState() => _CentroSaudePageState();
 }
 
 class _CentroSaudePageState
     extends ModularState<CentroSaudePage, CentroSaudeController> with DateUtil {
-  final GlobalKey<ScaffoldState> scaffoldKey;
-  final CentroSaude _centroSaude;
-
-  Future _speak(String txt) => Modular.get<FlutterTts>().speak(txt);
-
-  _CentroSaudePageState(this.scaffoldKey, this._centroSaude);
-
   String getEnderecoFormatado(Endereco endereco) {
     String strFormatada = endereco.rua ?? "";
     strFormatada +=
@@ -52,7 +43,7 @@ class _CentroSaudePageState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: scaffoldKey,
+      key: widget.scaffoldKey,
       appBar: AppBar(
         actions: const [
           Padding(padding: EdgeInsets.all(8.0)),
@@ -77,10 +68,10 @@ class _CentroSaudePageState
           child: ListView(
             children: <Widget>[
               Hero(
-                tag: _centroSaude.nome ?? "",
-                child: _centroSaude.linkImagem == null
+                tag: widget.centroSaude.nome ?? "",
+                child: widget.centroSaude.linkImagem == null
                     ? Container()
-                    : _getImageWidget(_centroSaude.linkImagem!),
+                    : _getImageWidget(widget.centroSaude.linkImagem!),
               ),
               buildContainer(context),
             ],
@@ -110,7 +101,7 @@ class _CentroSaudePageState
         children: <Widget>[
           InkWellSpeakText(
             Text(
-              _centroSaude.nome ?? "",
+              widget.centroSaude.nome ?? "",
               style: const TextStyle(
                 color: kPrimaryColor,
                 fontWeight: FontWeight.bold,
@@ -126,7 +117,7 @@ class _CentroSaudePageState
                 InkWellSpeakText(
                   Text(
                     "Registrado em: " +
-                        (getDataBrFromDate(_centroSaude.createdAt) ?? ''),
+                        (getDataBrFromDate(widget.centroSaude.createdAt) ?? ''),
                     style: const TextStyle(
                       color: Colors.grey,
                       fontSize: 16,
@@ -136,7 +127,7 @@ class _CentroSaudePageState
                 InkWellSpeakText(
                   Text(
                     "Última atualização em: " +
-                        (getDataBrFromDate(_centroSaude.updatedAt) ?? ''),
+                        (getDataBrFromDate(widget.centroSaude.updatedAt) ?? ''),
                     style: const TextStyle(
                       color: Colors.grey,
                       fontSize: 16,
@@ -150,17 +141,18 @@ class _CentroSaudePageState
             margin: const EdgeInsets.only(top: 15, bottom: 10),
             child: InkWellSpeakText(
               Text(
-                _centroSaude.descricao ?? "",
+                widget.centroSaude.descricao ?? "",
                 textAlign: TextAlign.justify,
                 style: const TextStyle(fontSize: 16),
               ),
             ),
           ),
-          if (_centroSaude.endereco != null)
+          if (widget.centroSaude.endereco != null)
             InkWell(
-              onLongPress: () => _speak(_centroSaude.endereco == null
+              onLongPress: () => widget.speak(widget.centroSaude.endereco ==
+                      null
                   ? "Endereço não encontrado."
-                  : "Endereço: ${getEnderecoFormatado(_centroSaude.endereco!)}."),
+                  : "Endereço: ${getEnderecoFormatado(widget.centroSaude.endereco!)}."),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -173,9 +165,9 @@ class _CentroSaudePageState
                     ),
                   ),
                   Text(
-                    _centroSaude.endereco == null
+                    widget.centroSaude.endereco == null
                         ? "Endereço não encontrado."
-                        : "Endereço: ${getEnderecoFormatado(_centroSaude.endereco!)}.",
+                        : "Endereço: ${getEnderecoFormatado(widget.centroSaude.endereco!)}.",
                     style: TextStyle(
                       color: Colors.grey[600],
                       fontSize: 16,
@@ -185,10 +177,10 @@ class _CentroSaudePageState
               ),
             ),
           const SizedBox(height: 15),
-          if (_centroSaude.telefone != null)
+          if (widget.centroSaude.telefone != null)
             InkWell(
-              onLongPress: () =>
-                  _speak("Telefone para contato: ${_centroSaude.telefone}"),
+              onLongPress: () => widget.speak(
+                  "Telefone para contato: ${widget.centroSaude.telefone}"),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -201,7 +193,7 @@ class _CentroSaudePageState
                     ),
                   ),
                   Text(
-                    _centroSaude.telefone ?? '',
+                    widget.centroSaude.telefone ?? '',
                     style: TextStyle(
                       color: Colors.grey[600],
                       fontSize: 16,
@@ -211,12 +203,12 @@ class _CentroSaudePageState
               ),
             ),
           const SizedBox(height: 15),
-          if (_centroSaude.linkMaps != null)
+          if (widget.centroSaude.linkMaps != null)
             InkWell(
-              onLongPress: () => _speak(
+              onLongPress: () => widget.speak(
                   "Clique no link para ver a localização pelo Google Maps"),
-              onTap: _centroSaude.linkMaps != null
-                  ? () => _launchURL(_centroSaude.linkMaps!)
+              onTap: widget.centroSaude.linkMaps != null
+                  ? () => _launchURL(widget.centroSaude.linkMaps!)
                   : null,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -232,7 +224,7 @@ class _CentroSaudePageState
                     ),
                   ),
                   Text(
-                    _centroSaude.linkMaps ?? '',
+                    widget.centroSaude.linkMaps ?? '',
                     style: const TextStyle(
                         color: kPrimaryColor,
                         decoration: TextDecoration.underline),

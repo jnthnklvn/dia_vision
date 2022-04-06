@@ -34,7 +34,7 @@ class AlimentacaoWidget extends StatelessWidget with dt.DateUtil {
 
     return InkWell(
       onTap: () => Modular.to.pushNamed(
-        "${alimentation.routeName}/$registerStr",
+        "${alimentation.routeName}/$registerStr/",
         arguments: _alimentacao,
       ),
       onLongPress: () => Modular.get<FlutterTts>()

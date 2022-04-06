@@ -21,16 +21,13 @@ class MedicationsPage extends StatefulWidget with ScaffoldUtils {
   MedicationsPage({Key? key}) : super(key: key);
 
   @override
-  _MedicationsPageState createState() => _MedicationsPageState(scaffoldKey);
+  _MedicationsPageState createState() => _MedicationsPageState();
 }
 
 class _MedicationsPageState
     extends ModularState<MedicationsPage, MedicationsController>
     with dt.DateUtil {
   Future _speak(String txt) => Modular.get<FlutterTts>().speak(txt);
-  final GlobalKey<ScaffoldState> scaffoldKey;
-
-  _MedicationsPageState(this.scaffoldKey);
 
   @override
   void initState() {
@@ -51,7 +48,7 @@ class _MedicationsPageState
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      key: scaffoldKey,
+      key: widget.scaffoldKey,
       floatingActionButton: FloatingAddButton(
         "$buttonStr $addStr $registryStr",
         "${medications.routeName}/$registerStr",

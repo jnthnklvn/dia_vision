@@ -89,7 +89,7 @@ class ContainerFieldHorarios extends StatelessWidget with dt.DateUtil {
                         .map(
                           (e) => Container(
                             margin: const EdgeInsets.only(right: 10),
-                            child: RaisedButton(
+                            child: ElevatedButton(
                               onLongPress: () =>
                                   _speak("$e. Toque para editar/remover."),
                               onPressed: () => showDialog(

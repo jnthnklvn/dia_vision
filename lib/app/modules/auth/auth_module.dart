@@ -21,8 +21,10 @@ class AuthModule extends Module {
 
   @override
   final List<ModularRoute> routes = [
-    ChildRoute("/", child: (_, args) => LoginPage()),
-    ChildRoute(RouteEnum.register.name, child: (_, args) => RegisterPage()),
-    ChildRoute(RouteEnum.recovery.name, child: (_, args) => RecoveryPage()),
+    ChildRoute('/', child: (_, args) => LoginPage()),
+    ChildRoute('${RouteEnum.register.name}/',
+        child: (_, args) => RegisterPage()),
+    ChildRoute('${RouteEnum.recovery.name}/',
+        child: (_, args) => RecoveryPage()),
   ];
 }

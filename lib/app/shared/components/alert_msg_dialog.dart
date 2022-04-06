@@ -31,9 +31,15 @@ class AlertMsgDialog extends StatelessWidget {
         ),
       ),
       actions: <Widget>[
-        FlatButton(
-          minWidth: 100,
-          color: Colors.blue,
+        TextButton(
+          style: TextButton.styleFrom(
+            backgroundColor: Colors.blue,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(50),
+              side: const BorderSide(color: Colors.white),
+            ),
+            minimumSize: const Size(100, 40),
+          ),
           onLongPress: () => _speak("Botão: $btnName"),
           child: Text(btnName,
               style:

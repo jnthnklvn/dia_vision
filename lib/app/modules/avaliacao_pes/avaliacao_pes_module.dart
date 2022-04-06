@@ -1,6 +1,5 @@
 import 'package:dia_vision/app/repositories/medicacao_prescrita_repository.dart';
 import 'package:dia_vision/app/repositories/avaliacao_pes_repository.dart';
-import 'package:dia_vision/app/modules/home/domain/entities/module.dart';
 import 'package:dia_vision/app/shared/utils/strings.dart';
 
 import 'controllers/avaliacao_pes_register_controller.dart';
@@ -21,8 +20,8 @@ class AvaliacaoPesModule extends Module {
 
   @override
   final List<ModularRoute> routes = [
-    ChildRoute(feet.routeName, child: (_, args) => AvaliacaoPesPage()),
-    ChildRoute("/$registerStr",
+    ChildRoute('/', child: (_, args) => AvaliacaoPesPage()),
+    ChildRoute("/$registerStr/",
         child: (_, args) => AvaliacaoPesRegisterPage(args.data)),
   ];
 }

@@ -28,7 +28,7 @@ class ChooseDialog extends StatelessWidget {
             SizedBox(
               height: 50,
               width: double.infinity,
-              child: RaisedButton(
+              child: ElevatedButton(
                 onLongPress: () => _speak("Botão: editar"),
                 child: const Text('Editar',
                     style:
@@ -42,7 +42,7 @@ class ChooseDialog extends StatelessWidget {
             SizedBox(
               height: 50,
               width: double.infinity,
-              child: RaisedButton(
+              child: ElevatedButton(
                 onLongPress: () => _speak("Botão: remover"),
                 child: const Text('Remover',
                     style:

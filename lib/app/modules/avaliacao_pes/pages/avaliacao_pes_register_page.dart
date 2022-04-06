@@ -22,15 +22,11 @@ class AvaliacaoPesRegisterPage extends StatefulWidget with ScaffoldUtils {
 
   @override
   _AvaliacaoPesRegisterPageState createState() =>
-      _AvaliacaoPesRegisterPageState(scaffoldKey);
+      _AvaliacaoPesRegisterPageState();
 }
 
 class _AvaliacaoPesRegisterPageState extends ModularState<
     AvaliacaoPesRegisterPage, AvaliacaoPesRegisterController> {
-  final GlobalKey<ScaffoldState> scaffoldKey;
-
-  _AvaliacaoPesRegisterPageState(this.scaffoldKey);
-
   TextEditingController? temperaturaLavagemController;
   TextEditingController? dataUltimaConsultaController;
 
@@ -53,7 +49,7 @@ class _AvaliacaoPesRegisterPageState extends ModularState<
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      key: scaffoldKey,
+      key: widget.scaffoldKey,
       appBar: AppBar(
         leading: const BackArrowButton(iconPadding: 5),
         title: const InkWellSpeakText(

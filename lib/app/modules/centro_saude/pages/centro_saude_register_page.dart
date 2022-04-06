@@ -21,15 +21,11 @@ class CentroSaudeRegisterPage extends StatefulWidget with ScaffoldUtils {
 
   @override
   _CentroSaudeRegisterPageState createState() =>
-      _CentroSaudeRegisterPageState(scaffoldKey);
+      _CentroSaudeRegisterPageState();
 }
 
 class _CentroSaudeRegisterPageState extends ModularState<
     CentroSaudeRegisterPage, CentroSaudeRegisterController> {
-  final GlobalKey<ScaffoldState> scaffoldKey;
-
-  _CentroSaudeRegisterPageState(this.scaffoldKey);
-
   final focusNode = FocusNode();
   final focusNode1 = FocusNode();
   final focusNode2 = FocusNode();
@@ -56,7 +52,7 @@ class _CentroSaudeRegisterPageState extends ModularState<
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      key: scaffoldKey,
+      key: widget.scaffoldKey,
       appBar: AppBar(
         leading: const BackArrowButton(iconPadding: 5),
         title: const InkWellSpeakText(

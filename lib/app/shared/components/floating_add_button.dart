@@ -22,15 +22,16 @@ class FloatingAddButton extends StatelessWidget {
       sortKey: const OrdinalSortKey(0),
       child: InkWell(
         onLongPress: () => _speak(semanticsLabel),
-        onTap: () => Modular.to.pushNamed(route),
+        onTap: () => Modular.to.pushNamed("$route/"),
         child: Semantics(
           excludeSemantics: true,
           child: FloatingActionButton(
-            onPressed: onPressed ?? () => Modular.to.pushNamed(route),
+            onPressed: onPressed ?? () => Modular.to.pushNamed("$route/"),
             backgroundColor: kPrimaryColor,
-            child: const Icon(
+            child: Icon(
               Icons.add,
               size: 32,
+              color: Theme.of(context).textTheme.bodyText1?.color,
             ),
           ),
         ),

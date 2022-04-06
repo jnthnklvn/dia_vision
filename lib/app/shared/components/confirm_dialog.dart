@@ -34,9 +34,15 @@ class ConfirmDialog extends StatelessWidget {
         ),
       ),
       actions: <Widget>[
-        FlatButton(
-          minWidth: 100,
-          color: Colors.red,
+        TextButton(
+          style: TextButton.styleFrom(
+            backgroundColor: Colors.red,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(50),
+              side: const BorderSide(color: Colors.white),
+            ),
+            minimumSize: const Size(100, 40),
+          ),
           onLongPress: () => _speak("Botão: não"),
           child: const Text('Não',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
@@ -47,9 +53,15 @@ class ConfirmDialog extends StatelessWidget {
                 }
               : Navigator.of(context).pop,
         ),
-        FlatButton(
-          minWidth: 100,
-          color: Colors.blue,
+        TextButton(
+          style: TextButton.styleFrom(
+            backgroundColor: Colors.blue,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(50),
+              side: const BorderSide(color: Colors.white),
+            ),
+            minimumSize: const Size(100, 40),
+          ),
           onLongPress: () => _speak("Botão: sim"),
           child: const Text('Sim',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
