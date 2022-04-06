@@ -1,4 +1,5 @@
 import 'package:dia_vision/app/modules/avaliacao_pes/controllers/avaliacao_pes_register_controller.dart';
+import 'package:dia_vision/app/shared/components/floating_options_button.dart';
 import 'package:dia_vision/app/shared/components/ink_well_speak_text.dart';
 import 'package:dia_vision/app/shared/components/rounded_input_field.dart';
 import 'package:dia_vision/app/shared/components/back_arrow_button.dart';
@@ -16,7 +17,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 
 class AvaliacaoPesRegisterPage extends StatefulWidget with ScaffoldUtils {
-  final AvaliacaoPes avaliacaoPes;
+  final AvaliacaoPes? avaliacaoPes;
 
   AvaliacaoPesRegisterPage(this.avaliacaoPes, {Key? key}) : super(key: key);
 
@@ -50,6 +51,8 @@ class _AvaliacaoPesRegisterPageState extends ModularState<
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       key: widget.scaffoldKey,
+      floatingActionButtonLocation: FloatingActionButtonLocation.startDocked,
+      floatingActionButton: FloatingOptionsButton(),
       appBar: AppBar(
         leading: const BackArrowButton(iconPadding: 5),
         title: const InkWellSpeakText(
@@ -66,7 +69,7 @@ class _AvaliacaoPesRegisterPageState extends ModularState<
       body: Container(
         width: double.infinity,
         height: size.height,
-        color: Colors.white,
+        color: Theme.of(context).backgroundColor,
         padding: const EdgeInsets.only(top: 10),
         child: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
@@ -192,7 +195,9 @@ class _AvaliacaoPesRegisterPageState extends ModularState<
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 7),
       width: size.width * 0.9,
       decoration: BoxDecoration(
-        color: kPrimaryLightColor,
+        color: Theme.of(context).brightness == Brightness.dark
+            ? const Color.fromARGB(246, 36, 36, 36)
+            : kPrimaryLightColor,
         borderRadius: BorderRadius.circular(29),
       ),
       child: ListTile(
@@ -221,13 +226,13 @@ class _AvaliacaoPesRegisterPageState extends ModularState<
           hint: Text(
             "Selecione uma temperatura",
             style: TextStyle(
-              color: Colors.grey[700],
+              color: Theme.of(context).textTheme.bodyText1?.color,
               fontSize: 18,
             ),
           ),
           elevation: 16,
           style: TextStyle(
-            color: Colors.grey[700],
+            color: Theme.of(context).textTheme.bodyText1?.color,
             fontSize: 18,
           ),
           underline: Container(),

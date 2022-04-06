@@ -53,8 +53,8 @@ class AtividadeFisicaRepository implements IAtividadeFisicaRepository {
       ParseResponse response) {
     if (response.success) {
       final result =
-          response.results!.map((e) => e as AtividadeFisica).toList();
-      return Right(result);
+          response.results?.map((e) => e as AtividadeFisica).toList();
+      return Right(result ?? []);
     } else {
       return Left(_getFailure(response));
     }

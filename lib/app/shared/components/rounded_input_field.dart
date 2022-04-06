@@ -80,8 +80,6 @@ class RoundedInputField extends StatelessWidget {
                     ),
                   ),
           ),
-          hintStyle:
-              TextStyle(color: Theme.of(context).textTheme.bodyText1?.color),
           hintText: hintText,
           border: InputBorder.none,
         ),

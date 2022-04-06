@@ -58,14 +58,11 @@ abstract class _MedicationsControllerBase
 
   Future<File?> getRelatorioCsvFile(
       Function(String) onError, String path) async {
-    try {
-      String? csv = mapListToCsv(medicacoes.map((e) => e.toMap()).toList());
-      if (csv != null) {
-        return await save(csv, path);
-      }
-    } catch (e) {
-      onError(e.toString());
+    String? csv = mapListToCsv(medicacoes.map((e) => e.toMap()).toList());
+    if (csv != null) {
+      return await save(csv, path);
     }
+
     return null;
   }
 }

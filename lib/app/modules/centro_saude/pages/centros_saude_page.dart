@@ -4,6 +4,7 @@ import 'package:dia_vision/app/shared/components/floating_add_button.dart';
 import 'package:dia_vision/app/shared/components/ink_well_speak_text.dart';
 import 'package:dia_vision/app/modules/home/domain/entities/module.dart';
 import 'package:dia_vision/app/shared/components/back_arrow_button.dart';
+import 'package:dia_vision/app/shared/utils/color_utils.dart';
 import 'package:dia_vision/app/shared/utils/scaffold_utils.dart';
 import 'package:dia_vision/app/shared/utils/constants.dart';
 import 'package:dia_vision/app/shared/utils/strings.dart';
@@ -58,7 +59,7 @@ class _CentrosSaudePageState
         child: Container(
           width: double.infinity,
           height: size.height,
-          color: Colors.white,
+          color: Theme.of(context).backgroundColor,
           alignment: Alignment.center,
           child: Observer(
             builder: (_) {
@@ -136,16 +137,25 @@ class _CentrosSaudePageState
       return SingleChildScrollView(
           child: Column(
         children: [
-          buildDropdownMenuItem("Todas os tipos"),
+          buildDropdownMenuItem(allTypes, getColorToTipo(allTypes)),
           ...controller.tipos.map<DropdownMenuItem<String>>((String? str) {
-            return buildDropdownMenuItem(str ?? '');
+            return buildDropdownMenuItem(
+              str ?? '',
+              getColorToTipo(str),
+            );
           }).toList()
         ],
       ));
     });
   }
 
-  DropdownMenuItem<String> buildDropdownMenuItem(String str) {
+  Color getColorToTipo(String? str) {
+    if (str?.isNotEmpty != true) return ColorUtils.colors[0];
+    final idx = controller.tipos.toList().indexOf(str);
+    return ColorUtils.colors[idx % ColorUtils.colors.length];
+  }
+
+  DropdownMenuItem<String> buildDropdownMenuItem(String str, Color color) {
     return DropdownMenuItem<String>(
       value: str,
       child: InkWell(
@@ -154,11 +164,22 @@ class _CentrosSaudePageState
           Modular.to.pop();
         },
         onLongPress: () => _speak(str),
-        child: ListTile(
-          contentPadding: const EdgeInsets.all(0),
-          title: Text(
-            str,
-            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+        child: Container(
+          margin: const EdgeInsets.symmetric(vertical: 3),
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              stops: const [0.02, 0.02],
+              colors: [color, color.withOpacity(0.1)],
+            ),
+            borderRadius: const BorderRadius.all(Radius.circular(5)),
+          ),
+          child: ListTile(
+            contentPadding:
+                const EdgeInsets.symmetric(vertical: 2, horizontal: 10),
+            title: Text(
+              str,
+              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+            ),
           ),
         ),
       ),

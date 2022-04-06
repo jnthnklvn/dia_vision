@@ -242,17 +242,17 @@ class _AlimentacaoRegisterPageState extends ModularState<
             size: 32,
           ),
           isExpanded: true,
-          hint: const Text(
+          hint: Text(
             selectType,
             style: TextStyle(
-              color: kPrimaryColor,
-              fontSize: 20,
+              color: Theme.of(context).textTheme.bodyText1?.color,
+              fontSize: 18,
             ),
           ),
           elevation: 16,
-          style: const TextStyle(
-            color: kPrimaryColor,
-            fontSize: 20,
+          style: TextStyle(
+            color: Theme.of(context).textTheme.bodyText1?.color,
+            fontSize: 18,
           ),
           underline: Container(),
           onChanged: controller.setTipo,

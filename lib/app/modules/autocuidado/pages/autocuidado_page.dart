@@ -1,4 +1,5 @@
 import 'package:dia_vision/app/modules/autocuidado/controllers/autocuidado_controller.dart';
+import 'package:dia_vision/app/shared/components/floating_options_button.dart';
 import 'package:dia_vision/app/shared/components/ink_well_speak_text.dart';
 import 'package:dia_vision/app/shared/components/back_arrow_button.dart';
 import 'package:dia_vision/app/shared/utils/scaffold_utils.dart';
@@ -26,6 +27,8 @@ class _AutocuidadoPageState
   Widget build(BuildContext context) {
     return Scaffold(
       key: widget.scaffoldKey,
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: FloatingOptionsButton(),
       appBar: AppBar(
         actions: const [
           Padding(padding: EdgeInsets.all(8.0)),
@@ -85,8 +88,8 @@ class _AutocuidadoPageState
           InkWellSpeakText(
             Text(
               widget.autocuidado.titulo ?? "",
-              style: const TextStyle(
-                color: kPrimaryColor,
+              style: TextStyle(
+                color: Theme.of(context).textTheme.bodyText1?.color,
                 fontWeight: FontWeight.bold,
                 fontSize: 18,
               ),

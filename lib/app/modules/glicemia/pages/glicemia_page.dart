@@ -107,7 +107,7 @@ class _GlicemiaPageState extends ModularState<GlicemiaPage, GlicemiaController>
         child: Container(
           width: double.infinity,
           height: size.height,
-          color: Colors.white,
+          color: Theme.of(context).backgroundColor,
           alignment: Alignment.center,
           padding: const EdgeInsets.only(top: 10),
           child: Observer(

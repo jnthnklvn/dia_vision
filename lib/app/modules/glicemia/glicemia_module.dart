@@ -1,4 +1,3 @@
-import 'package:dia_vision/app/modules/home/domain/entities/module.dart';
 import 'package:dia_vision/app/repositories/glicemia_repository.dart';
 import 'package:dia_vision/app/shared/utils/strings.dart';
 
@@ -19,8 +18,8 @@ class GlicemiaModule extends Module {
 
   @override
   final List<ModularRoute> routes = [
-    ChildRoute(glicemy.routeName, child: (_, args) => GlicemiaPage()),
-    ChildRoute("/$registerStr",
+    ChildRoute('/', child: (_, args) => GlicemiaPage()),
+    ChildRoute('/$registerStr/',
         child: (_, args) => GlicemiaRegisterPage(args.data)),
   ];
 }

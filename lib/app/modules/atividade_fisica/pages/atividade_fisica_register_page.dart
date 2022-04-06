@@ -1,4 +1,5 @@
 import 'package:dia_vision/app/modules/atividade_fisica/controllers/atividade_fisica_register_controller.dart';
+import 'package:dia_vision/app/shared/components/floating_options_button.dart';
 import 'package:dia_vision/app/shared/components/ink_well_speak_text.dart';
 import 'package:dia_vision/app/shared/components/rounded_input_field.dart';
 import 'package:dia_vision/app/shared/utils/decimal_input_formatter.dart';
@@ -54,6 +55,8 @@ class _AtividadeFisicaRegisterPageState extends ModularState<
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: FloatingOptionsButton(),
       key: widget.scaffoldKey,
       appBar: AppBar(
         leading: const BackArrowButton(iconPadding: 5),
@@ -71,7 +74,7 @@ class _AtividadeFisicaRegisterPageState extends ModularState<
       body: Container(
         width: double.infinity,
         height: size.height,
-        color: Colors.white,
+        color: Theme.of(context).backgroundColor,
         padding: const EdgeInsets.only(top: 10),
         child: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
@@ -150,7 +153,9 @@ class _AtividadeFisicaRegisterPageState extends ModularState<
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 7),
       width: size.width * 0.9,
       decoration: BoxDecoration(
-        color: kPrimaryLightColor,
+        color: Theme.of(context).brightness == Brightness.dark
+            ? const Color.fromARGB(246, 36, 36, 36)
+            : kPrimaryLightColor,
         borderRadius: BorderRadius.circular(29),
       ),
       child: ListTile(
@@ -175,17 +180,17 @@ class _AtividadeFisicaRegisterPageState extends ModularState<
             size: 32,
           ),
           isExpanded: true,
-          hint: const Text(
+          hint: Text(
             "Selecione o tipo",
             style: TextStyle(
-              color: kPrimaryColor,
-              fontSize: 20,
+              color: Theme.of(context).textTheme.bodyText1?.color,
+              fontSize: 18,
             ),
           ),
           elevation: 16,
-          style: const TextStyle(
-            color: kPrimaryColor,
-            fontSize: 20,
+          style: TextStyle(
+            color: Theme.of(context).textTheme.bodyText1?.color,
+            fontSize: 18,
           ),
           underline: Container(),
           onChanged: controller.setTipo,

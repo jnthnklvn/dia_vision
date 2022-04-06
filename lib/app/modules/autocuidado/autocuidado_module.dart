@@ -17,7 +17,7 @@ class AutocuidadoModule extends Module {
   @override
   final List<ModularRoute> routes = [
     ChildRoute('/', child: (_, args) => AutocuidadosPage()),
-    ChildRoute("/$selfCareArticleRoute",
+    ChildRoute("/$selfCareArticleRoute/",
         child: (_, args) => AutocuidadoPage(args.data)),
   ];
 }

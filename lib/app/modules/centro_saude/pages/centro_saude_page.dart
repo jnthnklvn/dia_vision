@@ -1,4 +1,5 @@
 import 'package:dia_vision/app/modules/centro_saude/controllers/centro_saude_controller.dart';
+import 'package:dia_vision/app/shared/components/floating_options_button.dart';
 import 'package:dia_vision/app/shared/components/ink_well_speak_text.dart';
 import 'package:dia_vision/app/shared/components/back_arrow_button.dart';
 import 'package:dia_vision/app/shared/utils/scaffold_utils.dart';
@@ -44,6 +45,8 @@ class _CentroSaudePageState
   Widget build(BuildContext context) {
     return Scaffold(
       key: widget.scaffoldKey,
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: FloatingOptionsButton(),
       appBar: AppBar(
         actions: const [
           Padding(padding: EdgeInsets.all(8.0)),
@@ -143,7 +146,10 @@ class _CentroSaudePageState
               Text(
                 widget.centroSaude.descricao ?? "",
                 textAlign: TextAlign.justify,
-                style: const TextStyle(fontSize: 16),
+                style: TextStyle(
+                  fontSize: 16,
+                  color: Theme.of(context).textTheme.bodyText1?.color,
+                ),
               ),
             ),
           ),
@@ -159,7 +165,7 @@ class _CentroSaudePageState
                   Text(
                     "Endereço:",
                     style: TextStyle(
-                      color: Colors.grey[600],
+                      color: Theme.of(context).textTheme.bodyText1?.color,
                       fontWeight: FontWeight.bold,
                       fontSize: 16,
                     ),
@@ -169,7 +175,7 @@ class _CentroSaudePageState
                         ? "Endereço não encontrado."
                         : "Endereço: ${getEnderecoFormatado(widget.centroSaude.endereco!)}.",
                     style: TextStyle(
-                      color: Colors.grey[600],
+                      color: Theme.of(context).textTheme.bodyText1?.color,
                       fontSize: 16,
                     ),
                   ),
@@ -187,7 +193,7 @@ class _CentroSaudePageState
                   Text(
                     "Telefone para contato:",
                     style: TextStyle(
-                      color: Colors.grey[600],
+                      color: Theme.of(context).textTheme.bodyText1?.color,
                       fontWeight: FontWeight.bold,
                       fontSize: 16,
                     ),
@@ -195,7 +201,7 @@ class _CentroSaudePageState
                   Text(
                     widget.centroSaude.telefone ?? '',
                     style: TextStyle(
-                      color: Colors.grey[600],
+                      color: Theme.of(context).textTheme.bodyText1?.color,
                       fontSize: 16,
                     ),
                   ),
@@ -218,7 +224,7 @@ class _CentroSaudePageState
                       "Para mais detalhes acesse a localização:",
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        color: Colors.grey[600],
+                        color: Theme.of(context).textTheme.bodyText1?.color,
                         fontSize: 16,
                       ),
                     ),

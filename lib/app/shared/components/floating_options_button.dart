@@ -24,20 +24,13 @@ class FloatingOptionsButton extends StatelessWidget {
             onLongPress: () =>
                 _speak(isDarkMode ? turnOffDarkMode : turnOnDarkMode),
             onPressed: () => controller.toggleTheme(!isDarkMode),
-            child: SizedBox(
-              height: 80,
-              width: 80,
-              child: FittedBox(
-                child: FloatingActionButton(
-                  backgroundColor: isDark ? Colors.white : Colors.black,
-                  onPressed: () => controller.toggleTheme(!isDarkMode),
-                  child: Icon(
-                    isDark ? Icons.light_mode : Icons.dark_mode,
-                    semanticLabel:
-                        isDarkMode ? turnOffDarkMode : turnOnDarkMode,
-                    color: kPrimaryColor,
-                  ),
-                ),
+            child: FloatingActionButton(
+              backgroundColor: isDark ? Colors.white : Colors.black,
+              onPressed: () => controller.toggleTheme(!isDarkMode),
+              child: Icon(
+                isDark ? Icons.light_mode : Icons.dark_mode,
+                semanticLabel: isDarkMode ? turnOffDarkMode : turnOnDarkMode,
+                color: kPrimaryColor,
               ),
             ),
           );

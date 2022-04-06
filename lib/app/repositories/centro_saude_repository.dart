@@ -48,8 +48,8 @@ class CentroSaudeRepository implements ICentroSaudeRepository {
   Either<CentroSaudeFailure, List<CentroSaude>> _getResult(
       ParseResponse response) {
     if (response.success) {
-      final result = response.results!.map((e) => e as CentroSaude).toList();
-      return Right(result);
+      final result = response.results?.map((e) => e as CentroSaude).toList();
+      return Right(result ?? []);
     } else {
       return Left(_getFailure(response));
     }

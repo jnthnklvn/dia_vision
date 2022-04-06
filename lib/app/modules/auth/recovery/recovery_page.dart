@@ -1,3 +1,4 @@
+import 'package:dia_vision/app/shared/components/floating_options_button.dart';
 import 'package:dia_vision/app/shared/components/ink_well_speak_text.dart';
 import 'package:dia_vision/app/shared/components/rounded_input_field.dart';
 import 'package:dia_vision/app/shared/components/back_arrow_button.dart';
@@ -23,10 +24,13 @@ class _RecoveryPageState extends ModularState<RecoveryPage, RecoveryController>
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
       key: widget.scaffoldKey,
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: FloatingOptionsButton(),
       body: Container(
-        color: Colors.white,
+        color: Theme.of(context).backgroundColor,
         width: double.infinity,
         height: size.height,
         padding: const EdgeInsets.fromLTRB(20, 50, 20, 0),
@@ -45,6 +49,7 @@ class _RecoveryPageState extends ModularState<RecoveryPage, RecoveryController>
                   "assets/images/logo_name.png",
                   width: size.width * 0.8,
                   excludeFromSemantics: true,
+                  color: isDark ? kPrimaryColor : null,
                 ),
                 SizedBox(height: size.height * 0.1),
                 RoundedInputField(

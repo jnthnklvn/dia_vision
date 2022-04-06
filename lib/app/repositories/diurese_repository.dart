@@ -48,8 +48,8 @@ class DiureseRepository implements IDiureseRepository {
 
   Either<DiureseFailure, List<Diurese>> _getResult(ParseResponse response) {
     if (response.success && response.results != null) {
-      final result = response.results!.map((e) => e as Diurese).toList();
-      return Right(result);
+      final result = response.results?.map((e) => e as Diurese).toList();
+      return Right(result ?? []);
     } else {
       return Left(_getFailure(response));
     }

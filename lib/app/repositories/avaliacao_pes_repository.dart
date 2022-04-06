@@ -51,8 +51,8 @@ class AvaliacaoPesRepository implements IAvaliacaoPesRepository {
   Either<AvaliacaoPesFailure, List<AvaliacaoPes>> _getResult(
       ParseResponse response) {
     if (response.success) {
-      final result = response.results!.map((e) => e as AvaliacaoPes).toList();
-      return Right(result);
+      final result = response.results?.map((e) => e as AvaliacaoPes).toList();
+      return Right(result ?? []);
     } else {
       return Left(_getFailure(response));
     }

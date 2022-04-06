@@ -56,8 +56,8 @@ class MedicacaoPrescritaRepository implements IMedicacaoPrescritaRepository {
       ParseResponse response) {
     if (response.success && response.results != null) {
       final result =
-          response.results!.map((e) => e as MedicacaoPrescrita).toList();
-      return Right(result);
+          response.results?.map((e) => e as MedicacaoPrescrita).toList();
+      return Right(result ?? []);
     } else {
       return Left(_getFailure(response));
     }

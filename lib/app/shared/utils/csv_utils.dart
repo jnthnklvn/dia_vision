@@ -25,7 +25,8 @@ class CsvUtils {
 
     for (var map in mapList) {
       // This list might grow if a new key is found
-      var dataRow = List.filled(keyIndexMap.length, null, growable: false);
+      List<String?> dataRow =
+          List.filled(keyIndexMap.length, null, growable: false);
       // Fix missing key
       map.forEach((key, value) {
         var keyIndex = keyIndexMap[key];

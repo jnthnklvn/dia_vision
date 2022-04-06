@@ -15,7 +15,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 
 class CentroSaudeRegisterPage extends StatefulWidget with ScaffoldUtils {
-  final CentroSaude centroSaude;
+  final CentroSaude? centroSaude;
 
   CentroSaudeRegisterPage(this.centroSaude, {Key? key}) : super(key: key);
 
@@ -69,7 +69,7 @@ class _CentroSaudeRegisterPageState extends ModularState<
       body: Container(
         width: double.infinity,
         height: size.height,
-        color: Colors.white,
+        color: Theme.of(context).backgroundColor,
         padding: const EdgeInsets.only(top: 10),
         child: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),

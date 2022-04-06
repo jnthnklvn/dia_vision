@@ -1,4 +1,5 @@
 import 'package:dia_vision/app/modules/diurese/controllers/diurese_register_controller.dart';
+import 'package:dia_vision/app/shared/components/floating_options_button.dart';
 import 'package:dia_vision/app/shared/components/ink_well_speak_text.dart';
 import 'package:dia_vision/app/shared/components/rounded_input_field.dart';
 import 'package:dia_vision/app/shared/components/back_arrow_button.dart';
@@ -16,7 +17,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 
 class DiureseRegisterPage extends StatefulWidget with ScaffoldUtils {
-  final Diurese diurese;
+  final Diurese? diurese;
 
   DiureseRegisterPage(this.diurese, {Key? key}) : super(key: key);
 
@@ -50,6 +51,8 @@ class _DiureseRegisterPageState
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       key: widget.scaffoldKey,
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: FloatingOptionsButton(),
       appBar: AppBar(
         leading: const BackArrowButton(iconPadding: 5),
         title: const InkWellSpeakText(
@@ -66,7 +69,7 @@ class _DiureseRegisterPageState
       body: Container(
         width: double.infinity,
         height: size.height,
-        color: Colors.white,
+        color: Theme.of(context).backgroundColor,
         padding: const EdgeInsets.only(top: 20),
         child: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
@@ -145,44 +148,61 @@ class _DiureseRegisterPageState
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 7),
         width: size.width * 0.9,
         decoration: BoxDecoration(
-          color: kPrimaryLightColor,
+          color: Theme.of(context).brightness == Brightness.dark
+              ? const Color.fromARGB(246, 36, 36, 36)
+              : kPrimaryLightColor,
           borderRadius: BorderRadius.circular(29),
         ),
-        child: DropdownButton<String>(
-          focusNode: _focusNode2,
-          value: controller.coloracao,
-          icon: const Icon(
-            Icons.keyboard_arrow_down_sharp,
-            color: kPrimaryColor,
-            size: 32,
-          ),
-          isExpanded: true,
-          hint: const Text(
-            "Selecione uma coloração",
-            style: TextStyle(
-              color: kPrimaryColor,
-              fontSize: 20,
+        child: ListTile(
+          contentPadding: const EdgeInsets.all(0),
+          leading: Semantics(
+            excludeSemantics: true,
+            child: InkWell(
+              onTap: () => Modular.get<FlutterTts>()
+                  .speak(controller.coloracao ?? "Selecione uma coloração"),
+              child: const Icon(
+                Icons.play_circle_fill,
+                color: kPrimaryColor,
+                size: 42,
+              ),
             ),
           ),
-          elevation: 16,
-          style: const TextStyle(
-            color: kPrimaryColor,
-            fontSize: 20,
+          title: DropdownButton<String>(
+            focusNode: _focusNode2,
+            value: controller.coloracao,
+            icon: const Icon(
+              Icons.keyboard_arrow_down_sharp,
+              color: kPrimaryColor,
+              size: 32,
+            ),
+            isExpanded: true,
+            hint: Text(
+              "Selecione uma coloração",
+              style: TextStyle(
+                color: Theme.of(context).textTheme.bodyText1?.color,
+                fontSize: 18,
+              ),
+            ),
+            elevation: 16,
+            style: TextStyle(
+              color: Theme.of(context).textTheme.bodyText1?.color,
+              fontSize: 18,
+            ),
+            underline: Container(),
+            onChanged: controller.setColoracao,
+            items: <String>[
+              'Claro',
+              'Escuro',
+              'Hematúrica (avermelhado)',
+              'Castanho',
+              'Colúrica (enegrecido)'
+            ].map<DropdownMenuItem<String>>((String value) {
+              return DropdownMenuItem<String>(
+                value: value,
+                child: Text(value),
+              );
+            }).toList(),
           ),
-          underline: Container(),
-          onChanged: controller.setColoracao,
-          items: <String>[
-            'Claro',
-            'Escuro',
-            'Hematúrica (avermelhado)',
-            'Castanho',
-            'Colúrica (enegrecido)'
-          ].map<DropdownMenuItem<String>>((String value) {
-            return DropdownMenuItem<String>(
-              value: value,
-              child: Text(value),
-            );
-          }).toList(),
         ),
       ),
     );

@@ -1,9 +1,11 @@
 import 'package:dia_vision/app/modules/auth/components/already_have_an_account_acheck.dart';
 import 'package:dia_vision/app/modules/auth/register/register_controller.dart';
+import 'package:dia_vision/app/shared/components/floating_options_button.dart';
 import 'package:dia_vision/app/shared/components/rounded_password_field.dart';
 import 'package:dia_vision/app/shared/components/rounded_input_field.dart';
 import 'package:dia_vision/app/shared/components/back_arrow_button.dart';
 import 'package:dia_vision/app/shared/components/rounded_button.dart';
+import 'package:dia_vision/app/shared/utils/constants.dart';
 import 'package:dia_vision/app/shared/utils/scaffold_utils.dart';
 import 'package:dia_vision/app/shared/utils/route_enum.dart';
 import 'package:dia_vision/app/shared/utils/strings.dart';
@@ -27,12 +29,15 @@ class _RegisterPageState extends ModularState<RegisterPage, RegisterController>
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
       key: widget.scaffoldKey,
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: FloatingOptionsButton(),
       body: Container(
         width: double.infinity,
         height: size.height,
-        color: Colors.white,
+        color: Theme.of(context).backgroundColor,
         padding: const EdgeInsets.fromLTRB(20, 50, 20, 0),
         child: SingleChildScrollView(
           child: Observer(builder: (_) {
@@ -47,6 +52,7 @@ class _RegisterPageState extends ModularState<RegisterPage, RegisterController>
                   "assets/images/logo_name.png",
                   width: size.width * 0.8,
                   excludeFromSemantics: true,
+                  color: isDark ? kPrimaryColor : null,
                 ),
                 SizedBox(height: size.height * 0.1),
                 RoundedInputField(

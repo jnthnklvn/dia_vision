@@ -1,6 +1,7 @@
+import 'package:dia_vision/app/shared/components/floating_options_button.dart';
 import 'package:dia_vision/app/shared/components/ink_well_speak_text.dart';
-import 'package:dia_vision/app/shared/components/semantic_icon_play.dart';
 import 'package:dia_vision/app/shared/preferences/config_preferences.dart';
+import 'package:dia_vision/app/shared/components/semantic_icon_play.dart';
 import 'package:dia_vision/app/shared/utils/route_enum.dart';
 import 'package:dia_vision/app/shared/utils/constants.dart';
 import 'package:dia_vision/app/shared/utils/strings.dart';
@@ -26,71 +27,76 @@ class IntroPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     init();
-    return IntroductionScreen(
-      pages: [
-        PageViewModel(
-          image: Center(
-            child: Image.asset(
-              "assets/images/pedestrian_crossing.png",
-              excludeFromSemantics: true,
-              height: 175.0,
+    return Scaffold(
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: FloatingOptionsButton(),
+      body: IntroductionScreen(
+        pages: [
+          PageViewModel(
+            image: Center(
+              child: Image.asset(
+                "assets/images/pedestrian_crossing.png",
+                excludeFromSemantics: true,
+                height: 175.0,
+              ),
             ),
+            titleWidget: const InkWellSpeakText(
+              Text(
+                "Acessibilidade",
+                style: TextStyle(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 24.0,
+                  color: kPrimaryColor,
+                ),
+              ),
+            ),
+            bodyWidget: Center(
+              child: InkWellSpeakText(
+                Text(
+                  introPage1,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontWeight: FontWeight.w700,
+                    fontSize: 20.0,
+                    color: Theme.of(context).textTheme.bodyText1?.color,
+                  ),
+                ),
+              ),
+            ),
+            footer: SemanticIconPlay(text: introPage1, size: 54),
           ),
-          titleWidget: const InkWellSpeakText(
-            Text(
-              "Acessibilidade",
+        ],
+        onDone: onDone,
+        next: const Icon(
+          Icons.play_arrow_rounded,
+          semanticLabel: "Botão: próxima página.",
+          size: 36,
+          color: kSecondaryColor,
+        ),
+        done: InkWell(
+          onLongPress: () => _speak("Botão: Pronto"),
+          onTap: onDone,
+          child: const Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text(
+              'Pronto',
               style: TextStyle(
+                fontSize: 18,
                 fontWeight: FontWeight.w600,
-                fontSize: 24.0,
                 color: kPrimaryColor,
               ),
             ),
           ),
-          bodyWidget: const Center(
-            child: InkWellSpeakText(
-              Text(
-                introPage1,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontWeight: FontWeight.w700,
-                  fontSize: 20.0,
-                ),
-              ),
-            ),
-          ),
-          footer: SemanticIconPlay(text: introPage1, size: 54),
         ),
-      ],
-      onDone: onDone,
-      next: const Icon(
-        Icons.play_arrow_rounded,
-        semanticLabel: "Botão: próxima página.",
-        size: 36,
-        color: kSecondaryColor,
-      ),
-      done: InkWell(
-        onLongPress: () => _speak("Botão: Pronto"),
-        onTap: onDone,
-        child: const Padding(
-          padding: EdgeInsets.all(8.0),
-          child: Text(
-            'Pronto',
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.w600,
-              color: kSecondaryColor,
-            ),
+        dotsDecorator: DotsDecorator(
+          size: const Size.square(10.0),
+          activeSize: const Size(20.0, 10.0),
+          activeColor: kPrimaryColor,
+          color: Colors.black26,
+          spacing: const EdgeInsets.symmetric(horizontal: 3.0),
+          activeShape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(25.0),
           ),
-        ),
-      ),
-      dotsDecorator: DotsDecorator(
-        size: const Size.square(10.0),
-        activeSize: const Size(20.0, 10.0),
-        activeColor: kPrimaryColor,
-        color: Colors.black26,
-        spacing: const EdgeInsets.symmetric(horizontal: 3.0),
-        activeShape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(25.0),
         ),
       ),
     );

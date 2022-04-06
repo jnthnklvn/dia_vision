@@ -30,8 +30,8 @@ class MedicamentoRepository implements IMedicamentoRepository {
 
     final response = await mainQuery.query();
     if (response.success && response.results != null) {
-      final result = response.results!.map((e) => e as Medicamento).toList();
-      return Right(result);
+      final result = response.results?.map((e) => e as Medicamento).toList();
+      return Right(result ?? []);
     } else {
       return Left(MedicamentoFailure(
         ParseErrors.getDescription(response.error?.code),

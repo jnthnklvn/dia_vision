@@ -28,10 +28,10 @@ class FloatingAddButton extends StatelessWidget {
           child: FloatingActionButton(
             onPressed: onPressed ?? () => Modular.to.pushNamed("$route/"),
             backgroundColor: kPrimaryColor,
-            child: Icon(
+            child: const Icon(
               Icons.add,
               size: 32,
-              color: Theme.of(context).textTheme.bodyText1?.color,
+              color: Colors.white,
             ),
           ),
         ),

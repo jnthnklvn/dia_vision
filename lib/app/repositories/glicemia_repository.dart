@@ -48,8 +48,8 @@ class GlicemiaRepository implements IGlicemiaRepository {
 
   Either<GlicemiaFailure, List<Glicemia>> _getResult(ParseResponse response) {
     if (response.success && response.results != null) {
-      final result = response.results!.map((e) => e as Glicemia).toList();
-      return Right(result);
+      final result = response.results?.map((e) => e as Glicemia).toList();
+      return Right(result ?? []);
     } else {
       return Left(_getFailure(response));
     }

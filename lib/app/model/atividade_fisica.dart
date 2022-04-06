@@ -1,3 +1,4 @@
+import 'package:dia_vision/app/shared/utils/string_utils.dart';
 import 'package:dia_vision/app/shared/utils/date_utils.dart';
 import 'package:parse_server_sdk/parse_server_sdk.dart';
 
@@ -17,7 +18,7 @@ enum ExerciseType {
 }
 
 extension ExerciseTypeExtension on ExerciseType {
-  String get name => toString().replaceAll('ExerciseType.', '');
+  String get name => capitalize(toString().replaceAll('ExerciseType.', ''));
 }
 
 class AtividadeFisica extends ParseObject

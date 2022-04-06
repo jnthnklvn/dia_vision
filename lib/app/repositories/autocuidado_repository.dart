@@ -33,8 +33,8 @@ class AutocuidadoRepository implements IAutocuidadoRepository {
   Either<AutocuidadoFailure, List<Autocuidado>> _getResult(
       ParseResponse response) {
     if (response.success) {
-      final result = response.results!.map((e) => e as Autocuidado).toList();
-      return Right(result);
+      final result = response.results?.map((e) => e as Autocuidado).toList();
+      return Right(result ?? []);
     } else {
       return Left(_getFailure(response));
     }

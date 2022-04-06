@@ -276,13 +276,13 @@ class _PreferenciasPageState
             "Selecione o tempo para relembrete",
             style: TextStyle(
               color: Theme.of(context).textTheme.bodyText1?.color,
-              fontSize: 20,
+              fontSize: 18,
             ),
           ),
           elevation: 16,
           style: TextStyle(
             color: Theme.of(context).textTheme.bodyText1?.color,
-            fontSize: 20,
+            fontSize: 18,
           ),
           underline: Container(),
           onChanged: controller.setTempoLembrete,

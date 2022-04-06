@@ -51,7 +51,7 @@ class _AtividadeFisicaPageState
       key: widget.scaffoldKey,
       floatingActionButton: FloatingAddButton(
         "$buttonStr $registerStr $exercisesStr",
-        "${exercises.routeName}/$registerStr/",
+        "${exercises.routeName}/$registerStr",
       ),
       appBar: AppBar(
         actions: [
@@ -86,7 +86,7 @@ class _AtividadeFisicaPageState
         child: Container(
           width: double.infinity,
           height: size.height,
-          color: Colors.white,
+          color: Theme.of(context).backgroundColor,
           alignment: Alignment.center,
           padding: const EdgeInsets.only(top: 10),
           child: Observer(

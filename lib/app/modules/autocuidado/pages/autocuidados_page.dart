@@ -1,5 +1,6 @@
 import 'package:dia_vision/app/modules/autocuidado/controllers/autocuidado_controller.dart';
 import 'package:dia_vision/app/modules/autocuidado/widgets/autocuidado_widget.dart';
+import 'package:dia_vision/app/shared/components/floating_options_button.dart';
 import 'package:dia_vision/app/shared/components/ink_well_speak_text.dart';
 import 'package:dia_vision/app/shared/components/back_arrow_button.dart';
 import 'package:dia_vision/app/shared/utils/scaffold_utils.dart';
@@ -35,6 +36,8 @@ class _AutocuidadosPageState
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: FloatingOptionsButton(),
       key: widget.scaffoldKey,
       appBar: AppBar(
         leading: const BackArrowButton(iconPadding: 5),
@@ -52,7 +55,7 @@ class _AutocuidadosPageState
       body: Container(
         width: double.infinity,
         height: size.height,
-        color: Colors.white,
+        color: Theme.of(context).backgroundColor,
         alignment: Alignment.center,
         child: Observer(
           builder: (_) {

@@ -23,7 +23,7 @@ import 'package:flutter/material.dart';
 import 'package:dartz/dartz.dart';
 
 class MedicationRegisterPage extends StatefulWidget with ScaffoldUtils {
-  final MedicacaoPrescrita medicacaoPrescrita;
+  final MedicacaoPrescrita? medicacaoPrescrita;
 
   MedicationRegisterPage(this.medicacaoPrescrita, {Key? key}) : super(key: key);
 
@@ -93,7 +93,7 @@ class _MedicationRegisterPageState
       body: Container(
         width: double.infinity,
         height: size.height,
-        color: Colors.white,
+        color: Theme.of(context).backgroundColor,
         padding: const EdgeInsets.only(top: 10),
         child: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
@@ -119,13 +119,13 @@ class _MedicationRegisterPageState
                     hint: Text(
                       "medida",
                       style: TextStyle(
-                        color: Colors.grey[700],
+                        color: Theme.of(context).textTheme.bodyText1?.color,
                         fontSize: 18,
                       ),
                     ),
                     elevation: 16,
                     style: TextStyle(
-                      color: Colors.grey[700],
+                      color: Theme.of(context).textTheme.bodyText1?.color,
                       fontSize: 18,
                     ),
                     underline: Container(),
@@ -261,6 +261,10 @@ class _MedicationRegisterPageState
                 text: "Nome: ${controller.nome ?? ""}",
               ),
             ),
+            labelStyle: TextStyle(
+              color: Theme.of(context).textTheme.bodyText1?.color,
+              fontSize: 18,
+            ),
             hintText: "Nome",
             border: InputBorder.none,
           ),
@@ -292,7 +296,9 @@ class _MedicationRegisterPageState
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 7),
       width: size.width * 0.9,
       decoration: BoxDecoration(
-        color: kPrimaryLightColor,
+        color: Theme.of(context).brightness == Brightness.dark
+            ? const Color.fromARGB(246, 36, 36, 36)
+            : kPrimaryLightColor,
         borderRadius: BorderRadius.circular(29),
       ),
       child: ListTile(
@@ -312,13 +318,13 @@ class _MedicationRegisterPageState
           hint: Text(
             "Posologia (intervalo em horas)",
             style: TextStyle(
-              color: Colors.grey[700],
+              color: Theme.of(context).textTheme.bodyText1?.color,
               fontSize: 18,
             ),
           ),
           elevation: 16,
           style: TextStyle(
-            color: Colors.grey[700],
+            color: Theme.of(context).textTheme.bodyText1?.color,
             fontSize: 18,
           ),
           underline: Container(),

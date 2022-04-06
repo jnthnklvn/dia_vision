@@ -37,8 +37,8 @@ class AlimentoRepository implements IAlimentoRepository {
 
   Either<AlimentoFailure, List<Alimento>> _getResult(ParseResponse response) {
     if (response.success && response.results != null) {
-      final result = response.results!.map((e) => e as Alimento).toList();
-      return Right(result);
+      final result = response.results?.map((e) => e as Alimento).toList();
+      return Right(result ?? []);
     } else {
       return Left(_getFailure(response));
     }

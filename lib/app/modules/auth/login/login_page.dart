@@ -1,4 +1,5 @@
 import 'package:dia_vision/app/modules/auth/components/already_have_an_account_acheck.dart';
+import 'package:dia_vision/app/shared/components/floating_options_button.dart';
 import 'package:dia_vision/app/shared/components/rounded_password_field.dart';
 import 'package:dia_vision/app/shared/components/rounded_input_field.dart';
 import 'package:dia_vision/app/shared/components/rounded_button.dart';
@@ -70,8 +71,13 @@ class _LoginPageState extends ModularState<LoginPage, LoginController>
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
+      backgroundColor:
+          isDark ? Colors.white10 : Theme.of(context).backgroundColor,
       key: widget.scaffoldKey,
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: FloatingOptionsButton(),
       body: SizedBox(
         width: double.infinity,
         height: size.height,
@@ -85,6 +91,7 @@ class _LoginPageState extends ModularState<LoginPage, LoginController>
                   "assets/images/logo_name.png",
                   width: size.width * 0.8,
                   excludeFromSemantics: true,
+                  color: isDark ? kPrimaryColor : null,
                 ),
                 SizedBox(height: size.height * 0.1),
                 RoundedInputField(

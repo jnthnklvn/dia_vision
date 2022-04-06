@@ -40,8 +40,8 @@ class AlimentacaoRepository implements IAlimentacaoRepository {
   Either<AlimentacaoFailure, List<Alimentacao>> _getResult(
       ParseResponse response) {
     if (response.success && response.results != null) {
-      final result = response.results!.map((e) => e as Alimentacao).toList();
-      return Right(result);
+      final result = response.results?.map((e) => e as Alimentacao).toList();
+      return Right(result ?? []);
     } else {
       return Left(_getFailure(response));
     }
