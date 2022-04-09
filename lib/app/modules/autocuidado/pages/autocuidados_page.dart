@@ -45,7 +45,6 @@ class _AutocuidadosPageState
           Text(
             selfCareTitle,
             style: TextStyle(
-              fontSize: kAppBarTitleSize,
               color: kPrimaryColor,
               fontWeight: FontWeight.bold,
             ),
@@ -63,11 +62,14 @@ class _AutocuidadosPageState
               return const Center(child: CircularProgressIndicator());
             }
             if (controller.autocuidados.isEmpty) {
-              return const InkWellSpeakText(
+              return InkWellSpeakText(
                 Text(
                   withoutSelfCareRegistered,
                   textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 24, color: kPrimaryColor),
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyText1
+                      ?.apply(color: kPrimaryColor),
                 ),
               );
             }
@@ -113,7 +115,6 @@ class _AutocuidadosPageState
           Text(
             controller.categoria ?? allCategories,
             style: const TextStyle(
-              fontSize: kAppBarTitleSize - 2,
               color: kPrimaryColor,
               fontWeight: FontWeight.bold,
             ),
@@ -179,7 +180,7 @@ class _AutocuidadosPageState
                 const EdgeInsets.symmetric(vertical: 2, horizontal: 10),
             title: Text(
               str,
-              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+              style: const TextStyle(fontWeight: FontWeight.bold),
             ),
           ),
         ),

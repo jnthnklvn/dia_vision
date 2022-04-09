@@ -64,7 +64,6 @@ class CentroSaudeWidget extends StatelessWidget with DateUtil {
                   maxLines: 2,
                   style: const TextStyle(
                     fontWeight: FontWeight.bold,
-                    fontSize: 18,
                     color: Colors.white,
                   ),
                 ),
@@ -87,10 +86,7 @@ class CentroSaudeWidget extends StatelessWidget with DateUtil {
       text,
       maxLines: 3,
       overflow: TextOverflow.ellipsis,
-      style: const TextStyle(
-        fontSize: 18,
-        color: Colors.white70,
-      ),
+      style: const TextStyle(color: Colors.white70),
     );
   }
 }

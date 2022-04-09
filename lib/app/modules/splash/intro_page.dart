@@ -40,14 +40,15 @@ class IntroPage extends StatelessWidget {
                 height: 175.0,
               ),
             ),
-            titleWidget: const InkWellSpeakText(
+            titleWidget: InkWellSpeakText(
               Text(
                 "Acessibilidade",
-                style: TextStyle(
-                  fontWeight: FontWeight.w600,
-                  fontSize: 24.0,
-                  color: kPrimaryColor,
-                ),
+                style: Theme.of(context).textTheme.bodyText1?.merge(
+                      const TextStyle(
+                        fontWeight: FontWeight.w600,
+                        color: kPrimaryColor,
+                      ),
+                    ),
               ),
             ),
             bodyWidget: Center(
@@ -55,11 +56,7 @@ class IntroPage extends StatelessWidget {
                 Text(
                   introPage1,
                   textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontWeight: FontWeight.w700,
-                    fontSize: 20.0,
-                    color: Theme.of(context).textTheme.bodyText1?.color,
-                  ),
+                  style: Theme.of(context).textTheme.bodyText1,
                 ),
               ),
             ),
@@ -81,7 +78,6 @@ class IntroPage extends StatelessWidget {
             child: Text(
               'Pronto',
               style: TextStyle(
-                fontSize: 18,
                 fontWeight: FontWeight.w600,
                 color: kPrimaryColor,
               ),

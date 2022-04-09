@@ -23,22 +23,26 @@ class AlreadyHaveAnAccountCheck extends StatelessWidget {
       onLongPress: () => _speak(
         login ? doesntHaveAccountQst + signUp : hasAccountQst + signIn,
       ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Text(
-            login ? doesntHaveAccountQst : hasAccountQst,
-            style: const TextStyle(color: kPrimaryColor, fontSize: 18),
-          ),
-          Text(
-            login ? signUp : signIn,
-            style: const TextStyle(
-              color: kPrimaryColor,
-              fontWeight: FontWeight.bold,
-              fontSize: 18,
+      child: Text.rich(
+        TextSpan(
+          children: [
+            TextSpan(
+              text: login ? doesntHaveAccountQst : hasAccountQst,
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyText1
+                  ?.apply(color: kPrimaryColor),
             ),
-          ),
-        ],
+            TextSpan(
+              text: login ? signUp : signIn,
+              style: const TextStyle(
+                color: kPrimaryColor,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
+        ),
+        textAlign: TextAlign.center,
       ),
     );
   }

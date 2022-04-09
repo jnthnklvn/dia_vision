@@ -63,7 +63,6 @@ class _AlimentacaoRegisterPageState extends ModularState<
           Text(
             alimentationRegister,
             style: TextStyle(
-              fontSize: kAppBarTitleSize,
               color: kPrimaryColor,
               fontWeight: FontWeight.bold,
             ),
@@ -101,7 +100,6 @@ class _AlimentacaoRegisterPageState extends ModularState<
                       addFood,
                       style: TextStyle(
                         fontWeight: FontWeight.w500,
-                        fontSize: 18,
                         color: Theme.of(context).textTheme.bodyText1?.color,
                       ),
                     ),
@@ -180,9 +178,7 @@ class _AlimentacaoRegisterPageState extends ModularState<
       barrierDismissible: false,
       builder: (BuildContext context) {
         return ConfirmDialog(
-          () {
-            alimentoController.removerAlimento(nome, marca);
-          },
+          () => alimentoController.removerAlimento(nome, marca),
           delFood,
           wishToRemoveFood,
         );
@@ -217,7 +213,7 @@ class _AlimentacaoRegisterPageState extends ModularState<
       decoration: BoxDecoration(
         color: Theme.of(context).brightness == Brightness.dark
             ? const Color.fromARGB(246, 36, 36, 36)
-            : kPrimaryLightColor,
+            : const Color(0xFFF5F6F9),
         borderRadius: BorderRadius.circular(29),
       ),
       child: ListTile(
@@ -244,16 +240,10 @@ class _AlimentacaoRegisterPageState extends ModularState<
           isExpanded: true,
           hint: Text(
             selectType,
-            style: TextStyle(
-              color: Theme.of(context).textTheme.bodyText1?.color,
-              fontSize: 18,
-            ),
+            style: Theme.of(context).textTheme.bodyText1,
           ),
           elevation: 16,
-          style: TextStyle(
-            color: Theme.of(context).textTheme.bodyText1?.color,
-            fontSize: 18,
-          ),
+          style: Theme.of(context).textTheme.bodyText1,
           underline: Container(),
           onChanged: controller.setTipo,
           items:

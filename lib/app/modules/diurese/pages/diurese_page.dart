@@ -52,7 +52,7 @@ class _DiuresePageState extends ModularState<DiuresePage, DiureseController>
       appBar: AppBar(
         actions: [
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.only(right: 12.0),
             child: InkWell(
               onLongPress: () =>
                   widget.speak("$buttonStr $shareStr $registryStr"),
@@ -71,7 +71,6 @@ class _DiuresePageState extends ModularState<DiuresePage, DiureseController>
           Text(
             kidneyDiuresis,
             style: TextStyle(
-              fontSize: kAppBarTitleSize,
               color: kPrimaryColor,
               fontWeight: FontWeight.bold,
             ),
@@ -92,11 +91,14 @@ class _DiuresePageState extends ModularState<DiuresePage, DiureseController>
                 return const Center(child: CircularProgressIndicator());
               }
               if (controller.diureses.isEmpty) {
-                return const InkWellSpeakText(
+                return InkWellSpeakText(
                   Text(
                     withoutDiuresisRegistered,
                     textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 24, color: kPrimaryColor),
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyText1
+                        ?.apply(color: kPrimaryColor),
                   ),
                 );
               }

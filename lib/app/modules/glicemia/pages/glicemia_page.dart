@@ -76,7 +76,7 @@ class _GlicemiaPageState extends ModularState<GlicemiaPage, GlicemiaController>
       appBar: AppBar(
         actions: [
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.only(right: 12.0),
             child: InkWell(
               onLongPress: () =>
                   widget.speak("$buttonStr $shareStr $registryStr"),
@@ -95,7 +95,6 @@ class _GlicemiaPageState extends ModularState<GlicemiaPage, GlicemiaController>
           Text(
             glicemyStr,
             style: TextStyle(
-              fontSize: kAppBarTitleSize,
               color: kPrimaryColor,
               fontWeight: FontWeight.bold,
             ),
@@ -116,11 +115,14 @@ class _GlicemiaPageState extends ModularState<GlicemiaPage, GlicemiaController>
                 return const Center(child: CircularProgressIndicator());
               }
               if (controller.glicemias.isEmpty) {
-                return const InkWellSpeakText(
+                return InkWellSpeakText(
                   Text(
                     withoutGlicemyRegistered,
                     textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 24, color: kPrimaryColor),
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyText1
+                        ?.apply(color: kPrimaryColor),
                   ),
                 );
               }

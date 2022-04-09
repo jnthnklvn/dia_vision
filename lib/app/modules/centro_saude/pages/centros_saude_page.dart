@@ -47,7 +47,6 @@ class _CentrosSaudePageState
           Text(
             medicalCenters,
             style: TextStyle(
-              fontSize: kAppBarTitleSize,
               color: kPrimaryColor,
               fontWeight: FontWeight.bold,
             ),
@@ -67,11 +66,14 @@ class _CentrosSaudePageState
                 return const Center(child: CircularProgressIndicator());
               }
               if (controller.centros.isEmpty) {
-                return const InkWellSpeakText(
+                return InkWellSpeakText(
                   Text(
                     withoutMedicalCenterRegistered,
                     textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 24, color: kPrimaryColor),
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyText1
+                        ?.apply(color: kPrimaryColor),
                   ),
                 );
               }
@@ -113,7 +115,6 @@ class _CentrosSaudePageState
           Text(
             controller.tipo ?? "Todas os tipos",
             style: const TextStyle(
-              fontSize: kAppBarTitleSize - 2,
               color: kPrimaryColor,
               fontWeight: FontWeight.bold,
             ),
@@ -178,7 +179,7 @@ class _CentrosSaudePageState
                 const EdgeInsets.symmetric(vertical: 2, horizontal: 10),
             title: Text(
               str,
-              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+              style: const TextStyle(fontWeight: FontWeight.bold),
             ),
           ),
         ),

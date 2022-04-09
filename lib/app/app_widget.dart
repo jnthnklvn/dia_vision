@@ -37,8 +37,8 @@ class _AppWidgetState extends State<AppWidget> {
           debugShowCheckedModeBanner: false,
           title: appName,
           themeMode: isDarkMode ? ThemeMode.dark : ThemeMode.light,
-          theme: LightTheme.themeData,
-          darkTheme: DarkTheme.themeData,
+          theme: LightTheme().themeData,
+          darkTheme: DarkTheme().themeData,
           localizationsDelegates: const [
             GlobalMaterialLocalizations.delegate,
             GlobalCupertinoLocalizations.delegate,

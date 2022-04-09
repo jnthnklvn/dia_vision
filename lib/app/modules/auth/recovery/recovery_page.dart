@@ -77,12 +77,15 @@ class _RecoveryPageState extends ModularState<RecoveryPage, RecoveryController>
                         ),
                       ),
                 SizedBox(height: size.height * 0.08),
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 30),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 30),
                   child: InkWellSpeakText(
                     Text(
                       "Informe o email cadastrado e confirme. Se for um email válido, um link para recuperação da senha será enviado para o endereço.",
-                      style: TextStyle(fontSize: 20, color: kPrimaryColor),
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyText1
+                          ?.apply(color: kPrimaryColor),
                       textAlign: TextAlign.justify,
                     ),
                   ),

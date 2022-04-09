@@ -53,7 +53,7 @@ class _AvaliacaoPesPageState
       appBar: AppBar(
         actions: [
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.only(right: 12.0),
             child: InkWell(
               onLongPress: () =>
                   widget.speak("$buttonStr $shareStr $registryStr"),
@@ -72,7 +72,6 @@ class _AvaliacaoPesPageState
           Text(
             feetCheck,
             style: TextStyle(
-              fontSize: kAppBarTitleSize,
               color: kPrimaryColor,
               fontWeight: FontWeight.bold,
             ),
@@ -93,11 +92,14 @@ class _AvaliacaoPesPageState
                 return const Center(child: CircularProgressIndicator());
               }
               if (controller.avaliacoes.isEmpty) {
-                return const InkWellSpeakText(
+                return InkWellSpeakText(
                   Text(
                     withoutFeetCheckRegistered,
                     textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 24, color: kPrimaryColor),
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyText1
+                        ?.apply(color: kPrimaryColor),
                   ),
                 );
               }

@@ -56,7 +56,6 @@ class _CentroSaudePageState
           Text(
             medicalCenterTitle,
             style: TextStyle(
-              fontSize: kAppBarTitleSize,
               color: kPrimaryColor,
               fontWeight: FontWeight.bold,
             ),
@@ -108,7 +107,6 @@ class _CentroSaudePageState
               style: const TextStyle(
                 color: kPrimaryColor,
                 fontWeight: FontWeight.bold,
-                fontSize: 18,
               ),
             ),
           ),
@@ -123,7 +121,6 @@ class _CentroSaudePageState
                         (getDataBrFromDate(widget.centroSaude.createdAt) ?? ''),
                     style: const TextStyle(
                       color: Colors.grey,
-                      fontSize: 16,
                     ),
                   ),
                 ),
@@ -133,7 +130,6 @@ class _CentroSaudePageState
                         (getDataBrFromDate(widget.centroSaude.updatedAt) ?? ''),
                     style: const TextStyle(
                       color: Colors.grey,
-                      fontSize: 16,
                     ),
                   ),
                 ),
@@ -147,7 +143,6 @@ class _CentroSaudePageState
                 widget.centroSaude.descricao ?? "",
                 textAlign: TextAlign.justify,
                 style: TextStyle(
-                  fontSize: 16,
                   color: Theme.of(context).textTheme.bodyText1?.color,
                 ),
               ),
@@ -167,7 +162,6 @@ class _CentroSaudePageState
                     style: TextStyle(
                       color: Theme.of(context).textTheme.bodyText1?.color,
                       fontWeight: FontWeight.bold,
-                      fontSize: 16,
                     ),
                   ),
                   Text(
@@ -176,7 +170,6 @@ class _CentroSaudePageState
                         : "Endereço: ${getEnderecoFormatado(widget.centroSaude.endereco!)}.",
                     style: TextStyle(
                       color: Theme.of(context).textTheme.bodyText1?.color,
-                      fontSize: 16,
                     ),
                   ),
                 ],
@@ -195,14 +188,12 @@ class _CentroSaudePageState
                     style: TextStyle(
                       color: Theme.of(context).textTheme.bodyText1?.color,
                       fontWeight: FontWeight.bold,
-                      fontSize: 16,
                     ),
                   ),
                   Text(
                     widget.centroSaude.telefone ?? '',
                     style: TextStyle(
                       color: Theme.of(context).textTheme.bodyText1?.color,
-                      fontSize: 16,
                     ),
                   ),
                 ],
@@ -225,7 +216,6 @@ class _CentroSaudePageState
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         color: Theme.of(context).textTheme.bodyText1?.color,
-                        fontSize: 16,
                       ),
                     ),
                   ),

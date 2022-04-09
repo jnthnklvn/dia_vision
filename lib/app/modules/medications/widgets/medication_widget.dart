@@ -110,7 +110,6 @@ class MedicationWidget extends StatelessWidget
                         maxLines: 2,
                         style: const TextStyle(
                           fontWeight: FontWeight.bold,
-                          fontSize: 24,
                           color: Colors.white,
                         ),
                       ),
@@ -181,7 +180,6 @@ class MedicationWidget extends StatelessWidget
       text,
       maxLines: 2,
       style: const TextStyle(
-        fontSize: 18,
         color: Colors.white70,
       ),
     );

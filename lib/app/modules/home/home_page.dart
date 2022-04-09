@@ -5,7 +5,6 @@ import 'package:dia_vision/app/shared/utils/size_config.dart';
 import 'package:dia_vision/app/shared/utils/route_enum.dart';
 import 'package:dia_vision/app/shared/utils/constants.dart';
 import 'package:dia_vision/app/shared/utils/strings.dart';
-import 'package:dia_vision/app/shared/utils/styles.dart';
 import 'package:dia_vision/app/app_controller.dart';
 
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
@@ -39,7 +38,7 @@ class _HomePageState extends State<HomePage> {
           title: const InkWellSpeakText(
             Text(
               'Dados de Paciente',
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600),
+              style: TextStyle(fontWeight: FontWeight.w600),
             ),
           ),
           contentPadding:
@@ -48,7 +47,6 @@ class _HomePageState extends State<HomePage> {
             Text(
               "Para acessar esse módulo é necessário preencher algumas informações como nome, peso e altura no perfil. "
               "Clique no botão 'Ir' abaixo para ir para a tela de preenchimento.",
-              style: TextStyle(fontSize: 18),
               textAlign: TextAlign.justify,
             ),
           ),
@@ -60,7 +58,7 @@ class _HomePageState extends State<HomePage> {
               ),
               onLongPress: () => _speak("Botão: ir"),
               child: const Text('Ir',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
+                  style: TextStyle(fontWeight: FontWeight.w600)),
               onPressed: () {
                 Navigator.of(context).pop();
                 Modular.to
@@ -183,12 +181,21 @@ class _HomePageState extends State<HomePage> {
                                 modules[index].name,
                                 semanticsLabel:
                                     "$moduleStr ${modules[index].name}",
-                                style: kTitleTextStyle.apply(
-                                  color: isDark ? Colors.white : Colors.black,
-                                  backgroundColor: isDark
-                                      ? Colors.black.withOpacity(0.5)
-                                      : Colors.white.withOpacity(0.5),
-                                ),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyText1
+                                    ?.apply(
+                                      color:
+                                          isDark ? Colors.white : Colors.black,
+                                      backgroundColor: isDark
+                                          ? Colors.black.withOpacity(0.5)
+                                          : Colors.white.withOpacity(0.5),
+                                    )
+                                    .merge(
+                                      const TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
                               ),
                             ),
                           ],

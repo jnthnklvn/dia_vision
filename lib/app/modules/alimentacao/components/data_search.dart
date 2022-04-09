@@ -18,7 +18,6 @@ class DataSearch extends SearchDelegate<String> {
       : super(
           searchFieldLabel: searchStr,
           searchFieldStyle: const TextStyle(
-            fontSize: kAppBarTitleSize,
             color: kPrimaryColor,
             fontWeight: FontWeight.bold,
           ),
@@ -89,13 +88,16 @@ class DataSearch extends SearchDelegate<String> {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
-          children: const <Widget>[
+          children: <Widget>[
             Center(
               child: InkWellSpeakText(
                 Text(
                   noFoodsFound,
                   textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 24, color: kPrimaryColor),
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyText1
+                      ?.apply(color: kPrimaryColor),
                 ),
               ),
             ),

@@ -56,7 +56,7 @@ class _AlimentacaoPageState
       appBar: AppBar(
         actions: [
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.only(right: 12.0),
             child: InkWell(
               onLongPress: () => _speak("$buttonStr $shareStr $registryStr"),
               onTap: saveRelatorioCsv,
@@ -74,7 +74,6 @@ class _AlimentacaoPageState
           Text(
             alimentationStr,
             style: TextStyle(
-              fontSize: kAppBarTitleSize,
               color: kPrimaryColor,
               fontWeight: FontWeight.bold,
             ),
@@ -95,11 +94,14 @@ class _AlimentacaoPageState
                 return const Center(child: CircularProgressIndicator());
               }
               if (controller.alimentacoes.isEmpty) {
-                return const InkWellSpeakText(
+                return InkWellSpeakText(
                   Text(
                     withoutAlimentationRegistered,
                     textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 24, color: kPrimaryColor),
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyText1
+                        ?.apply(color: kPrimaryColor),
                   ),
                 );
               }

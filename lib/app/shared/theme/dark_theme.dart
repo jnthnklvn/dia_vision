@@ -3,10 +3,8 @@ import 'package:flutter/material.dart';
 
 import 'text_theme.dart';
 
-abstract class DarkTheme {
-  static const Color _backColor = Colors.black;
-
-  static final ThemeData themeData = ThemeData(
+class DarkTheme {
+  final ThemeData themeData = ThemeData(
     primaryColor: kPrimaryColor,
     toggleableActiveColor: kPrimaryColor,
     indicatorColor: kPrimaryColor,
@@ -15,17 +13,21 @@ abstract class DarkTheme {
     colorScheme: const ColorScheme.dark(
       primary: kPrimaryColor,
       secondary: kPrimaryColor,
-      background: _backColor,
+      background: Colors.black,
     ),
     appBarTheme: AppBarTheme(
       elevation: 1,
       color: Colors.black,
-      titleTextStyle: textTheme.headline6!.copyWith(color: Colors.white),
+      titleTextStyle: textTheme.headline6!
+          .copyWith(
+            color: Colors.white,
+          )
+          .apply(fontSizeFactor: 1.0),
       iconTheme: const IconThemeData(color: Colors.white),
     ),
-    textTheme: Typography.whiteMountainView.merge(textTheme),
-    canvasColor: _backColor,
-    backgroundColor: _backColor,
-    scaffoldBackgroundColor: _backColor,
+    textTheme: textTheme.apply(fontSizeFactor: 1.0, fontSizeDelta: 2),
+    canvasColor: Colors.black,
+    backgroundColor: Colors.black,
+    scaffoldBackgroundColor: Colors.black,
   );
 }

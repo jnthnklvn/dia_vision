@@ -22,14 +22,13 @@ class ConfirmDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: InkWellSpeakText(Text(title,
-          style: const TextStyle(fontSize: 24, fontWeight: FontWeight.w600))),
+      title: InkWellSpeakText(
+          Text(title, style: const TextStyle(fontWeight: FontWeight.w600))),
       contentPadding:
           const EdgeInsets.only(left: 25, right: 25, top: 20, bottom: 10),
       content: InkWellSpeakText(
         Text(
           content,
-          style: const TextStyle(fontSize: 18),
           textAlign: TextAlign.justify,
         ),
       ),
@@ -44,8 +43,8 @@ class ConfirmDialog extends StatelessWidget {
             minimumSize: const Size(100, 40),
           ),
           onLongPress: () => _speak("Botão: não"),
-          child: const Text('Não',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
+          child:
+              const Text('Não', style: TextStyle(fontWeight: FontWeight.w600)),
           onPressed: onCancell != null
               ? () {
                   Navigator.of(context).pop();
@@ -63,8 +62,8 @@ class ConfirmDialog extends StatelessWidget {
             minimumSize: const Size(100, 40),
           ),
           onLongPress: () => _speak("Botão: sim"),
-          child: const Text('Sim',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
+          child:
+              const Text('Sim', style: TextStyle(fontWeight: FontWeight.w600)),
           onPressed: () {
             Navigator.of(context).pop();
             onConfirm();

@@ -19,14 +19,13 @@ class AlertMsgDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: InkWellSpeakText(Text(title,
-          style: const TextStyle(fontSize: 24, fontWeight: FontWeight.w600))),
+      title: InkWellSpeakText(
+          Text(title, style: const TextStyle(fontWeight: FontWeight.w600))),
       contentPadding:
           const EdgeInsets.only(left: 25, right: 25, top: 20, bottom: 10),
       content: InkWellSpeakText(
         Text(
           content,
-          style: const TextStyle(fontSize: 18),
           textAlign: TextAlign.justify,
         ),
       ),
@@ -42,8 +41,7 @@ class AlertMsgDialog extends StatelessWidget {
           ),
           onLongPress: () => _speak("Botão: $btnName"),
           child: Text(btnName,
-              style:
-                  const TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
+              style: const TextStyle(fontWeight: FontWeight.w600)),
           onPressed: onConfirm != null
               ? () {
                   Navigator.of(context).pop();

@@ -31,8 +31,7 @@ class ChooseDialog extends StatelessWidget {
               child: ElevatedButton(
                 onLongPress: () => _speak("Botão: editar"),
                 child: const Text('Editar',
-                    style:
-                        TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
+                    style: TextStyle(fontWeight: FontWeight.w600)),
                 onPressed: () {
                   Navigator.of(context).pop();
                   onConfirm();
@@ -45,8 +44,7 @@ class ChooseDialog extends StatelessWidget {
               child: ElevatedButton(
                 onLongPress: () => _speak("Botão: remover"),
                 child: const Text('Remover',
-                    style:
-                        TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
+                    style: TextStyle(fontWeight: FontWeight.w600)),
                 onPressed: onCancell != null
                     ? () {
                         Navigator.of(context).pop();

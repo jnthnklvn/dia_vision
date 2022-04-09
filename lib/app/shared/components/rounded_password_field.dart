@@ -32,7 +32,6 @@ class RoundedPasswordField extends StatelessWidget {
     final hasNextNode = nextFocusNode != null;
     return TextFieldContainer(
       child: TextField(
-        style: const TextStyle(fontSize: 18),
         obscureText: obscureText,
         onChanged: onChanged,
         focusNode: focusNode,

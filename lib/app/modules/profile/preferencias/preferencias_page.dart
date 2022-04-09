@@ -61,7 +61,6 @@ class _PreferenciasPageState
           Text(
             "Preferências",
             style: TextStyle(
-              fontSize: kAppBarTitleSize,
               color: kPrimaryColor,
               fontWeight: FontWeight.bold,
             ),
@@ -90,7 +89,6 @@ class _PreferenciasPageState
                       textAlign: TextAlign.start,
                       style: TextStyle(
                         color: Theme.of(context).textTheme.bodyText1?.color,
-                        fontSize: 22,
                         fontWeight: FontWeight.w600,
                       ),
                     ),
@@ -127,7 +125,6 @@ class _PreferenciasPageState
                       textAlign: TextAlign.start,
                       style: TextStyle(
                         color: Theme.of(context).textTheme.bodyText1?.color,
-                        fontSize: 22,
                         fontWeight: FontWeight.w600,
                       ),
                     ),
@@ -144,7 +141,6 @@ class _PreferenciasPageState
                       textAlign: TextAlign.start,
                       style: TextStyle(
                         color: Theme.of(context).textTheme.bodyText1?.color,
-                        fontSize: 22,
                         fontWeight: FontWeight.w600,
                       ),
                     ),
@@ -223,7 +219,6 @@ class _PreferenciasPageState
           Text(
             text,
             style: const TextStyle(
-              fontSize: kAppBarTitleSize,
               color: kPrimaryColor,
               fontWeight: FontWeight.w600,
             ),
@@ -247,7 +242,7 @@ class _PreferenciasPageState
       decoration: BoxDecoration(
         color: Theme.of(context).brightness == Brightness.dark
             ? const Color.fromARGB(246, 36, 36, 36)
-            : kPrimaryLightColor,
+            : const Color(0xFFF5F6F9),
         borderRadius: BorderRadius.circular(29),
       ),
       child: ListTile(
@@ -274,16 +269,10 @@ class _PreferenciasPageState
           isExpanded: true,
           hint: Text(
             "Selecione o tempo para relembrete",
-            style: TextStyle(
-              color: Theme.of(context).textTheme.bodyText1?.color,
-              fontSize: 18,
-            ),
+            style: Theme.of(context).textTheme.bodyText1,
           ),
           elevation: 16,
-          style: TextStyle(
-            color: Theme.of(context).textTheme.bodyText1?.color,
-            fontSize: 18,
-          ),
+          style: Theme.of(context).textTheme.bodyText1,
           underline: Container(),
           onChanged: controller.setTempoLembrete,
           items: ["3 min", "5 min", "10 min", "20 min", "30 min", "60 min"]

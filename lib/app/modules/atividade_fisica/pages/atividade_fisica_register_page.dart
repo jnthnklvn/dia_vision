@@ -64,7 +64,6 @@ class _AtividadeFisicaRegisterPageState extends ModularState<
           Text(
             exerciseRegister,
             style: TextStyle(
-              fontSize: kAppBarTitleSize,
               color: kPrimaryColor,
               fontWeight: FontWeight.bold,
             ),
@@ -155,7 +154,7 @@ class _AtividadeFisicaRegisterPageState extends ModularState<
       decoration: BoxDecoration(
         color: Theme.of(context).brightness == Brightness.dark
             ? const Color.fromARGB(246, 36, 36, 36)
-            : kPrimaryLightColor,
+            : const Color(0xFFF5F6F9),
         borderRadius: BorderRadius.circular(29),
       ),
       child: ListTile(
@@ -182,16 +181,10 @@ class _AtividadeFisicaRegisterPageState extends ModularState<
           isExpanded: true,
           hint: Text(
             "Selecione o tipo",
-            style: TextStyle(
-              color: Theme.of(context).textTheme.bodyText1?.color,
-              fontSize: 18,
-            ),
+            style: Theme.of(context).textTheme.bodyText1,
           ),
           elevation: 16,
-          style: TextStyle(
-            color: Theme.of(context).textTheme.bodyText1?.color,
-            fontSize: 18,
-          ),
+          style: Theme.of(context).textTheme.bodyText1,
           underline: Container(),
           onChanged: controller.setTipo,
           items: ExerciseType.values

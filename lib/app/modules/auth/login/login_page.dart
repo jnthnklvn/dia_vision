@@ -133,22 +133,26 @@ class _LoginPageState extends ModularState<LoginPage, LoginController>
                       .pushNamed(RouteEnum.auth.name + RouteEnum.recovery.name),
                   onLongPress: () =>
                       _speak(forgotPasswordQst + recoveryPassword),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      Text(
-                        forgotPasswordQst,
-                        style: TextStyle(color: kPrimaryColor, fontSize: 18),
-                      ),
-                      Text(
-                        recoveryPassword,
-                        style: TextStyle(
-                          color: kPrimaryColor,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18,
+                  child: Text.rich(
+                    TextSpan(
+                      children: [
+                        TextSpan(
+                          text: forgotPasswordQst,
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyText1
+                              ?.apply(color: kPrimaryColor),
                         ),
-                      ),
-                    ],
+                        const TextSpan(
+                          text: recoveryPassword,
+                          style: TextStyle(
+                            color: kPrimaryColor,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
+                    textAlign: TextAlign.center,
                   ),
                 ),
               ],

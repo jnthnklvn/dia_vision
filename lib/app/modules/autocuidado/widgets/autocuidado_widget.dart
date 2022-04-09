@@ -30,7 +30,6 @@ class AutocuidadoWidget extends StatelessWidget {
             maxLines: 5,
             style: const TextStyle(
               fontWeight: FontWeight.bold,
-              fontSize: 18,
               color: Colors.white,
             ),
             overflow: TextOverflow.ellipsis,
@@ -41,10 +40,7 @@ class AutocuidadoWidget extends StatelessWidget {
               child: Text(
                 "Categoria: " + (_autocuidado.categoria ?? ''),
                 maxLines: 3,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 16,
-                ),
+                style: const TextStyle(color: Colors.white),
                 overflow: TextOverflow.ellipsis,
               ),
             ),

@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 
 import 'text_theme.dart';
 
-abstract class LightTheme {
-  static final ThemeData themeData = ThemeData(
+class LightTheme {
+  final ThemeData themeData = ThemeData(
     primaryColor: kPrimaryColor,
     toggleableActiveColor: kPrimaryColor,
     indicatorColor: kPrimaryColor,
@@ -16,14 +16,16 @@ abstract class LightTheme {
       background: Colors.white,
     ),
     appBarTheme: AppBarTheme(
-      elevation: 0,
+      elevation: 1,
       color: Colors.white,
-      titleTextStyle: textTheme.headline6!.copyWith(
-        color: const Color(0xFF151515),
-      ),
+      titleTextStyle: textTheme.headline6!
+          .copyWith(
+            color: const Color(0xFF151515),
+          )
+          .apply(fontSizeFactor: 1.0),
       iconTheme: const IconThemeData(color: Color(0xFF151515)),
     ),
-    textTheme: Typography.blackMountainView.merge(textTheme),
+    textTheme: textTheme.apply(fontSizeFactor: 1.0, fontSizeDelta: 2),
     canvasColor: Colors.white,
     backgroundColor: Colors.white,
     scaffoldBackgroundColor: Colors.white,

@@ -38,7 +38,6 @@ class _AutocuidadoPageState
           Text(
             selfCareTitle,
             style: TextStyle(
-              fontSize: kAppBarTitleSize,
               color: kPrimaryColor,
               fontWeight: FontWeight.bold,
             ),
@@ -91,7 +90,6 @@ class _AutocuidadoPageState
               style: TextStyle(
                 color: Theme.of(context).textTheme.bodyText1?.color,
                 fontWeight: FontWeight.bold,
-                fontSize: 18,
               ),
             ),
           ),
@@ -106,7 +104,6 @@ class _AutocuidadoPageState
                         (getDataBrFromDate(widget.autocuidado.createdAt) ?? ''),
                     style: const TextStyle(
                       color: Colors.grey,
-                      fontSize: 16,
                     ),
                   ),
                 ),
@@ -116,7 +113,6 @@ class _AutocuidadoPageState
                         (getDataBrFromDate(widget.autocuidado.updatedAt) ?? ''),
                     style: const TextStyle(
                       color: Colors.grey,
-                      fontSize: 16,
                     ),
                   ),
                 ),
@@ -126,10 +122,7 @@ class _AutocuidadoPageState
           Container(
             margin: const EdgeInsets.only(top: 20, bottom: 20),
             child: InkWellSpeakText(
-              Text(
-                widget.autocuidado.resumo ?? "",
-                style: const TextStyle(fontSize: 16),
-              ),
+              Text(widget.autocuidado.resumo ?? ""),
             ),
           ),
           if (widget.autocuidado.link != null)
@@ -148,7 +141,6 @@ class _AutocuidadoPageState
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         color: Colors.grey[600],
-                        fontSize: 16,
                       ),
                     ),
                   ),

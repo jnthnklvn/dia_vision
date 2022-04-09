@@ -59,7 +59,6 @@ class _DiureseRegisterPageState
           Text(
             diuresisCheckRegister,
             style: TextStyle(
-              fontSize: kAppBarTitleSize,
               color: kPrimaryColor,
               fontWeight: FontWeight.bold,
             ),
@@ -97,7 +96,6 @@ class _DiureseRegisterPageState
                       Text(
                         "Houve ardor?",
                         style: TextStyle(
-                          fontSize: 20,
                           color: kPrimaryColor,
                           fontWeight: FontWeight.w600,
                         ),
@@ -150,7 +148,7 @@ class _DiureseRegisterPageState
         decoration: BoxDecoration(
           color: Theme.of(context).brightness == Brightness.dark
               ? const Color.fromARGB(246, 36, 36, 36)
-              : kPrimaryLightColor,
+              : const Color(0xFFF5F6F9),
           borderRadius: BorderRadius.circular(29),
         ),
         child: ListTile(
@@ -180,14 +178,10 @@ class _DiureseRegisterPageState
               "Selecione uma coloração",
               style: TextStyle(
                 color: Theme.of(context).textTheme.bodyText1?.color,
-                fontSize: 18,
               ),
             ),
             elevation: 16,
-            style: TextStyle(
-              color: Theme.of(context).textTheme.bodyText1?.color,
-              fontSize: 18,
-            ),
+            style: Theme.of(context).textTheme.bodyText1,
             underline: Container(),
             onChanged: controller.setColoracao,
             items: <String>[

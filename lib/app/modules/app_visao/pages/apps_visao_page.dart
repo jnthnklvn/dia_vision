@@ -43,7 +43,6 @@ class _AppsVisaoPageState
           Text(
             visionApps,
             style: TextStyle(
-              fontSize: kAppBarTitleSize,
               color: kPrimaryColor,
               fontWeight: FontWeight.bold,
             ),
@@ -64,11 +63,14 @@ class _AppsVisaoPageState
                 return const Center(child: CircularProgressIndicator());
               }
               if (controller.apps.isEmpty) {
-                return const InkWellSpeakText(
+                return InkWellSpeakText(
                   Text(
                     withoutVisionAppRegistered,
                     textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 24, color: kPrimaryColor),
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyText1
+                        ?.apply(color: kPrimaryColor),
                   ),
                 );
               }

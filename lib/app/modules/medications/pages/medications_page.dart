@@ -56,7 +56,7 @@ class _MedicationsPageState
       appBar: AppBar(
         actions: [
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.only(right: 12.0),
             child: InkWell(
               onLongPress: () => _speak("$buttonStr $shareStr $registryStr"),
               onTap: saveRelatorioCsv,
@@ -74,7 +74,6 @@ class _MedicationsPageState
           Text(
             medicationStr,
             style: TextStyle(
-              fontSize: kAppBarTitleSize,
               color: kPrimaryColor,
               fontWeight: FontWeight.bold,
             ),
@@ -95,11 +94,14 @@ class _MedicationsPageState
                 return const Center(child: CircularProgressIndicator());
               }
               if (controller.medicacoes.isEmpty) {
-                return const InkWellSpeakText(
+                return InkWellSpeakText(
                   Text(
                     withoutMedicationsRegistered,
                     textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 24, color: kPrimaryColor),
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyText1
+                        ?.apply(color: kPrimaryColor),
                   ),
                 );
               }

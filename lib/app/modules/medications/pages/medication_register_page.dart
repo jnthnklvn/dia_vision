@@ -1,5 +1,6 @@
 import 'package:dia_vision/app/modules/medications/controllers/medication_register_controller.dart';
 import 'package:dia_vision/app/shared/components/container_field_horarios.dart';
+import 'package:dia_vision/app/shared/components/floating_options_button.dart';
 import 'package:dia_vision/app/shared/components/text_field_container.dart';
 import 'package:dia_vision/app/shared/components/ink_well_speak_text.dart';
 import 'package:dia_vision/app/shared/components/rounded_input_field.dart';
@@ -77,13 +78,14 @@ class _MedicationRegisterPageState
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       key: widget.scaffoldKey,
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: FloatingOptionsButton(),
       appBar: AppBar(
         leading: const BackArrowButton(iconPadding: 5),
         title: const InkWellSpeakText(
           Text(
             medicationRegister,
             style: TextStyle(
-              fontSize: kAppBarTitleSize,
               color: kPrimaryColor,
               fontWeight: FontWeight.bold,
             ),
@@ -120,13 +122,11 @@ class _MedicationRegisterPageState
                       "medida",
                       style: TextStyle(
                         color: Theme.of(context).textTheme.bodyText1?.color,
-                        fontSize: 18,
                       ),
                     ),
                     elevation: 16,
                     style: TextStyle(
                       color: Theme.of(context).textTheme.bodyText1?.color,
-                      fontSize: 18,
                     ),
                     underline: Container(),
                     onChanged: controller.setMedidaDosagem,
@@ -261,10 +261,7 @@ class _MedicationRegisterPageState
                 text: "Nome: ${controller.nome ?? ""}",
               ),
             ),
-            labelStyle: TextStyle(
-              color: Theme.of(context).textTheme.bodyText1?.color,
-              fontSize: 18,
-            ),
+            labelStyle: Theme.of(context).textTheme.bodyText1,
             hintText: "Nome",
             border: InputBorder.none,
           ),
@@ -298,7 +295,7 @@ class _MedicationRegisterPageState
       decoration: BoxDecoration(
         color: Theme.of(context).brightness == Brightness.dark
             ? const Color.fromARGB(246, 36, 36, 36)
-            : kPrimaryLightColor,
+            : const Color(0xFFF5F6F9),
         borderRadius: BorderRadius.circular(29),
       ),
       child: ListTile(
@@ -317,16 +314,10 @@ class _MedicationRegisterPageState
           isExpanded: true,
           hint: Text(
             "Posologia (intervalo em horas)",
-            style: TextStyle(
-              color: Theme.of(context).textTheme.bodyText1?.color,
-              fontSize: 18,
-            ),
+            style: Theme.of(context).textTheme.bodyText1,
           ),
           elevation: 16,
-          style: TextStyle(
-            color: Theme.of(context).textTheme.bodyText1?.color,
-            fontSize: 18,
-          ),
+          style: Theme.of(context).textTheme.bodyText1,
           underline: Container(),
           onChanged: controller.setPosologia,
           items: controller.horariosList

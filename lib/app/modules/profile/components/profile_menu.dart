@@ -44,13 +44,11 @@ class ProfileMenu extends StatelessWidget {
             ),
             const SizedBox(width: 20),
             Expanded(
-                child: Text(
-              text,
-              style: TextStyle(
-                fontSize: 20,
-                color: Theme.of(context).textTheme.bodyText1?.color,
+              child: Text(
+                text,
+                style: Theme.of(context).textTheme.bodyText1,
               ),
-            )),
+            ),
             Icon(
               Icons.arrow_forward_ios,
               color: Theme.of(context).textTheme.bodyText1?.color,

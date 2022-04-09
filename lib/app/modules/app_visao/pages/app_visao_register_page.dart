@@ -47,7 +47,6 @@ class _AppVisaoRegisterPageState
           Text(
             suggestVisionAppRegister,
             style: TextStyle(
-              fontSize: kAppBarTitleSize,
               color: kPrimaryColor,
               fontWeight: FontWeight.bold,
             ),

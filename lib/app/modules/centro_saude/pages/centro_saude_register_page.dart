@@ -1,4 +1,5 @@
 import 'package:dia_vision/app/modules/centro_saude/controllers/centro_saude_register_controller.dart';
+import 'package:dia_vision/app/shared/components/floating_options_button.dart';
 import 'package:dia_vision/app/shared/components/ink_well_speak_text.dart';
 import 'package:dia_vision/app/shared/components/rounded_input_field.dart';
 import 'package:dia_vision/app/shared/components/back_arrow_button.dart';
@@ -53,13 +54,14 @@ class _CentroSaudeRegisterPageState extends ModularState<
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       key: widget.scaffoldKey,
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: FloatingOptionsButton(),
       appBar: AppBar(
         leading: const BackArrowButton(iconPadding: 5),
         title: const InkWellSpeakText(
           Text(
             suggestMedicalCenterRegister,
             style: TextStyle(
-              fontSize: kAppBarTitleSize,
               color: kPrimaryColor,
               fontWeight: FontWeight.bold,
             ),
@@ -128,7 +130,6 @@ class _CentroSaudeRegisterPageState extends ModularState<
                       Text(
                         "Adicionar endereço?",
                         style: TextStyle(
-                          fontSize: 20,
                           color: kPrimaryColor,
                           fontWeight: FontWeight.w600,
                         ),

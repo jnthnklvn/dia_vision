@@ -67,7 +67,6 @@ class _AlimentoRegisterPageState extends State<AlimentoRegisterPage> {
             title: Text(
               "$searchFood...",
               style: TextStyle(
-                fontSize: kAppBarTitleSize,
                 color: kPrimaryColor,
                 fontWeight: FontWeight.bold,
               ),
@@ -124,7 +123,7 @@ class _AlimentoRegisterPageState extends State<AlimentoRegisterPage> {
                 RoundedInputField(
                   suffixIcon: InkWellSpeakText(Text(
                     getLastString(alimentoController.medida ?? '') ?? "",
-                    style: TextStyle(fontSize: 18, color: Colors.grey[700]),
+                    style: TextStyle(color: Colors.grey[700]),
                   )),
                   hintText: "Porção consumida",
                   controller: alimentoController.porcaoConsumidaController,

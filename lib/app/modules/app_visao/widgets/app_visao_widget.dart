@@ -67,7 +67,6 @@ class AppVisaoWidget extends StatelessWidget with dt.DateUtil {
                   maxLines: 2,
                   style: const TextStyle(
                     fontWeight: FontWeight.bold,
-                    fontSize: 18,
                     color: Colors.white,
                   ),
                 ),
@@ -101,7 +100,6 @@ class AppVisaoWidget extends StatelessWidget with dt.DateUtil {
     return Text(
       text,
       style: const TextStyle(
-        fontSize: 18,
         color: Colors.white70,
       ),
     );
