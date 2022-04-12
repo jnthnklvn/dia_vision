@@ -28,7 +28,7 @@ class _RecoveryPageState extends ModularState<RecoveryPage, RecoveryController>
     return Scaffold(
       key: widget.scaffoldKey,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: FloatingOptionsButton(),
+      floatingActionButton: const FloatingOptionsButton(),
       body: Container(
         color: Theme.of(context).backgroundColor,
         width: double.infinity,

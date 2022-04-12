@@ -77,7 +77,7 @@ class _LoginPageState extends ModularState<LoginPage, LoginController>
           isDark ? Colors.white10 : Theme.of(context).backgroundColor,
       key: widget.scaffoldKey,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: FloatingOptionsButton(),
+      floatingActionButton: const FloatingOptionsButton(),
       body: SizedBox(
         width: double.infinity,
         height: size.height,

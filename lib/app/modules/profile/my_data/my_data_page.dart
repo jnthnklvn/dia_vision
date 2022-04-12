@@ -57,7 +57,7 @@ class _MyDataPageState extends ModularState<MyDataPage, MyDataController>
     final size = MediaQuery.of(context).size;
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: FloatingOptionsButton(),
+      floatingActionButton: const FloatingOptionsButton(),
       key: widget.scaffoldKey,
       appBar: AppBar(
         leading: const BackArrowButton(iconPadding: 5),

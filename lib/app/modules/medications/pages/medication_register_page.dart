@@ -79,7 +79,7 @@ class _MedicationRegisterPageState
     return Scaffold(
       key: widget.scaffoldKey,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: FloatingOptionsButton(),
+      floatingActionButton: const FloatingOptionsButton(),
       appBar: AppBar(
         leading: const BackArrowButton(iconPadding: 5),
         title: const InkWellSpeakText(

@@ -46,6 +46,12 @@ class LocalStorageShared implements ILocalStorage {
   }
 
   @override
+  Future<double?> getDouble(String key) async {
+    var shared = await _instance.future;
+    return shared.getDouble(key);
+  }
+
+  @override
   Future<List<String>?> getStringList(String key) async {
     var shared = await _instance.future;
     return shared.getStringList(key);
@@ -61,6 +67,12 @@ class LocalStorageShared implements ILocalStorage {
   Future<bool> setInt(String key, int value) async {
     var shared = await _instance.future;
     return shared.setInt(key, value);
+  }
+
+  @override
+  Future<bool> setDouble(String key, double value) async {
+    var shared = await _instance.future;
+    return shared.setDouble(key, value);
   }
 
   @override

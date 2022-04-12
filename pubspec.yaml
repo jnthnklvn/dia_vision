@@ -54,6 +54,9 @@ dependencies:
   awesome_notifications: ^0.6.21
   introduction_screen: ^3.0.0
   fluttertoast: ^8.0.9
+  quds_ui_kit:
+    git:
+      url: https://github.com/jnthnklvn/quds_ui_kit.git
 
 dev_dependencies:
   mobx_codegen: ^2.0.5+2

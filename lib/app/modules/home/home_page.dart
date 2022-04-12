@@ -77,7 +77,7 @@ class _HomePageState extends State<HomePage> {
     SizeConfig.init(context);
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: FloatingOptionsButton(),
+      floatingActionButton: const FloatingOptionsButton(),
       body: Padding(
         padding: const EdgeInsets.fromLTRB(0, 50, 0, 0),
         child: Column(

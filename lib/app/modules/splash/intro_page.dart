@@ -29,7 +29,7 @@ class IntroPage extends StatelessWidget {
     init();
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: FloatingOptionsButton(),
+      floatingActionButton: const FloatingOptionsButton(),
       body: IntroductionScreen(
         pages: [
           PageViewModel(

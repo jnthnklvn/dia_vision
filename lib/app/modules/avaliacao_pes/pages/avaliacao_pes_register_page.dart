@@ -52,7 +52,7 @@ class _AvaliacaoPesRegisterPageState extends ModularState<
     return Scaffold(
       key: widget.scaffoldKey,
       floatingActionButtonLocation: FloatingActionButtonLocation.startDocked,
-      floatingActionButton: FloatingOptionsButton(),
+      floatingActionButton: const FloatingOptionsButton(),
       appBar: AppBar(
         leading: const BackArrowButton(iconPadding: 5),
         title: const InkWellSpeakText(

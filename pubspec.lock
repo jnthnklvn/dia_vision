@@ -791,6 +791,15 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.2.0"
+  quds_ui_kit:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: HEAD
+      resolved-ref: f02269dea65519732e64e476ef3e270fadcf1369
+      url: "https://github.com/jnthnklvn/quds_ui_kit.git"
+    source: git
+    version: "0.0.7+5"
   sembast:
     dependency: transitive
     description:

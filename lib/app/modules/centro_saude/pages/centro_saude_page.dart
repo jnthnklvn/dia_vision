@@ -46,7 +46,7 @@ class _CentroSaudePageState
     return Scaffold(
       key: widget.scaffoldKey,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: FloatingOptionsButton(),
+      floatingActionButton: const FloatingOptionsButton(),
       appBar: AppBar(
         actions: const [
           Padding(padding: EdgeInsets.all(8.0)),

@@ -1,6 +1,7 @@
 import 'package:dia_vision/app/shared/preferences/preferencias_preferences.dart';
 import 'package:dia_vision/app/shared/local_storage/local_storage_shared.dart';
 import 'package:dia_vision/app/shared/preferences/config_preferences.dart';
+import 'package:dia_vision/app/shared/preferences/theme_preferences.dart';
 import 'package:dia_vision/app/repositories/user_repository.dart';
 import 'package:dia_vision/app/modules/splash/intro_page.dart';
 import 'package:dia_vision/app/shared/utils/route_enum.dart';
@@ -32,10 +33,11 @@ class AppModule extends Module {
     Bind((i) => FlutterTts()),
     Bind((i) => UserRepository()),
     Bind((i) => LocalStorageShared()),
+    Bind((i) => ThemeParmasPreferences(i())),
     Bind((i) => ConfigPreferences(i())),
     Bind((i) => AwesomeNotifications()),
     Bind((i) => PreferenciasPreferences(i())),
-    Bind((i) => AppController(i(), i(), i(), i())),
+    Bind((i) => AppController(i(), i(), i(), i(), i())),
   ];
 
   @override

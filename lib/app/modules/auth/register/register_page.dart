@@ -33,7 +33,7 @@ class _RegisterPageState extends ModularState<RegisterPage, RegisterController>
     return Scaffold(
       key: widget.scaffoldKey,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: FloatingOptionsButton(),
+      floatingActionButton: const FloatingOptionsButton(),
       body: Container(
         width: double.infinity,
         height: size.height,

@@ -54,7 +54,7 @@ class _PreferenciasPageState
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       key: widget.scaffoldKey,
-      floatingActionButton: FloatingOptionsButton(),
+      floatingActionButton: const FloatingOptionsButton(),
       appBar: AppBar(
         leading: const BackArrowButton(iconPadding: 5),
         title: const InkWellSpeakText(

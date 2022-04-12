@@ -1,5 +1,6 @@
 import 'package:dia_vision/app/shared/theme/light_theme.dart';
 import 'package:dia_vision/app/shared/theme/dark_theme.dart';
+import 'package:dia_vision/app/model/theme_params.dart';
 import 'package:dia_vision/app/app_controller.dart';
 
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -24,11 +25,13 @@ class _AppWidgetState extends State<AppWidget> {
   Widget build(BuildContext context) {
     Modular.setInitialRoute('${RouteEnum.splash.name}/');
 
-    return ValueListenableBuilder<bool>(
+    return ValueListenableBuilder<ThemeParams>(
       valueListenable: _appController.themeSwitch,
-      builder: (context, isDarkMode, child) {
+      builder: (context, themeParams, child) {
         SystemChrome.setSystemUIOverlayStyle(
-          isDarkMode ? SystemUiOverlayStyle.light : SystemUiOverlayStyle.dark,
+          _appController.isDarkMode
+              ? SystemUiOverlayStyle.light
+              : SystemUiOverlayStyle.dark,
         );
 
         return MaterialApp.router(
@@ -36,9 +39,10 @@ class _AppWidgetState extends State<AppWidget> {
           routeInformationParser: Modular.routeInformationParser,
           debugShowCheckedModeBanner: false,
           title: appName,
-          themeMode: isDarkMode ? ThemeMode.dark : ThemeMode.light,
-          theme: LightTheme().themeData,
-          darkTheme: DarkTheme().themeData,
+          themeMode:
+              _appController.isDarkMode ? ThemeMode.dark : ThemeMode.light,
+          theme: LightTheme(themeParams.fontScale).themeData,
+          darkTheme: DarkTheme(themeParams.fontScale).themeData,
           localizationsDelegates: const [
             GlobalMaterialLocalizations.delegate,
             GlobalCupertinoLocalizations.delegate,
