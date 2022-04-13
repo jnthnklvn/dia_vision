@@ -3,6 +3,7 @@ import 'package:dia_vision/app/modules/medications/controllers/medications_contr
 import 'package:dia_vision/app/shared/preferences/medication_notify_preferences.dart';
 import 'package:dia_vision/app/modules/medications/utils/medication_utils.dart';
 import 'package:dia_vision/app/modules/home/domain/entities/module.dart';
+import 'package:dia_vision/app/shared/components/local_flutter_tts.dart';
 import 'package:dia_vision/app/model/medicacao_prescrita.dart';
 import 'package:dia_vision/app/shared/utils/color_utils.dart';
 import 'package:dia_vision/app/shared/utils/date_utils.dart' as dt;
@@ -14,7 +15,6 @@ import 'package:dia_vision/app/app_controller.dart';
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:dia_vision/app/shared/components/local_flutter_tts.dart';
 import 'package:flutter/semantics.dart';
 import 'package:flutter/material.dart';
 

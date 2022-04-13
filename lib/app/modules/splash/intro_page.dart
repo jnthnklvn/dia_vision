@@ -2,13 +2,13 @@ import 'package:dia_vision/app/shared/components/floating_options_button.dart';
 import 'package:dia_vision/app/shared/components/ink_well_speak_text.dart';
 import 'package:dia_vision/app/shared/preferences/config_preferences.dart';
 import 'package:dia_vision/app/shared/components/semantic_icon_play.dart';
+import 'package:dia_vision/app/shared/components/local_flutter_tts.dart';
 import 'package:dia_vision/app/shared/utils/route_enum.dart';
 import 'package:dia_vision/app/shared/utils/constants.dart';
 import 'package:dia_vision/app/shared/utils/strings.dart';
 
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:dia_vision/app/shared/components/local_flutter_tts.dart';
 import 'package:flutter/material.dart';
 
 class IntroPage extends StatelessWidget {

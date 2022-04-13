@@ -1,7 +1,7 @@
 import 'package:dia_vision/app/shared/components/ink_well_speak_text.dart';
+import 'package:dia_vision/app/shared/components/local_flutter_tts.dart';
 
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:dia_vision/app/shared/components/local_flutter_tts.dart';
 import 'package:flutter/material.dart';
 
 class AlertMsgDialog extends StatelessWidget {

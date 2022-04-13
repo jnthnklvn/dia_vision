@@ -3,6 +3,7 @@ import 'package:dia_vision/app/modules/autocuidado/widgets/autocuidado_widget.da
 import 'package:dia_vision/app/shared/components/floating_options_button.dart';
 import 'package:dia_vision/app/shared/components/ink_well_speak_text.dart';
 import 'package:dia_vision/app/shared/components/back_arrow_button.dart';
+import 'package:dia_vision/app/shared/components/local_flutter_tts.dart';
 import 'package:dia_vision/app/shared/utils/scaffold_utils.dart';
 import 'package:dia_vision/app/shared/utils/color_utils.dart';
 import 'package:dia_vision/app/shared/utils/date_utils.dart';
@@ -11,7 +12,6 @@ import 'package:dia_vision/app/shared/utils/strings.dart';
 
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:dia_vision/app/shared/components/local_flutter_tts.dart';
 import 'package:flutter/material.dart';
 
 class AutocuidadosPage extends StatefulWidget with ScaffoldUtils {

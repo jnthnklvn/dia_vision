@@ -2,6 +2,7 @@ import 'package:dia_vision/app/modules/auth/components/already_have_an_account_a
 import 'package:dia_vision/app/shared/components/floating_options_button.dart';
 import 'package:dia_vision/app/shared/components/rounded_password_field.dart';
 import 'package:dia_vision/app/shared/components/rounded_input_field.dart';
+import 'package:dia_vision/app/shared/components/local_flutter_tts.dart';
 import 'package:dia_vision/app/shared/components/rounded_button.dart';
 import 'package:dia_vision/app/shared/components/confirm_dialog.dart';
 import 'package:dia_vision/app/shared/utils/scaffold_utils.dart';
@@ -13,7 +14,6 @@ import 'package:dia_vision/app/app_controller.dart';
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:dia_vision/app/shared/components/local_flutter_tts.dart';
 import 'package:flutter/material.dart';
 
 import 'login_controller.dart';

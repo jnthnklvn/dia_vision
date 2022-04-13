@@ -1,7 +1,7 @@
+import 'package:dia_vision/app/shared/components/local_flutter_tts.dart';
 import 'package:dia_vision/app/shared/components/snack_bars.dart';
 
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:dia_vision/app/shared/components/local_flutter_tts.dart';
 import 'package:flutter/material.dart';
 
 class ScaffoldUtils {

@@ -4,14 +4,14 @@ import 'package:dia_vision/app/shared/components/floating_add_button.dart';
 import 'package:dia_vision/app/shared/components/ink_well_speak_text.dart';
 import 'package:dia_vision/app/modules/home/domain/entities/module.dart';
 import 'package:dia_vision/app/shared/components/back_arrow_button.dart';
-import 'package:dia_vision/app/shared/utils/color_utils.dart';
+import 'package:dia_vision/app/shared/components/local_flutter_tts.dart';
 import 'package:dia_vision/app/shared/utils/scaffold_utils.dart';
+import 'package:dia_vision/app/shared/utils/color_utils.dart';
 import 'package:dia_vision/app/shared/utils/constants.dart';
 import 'package:dia_vision/app/shared/utils/strings.dart';
 
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:dia_vision/app/shared/components/local_flutter_tts.dart';
 import 'package:flutter/semantics.dart';
 import 'package:flutter/material.dart';
 
