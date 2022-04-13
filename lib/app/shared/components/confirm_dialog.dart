@@ -39,13 +39,18 @@ class ConfirmDialog extends StatelessWidget {
             backgroundColor: Colors.red,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(50),
-              side: const BorderSide(color: Colors.white),
+              side: BorderSide(color: Theme.of(context).backgroundColor),
             ),
             minimumSize: const Size(100, 40),
           ),
           onLongPress: () => _speak("Botão: não"),
-          child:
-              const Text('Não', style: TextStyle(fontWeight: FontWeight.w600)),
+          child: Text(
+            'Não',
+            style: TextStyle(
+              fontWeight: FontWeight.w600,
+              color: Theme.of(context).backgroundColor,
+            ),
+          ),
           onPressed: onCancell != null
               ? () {
                   Navigator.of(context).pop();
@@ -63,8 +68,13 @@ class ConfirmDialog extends StatelessWidget {
             minimumSize: const Size(100, 40),
           ),
           onLongPress: () => _speak("Botão: sim"),
-          child:
-              const Text('Sim', style: TextStyle(fontWeight: FontWeight.w600)),
+          child: Text(
+            'Sim',
+            style: TextStyle(
+              fontWeight: FontWeight.w600,
+              color: Theme.of(context).backgroundColor,
+            ),
+          ),
           onPressed: () {
             Navigator.of(context).pop();
             onConfirm();

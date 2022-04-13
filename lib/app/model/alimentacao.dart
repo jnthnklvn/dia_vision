@@ -1,3 +1,4 @@
+import 'package:dia_vision/app/shared/utils/string_utils.dart';
 import 'package:dia_vision/app/shared/utils/date_utils.dart';
 import 'package:parse_server_sdk/parse_server_sdk.dart';
 
@@ -12,7 +13,7 @@ const kAlimentacaoTable = "Alimentacao";
 enum MealType { cafe, almoco, jantar, lanche }
 
 extension MealTypeExtension on MealType {
-  String get name => toString().replaceAll('MealType.', '');
+  String get name => capitalize(toString().replaceAll('MealType.', ''));
 
   String? get displayTitle {
     switch (this) {
