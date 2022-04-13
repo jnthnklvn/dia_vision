@@ -12,7 +12,7 @@ import 'package:dia_vision/app/model/avaliacao_pes.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:brasil_fields/brasil_fields.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:flutter_tts/flutter_tts.dart';
+import 'package:dia_vision/app/shared/components/local_flutter_tts.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 
@@ -203,7 +203,7 @@ class _AvaliacaoPesRegisterPageState extends ModularState<
         leading: Semantics(
           excludeSemantics: true,
           child: InkWell(
-            onTap: () => Modular.get<FlutterTts>().speak(
+            onTap: () => Modular.get<LocalFlutterTts>().speak(
                 controller.temperaturaLavagem ??
                     "Selecione a temperatura de lavagem"),
             child: const Icon(

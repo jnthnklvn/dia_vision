@@ -1,5 +1,5 @@
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:flutter_tts/flutter_tts.dart';
+import 'package:dia_vision/app/shared/components/local_flutter_tts.dart';
 import 'package:flutter/material.dart';
 
 class ChooseDialog extends StatelessWidget {
@@ -12,7 +12,7 @@ class ChooseDialog extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
-  Future _speak(String txt) => Modular.get<FlutterTts>().speak(txt);
+  Future _speak(String txt) => Modular.get<LocalFlutterTts>().speak(txt);
 
   @override
   Widget build(BuildContext context) {

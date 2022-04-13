@@ -5,7 +5,7 @@ import 'package:dia_vision/app/shared/utils/constants.dart';
 import 'package:dia_vision/app/model/centro_saude.dart';
 
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:flutter_tts/flutter_tts.dart';
+import 'package:dia_vision/app/shared/components/local_flutter_tts.dart';
 import 'package:flutter/material.dart';
 
 class CentroSaudeWidget extends StatelessWidget with DateUtil {
@@ -37,7 +37,7 @@ class CentroSaudeWidget extends StatelessWidget with DateUtil {
         "${medicalCentersModule.routeName}/page/",
         arguments: _centroSaude,
       ),
-      onLongPress: () => Modular.get<FlutterTts>().speak(
+      onLongPress: () => Modular.get<LocalFlutterTts>().speak(
         (getFullString("Nome", _centroSaude.nome) ?? "") + stringToSpeak,
       ),
       child: Container(

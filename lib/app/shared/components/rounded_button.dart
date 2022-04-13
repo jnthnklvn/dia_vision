@@ -2,7 +2,7 @@ import 'package:dia_vision/app/shared/utils/constants.dart';
 import 'package:dia_vision/app/shared/utils/strings.dart';
 
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:flutter_tts/flutter_tts.dart';
+import 'package:dia_vision/app/shared/components/local_flutter_tts.dart';
 import 'package:flutter/material.dart';
 
 class RoundedButton extends StatelessWidget {
@@ -32,8 +32,8 @@ class RoundedButton extends StatelessWidget {
         child: ElevatedButton(
           onPressed: onPressed,
           style: ElevatedButton.styleFrom(primary: kPrimaryColor),
-          onLongPress: () =>
-              Modular.get<FlutterTts>().speak("$buttonStr " + (text ?? '')),
+          onLongPress: () => Modular.get<LocalFlutterTts>()
+              .speak("$buttonStr " + (text ?? '')),
           child: Text(
             (text ?? ''),
             style: TextStyle(

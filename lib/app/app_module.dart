@@ -2,6 +2,7 @@ import 'package:dia_vision/app/shared/preferences/preferencias_preferences.dart'
 import 'package:dia_vision/app/shared/local_storage/local_storage_shared.dart';
 import 'package:dia_vision/app/shared/preferences/config_preferences.dart';
 import 'package:dia_vision/app/shared/preferences/theme_preferences.dart';
+import 'package:dia_vision/app/shared/components/local_flutter_tts.dart';
 import 'package:dia_vision/app/repositories/user_repository.dart';
 import 'package:dia_vision/app/modules/splash/intro_page.dart';
 import 'package:dia_vision/app/shared/utils/route_enum.dart';
@@ -9,7 +10,6 @@ import 'package:dia_vision/app/shared/utils/utils.dart';
 
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:flutter_tts/flutter_tts.dart';
 
 import 'modules/atividade_fisica/atividade_fisica_module.dart';
 import 'modules/avaliacao_pes/avaliacao_pes_module.dart';
@@ -30,8 +30,8 @@ class AppModule extends Module {
   @override
   final List<Bind> binds = [
     Bind((i) => Utils()),
-    Bind((i) => FlutterTts()),
     Bind((i) => UserRepository()),
+    Bind((i) => LocalFlutterTts(i())),
     Bind((i) => LocalStorageShared()),
     Bind((i) => ThemeParmasPreferences(i())),
     Bind((i) => ConfigPreferences(i())),

@@ -12,7 +12,7 @@ import 'package:dia_vision/app/shared/utils/strings.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:flutter_tts/flutter_tts.dart';
+import 'package:dia_vision/app/shared/components/local_flutter_tts.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:flutter/semantics.dart';
 import 'package:flutter/material.dart';
@@ -27,7 +27,7 @@ class MedicationsPage extends StatefulWidget with ScaffoldUtils {
 class _MedicationsPageState
     extends ModularState<MedicationsPage, MedicationsController>
     with dt.DateUtil {
-  Future _speak(String txt) => Modular.get<FlutterTts>().speak(txt);
+  Future _speak(String txt) => Modular.get<LocalFlutterTts>().speak(txt);
 
   @override
   void initState() {

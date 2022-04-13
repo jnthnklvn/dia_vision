@@ -13,7 +13,7 @@ import 'package:dia_vision/app/app_controller.dart';
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:flutter_tts/flutter_tts.dart';
+import 'package:dia_vision/app/shared/components/local_flutter_tts.dart';
 import 'package:flutter/material.dart';
 
 import 'login_controller.dart';
@@ -30,7 +30,7 @@ class _LoginPageState extends ModularState<LoginPage, LoginController>
   final _focusNode1 = FocusNode();
   final _focusNode2 = FocusNode();
 
-  Future _speak(String txt) => Modular.get<FlutterTts>().speak(txt);
+  Future _speak(String txt) => Modular.get<LocalFlutterTts>().speak(txt);
 
   Future<void> _showMyDialog(Function() onConfirm) async {
     return showDialog(

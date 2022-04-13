@@ -7,7 +7,7 @@ import 'package:dia_vision/app/app_controller.dart';
 import 'package:quds_ui_kit/screens/quds_popup_menu.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:draggable_fab/draggable_fab.dart';
-import 'package:flutter_tts/flutter_tts.dart';
+import 'package:dia_vision/app/shared/components/local_flutter_tts.dart';
 import 'package:flutter/material.dart';
 
 import 'dart:developer' as dev;
@@ -34,7 +34,7 @@ class FloatingOptionsButton extends StatefulWidget {
 }
 
 class _FloatingOptionsButtonState extends State<FloatingOptionsButton> {
-  Future _speak(String txt) => Modular.get<FlutterTts>().speak(txt);
+  Future _speak(String txt) => Modular.get<LocalFlutterTts>().speak(txt);
   final containerKey = GlobalKey();
 
   final controller = Modular.get<AppController>();

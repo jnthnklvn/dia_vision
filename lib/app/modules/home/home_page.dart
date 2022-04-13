@@ -10,7 +10,7 @@ import 'package:dia_vision/app/app_controller.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:flutter_tts/flutter_tts.dart';
+import 'package:dia_vision/app/shared/components/local_flutter_tts.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -22,7 +22,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final AppController _controller = Modular.get<AppController>();
-  Future _speak(String txt) => Modular.get<FlutterTts>().speak(txt);
+  Future _speak(String txt) => Modular.get<LocalFlutterTts>().speak(txt);
 
   @override
   void initState() {

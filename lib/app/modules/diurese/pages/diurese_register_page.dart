@@ -12,7 +12,7 @@ import 'package:dia_vision/app/model/diurese.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:brasil_fields/brasil_fields.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:flutter_tts/flutter_tts.dart';
+import 'package:dia_vision/app/shared/components/local_flutter_tts.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 
@@ -139,7 +139,7 @@ class _DiureseRegisterPageState
 
   Widget buildDropdownButton(Size size) {
     return InkWell(
-      onLongPress: () => Modular.get<FlutterTts>()
+      onLongPress: () => Modular.get<LocalFlutterTts>()
           .speak(controller.coloracao ?? "Selecione uma coloração"),
       child: Container(
         margin: const EdgeInsets.symmetric(vertical: 10),
@@ -156,7 +156,7 @@ class _DiureseRegisterPageState
           leading: Semantics(
             excludeSemantics: true,
             child: InkWell(
-              onTap: () => Modular.get<FlutterTts>()
+              onTap: () => Modular.get<LocalFlutterTts>()
                   .speak(controller.coloracao ?? "Selecione uma coloração"),
               child: const Icon(
                 Icons.play_circle_fill,

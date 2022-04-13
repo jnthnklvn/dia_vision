@@ -2,7 +2,7 @@ import 'package:dia_vision/app/shared/utils/constants.dart';
 import 'package:dia_vision/app/shared/utils/strings.dart';
 
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:flutter_tts/flutter_tts.dart';
+import 'package:dia_vision/app/shared/components/local_flutter_tts.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -21,7 +21,7 @@ class BackArrowButton extends StatelessWidget {
       child: InkWell(
         onTap: Modular.to.pop,
         onLongPress: () =>
-            Modular.get<FlutterTts>().speak("$buttonStr $backStr"),
+            Modular.get<LocalFlutterTts>().speak("$buttonStr $backStr"),
         child: Padding(
           padding: const EdgeInsets.symmetric(
             horizontal: 15,

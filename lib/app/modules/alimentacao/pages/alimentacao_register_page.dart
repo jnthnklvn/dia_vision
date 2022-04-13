@@ -6,6 +6,7 @@ import 'package:dia_vision/app/shared/components/ink_well_speak_text.dart';
 import 'package:dia_vision/app/shared/components/rounded_input_field.dart';
 import 'package:dia_vision/app/shared/components/back_arrow_button.dart';
 import 'package:dia_vision/app/modules/home/domain/entities/module.dart';
+import 'package:dia_vision/app/shared/components/local_flutter_tts.dart';
 import 'package:dia_vision/app/shared/components/rounded_button.dart';
 import 'package:dia_vision/app/shared/components/confirm_dialog.dart';
 import 'package:dia_vision/app/shared/utils/scaffold_utils.dart';
@@ -15,7 +16,6 @@ import 'package:dia_vision/app/model/alimentacao.dart';
 
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:flutter_tts/flutter_tts.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 
@@ -221,8 +221,8 @@ class _AlimentacaoRegisterPageState extends ModularState<
         leading: Semantics(
           excludeSemantics: true,
           child: InkWell(
-            onTap: () =>
-                Modular.get<FlutterTts>().speak(controller.tipo ?? selectType),
+            onTap: () => Modular.get<LocalFlutterTts>()
+                .speak(controller.tipo ?? selectType),
             child: const Icon(
               Icons.play_circle_fill,
               color: kPrimaryColor,

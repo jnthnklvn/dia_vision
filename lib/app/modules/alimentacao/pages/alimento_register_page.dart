@@ -4,6 +4,7 @@ import 'package:dia_vision/app/shared/components/floating_options_button.dart';
 import 'package:dia_vision/app/shared/components/ink_well_speak_text.dart';
 import 'package:dia_vision/app/shared/components/rounded_input_field.dart';
 import 'package:dia_vision/app/shared/components/back_arrow_button.dart';
+import 'package:dia_vision/app/shared/components/local_flutter_tts.dart';
 import 'package:dia_vision/app/shared/components/rounded_button.dart';
 import 'package:dia_vision/app/shared/utils/scaffold_utils.dart';
 import 'package:dia_vision/app/shared/utils/constants.dart';
@@ -12,7 +13,6 @@ import 'package:dia_vision/app/model/alimento.dart';
 
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:flutter_tts/flutter_tts.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 
@@ -38,7 +38,7 @@ class _AlimentoRegisterPageState extends State<AlimentoRegisterPage> {
     super.initState();
   }
 
-  Future _speak(String txt) => Modular.get<FlutterTts>().speak(txt);
+  Future _speak(String txt) => Modular.get<LocalFlutterTts>().speak(txt);
 
   @override
   Widget build(BuildContext context) {

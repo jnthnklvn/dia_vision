@@ -1,5 +1,6 @@
+import 'package:dia_vision/app/shared/components/local_flutter_tts.dart';
+
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:flutter_tts/flutter_tts.dart';
 import 'package:flutter/material.dart';
 
 class InkWellSpeakText extends StatelessWidget {
@@ -7,7 +8,7 @@ class InkWellSpeakText extends StatelessWidget {
 
   const InkWellSpeakText(this.text, {Key? key}) : super(key: key);
 
-  Future _speak() => Modular.get<FlutterTts>().speak(text.data ?? '');
+  Future _speak() => Modular.get<LocalFlutterTts>().speak(text.data ?? '');
 
   @override
   Widget build(BuildContext context) {

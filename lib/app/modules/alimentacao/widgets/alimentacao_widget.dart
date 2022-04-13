@@ -1,4 +1,5 @@
 import 'package:dia_vision/app/modules/home/domain/entities/module.dart';
+import 'package:dia_vision/app/shared/components/local_flutter_tts.dart';
 import 'package:dia_vision/app/shared/utils/color_utils.dart';
 import 'package:dia_vision/app/shared/utils/date_utils.dart' as dt;
 import 'package:dia_vision/app/shared/utils/constants.dart';
@@ -6,7 +7,6 @@ import 'package:dia_vision/app/shared/utils/strings.dart';
 import 'package:dia_vision/app/model/alimentacao.dart';
 
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:flutter_tts/flutter_tts.dart';
 import 'package:flutter/material.dart';
 
 class AlimentacaoWidget extends StatelessWidget with dt.DateUtil {
@@ -37,7 +37,7 @@ class AlimentacaoWidget extends StatelessWidget with dt.DateUtil {
         "${alimentation.routeName}/$registerStr/",
         arguments: _alimentacao,
       ),
-      onLongPress: () => Modular.get<FlutterTts>()
+      onLongPress: () => Modular.get<LocalFlutterTts>()
           .speak("${getFullString('Tipo', _alimentacao.tipo)} $stringToSpeak"),
       child: Container(
         decoration: BoxDecoration(

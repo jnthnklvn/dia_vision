@@ -14,7 +14,7 @@ import 'package:dia_vision/app/app_controller.dart';
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:flutter_tts/flutter_tts.dart';
+import 'package:dia_vision/app/shared/components/local_flutter_tts.dart';
 import 'package:flutter/semantics.dart';
 import 'package:flutter/material.dart';
 
@@ -37,7 +37,7 @@ class MedicationWidget extends StatelessWidget
     Key? key,
   }) : super(key: key);
 
-  Future _speak(String txt) => Modular.get<FlutterTts>().speak(txt);
+  Future _speak(String txt) => Modular.get<LocalFlutterTts>().speak(txt);
 
   String? getFullString(String fieldName, String? text, {String? sufix}) {
     if (text?.isNotEmpty != true) return null;
@@ -98,7 +98,7 @@ class MedicationWidget extends StatelessWidget
                     "${medications.routeName}/$registerStr/",
                     arguments: _medicacaoPrescrita,
                   ),
-                  onLongPress: () => Modular.get<FlutterTts>().speak(
+                  onLongPress: () => Modular.get<LocalFlutterTts>().speak(
                     getFullString("Nome", _medicacaoPrescrita.nome) ??
                         '' + stringToSpeak,
                   ),

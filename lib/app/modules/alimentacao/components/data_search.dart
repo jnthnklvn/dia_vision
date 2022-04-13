@@ -1,18 +1,18 @@
 import 'package:dia_vision/app/modules/alimentacao/controllers/alimento_controller.dart';
 import 'package:dia_vision/app/shared/components/ink_well_speak_text.dart';
+import 'package:dia_vision/app/shared/components/local_flutter_tts.dart';
 import 'package:dia_vision/app/shared/utils/constants.dart';
 import 'package:dia_vision/app/shared/utils/strings.dart';
 
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:flutter_tts/flutter_tts.dart';
 import 'package:flutter/material.dart';
 
 class DataSearch extends SearchDelegate<String> {
   final AlimentoController _alimentoController;
   final Function(String) onError;
 
-  Future _speak(String txt) => Modular.get<FlutterTts>().speak(txt);
+  Future _speak(String txt) => Modular.get<LocalFlutterTts>().speak(txt);
 
   DataSearch(this._alimentoController, this.onError)
       : super(

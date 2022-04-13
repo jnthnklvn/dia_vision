@@ -6,7 +6,7 @@ import 'package:dia_vision/app/shared/utils/strings.dart';
 import 'package:dia_vision/app/model/glicemia.dart';
 
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:flutter_tts/flutter_tts.dart';
+import 'package:dia_vision/app/shared/components/local_flutter_tts.dart';
 import 'package:flutter/material.dart';
 
 class GlicemiaWidget extends StatelessWidget with DateUtil {
@@ -42,7 +42,7 @@ class GlicemiaWidget extends StatelessWidget with DateUtil {
         "${glicemy.routeName}/$registerStr/",
         arguments: _glicemia,
       ),
-      onLongPress: () => Modular.get<FlutterTts>().speak(stringToSpeak),
+      onLongPress: () => Modular.get<LocalFlutterTts>().speak(stringToSpeak),
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16),

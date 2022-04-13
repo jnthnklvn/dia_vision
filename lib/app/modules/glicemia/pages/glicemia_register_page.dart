@@ -14,7 +14,7 @@ import 'package:dia_vision/app/model/glicemia.dart';
 
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:flutter_tts/flutter_tts.dart';
+import 'package:dia_vision/app/shared/components/local_flutter_tts.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 
@@ -167,7 +167,7 @@ class _GlicemiaRegisterPageState
         leading: Semantics(
           excludeSemantics: true,
           child: InkWell(
-            onTap: () => Modular.get<FlutterTts>()
+            onTap: () => Modular.get<LocalFlutterTts>()
                 .speak(controller.horario ?? "Selecione o horário"),
             child: const Icon(
               Icons.play_circle_fill,

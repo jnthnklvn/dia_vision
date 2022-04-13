@@ -1,3 +1,4 @@
+import 'package:dia_vision/app/shared/components/local_flutter_tts.dart';
 import 'package:dia_vision/app/shared/utils/color_utils.dart';
 import 'package:dia_vision/app/shared/utils/date_utils.dart' as dt;
 import 'package:dia_vision/app/shared/utils/constants.dart';
@@ -5,7 +6,6 @@ import 'package:dia_vision/app/model/app_visao.dart';
 
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:flutter_tts/flutter_tts.dart';
 import 'package:flutter/material.dart';
 
 import 'dart:io';
@@ -40,7 +40,7 @@ class AppVisaoWidget extends StatelessWidget with dt.DateUtil {
                 : _appVisao.linkGooglePlay) ??
             '',
       ),
-      onLongPress: () => Modular.get<FlutterTts>().speak(
+      onLongPress: () => Modular.get<LocalFlutterTts>().speak(
         (getFullString("Título", _appVisao.titulo) ?? "") + ". $stringToSpeak",
       ),
       child: Container(

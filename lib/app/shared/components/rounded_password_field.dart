@@ -2,7 +2,7 @@ import 'package:dia_vision/app/shared/utils/constants.dart';
 import 'package:dia_vision/app/shared/utils/strings.dart';
 
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:flutter_tts/flutter_tts.dart';
+import 'package:dia_vision/app/shared/components/local_flutter_tts.dart';
 import 'package:flutter/material.dart';
 
 import 'text_field_container.dart';
@@ -54,7 +54,7 @@ class RoundedPasswordField extends StatelessWidget {
           icon: Semantics(
             excludeSemantics: true,
             child: InkWell(
-              onTap: () => Modular.get<FlutterTts>().speak(hintText),
+              onTap: () => Modular.get<LocalFlutterTts>().speak(hintText),
               child: const Icon(
                 Icons.play_circle_fill,
                 color: kPrimaryColor,
@@ -64,7 +64,7 @@ class RoundedPasswordField extends StatelessWidget {
           ),
           suffixIcon: InkWell(
             onTap: changeVisibility,
-            onLongPress: () => Modular.get<FlutterTts>().speak(
+            onLongPress: () => Modular.get<LocalFlutterTts>().speak(
                 "$buttonStr ${(obscureText ? '' : 'não ')} 'exibir senha'"),
             child: Icon(
               obscureText ? Icons.visibility : Icons.visibility_off,

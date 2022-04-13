@@ -9,7 +9,7 @@ import 'package:dia_vision/app/shared/utils/constants.dart';
 
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:flutter_tts/flutter_tts.dart';
+import 'package:dia_vision/app/shared/components/local_flutter_tts.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 
@@ -251,7 +251,7 @@ class _PreferenciasPageState
           excludeSemantics: true,
           child: InkWell(
             onTap: () =>
-                Modular.get<FlutterTts>().speak(controller.tempoLembrete),
+                Modular.get<LocalFlutterTts>().speak(controller.tempoLembrete),
             child: const Icon(
               Icons.play_circle_fill,
               color: kPrimaryColor,

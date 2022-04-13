@@ -5,7 +5,7 @@ import 'package:dia_vision/app/shared/utils/strings.dart';
 
 import 'package:day_night_time_picker/lib/daynight_timepicker.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:flutter_tts/flutter_tts.dart';
+import 'package:dia_vision/app/shared/components/local_flutter_tts.dart';
 import 'package:flutter/material.dart';
 
 import 'choose_dialog.dart';
@@ -26,7 +26,8 @@ class ContainerFieldHorarios extends StatelessWidget with dt.DateUtil {
   final List<String> horarios;
   final BuildContext context;
 
-  Future<dynamic> _speak(String txt) => Modular.get<FlutterTts>().speak(txt);
+  Future<dynamic> _speak(String txt) =>
+      Modular.get<LocalFlutterTts>().speak(txt);
 
   Future showTimePickerDialog() {
     return Navigator.of(context).push(

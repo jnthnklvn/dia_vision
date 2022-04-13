@@ -1,7 +1,7 @@
 import 'package:dia_vision/app/shared/utils/constants.dart';
 
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:flutter_tts/flutter_tts.dart';
+import 'package:dia_vision/app/shared/components/local_flutter_tts.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 
@@ -70,7 +70,7 @@ class RoundedInputField extends StatelessWidget {
                     size: 42,
                   )
                 : InkWell(
-                    onTap: () => Modular.get<FlutterTts>()
+                    onTap: () => Modular.get<LocalFlutterTts>()
                         .speak("$hintText: ${controller?.text ?? ""}"),
                     child: const Icon(
                       Icons.play_circle_fill,

@@ -2,7 +2,7 @@ import 'package:dia_vision/app/shared/utils/constants.dart';
 
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:flutter_tts/flutter_tts.dart';
+import 'package:dia_vision/app/shared/components/local_flutter_tts.dart';
 import 'package:flutter/material.dart';
 
 class ProfileMenu extends StatelessWidget {
@@ -16,7 +16,7 @@ class ProfileMenu extends StatelessWidget {
   final String text, icon;
   final VoidCallback? onPressed;
 
-  Future _speak() => Modular.get<FlutterTts>().speak(text);
+  Future _speak() => Modular.get<LocalFlutterTts>().speak(text);
 
   @override
   Widget build(BuildContext context) {
