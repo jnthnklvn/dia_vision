@@ -52,11 +52,12 @@ dependencies:
   parse_server_sdk_flutter: ^3.1.0
   flutter_staggered_grid_view: ^0.6.1
   awesome_notifications: ^0.6.21
-  introduction_screen: ^3.0.0
   fluttertoast: ^8.0.9
   quds_ui_kit:
     git:
       url: https://github.com/jnthnklvn/quds_ui_kit.git
+  introduction_screen:
+    path: '../introduction_screen'
 
 dev_dependencies:
   mobx_codegen: ^2.0.5+2

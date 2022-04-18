@@ -33,62 +33,132 @@ class IntroPage extends StatelessWidget {
       body: IntroductionScreen(
         pages: [
           PageViewModel(
-            image: Center(
-              child: Image.asset(
-                "assets/images/pedestrian_crossing.png",
-                excludeFromSemantics: true,
-                height: 175.0,
-              ),
-            ),
-            titleWidget: InkWellSpeakText(
-              Text(
-                "Acessibilidade",
-                style: Theme.of(context).textTheme.bodyText1?.merge(
-                      const TextStyle(
-                        fontWeight: FontWeight.w600,
-                        color: kPrimaryColor,
+            titleWidget: SingleChildScrollView(
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 48.0),
+                    child: Image.asset(
+                      "assets/images/pedestrian_crossing.png",
+                      excludeFromSemantics: true,
+                      height: 175.0,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 18.0),
+                    child: InkWellSpeakText(
+                      Text(
+                        "Componentes Acessíveis",
+                        style: Theme.of(context).textTheme.bodyText1?.merge(
+                              const TextStyle(
+                                fontWeight: FontWeight.w600,
+                                color: kPrimaryColor,
+                              ),
+                            ),
                       ),
                     ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 18.0),
+                    child: Center(
+                      child: InkWellSpeakText(
+                        Text(
+                          introPage1,
+                          textAlign: TextAlign.center,
+                          style: Theme.of(context).textTheme.bodyText1,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 18.0),
+                    child: SemanticIconPlay(text: introPage1, size: 54),
+                  ),
+                ],
               ),
             ),
-            bodyWidget: Center(
-              child: InkWellSpeakText(
-                Text(
-                  introPage1,
-                  textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.bodyText1,
-                ),
+            bodyWidget: Container(),
+          ),
+          PageViewModel(
+            titleWidget: SingleChildScrollView(
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 48.0),
+                    child: Image.asset(
+                      "assets/images/undraw_web_browsing.png",
+                      excludeFromSemantics: true,
+                      height: 175.0,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 18.0),
+                    child: InkWellSpeakText(
+                      Text(
+                        "Botão de Acessibilidade",
+                        style: Theme.of(context).textTheme.bodyText1?.merge(
+                              const TextStyle(
+                                fontWeight: FontWeight.w600,
+                                color: kPrimaryColor,
+                              ),
+                            ),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 18.0),
+                    child: Center(
+                      child: InkWellSpeakText(
+                        Text(
+                          introPage2,
+                          textAlign: TextAlign.center,
+                          style: Theme.of(context).textTheme.bodyText1,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 18.0),
+                    child: SemanticIconPlay(text: introPage2, size: 54),
+                  ),
+                ],
               ),
             ),
-            footer: SemanticIconPlay(text: introPage1, size: 54),
+            bodyWidget: Container(),
           ),
         ],
         onDone: onDone,
+        nextSemantic: 'Botão: avançar página.',
         next: const Icon(
-          Icons.play_arrow_rounded,
-          semanticLabel: "Botão: próxima página.",
+          Icons.arrow_forward_ios_rounded,
           size: 36,
-          color: kSecondaryColor,
+          color: kPrimaryColor,
         ),
-        done: InkWell(
-          onLongPress: () => _speak("Botão: Pronto"),
-          onTap: onDone,
-          child: const Padding(
-            padding: EdgeInsets.all(8.0),
-            child: Text(
-              'Pronto',
-              style: TextStyle(
-                fontWeight: FontWeight.w600,
-                color: kPrimaryColor,
+        showBackButton: true,
+        backSemantic: 'Botão: voltar página.',
+        back: const Icon(
+          Icons.arrow_back_ios_rounded,
+          size: 36,
+          color: kPrimaryColor,
+        ),
+        doneSemantic: 'Botão: Pronto',
+        done: Text(
+          'Pronto',
+          style: Theme.of(context).textTheme.headline6?.merge(
+                const TextStyle(
+                  fontWeight: FontWeight.w600,
+                  color: kPrimaryColor,
+                ),
               ),
-            ),
-          ),
         ),
+        onLongPress: _speak,
         dotsDecorator: DotsDecorator(
           size: const Size.square(10.0),
           activeSize: const Size(20.0, 10.0),
           activeColor: kPrimaryColor,
-          color: Colors.black26,
+          color: Theme.of(context).brightness == Brightness.light
+              ? Colors.black26
+              : Colors.white54,
           spacing: const EdgeInsets.symmetric(horizontal: 3.0),
           activeShape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(25.0),
