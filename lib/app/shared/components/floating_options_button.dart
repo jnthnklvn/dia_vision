@@ -10,8 +10,6 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:draggable_fab/draggable_fab.dart';
 import 'package:flutter/material.dart';
 
-import 'dart:developer' as dev;
-
 extension GlobalKeyExtension on GlobalKey {
   Rect? get globalPaintBounds {
     final renderObject = currentContext?.findRenderObject();
@@ -27,7 +25,8 @@ extension GlobalKeyExtension on GlobalKey {
 }
 
 class FloatingOptionsButton extends StatefulWidget {
-  const FloatingOptionsButton({Key? key}) : super(key: key);
+  final bool? visible;
+  const FloatingOptionsButton({Key? key, this.visible}) : super(key: key);
 
   @override
   State<FloatingOptionsButton> createState() => _FloatingOptionsButtonState();
@@ -39,62 +38,52 @@ class _FloatingOptionsButtonState extends State<FloatingOptionsButton> {
 
   final controller = Modular.get<AppController>();
 
+  void onPressed(bool isDark) {
+    final startOffset = Offset(
+      containerKey.globalPaintBounds?.left ?? 0,
+      containerKey.globalPaintBounds?.top ?? 0,
+    );
+    final endOffset = Offset(
+      containerKey.globalPaintBounds?.right ?? 0,
+      containerKey.globalPaintBounds?.bottom ?? 0,
+    );
+    showQudsPopupMenu(
+      startOffset: startOffset,
+      endOffset: endOffset,
+      context: context,
+      items: getMenuItems(isDark),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    return DraggableFab(
-      child: FloatingActionButton(
-        key: containerKey,
-        backgroundColor: isDark ? Colors.white : Colors.black,
-        onPressed: () {
-          dev.log(
-              '${containerKey.globalPaintBounds?.left}/${containerKey.globalPaintBounds?.right}/${containerKey.globalPaintBounds?.bottom}/${containerKey.globalPaintBounds?.top}');
-          final RenderBox button = context.findRenderObject()! as RenderBox;
-          final RenderBox overlay = Navigator.of(context)
-              .overlay!
-              .context
-              .findRenderObject()! as RenderBox;
-          final RelativeRect position = RelativeRect.fromRect(
-            Rect.fromPoints(
-              button.localToGlobal(Offset.zero, ancestor: overlay),
-              button.localToGlobal(
-                  button.size.bottomRight(Offset.zero) + Offset.zero,
-                  ancestor: overlay),
+    return ValueListenableBuilder<bool>(
+        valueListenable: controller.accBttnVisibilitySwitch,
+        builder: (_, isAccBttnVisible, __) {
+          if (!isAccBttnVisible && widget.visible != true) return Container();
+          return DraggableFab(
+            child: FloatingActionButton(
+              key: containerKey,
+              backgroundColor: isDark ? Colors.white : Colors.black,
+              onPressed: () => onPressed(isDark),
+              child: SizedBox(
+                width: double.infinity,
+                height: double.infinity,
+                child: InkWell(
+                  onTap: () => onPressed(isDark),
+                  onLongPress: () => _speak(accButtonDesc),
+                  child: Icon(
+                    Icons.settings_accessibility,
+                    size: 32,
+                    semanticLabel: accButtonDesc,
+                    color: isDark ? Colors.black : Colors.white,
+                  ),
+                ),
+              ),
             ),
-            Offset.zero & overlay.size,
           );
-          final startOffset = Offset(
-            containerKey.globalPaintBounds?.left ?? 0,
-            containerKey.globalPaintBounds?.top ?? 0,
-          );
-          final endOffset = Offset(
-            containerKey.globalPaintBounds?.right ?? 0,
-            containerKey.globalPaintBounds?.bottom ?? 0,
-          );
-
-          final bO = button.localToGlobal(Offset.zero);
-          final bRO = button.localToGlobal(
-              button.size.bottomRight(Offset.zero) + Offset.zero);
-          dev.log('bO: $bO');
-          dev.log('bRO: $bRO');
-          dev.log('${button.size.bottomRight(Offset.zero) + Offset.zero}');
-          dev.log(
-              '${position.left}/${position.right}/${position.bottom}/${position.top}');
-          showQudsPopupMenu(
-            startOffset: startOffset,
-            endOffset: endOffset,
-            context: context,
-            items: getMenuItems(isDark),
-          );
-        },
-        child: Icon(
-          Icons.settings_accessibility,
-          size: 32,
-          semanticLabel: isDark ? turnOffDarkMode : turnOnDarkMode,
-          color: isDark ? Colors.black : Colors.white,
-        ),
-      ),
-    );
+        });
   }
 
   List<QudsPopupMenuBase> getMenuItems(bool isDarkMode) {
@@ -151,6 +140,15 @@ class _FloatingOptionsButtonState extends State<FloatingOptionsButton> {
         onLongPressed: () => _speak(customFontSizeDesc),
       ),
       QudsPopupMenuDivider(),
+      QudsPopupMenuItem(
+        title: Text(controller.isAccBttnVisible
+            ? hideAccessibilityButton
+            : showAccessibilityButton),
+        onPressed: () => controller.toggleAccBttnVisibility(),
+        onLongPressed: () => _speak(controller.isAccBttnVisible
+            ? hideAccessibilityButton
+            : showAccessibilityButton),
+      ),
       QudsPopupMenuItem(
         title: const Text(goToSettings),
         trailing: const Icon(Icons.arrow_forward_ios_rounded),

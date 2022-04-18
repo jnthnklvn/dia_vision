@@ -16,6 +16,7 @@ import 'dart:async';
 part 'app_controller.g.dart';
 
 const isVoiceFeedbackActiveKey = 'isVoiceFeedbackActive';
+const isAccBttnVisibleKey = 'isAccBttnVisible';
 final defaultThemeParams = ThemeParams(false, 1.0);
 
 class AppController = _RegisterControllerBase with _$AppController;
@@ -27,14 +28,17 @@ abstract class _RegisterControllerBase with Store {
   final ThemeParmasPreferences _themePreferences;
   final AwesomeNotifications _awesomeNotifications;
   final _themeSwitch = ValueNotifier<ThemeParams>(defaultThemeParams);
-  final _voiceFeedbackSwitch = ValueNotifier<bool>(false);
+  final _voiceFeedbackSwitch = ValueNotifier<bool>(true);
+  final _accBttnVisibilitySwitch = ValueNotifier<bool>(true);
 
   bool get isDarkMode => _themeSwitch.value.isDarkMode;
   bool get isVoiceFeedbackActive => _voiceFeedbackSwitch.value;
+  bool get isAccBttnVisible => _accBttnVisibilitySwitch.value;
   double get fontScale => _themeSwitch.value.fontScale;
 
   ValueNotifier<ThemeParams> get themeSwitch => _themeSwitch;
   ValueNotifier<bool> get voiceFeedbackSwitch => _voiceFeedbackSwitch;
+  ValueNotifier<bool> get accBttnVisibilitySwitch => _accBttnVisibilitySwitch;
 
   StreamSubscription<ReceivedAction>? receivedNotificationAction;
 
@@ -59,7 +63,10 @@ abstract class _RegisterControllerBase with Store {
         .then((value) => _themeSwitch.value = value ?? defaultThemeParams);
     await _storage
         .getBool(isVoiceFeedbackActiveKey)
-        .then((value) => _voiceFeedbackSwitch.value = value ?? false);
+        .then((value) => _voiceFeedbackSwitch.value = value ?? true);
+    await _storage
+        .getBool(isAccBttnVisibleKey)
+        .then((value) => _accBttnVisibilitySwitch.value = value ?? true);
   }
 
   Future<bool?> toggleTheme(ThemeParams value) {
@@ -70,6 +77,12 @@ abstract class _RegisterControllerBase with Store {
   Future<bool?> toggleVoiceFeedback(bool value) {
     _voiceFeedbackSwitch.value = value;
     return _storage.setBool(isVoiceFeedbackActiveKey, value);
+  }
+
+  Future<bool?> toggleAccBttnVisibility() {
+    _accBttnVisibilitySwitch.value = !_accBttnVisibilitySwitch.value;
+    return _storage.setBool(
+        isAccBttnVisibleKey, _accBttnVisibilitySwitch.value);
   }
 
   Future<bool> isLogged() async {
