@@ -1,7 +1,6 @@
 import 'package:dia_vision/app/shared/components/local_flutter_tts.dart';
 import 'package:dia_vision/app/shared/utils/color_utils.dart';
 import 'package:dia_vision/app/shared/utils/date_utils.dart' as dt;
-import 'package:dia_vision/app/shared/utils/constants.dart';
 import 'package:dia_vision/app/model/app_visao.dart';
 
 import 'package:flutter_modular/flutter_modular.dart';
@@ -55,7 +54,9 @@ class AppVisaoWidget extends StatelessWidget with dt.DateUtil {
         child: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(16),
-            color: kSecondaryColor,
+            color: Theme.of(context).brightness == Brightness.dark
+                ? const Color.fromARGB(246, 36, 36, 36).withOpacity(.75)
+                : const Color(0xFFF5F6F9).withOpacity(.75),
           ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -65,15 +66,17 @@ class AppVisaoWidget extends StatelessWidget with dt.DateUtil {
                 title: Text(
                   _appVisao.titulo ?? "",
                   maxLines: 2,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
+                  style: Theme.of(context).textTheme.bodyText1?.merge(
+                        const TextStyle(fontWeight: FontWeight.bold),
+                      ),
                 ),
                 subtitle: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: subtitleContents
-                      .map((e) => buildSubtitlesText(e ?? ''))
+                      .map((e) => Text(
+                            e ?? '',
+                            style: Theme.of(context).textTheme.bodyText1,
+                          ))
                       .toList(),
                 ),
               ),
@@ -94,14 +97,5 @@ class AppVisaoWidget extends StatelessWidget with dt.DateUtil {
     } catch (e) {
       _onError(e.toString());
     }
-  }
-
-  Widget buildSubtitlesText(String text) {
-    return Text(
-      text,
-      style: const TextStyle(
-        color: Colors.white70,
-      ),
-    );
   }
 }

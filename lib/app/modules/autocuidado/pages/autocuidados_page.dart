@@ -25,9 +25,9 @@ class _AutocuidadosPageState
     extends ModularState<AutocuidadosPage, AutocuidadoController>
     with DateUtil {
   @override
-  void didChangeDependencies() {
+  void initState() {
+    super.initState();
     controller.getData(widget.onError);
-    super.didChangeDependencies();
   }
 
   Future _speak(String txt) => Modular.get<LocalFlutterTts>().speak(txt);

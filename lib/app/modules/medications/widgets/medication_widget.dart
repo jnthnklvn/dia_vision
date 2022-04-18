@@ -8,7 +8,6 @@ import 'package:dia_vision/app/model/medicacao_prescrita.dart';
 import 'package:dia_vision/app/shared/utils/color_utils.dart';
 import 'package:dia_vision/app/shared/utils/date_utils.dart' as dt;
 import 'package:dia_vision/app/model/medication_notify.dart';
-import 'package:dia_vision/app/shared/utils/constants.dart';
 import 'package:dia_vision/app/shared/utils/strings.dart';
 import 'package:dia_vision/app/app_controller.dart';
 
@@ -84,7 +83,9 @@ class MedicationWidget extends StatelessWidget
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16),
-          color: kSecondaryColor,
+          color: Theme.of(context).brightness == Brightness.dark
+              ? const Color.fromARGB(246, 36, 36, 36).withOpacity(.75)
+              : const Color(0xFFF5F6F9).withOpacity(.75),
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -108,13 +109,16 @@ class MedicationWidget extends StatelessWidget
                       Text(
                         _medicacaoPrescrita.nome ?? '',
                         maxLines: 2,
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                        ),
+                        style: Theme.of(context).textTheme.bodyText1?.merge(
+                              const TextStyle(fontWeight: FontWeight.bold),
+                            ),
                       ),
                       ...subtitleContents
-                          .map((e) => buildSubtitlesText(e ?? ''))
+                          .map((e) => Text(
+                                e ?? '',
+                                maxLines: 2,
+                                style: Theme.of(context).textTheme.bodyText1,
+                              ))
                           .toList(),
                     ],
                   ),
@@ -171,16 +175,6 @@ class MedicationWidget extends StatelessWidget
             ),
           ],
         ),
-      ),
-    );
-  }
-
-  Widget buildSubtitlesText(String text) {
-    return Text(
-      text,
-      maxLines: 2,
-      style: const TextStyle(
-        color: Colors.white70,
       ),
     );
   }

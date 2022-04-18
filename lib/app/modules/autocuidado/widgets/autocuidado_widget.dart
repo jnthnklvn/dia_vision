@@ -1,6 +1,5 @@
 import 'package:dia_vision/app/shared/components/local_flutter_tts.dart';
 import 'package:dia_vision/app/modules/home/domain/entities/module.dart';
-import 'package:dia_vision/app/shared/utils/constants.dart';
 import 'package:dia_vision/app/shared/utils/strings.dart';
 import 'package:dia_vision/app/model/autocuidado.dart';
 
@@ -19,7 +18,7 @@ class AutocuidadoWidget extends StatelessWidget {
     return "$fieldName: $text.";
   }
 
-  Widget buildExpandedTexts() {
+  Widget buildExpandedTexts(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(15),
       child: Column(
@@ -28,10 +27,9 @@ class AutocuidadoWidget extends StatelessWidget {
           Text(
             _autocuidado.titulo ?? "",
             maxLines: 5,
-            style: const TextStyle(
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
-            ),
+            style: Theme.of(context).textTheme.bodyText1?.merge(
+                  const TextStyle(fontWeight: FontWeight.bold),
+                ),
             overflow: TextOverflow.ellipsis,
           ),
           if (_autocuidado.categoria?.isNotEmpty == true)
@@ -40,7 +38,7 @@ class AutocuidadoWidget extends StatelessWidget {
               child: Text(
                 "Categoria: " + (_autocuidado.categoria ?? ''),
                 maxLines: 3,
-                style: const TextStyle(color: Colors.white),
+                style: Theme.of(context).textTheme.bodyText1,
                 overflow: TextOverflow.ellipsis,
               ),
             ),
@@ -75,11 +73,13 @@ class AutocuidadoWidget extends StatelessWidget {
           color: categoriaColor,
         ),
         child: Card(
-          color: kSecondaryColor,
+          color: Theme.of(context).brightness == Brightness.dark
+              ? const Color.fromARGB(246, 36, 36, 36).withOpacity(.75)
+              : const Color(0xFFF5F6F9).withOpacity(.75),
           margin: const EdgeInsets.all(5),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
           elevation: 3,
-          child: buildExpandedTexts(),
+          child: buildExpandedTexts(context),
         ),
       ),
     );
