@@ -212,11 +212,14 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Image buildLogo() {
-    return Image.asset(
-      "assets/images/logo_name.png",
-      height: 60,
-      excludeFromSemantics: true,
+  Widget buildLogo() {
+    return InkWell(
+      onLongPress: () => _speak(logoSemanticDesc),
+      child: Image.asset(
+        "assets/images/logo_name.png",
+        height: 60,
+        semanticLabel: logoSemanticDesc,
+      ),
     );
   }
 }

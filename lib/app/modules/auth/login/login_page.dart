@@ -87,11 +87,14 @@ class _LoginPageState extends ModularState<LoginPage, LoginController>
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 SizedBox(height: size.height * 0.15),
-                Image.asset(
-                  "assets/images/logo_name.png",
-                  width: size.width * 0.8,
-                  excludeFromSemantics: true,
-                  color: isDark ? kPrimaryColor : null,
+                InkWell(
+                  onLongPress: () => _speak(logoSemanticDesc),
+                  child: Image.asset(
+                    "assets/images/logo_name.png",
+                    width: size.width * 0.8,
+                    semanticLabel: logoSemanticDesc,
+                    color: isDark ? kPrimaryColor : null,
+                  ),
                 ),
                 SizedBox(height: size.height * 0.1),
                 RoundedInputField(

@@ -5,6 +5,7 @@ import 'package:dia_vision/app/shared/components/back_arrow_button.dart';
 import 'package:dia_vision/app/shared/components/rounded_button.dart';
 import 'package:dia_vision/app/shared/utils/scaffold_utils.dart';
 import 'package:dia_vision/app/shared/utils/constants.dart';
+import 'package:dia_vision/app/shared/utils/strings.dart';
 
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -45,11 +46,14 @@ class _RecoveryPageState extends ModularState<RecoveryPage, RecoveryController>
                   ],
                 ),
                 SizedBox(height: size.height * 0.02),
-                Image.asset(
-                  "assets/images/logo_name.png",
-                  width: size.width * 0.8,
-                  excludeFromSemantics: true,
-                  color: isDark ? kPrimaryColor : null,
+                InkWell(
+                  onLongPress: () => widget.speak(logoSemanticDesc),
+                  child: Image.asset(
+                    "assets/images/logo_name.png",
+                    width: size.width * 0.8,
+                    semanticLabel: logoSemanticDesc,
+                    color: isDark ? kPrimaryColor : null,
+                  ),
                 ),
                 SizedBox(height: size.height * 0.1),
                 RoundedInputField(

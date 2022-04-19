@@ -58,14 +58,14 @@ class ContainerFieldHorarios extends StatelessWidget with dt.DateUtil {
             color: kPrimaryColor,
             size: 32,
           ),
-          onLongPress: () => _speak("Adicione um horário"),
+          onLongPress: () => _speak(addTime),
           onTap: showTimePickerDialog,
         ),
         leading: Semantics(
           excludeSemantics: true,
           child: InkWell(
-            onTap: () => _speak(
-                horarios.isEmpty ? "Adicione um horário" : horarios.toString()),
+            onTap: () =>
+                _speak(horarios.isEmpty ? addTime : horarios.toString()),
             child: const Icon(
               Icons.play_circle_fill,
               color: kPrimaryColor,
@@ -75,8 +75,8 @@ class ContainerFieldHorarios extends StatelessWidget with dt.DateUtil {
         ),
         title: horarios.isEmpty
             ? Text(
-                "Adicione um horário",
-                style: TextStyle(color: Colors.grey[700]),
+                addTime,
+                style: Theme.of(context).textTheme.bodyText1,
               )
             : NotificationListener<OverscrollIndicatorNotification>(
                 onNotification: (OverscrollIndicatorNotification overscroll) {

@@ -38,10 +38,13 @@ class IntroPage extends StatelessWidget {
                 children: [
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 48.0),
-                    child: Image.asset(
-                      "assets/images/pedestrian_crossing.png",
-                      excludeFromSemantics: true,
-                      height: 175.0,
+                    child: InkWell(
+                      onLongPress: () => _speak(walkingManSemanticDesc),
+                      child: Image.asset(
+                        "assets/images/pedestrian_crossing.png",
+                        height: 175.0,
+                        semanticLabel: walkingManSemanticDesc,
+                      ),
                     ),
                   ),
                   Padding(
@@ -85,10 +88,13 @@ class IntroPage extends StatelessWidget {
                 children: [
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 48.0),
-                    child: Image.asset(
-                      "assets/images/undraw_web_browsing.png",
-                      excludeFromSemantics: true,
-                      height: 175.0,
+                    child: InkWell(
+                      onLongPress: () => _speak(introWomanSemanticDesc),
+                      child: Image.asset(
+                        "assets/images/undraw_web_browsing.png",
+                        height: 175.0,
+                        semanticLabel: introWomanSemanticDesc,
+                      ),
                     ),
                   ),
                   Padding(

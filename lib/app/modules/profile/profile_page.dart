@@ -1,5 +1,6 @@
 import 'package:dia_vision/app/shared/components/floating_options_button.dart';
 import 'package:dia_vision/app/shared/components/back_arrow_button.dart';
+import 'package:dia_vision/app/shared/utils/scaffold_utils.dart';
 import 'package:dia_vision/app/shared/utils/route_enum.dart';
 import 'package:dia_vision/app/app_controller.dart';
 
@@ -9,9 +10,9 @@ import 'components/profile_pic.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter/material.dart';
 
-class ProfilePage extends StatefulWidget {
+class ProfilePage extends StatefulWidget with ScaffoldUtils {
   final String title;
-  const ProfilePage({Key? key, this.title = "Profile"}) : super(key: key);
+  ProfilePage({Key? key, this.title = "Profile"}) : super(key: key);
 
   @override
   _ProfilePageState createState() => _ProfilePageState();
@@ -34,7 +35,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 ],
               ),
               const SizedBox(height: 20),
-              const ProfilePic(),
+              ProfilePic(widget.speak),
               const SizedBox(height: 40),
               ProfileMenu(
                 text: "Meus dados",

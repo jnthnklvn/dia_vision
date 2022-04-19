@@ -48,11 +48,14 @@ class _RegisterPageState extends ModularState<RegisterPage, RegisterController>
                   children: const [BackArrowButton()],
                 ),
                 SizedBox(height: size.height * 0.08),
-                Image.asset(
-                  "assets/images/logo_name.png",
-                  width: size.width * 0.8,
-                  excludeFromSemantics: true,
-                  color: isDark ? kPrimaryColor : null,
+                InkWell(
+                  onLongPress: () => widget.speak(logoSemanticDesc),
+                  child: Image.asset(
+                    "assets/images/logo_name.png",
+                    width: size.width * 0.8,
+                    semanticLabel: logoSemanticDesc,
+                    color: isDark ? kPrimaryColor : null,
+                  ),
                 ),
                 SizedBox(height: size.height * 0.1),
                 RoundedInputField(
