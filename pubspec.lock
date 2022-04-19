@@ -300,6 +300,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_dotenv:
+    dependency: "direct main"
+    description:
+      name: flutter_dotenv
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "5.0.2"
   flutter_keyboard_visibility:
     dependency: transitive
     description:
@@ -486,9 +493,11 @@ packages:
   introduction_screen:
     dependency: "direct main"
     description:
-      path: "../introduction_screen"
-      relative: true
-    source: path
+      path: "."
+      ref: HEAD
+      resolved-ref: "94dc15ab6a1bf19c9938237b62840f45d9c3080c"
+      url: "https://github.com/jnthnklvn/introduction_screen.git"
+    source: git
     version: "3.0.2"
   io:
     dependency: transitive
