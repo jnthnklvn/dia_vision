@@ -8,7 +8,7 @@ import 'package:dia_vision/app/shared/components/local_flutter_tts.dart';
 import 'package:dia_vision/app/shared/components/rounded_button.dart';
 import 'package:dia_vision/app/shared/utils/scaffold_utils.dart';
 import 'package:dia_vision/app/shared/utils/constants.dart';
-import 'package:dia_vision/app/model/atividade_fisica.dart';
+import 'package:dia_vision/app/repositories/model/atividade_fisica.dart';
 import 'package:dia_vision/app/shared/utils/strings.dart';
 
 import 'package:flutter_modular/flutter_modular.dart';

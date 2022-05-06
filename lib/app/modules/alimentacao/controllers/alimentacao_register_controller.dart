@@ -1,7 +1,7 @@
 import 'package:dia_vision/app/repositories/alimentacao_repository.dart';
-import 'package:dia_vision/app/model/alimentacao.dart';
+import 'package:dia_vision/app/repositories/model/alimentacao.dart';
 import 'package:dia_vision/app/app_controller.dart';
-import 'package:dia_vision/app/model/alimento.dart';
+import 'package:dia_vision/app/repositories/model/alimento.dart';
 
 import 'package:mobx/mobx.dart';
 

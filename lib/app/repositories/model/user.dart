@@ -1,4 +1,4 @@
-import 'package:dia_vision/app/model/paciente.dart';
+import 'package:dia_vision/app/repositories/model/paciente.dart';
 
 import 'package:parse_server_sdk/parse_server_sdk.dart';
 

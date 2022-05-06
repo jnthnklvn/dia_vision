@@ -1,5 +1,5 @@
 import 'package:dia_vision/app/repositories/centro_saude_repository.dart';
-import 'package:dia_vision/app/model/centro_saude.dart';
+import 'package:dia_vision/app/repositories/model/centro_saude.dart';
 
 import 'package:mobx/mobx.dart';
 

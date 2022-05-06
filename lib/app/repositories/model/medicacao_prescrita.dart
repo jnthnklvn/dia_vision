@@ -1,6 +1,6 @@
 import 'package:dia_vision/app/modules/medications/utils/medication_utils.dart';
 import 'package:dia_vision/app/shared/utils/date_utils.dart';
-import 'package:dia_vision/app/model/paciente.dart';
+import 'package:dia_vision/app/repositories/model/paciente.dart';
 
 import 'package:parse_server_sdk/parse_server_sdk.dart';
 

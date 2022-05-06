@@ -1,6 +1,6 @@
 import 'package:dia_vision/app/shared/theme/light_theme.dart';
 import 'package:dia_vision/app/shared/theme/dark_theme.dart';
-import 'package:dia_vision/app/model/theme_params.dart';
+import 'package:dia_vision/app/repositories/model/theme_params.dart';
 import 'package:dia_vision/app/app_controller.dart';
 
 import 'package:flutter_localizations/flutter_localizations.dart';

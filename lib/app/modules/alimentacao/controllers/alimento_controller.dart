@@ -1,8 +1,8 @@
 import 'package:dia_vision/app/repositories/alimento_api_repository.dart';
 import 'package:dia_vision/app/repositories/alimento_repository.dart';
-import 'package:dia_vision/app/model/alimentacao.dart';
-import 'package:dia_vision/app/model/alimento.dart';
-import 'package:dia_vision/app/model/user.dart';
+import 'package:dia_vision/app/repositories/model/alimentacao.dart';
+import 'package:dia_vision/app/repositories/model/alimento.dart';
+import 'package:dia_vision/app/repositories/model/user.dart';
 
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';

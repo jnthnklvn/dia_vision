@@ -1,7 +1,7 @@
 import 'package:dia_vision/app/shared/components/local_flutter_tts.dart';
 import 'package:dia_vision/app/modules/home/domain/entities/module.dart';
 import 'package:dia_vision/app/shared/utils/strings.dart';
-import 'package:dia_vision/app/model/autocuidado.dart';
+import 'package:dia_vision/app/repositories/model/autocuidado.dart';
 
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter/material.dart';

@@ -9,11 +9,11 @@ import 'package:dia_vision/app/shared/utils/horario_input_formatter.dart';
 import 'package:dia_vision/app/shared/components/back_arrow_button.dart';
 import 'package:dia_vision/app/shared/components/rounded_button.dart';
 import 'package:dia_vision/app/shared/utils/scaffold_utils.dart';
-import 'package:dia_vision/app/model/medicacao_prescrita.dart';
+import 'package:dia_vision/app/repositories/model/medicacao_prescrita.dart';
 import 'package:dia_vision/app/shared/utils/date_utils.dart' as dt;
 import 'package:dia_vision/app/shared/utils/constants.dart';
 import 'package:dia_vision/app/shared/utils/strings.dart';
-import 'package:dia_vision/app/model/medicamento.dart';
+import 'package:dia_vision/app/repositories/model/medicamento.dart';
 
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:flutter_modular/flutter_modular.dart';

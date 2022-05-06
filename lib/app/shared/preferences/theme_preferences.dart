@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:async';
 
 import 'package:dia_vision/app/shared/local_storage/i_local_storage.dart';
-import 'package:dia_vision/app/model/theme_params.dart';
+import 'package:dia_vision/app/repositories/model/theme_params.dart';
 
 class ThemeParmasPreferences {
   final ILocalStorage _storage;

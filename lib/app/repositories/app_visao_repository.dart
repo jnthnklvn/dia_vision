@@ -1,6 +1,6 @@
 import 'package:dia_vision/app/shared/utils/parse_errors.dart';
-import 'package:dia_vision/app/errors/app_visao_failure.dart';
-import 'package:dia_vision/app/model/app_visao.dart';
+import 'package:dia_vision/app/repositories/errors/app_visao_failure.dart';
+import 'package:dia_vision/app/repositories/model/app_visao.dart';
 
 import 'package:parse_server_sdk/parse_server_sdk.dart';
 import 'package:dartz/dartz.dart';

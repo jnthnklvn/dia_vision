@@ -2,7 +2,7 @@ import 'package:dia_vision/app/shared/components/local_flutter_tts.dart';
 import 'package:dia_vision/app/shared/utils/route_enum.dart';
 import 'package:dia_vision/app/shared/utils/constants.dart';
 import 'package:dia_vision/app/shared/utils/strings.dart';
-import 'package:dia_vision/app/model/theme_params.dart';
+import 'package:dia_vision/app/repositories/model/theme_params.dart';
 import 'package:dia_vision/app/app_controller.dart';
 
 import 'package:quds_ui_kit/screens/quds_popup_menu.dart';

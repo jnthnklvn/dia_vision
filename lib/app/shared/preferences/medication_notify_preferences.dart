@@ -1,5 +1,5 @@
 import 'package:dia_vision/app/shared/local_storage/i_local_storage.dart';
-import 'package:dia_vision/app/model/medication_notify.dart';
+import 'package:dia_vision/app/repositories/model/medication_notify.dart';
 
 class MedicationNotifyPreferences {
   final ILocalStorage _preferences;

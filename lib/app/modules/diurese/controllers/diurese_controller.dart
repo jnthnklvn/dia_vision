@@ -2,7 +2,7 @@ import 'package:dia_vision/app/repositories/diurese_repository.dart';
 import 'package:dia_vision/app/shared/utils/file_utils.dart';
 import 'package:dia_vision/app/shared/utils/csv_utils.dart';
 import 'package:dia_vision/app/app_controller.dart';
-import 'package:dia_vision/app/model/diurese.dart';
+import 'package:dia_vision/app/repositories/model/diurese.dart';
 
 import 'package:mobx/mobx.dart';
 import 'dart:io';

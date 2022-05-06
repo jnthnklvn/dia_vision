@@ -1,7 +1,7 @@
 import 'package:dia_vision/app/shared/utils/http_connection.dart';
-import 'package:dia_vision/app/errors/alimento_failure.dart';
+import 'package:dia_vision/app/repositories/errors/alimento_failure.dart';
 import 'package:dia_vision/app/shared/utils/strings.dart';
-import 'package:dia_vision/app/model/alimento.dart';
+import 'package:dia_vision/app/repositories/model/alimento.dart';
 
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';

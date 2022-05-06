@@ -3,7 +3,7 @@ import 'package:dia_vision/app/repositories/user_repository.dart';
 import 'package:dia_vision/app/shared/utils/date_utils.dart';
 import 'package:dia_vision/app/shared/utils/utils.dart';
 import 'package:dia_vision/app/app_controller.dart';
-import 'package:dia_vision/app/model/paciente.dart';
+import 'package:dia_vision/app/repositories/model/paciente.dart';
 
 import 'package:brasil_fields/brasil_fields.dart';
 import 'package:mobx/mobx.dart';

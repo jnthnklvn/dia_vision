@@ -4,10 +4,10 @@ import 'package:dia_vision/app/shared/preferences/medication_notify_preferences.
 import 'package:dia_vision/app/modules/medications/utils/medication_utils.dart';
 import 'package:dia_vision/app/modules/home/domain/entities/module.dart';
 import 'package:dia_vision/app/shared/components/local_flutter_tts.dart';
-import 'package:dia_vision/app/model/medicacao_prescrita.dart';
+import 'package:dia_vision/app/repositories/model/medicacao_prescrita.dart';
 import 'package:dia_vision/app/shared/utils/color_utils.dart';
 import 'package:dia_vision/app/shared/utils/date_utils.dart' as dt;
-import 'package:dia_vision/app/model/medication_notify.dart';
+import 'package:dia_vision/app/repositories/model/medication_notify.dart';
 import 'package:dia_vision/app/shared/utils/strings.dart';
 import 'package:dia_vision/app/app_controller.dart';
 

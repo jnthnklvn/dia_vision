@@ -7,8 +7,8 @@ import 'package:dia_vision/app/shared/utils/string_utils.dart';
 import 'package:dia_vision/app/shared/utils/date_utils.dart';
 import 'package:dia_vision/app/shared/utils/constants.dart';
 import 'package:dia_vision/app/shared/utils/strings.dart';
-import 'package:dia_vision/app/model/centro_saude.dart';
-import 'package:dia_vision/app/model/endereco.dart';
+import 'package:dia_vision/app/repositories/model/centro_saude.dart';
+import 'package:dia_vision/app/repositories/model/endereco.dart';
 
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:url_launcher/url_launcher.dart';

@@ -1,8 +1,8 @@
 import 'package:dia_vision/app/shared/utils/parse_errors.dart';
-import 'package:dia_vision/app/errors/alimento_failure.dart';
-import 'package:dia_vision/app/model/alimentacao.dart';
-import 'package:dia_vision/app/model/alimento.dart';
-import 'package:dia_vision/app/model/user.dart';
+import 'package:dia_vision/app/repositories/errors/alimento_failure.dart';
+import 'package:dia_vision/app/repositories/model/alimentacao.dart';
+import 'package:dia_vision/app/repositories/model/alimento.dart';
+import 'package:dia_vision/app/repositories/model/user.dart';
 
 import 'package:parse_server_sdk/parse_server_sdk.dart';
 import 'package:dartz/dartz.dart';

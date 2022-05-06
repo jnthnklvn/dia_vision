@@ -1,6 +1,6 @@
 import 'package:dia_vision/app/repositories/medicacao_prescrita_repository.dart';
 import 'package:dia_vision/app/shared/preferences/preferencias_preferences.dart';
-import 'package:dia_vision/app/model/medicacao_prescrita.dart';
+import 'package:dia_vision/app/repositories/model/medicacao_prescrita.dart';
 import 'package:dia_vision/app/shared/utils/date_utils.dart';
 import 'package:dia_vision/app/shared/utils/file_utils.dart';
 import 'package:dia_vision/app/shared/utils/csv_utils.dart';

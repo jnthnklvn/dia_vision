@@ -1,7 +1,7 @@
 import 'package:dia_vision/app/repositories/autocuidado_repository.dart';
 import 'package:dia_vision/app/shared/utils/file_utils.dart';
 import 'package:dia_vision/app/shared/utils/csv_utils.dart';
-import 'package:dia_vision/app/model/autocuidado.dart';
+import 'package:dia_vision/app/repositories/model/autocuidado.dart';
 
 import 'package:mobx/mobx.dart';
 

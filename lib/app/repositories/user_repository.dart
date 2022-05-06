@@ -1,6 +1,6 @@
 import 'package:dia_vision/app/shared/utils/parse_errors.dart';
-import 'package:dia_vision/app/errors/user_failure.dart';
-import 'package:dia_vision/app/model/user.dart';
+import 'package:dia_vision/app/repositories/errors/user_failure.dart';
+import 'package:dia_vision/app/repositories/model/user.dart';
 
 import 'package:parse_server_sdk/parse_server_sdk.dart';
 import 'package:dartz/dartz.dart';

@@ -1,7 +1,7 @@
 import 'package:dia_vision/app/shared/components/local_flutter_tts.dart';
 import 'package:dia_vision/app/shared/utils/color_utils.dart';
 import 'package:dia_vision/app/shared/utils/date_utils.dart' as dt;
-import 'package:dia_vision/app/model/app_visao.dart';
+import 'package:dia_vision/app/repositories/model/app_visao.dart';
 
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:url_launcher/url_launcher.dart';

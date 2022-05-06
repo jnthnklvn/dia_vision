@@ -4,8 +4,8 @@ import 'package:dia_vision/app/shared/local_storage/i_local_storage.dart';
 import 'package:dia_vision/app/shared/preferences/theme_preferences.dart';
 import 'package:dia_vision/app/repositories/user_repository.dart';
 import 'package:dia_vision/app/shared/utils/route_enum.dart';
-import 'package:dia_vision/app/model/theme_params.dart';
-import 'package:dia_vision/app/model/user.dart';
+import 'package:dia_vision/app/repositories/model/theme_params.dart';
+import 'package:dia_vision/app/repositories/model/user.dart';
 
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter_modular/flutter_modular.dart';

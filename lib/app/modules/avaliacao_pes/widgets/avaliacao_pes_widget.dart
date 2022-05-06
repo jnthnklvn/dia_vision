@@ -3,7 +3,7 @@ import 'package:dia_vision/app/modules/home/domain/entities/module.dart';
 import 'package:dia_vision/app/shared/utils/color_utils.dart';
 import 'package:dia_vision/app/shared/utils/date_utils.dart';
 import 'package:dia_vision/app/shared/utils/strings.dart';
-import 'package:dia_vision/app/model/avaliacao_pes.dart';
+import 'package:dia_vision/app/repositories/model/avaliacao_pes.dart';
 
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter/material.dart';

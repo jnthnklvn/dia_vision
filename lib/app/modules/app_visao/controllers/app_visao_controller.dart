@@ -1,6 +1,6 @@
 import 'package:dia_vision/app/repositories/app_visao_repository.dart';
 import 'package:dia_vision/app/shared/utils/string_utils.dart';
-import 'package:dia_vision/app/model/app_visao.dart';
+import 'package:dia_vision/app/repositories/model/app_visao.dart';
 
 import 'package:mobx/mobx.dart';
 import 'dart:io';

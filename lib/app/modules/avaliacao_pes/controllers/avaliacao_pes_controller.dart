@@ -1,7 +1,7 @@
 import 'package:dia_vision/app/repositories/avaliacao_pes_repository.dart';
 import 'package:dia_vision/app/shared/utils/file_utils.dart';
 import 'package:dia_vision/app/shared/utils/csv_utils.dart';
-import 'package:dia_vision/app/model/avaliacao_pes.dart';
+import 'package:dia_vision/app/repositories/model/avaliacao_pes.dart';
 import 'package:dia_vision/app/app_controller.dart';
 
 import 'package:mobx/mobx.dart';

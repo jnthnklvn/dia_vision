@@ -1,8 +1,8 @@
 import 'package:dia_vision/app/repositories/medicacao_prescrita_repository.dart';
 import 'package:dia_vision/app/repositories/medication_repository.dart';
-import 'package:dia_vision/app/model/medicacao_prescrita.dart';
+import 'package:dia_vision/app/repositories/model/medicacao_prescrita.dart';
 import 'package:dia_vision/app/shared/utils/date_utils.dart';
-import 'package:dia_vision/app/model/medicamento.dart';
+import 'package:dia_vision/app/repositories/model/medicamento.dart';
 import 'package:dia_vision/app/app_controller.dart';
 
 import 'package:brasil_fields/brasil_fields.dart';

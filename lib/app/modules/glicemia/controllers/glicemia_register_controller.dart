@@ -2,7 +2,7 @@ import 'package:dia_vision/app/shared/preferences/preferencias_preferences.dart'
 import 'package:dia_vision/app/repositories/glicemia_repository.dart';
 import 'package:dia_vision/app/shared/utils/date_utils.dart';
 import 'package:dia_vision/app/app_controller.dart';
-import 'package:dia_vision/app/model/glicemia.dart';
+import 'package:dia_vision/app/repositories/model/glicemia.dart';
 
 import 'package:mobx/mobx.dart';
 

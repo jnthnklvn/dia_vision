@@ -1,4 +1,4 @@
-import 'package:dia_vision/app/model/endereco.dart';
+import 'package:dia_vision/app/repositories/model/endereco.dart';
 
 import 'package:parse_server_sdk/parse_server_sdk.dart';
 

@@ -1,6 +1,6 @@
 import 'package:dia_vision/app/repositories/avaliacao_pes_repository.dart';
 import 'package:dia_vision/app/shared/utils/date_utils.dart';
-import 'package:dia_vision/app/model/avaliacao_pes.dart';
+import 'package:dia_vision/app/repositories/model/avaliacao_pes.dart';
 import 'package:dia_vision/app/app_controller.dart';
 
 import 'package:brasil_fields/brasil_fields.dart';

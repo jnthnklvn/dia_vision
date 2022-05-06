@@ -1,8 +1,8 @@
 import 'package:dia_vision/app/shared/utils/parse_errors.dart';
-import 'package:dia_vision/app/errors/glicemia_failure.dart';
-import 'package:dia_vision/app/model/glicemia.dart';
-import 'package:dia_vision/app/model/paciente.dart';
-import 'package:dia_vision/app/model/user.dart';
+import 'package:dia_vision/app/repositories/errors/glicemia_failure.dart';
+import 'package:dia_vision/app/repositories/model/glicemia.dart';
+import 'package:dia_vision/app/repositories/model/paciente.dart';
+import 'package:dia_vision/app/repositories/model/user.dart';
 
 import 'package:parse_server_sdk/parse_server_sdk.dart';
 import 'package:dartz/dartz.dart';

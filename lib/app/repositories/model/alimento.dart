@@ -1,4 +1,4 @@
-import 'package:dia_vision/app/model/alimentacao.dart';
+import 'package:dia_vision/app/repositories/model/alimentacao.dart';
 
 import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
 

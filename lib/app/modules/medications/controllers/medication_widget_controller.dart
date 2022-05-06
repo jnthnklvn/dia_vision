@@ -1,5 +1,5 @@
 import 'package:dia_vision/app/shared/preferences/medication_notify_preferences.dart';
-import 'package:dia_vision/app/model/medication_notify.dart';
+import 'package:dia_vision/app/repositories/model/medication_notify.dart';
 import 'package:dia_vision/app/shared/utils/strings.dart';
 import 'package:dia_vision/app/app_controller.dart';
 

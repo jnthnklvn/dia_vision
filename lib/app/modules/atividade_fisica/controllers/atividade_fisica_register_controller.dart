@@ -1,5 +1,5 @@
 import 'package:dia_vision/app/repositories/atividade_fisica_repository.dart';
-import 'package:dia_vision/app/model/atividade_fisica.dart';
+import 'package:dia_vision/app/repositories/model/atividade_fisica.dart';
 import 'package:dia_vision/app/app_controller.dart';
 
 import 'package:mobx/mobx.dart';
